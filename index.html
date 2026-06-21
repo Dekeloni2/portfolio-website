@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dekel Riess — Game Designer Portfolio</title>
+  <style>
+    /* ─── Reset & Base ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0d0d0f;
+      --surface:  #141418;
+      --surface2: #1c1c22;
+      --border:   #2a2a34;
+      --accent:   #7c6cff;
+      --accent2:  #a78bfa;
+      --text:     #e8e8f0;
+      --muted:    #888899;
+      --radius:   8px;
+      --max-w:    1100px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    a { color: var(--accent2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ─── Layout ─────────────────────────────────────────────────── */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+    section { padding: 96px 0; }
+    section + section { border-top: 1px solid var(--border); }
+
+    h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; line-height: 1.15; }
+    h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; margin-bottom: 12px; }
+    h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 6px; }
+
+    .label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .section-header { margin-bottom: 56px; }
+    .section-header p { color: var(--muted); max-width: 580px; margin-top: 8px; }
+
+    /* ─── Nav ────────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(13,13,15,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .nav-logo { font-weight: 700; font-size: 0.95rem; color: var(--text); }
+
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--muted); font-size: 0.85rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+    /* ─── Buttons ────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: var(--radius);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      border: none;
+    }
+    .btn:hover { opacity: 0.85; text-decoration: none; transform: translateY(-1px); }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+
+    /* ─── Badges ─────────────────────────────────────────────────── */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .badge-done { background: rgba(34,197,94,0.15);  color: #4ade80; }
+    .badge-wip  { background: rgba(251,146,60,0.15); color: #fb923c; }
+    .badge-plan { background: rgba(124,108,255,0.15); color: var(--accent2); }
+
+    /* ─── Tags ───────────────────────────────────────────────────── */
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .tag {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    /* ─── Cards ──────────────────────────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+    /* ─── Pillars ────────────────────────────────────────────────── */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .pillar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .pillar-num { font-size: 0.68rem; font-weight: 700; color: var(--accent2); letter-spacing: 0.08em; margin-bottom: 4px; }
+    .pillar h4  { font-size: 0.88rem; font-weight: 700; margin-bottom: 5px; }
+    .pillar p   { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+    /* ─── Mechanics grid ─────────────────────────────────────────── */
+    .mechanics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 14px;
+    }
+    .mechanic-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .mechanic-icon { font-size: 1.5rem; margin-bottom: 10px; }
+    .mechanic-card h3 { font-size: 0.92rem; margin-bottom: 6px; }
+    .mechanic-card p  { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
+
+    /* ─── Progression row ────────────────────────────────────────── */
+    .prog-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+    .prog-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px;
+    }
+    .prog-block h3 { margin-bottom: 10px; font-size: 0.95rem; }
+    .prog-block ul { list-style: none; }
+    .prog-block ul li {
+      font-size: 0.8rem;
+      color: var(--muted);
+      padding: 4px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .prog-block ul li:last-child { border-bottom: none; }
+    .prog-block ul li::before { content: '→'; color: var(--accent); font-size: 0.7rem; flex-shrink: 0; }
+
+    /* ─── Loop chain ─────────────────────────────────────────────── */
+    .loop-chain { display: flex; flex-direction: column; gap: 0; margin: 20px 0; }
+    .loop-step { display: flex; align-items: center; gap: 12px; padding: 8px 0; }
+    .loop-dot {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 2px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 700; color: var(--accent2);
+      flex-shrink: 0;
+    }
+    .loop-step-text { font-size: 0.88rem; font-weight: 600; }
+    .loop-connector { width: 2px; height: 14px; background: var(--accent); opacity: 0.3; margin-left: 14px; }
+
+    /* ─── Game section layout ────────────────────────────────────── */
+    .game-section-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    .game-meta-col {}
+
+    .game-meta-col .badge { margin-bottom: 14px; }
+    .game-meta-col h2 { font-size: 1.6rem; margin-bottom: 10px; }
+    .game-meta-col .concept { color: var(--muted); font-size: 0.9rem; margin-bottom: 20px; }
+
+    .game-info-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .game-info-item { display: flex; gap: 10px; font-size: 0.8rem; }
+    .game-info-key { color: var(--muted); min-width: 72px; }
+    .game-info-val { color: var(--text); font-weight: 500; }
+
+    .game-content-col {}
+
+    /* section accent lines */
+    .section-line {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+      margin-top: 40px;
+    }
+    .section-line:first-child { margin-top: 0; }
+
+    /* ─── Post mortem ────────────────────────────────────────────── */
+    .postmortem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .pm-card {
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid;
+    }
+    .pm-good  { background: rgba(34,197,94,0.06);  border-color: rgba(34,197,94,0.2);  }
+    .pm-bad   { background: rgba(239,68,68,0.06);  border-color: rgba(239,68,68,0.2);  }
+    .pm-card h4 { font-size: 0.88rem; font-weight: 700; margin-bottom: 10px; }
+    .pm-good h4 { color: #4ade80; }
+    .pm-bad  h4 { color: #f87171; }
+    .pm-card ul { list-style: none; }
+    .pm-card ul li { font-size: 0.8rem; color: var(--muted); padding: 3px 0; display: flex; gap: 8px; align-items: flex-start; }
+    .pm-good ul li::before { content: '✓'; color: #4ade80; flex-shrink: 0; }
+    .pm-bad  ul li::before { content: '✗'; color: #f87171; flex-shrink: 0; }
+
+    .pm-lesson {
+      background: rgba(124,108,255,0.07);
+      border: 1px solid rgba(124,108,255,0.2);
+      border-radius: 10px;
+      padding: 20px 24px;
+      grid-column: 1 / -1;
+    }
+    .pm-lesson h4 { font-size: 0.88rem; font-weight: 700; color: var(--accent2); margin-bottom: 10px; }
+    .pm-lesson p  { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+
+    /* ─── Dice visual ────────────────────────────────────────────── */
+    .dice-scene {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 32px 0;
+      perspective: 320px;
+    }
+
+    .dice-3d {
+      width: 84px; height: 84px;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotateDice 9s linear infinite;
+    }
+
+    @keyframes rotateDice {
+      0%   { transform: rotateX(15deg) rotateY(0deg); }
+      100% { transform: rotateX(15deg) rotateY(360deg); }
+    }
+
+    .dice-face {
+      position: absolute;
+      width: 84px; height: 84px;
+      border: 2px solid rgba(124,108,255,0.55);
+      border-radius: 13px;
+      background: rgba(124,108,255,0.07);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      color: var(--accent2);
+    }
+    .dice-face img { width: 36px; height: 36px; object-fit: contain; }
+
+    .dice-face.front  { transform: translateZ(42px); }
+    .dice-face.back   { transform: rotateY(180deg) translateZ(42px); }
+    .dice-face.right  { transform: rotateY(90deg) translateZ(42px); }
+    .dice-face.left   { transform: rotateY(-90deg) translateZ(42px); }
+    .dice-face.top    { transform: rotateX(90deg) translateZ(42px); }
+    .dice-face.bottom { transform: rotateX(-90deg) translateZ(42px); }
+
+    /* ─── Roles ──────────────────────────────────────────────────── */
+    .roles-grid { display: flex; gap: 10px; flex-wrap: wrap; }
+    .role-pill {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 16px;
+      flex: 1;
+      min-width: 140px;
+    }
+    .role-name { font-weight: 700; font-size: 0.88rem; margin-bottom: 3px; }
+    .role-desc { font-size: 0.76rem; color: var(--muted); }
+    .role-tank .role-name { color: #60a5fa; }
+    .role-dps  .role-name { color: #f87171; }
+    .role-sup  .role-name { color: #4ade80; }
+    .role-util .role-name { color: #facc15; }
+    .role-ctrl .role-name { color: #c084fc; }
+
+    /* ─── Status effect pills ────────────────────────────────────── */
+    .effects-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+    .effect-pill {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 0.78rem;
+    }
+    .effect-pill strong { color: var(--accent2); }
+
+    /* ─── Hero ───────────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 60px;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,108,255,0.08) 0%, transparent 70%);
+    }
+
+    .hero-layout {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+      max-width: 680px;
+    }
+
+    .hero-name {
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.0;
+      margin-bottom: 24px;
+    }
+    .hero-name .first { color: var(--text); display: block; }
+    .hero-name .last  {
+      display: block;
+      font-style: italic;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-bio { color: var(--muted); font-size: 0.95rem; line-height: 1.75; margin-bottom: 32px; max-width: 420px; }
+    .hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .hero-right { display: flex; flex-direction: column; gap: 0; }
+
+    @media (max-width: 820px) {
+      .hero-layout { grid-template-columns: 1fr; gap: 48px; }
+      .hero-name { font-size: clamp(2.8rem, 10vw, 4rem); }
+    }
+
+    /* ─── Toolbox ────────────────────────────────────────────────── */
+    .toolbox-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 18px;
+    }
+    .toolbox-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .toolbox-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .toolbox-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .toolbox-icon {
+      font-size: 1.4rem;
+      width: 36px;
+      height: 36px;
+      text-align: center;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .toolbox-icon img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+    .toolbox-card-header h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0;
+    }
+    .toolbox-card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0;
+    }
+    .toolbox-tagline {
+      font-size: 0.72rem;
+      color: var(--accent2);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    /* ─── Games hub ──────────────────────────────────────────────── */
+    .hub-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 18px;
+    }
+
+    .hub-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .hub-card:hover { border-color: var(--accent); transform: translateY(-3px); text-decoration: none; }
+    .hub-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .hub-card:hover::before { opacity: 1; }
+
+    .hub-card h3 { font-size: 1rem; margin: 0; }
+    .hub-card p  { font-size: 0.82rem; color: var(--muted); margin: 0; }
+    .hub-arrow   { color: var(--accent2); font-size: 0.82rem; margin-top: 4px; }
+
+    /* ─── Skills columns ─────────────────────────────────────────── */
+    .skills-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .skills-col {
+      padding: 32px 28px;
+      border-right: 1px solid var(--border);
+    }
+    .skills-col:last-child { border-right: none; }
+    .skills-col-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .skills-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .skills-col ul li {
+      font-size: 0.85rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .skills-col ul li::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .skill-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      margin-left: 4px;
+    }
+
+    /* ─── Contact ────────────────────────────────────────────────── */
+    #contact { text-align: center; padding: 80px 0; }
+    #contact h2 { margin-bottom: 10px; }
+    #contact p  { color: var(--muted); margin-bottom: 28px; }
+    .contact-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ─── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 820px) {
+      .game-section-layout { grid-template-columns: 1fr; gap: 32px; }
+      .pillars-grid         { grid-template-columns: 1fr; }
+      .prog-row             { grid-template-columns: 1fr; }
+      .postmortem-grid      { grid-template-columns: 1fr; }
+      .about-layout         { grid-template-columns: 1fr; gap: 40px; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      section    { padding: 64px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     NAV
+═══════════════════════════════════════════ -->
+<nav>
+  <div class="nav-inner">
+    <span class="nav-logo">Dekel Riess</span>
+    <ul class="nav-links">
+      <li><a href="#toolbox">Toolbox</a></li>
+      <li><a href="#games">Games</a></li>
+      <li><a href="#balatro">Dekelatro</a></li>
+      <li><a href="#pokemon">Creature RPG</a></li>
+      <li><a href="#survival">Survival</a></li>
+      <li><a href="#dicebound">Dice Bound</a></li>
+      <li><a href="#sidescroller">RunicRPG</a></li>
+      <li><a href="#upcoming">Future Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════ -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-layout">
+
+      <!-- Left: name + bio + CTA -->
+      <div>
+        <span class="label">Game Designer &amp; Developer</span>
+        <h1 class="hero-name">
+          <span class="first">Dekel</span>
+          <span class="last">Riess</span>
+        </h1>
+        <p class="hero-bio">
+          A game designer and developer studying at Tiltan College of Arts who designs systems, writes code, creates pixel art, and edits trailers — covering the full pipeline solo when needed. Driven by creative thinking, a strong sense of ownership, and a track record of building games that feel great to play.
+        </p>
+        <div class="hero-buttons">
+          <a href="#games" class="btn btn-primary">View Projects ↓</a>
+          <a href="https://www.linkedin.com/in/dekel-riess-39172433b/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn ↗</a>
+          <a href="#dicebound" class="btn btn-ghost">Read GDD</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TOOLBOX
+═══════════════════════════════════════════ -->
+<section id="toolbox">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Skills &amp; Tools</span>
+      <h2>Toolbox</h2>
+      <p>I design, code, animate, edit, and ship — covering the full pipeline of indie game development. These are the tools I use to do it.</p>
+    </div>
+    <div class="toolbox-grid">
+
+      <div class="toolbox-card">
+        <div class="toolbox-card-header">
+          <span class="toolbox-icon"><img src="csharp.png" alt="C#"></span>
+          <h3>C#</h3>
+        </div>
+        <span class="toolbox-tagline">Code · Game Systems · Architecture</span>
+        <p>My primary language for game development. I use it across Unity and the MonoGame framework — building game systems, tools, and architecture from first principles. Developed through my Introduction to C# and Object-Oriented Programming courses and applied directly across multiple shipped and in-progress projects.</p>
+      </div>
+
+      <div class="toolbox-card">
+        <div class="toolbox-card-header">
+          <span class="toolbox-icon"><img src="python.png" alt="Python"></span>
+          <h3>Python</h3>
+        </div>
+        <span class="toolbox-tagline">Code · Scripting · Fundamentals</span>
+        <p>My first programming language. I know the core fundamentals — variables, logic, loops, functions — and can map those concepts directly to other languages and scripting contexts. A foundation that made learning every language after it easier.</p>
+      </div>
+
+      <div class="toolbox-card">
+        <div class="toolbox-card-header">
+          <span class="toolbox-icon"><img src="unity.png" alt="Unity"></span>
+          <h3>Unity</h3>
+        </div>
+        <span class="toolbox-tagline">Game Engine · Core Development · Mobile</span>
+        <p>The engine behind most of my projects. I use Unity to bring design systems to life — from physics and animation to UI, scripting, particle effects, and mobile builds. It's where my design thinking and technical execution meet, and where I've spent the most hours turning ideas into playable experiences.</p>
+      </div>
+
+      <div class="toolbox-card">
+        <div class="toolbox-card-header">
+          <span class="toolbox-icon"><img src="figma.png" alt="Figma"></span>
+          <h3>Figma</h3>
+        </div>
+        <span class="toolbox-tagline">UI Design · Wireframing · Prototyping</span>
+        <p>My go-to for UI design, wireframing, user flows, and design documentation. As a designer, having a clear visual language before touching code is invaluable — Figma makes that process fast and intuitive. It's the tool I reach for first whenever I need to communicate a design idea.</p>
+      </div>
+
+      <div class="toolbox-card">
+        <div class="toolbox-card-header">
+          <span class="toolbox-icon"><img src="github.png" alt="Git"></span>
+          <h3>Git</h3>
+        </div>
+        <span class="toolbox-tagline">Version Control · Collaboration · Workflow</span>
+        <p>Full working knowledge of version control with Git — branching, merging, resolving conflicts, pull requests, and maintaining clean commit histories across solo and team projects. Comfortable with multiple interfaces including GitBash, SourceTree, and GitKraken.</p>
+      </div>
+
+      <div class="toolbox-card">
+        <div class="toolbox-card-header">
+          <span class="toolbox-icon"><img src="paint.net.png" alt="Paint.NET"></span>
+          <h3>Paint.NET</h3>
+        </div>
+        <span class="toolbox-tagline">Image Editing · Pixel Art · UI Assets</span>
+        <p>My image editor of choice — and I've been using it for over 10 years. Photo editing, UI mockups, texture work, pixel art, and asset creation. The depth of familiarity means I work fast and intuitively, often reaching for it before any other tool when I need something visual done quickly. All icons used across the game sections of this portfolio were made by me.</p>
+      </div>
+
+      <div class="toolbox-card">
+        <div class="toolbox-card-header">
+          <span class="toolbox-icon"><img src="aseprite.png" alt="Aseprite"></span>
+          <h3>Aseprite</h3>
+        </div>
+        <span class="toolbox-tagline">Sprite Animation · Pixel Art · 2D Assets</span>
+        <p>My sprite and animation tool. I use it to animate characters, create pixel art assets, and — with the PixelLab extension — generate solid pixel art references for prototyping. An extremely powerful tool for anyone working with 2D games.</p>
+      </div>
+
+      <div class="toolbox-card">
+        <div class="toolbox-card-header">
+          <span class="toolbox-icon"><img src="visual_studio.png" alt="Visual Studio"></span>
+          <h3>Visual Studio</h3>
+        </div>
+        <span class="toolbox-tagline">IDE · C# Development · Debugging</span>
+        <p>My IDE of choice for writing C#. The debugging tools, IntelliSense, and Unity integration make it the most comfortable environment for translating design ideas into working code. It's where I spend most of my development time.</p>
+      </div>
+
+      <div class="toolbox-card">
+        <div class="toolbox-card-header">
+          <span class="toolbox-icon"><img src="adobepriemere.png" alt="Adobe Premiere Pro"></span>
+          <h3>Adobe Premiere Pro</h3>
+        </div>
+        <span class="toolbox-tagline">Video Editing · Trailers · Devlogs</span>
+        <p>My video editing suite for game trailers, devlogs, and recorded commentary. Whether it's cutting a prototype showcase or producing a full cinematic trailer, Premiere is the tool I use to present my work in motion.</p>
+      </div>
+
+      <div class="toolbox-card">
+        <div class="toolbox-card-header">
+          <span class="toolbox-icon"><img src="rider.png" alt="JetBrains Rider"></span>
+          <h3>JetBrains Rider</h3>
+        </div>
+        <span class="toolbox-tagline">IDE · C# · Code Analysis</span>
+        <p>A powerful cross-platform IDE built for C# and .NET development. I use Rider as an alternative to Visual Studio, particularly for its superior code analysis and refactoring tools. Having two strong IDEs in my workflow means I can pick the right one for the job.</p>
+      </div>
+
+      <div class="toolbox-card">
+        <div class="toolbox-card-header">
+          <span class="toolbox-icon"><img src="discord.png" alt="Discord"></span>
+          <h3>Discord</h3>
+        </div>
+        <span class="toolbox-tagline">Team Communication · Remote Collaboration</span>
+        <p>My primary tool for team communication. Used extensively during the Dice Bound project to coordinate between designer, artist, and developer across async schedules. Being fluent in remote collaboration — clear written communication, organised channels, timely updates — is a skill in itself, and Discord is where I practise it.</p>
+      </div>
+
+      <div class="toolbox-card">
+        <div class="toolbox-card-header">
+          <span class="toolbox-icon"><img src="claude.png" alt="Claude"></span>
+          <h3>AI (Claude)</h3>
+        </div>
+        <span class="toolbox-tagline">Design Thinking · Iteration · Transparency</span>
+        <p>I use AI as a deliberate part of my design process — as a thinking partner for bouncing ideas, stress-testing game systems, and working through design decisions faster. It doesn't make the decisions; I do. But having a tool that can engage with a half-formed idea at any hour has meaningfully improved how I think through problems. I believe transparency about AI use is important, which is why it's here.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     GAMES HUB
+═══════════════════════════════════════════ -->
+<section id="games">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Portfolio</span>
+      <h2>Games</h2>
+      <p>Click any game to jump to its full design breakdown — concept, mechanics, design pillars, systems, and lessons learned.</p>
+    </div>
+    <div class="hub-grid">
+
+      <a href="#balatro" class="hub-card">
+        <span class="badge badge-done">Finished</span>
+        <h3>Dekelatro</h3>
+        <p>Poker-roguelite scoring mechanics, run pacing, and risk/reward economy — built solo in C#.</p>
+        <div class="tags">
+          <span class="tag">Card Game</span><span class="tag">Roguelite</span><span class="tag">C#</span>
+        </div>
+        <span class="hub-arrow">View design breakdown →</span>
+      </a>
+
+      <a href="#pokemon" class="hub-card">
+        <span class="badge badge-wip">In Progress</span>
+        <h3>Creature-Collecting RPG</h3>
+        <p>Monster-collecting RPG in MonoGame — creature stats, turn-based combat, and world progression.</p>
+        <div class="tags">
+          <span class="tag">RPG</span><span class="tag">Turn-Based</span><span class="tag">MonoGame</span>
+        </div>
+        <span class="hub-arrow">View design breakdown →</span>
+      </a>
+
+      <a href="#survival" class="hub-card">
+        <span class="badge badge-wip">In Progress</span>
+        <h3>Android Survival Game</h3>
+        <p>Mobile survival with full meta progression — session design, offline rewards, and layered economy.</p>
+        <div class="tags">
+          <span class="tag">Survival</span><span class="tag">Meta Progression</span><span class="tag">Unity</span>
+        </div>
+        <span class="hub-arrow">View design breakdown →</span>
+      </a>
+
+      <a href="#dicebound" class="hub-card">
+        <span class="badge badge-plan">Planned · Full GDD</span>
+        <h3>Dice Bound — Idle RPG</h3>
+        <p>Party-based idle battler with dynamic dice roles, spell synergies, and a prestige meta loop.</p>
+        <div class="tags">
+          <span class="tag">Idle</span><span class="tag">Auto-Battler</span><span class="tag">Unity</span><span class="tag">Mobile</span>
+        </div>
+        <span class="hub-arrow">Read full GDD + post mortem →</span>
+      </a>
+
+      <a href="#sidescroller" class="hub-card">
+        <span class="badge badge-plan">Planned</span>
+        <h3>RunicRPG</h3>
+        <p>2D action RPG using the Tiny Sword asset pack — layered combat, meta systems, and world exploration.</p>
+        <div class="tags">
+          <span class="tag">2.5D</span><span class="tag">RPG</span><span class="tag">Unity</span>
+        </div>
+        <span class="hub-arrow">View design breakdown →</span>
+      </a>
+
+      <a href="#upcoming" class="hub-card">
+        <span class="badge badge-plan">Planned</span>
+        <h3>Future Projects</h3>
+        <p>Three early-stage concepts in various states of ideation — from tactical design to hyper-casual mobile.</p>
+        <div class="tags">
+          <span class="tag">Tower Defense</span><span class="tag">Puzzle</span><span class="tag">Mobile</span>
+        </div>
+        <span class="hub-arrow">View design breakdown →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     GAME 1 — BALATRO
+═══════════════════════════════════════════ -->
+<section id="balatro">
+  <div class="container">
+    <div class="game-section-layout">
+
+      <!-- Meta column -->
+      <div class="game-meta-col">
+        <span class="badge badge-done">Finished</span>
+        <h2 style="margin-top:12px;">Dekelatro</h2>
+        <p class="concept">
+          A smaller-scope take on the poker-roguelite formula, built as the final project for my Introduction to C# course. It covered the basic principles of the language alongside more advanced topics — concepts I later expanded on in my Object-Oriented Programming course. The focus was on nailing the feel of a satisfying scoring run — fast escalation, meaningful shop decisions, and the joy of watching a build come together on the final hand.
+        </p>
+        <div class="game-info-row">
+          <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">C# · Custom</span></div>
+          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">Card Game · Roguelite</span></div>
+          <div class="game-info-item"><span class="game-info-key">Context</span><span class="game-info-val">Intro to C# Final Project</span></div>
+          <div class="game-info-item"><span class="game-info-key">Scope</span><span class="game-info-val">Solo · Smaller scale</span></div>
+          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">Complete</span></div>
+        </div>
+        <div style="margin-top:20px;">
+          <a href="https://github.com/Dekeloni2/BalatroInCSharp" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%; justify-content:center;">
+            ↗ View on GitHub &amp; Download
+          </a>
+        </div>
+      </div>
+
+      <!-- Content column -->
+      <div class="game-content-col">
+
+        <div class="section-line">Design Pillars</div>
+        <div class="pillars-grid">
+          <div class="pillar">
+            <div class="pillar-num">01</div>
+            <h4>Scoring Satisfaction</h4>
+            <p>Every hand should feel punchy. Big multiplier moments are the core emotional beat — the game is built around creating and then detonating them.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">02</div>
+            <h4>Run Pacing</h4>
+            <p>Blind structure creates a natural pressure curve. Early blinds teach, mid-game challenges the build, final blinds demand execution.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">03</div>
+            <h4>Meaningful Shop Decisions</h4>
+            <p>The shop isn't just upgrades — it's a trade-off engine. Every purchase should have a cost, and every skip should feel deliberate.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">04</div>
+            <h4>Build Emergence</h4>
+            <p>No run should feel the same. Scoring combos emerge from the interaction of cards, jokers, and hand selection — not from a fixed path.</p>
+          </div>
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">Key Systems</div>
+        <div class="mechanics-grid">
+          <div class="mechanic-card">
+            <div class="mechanic-icon">🃏</div>
+            <h3>Hand Evaluation</h3>
+            <p>Standard poker hands with custom scoring weights. Higher hands deal more base chips; multipliers amplify everything. The tension between hand type and card value drives the core decisions.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">✖</div>
+            <h3>Chip × Mult System</h3>
+            <p>Scoring is Chips × Multiplier. The two stats scale differently, encouraging players to seek imbalanced builds rather than balanced ones — small mult on huge chips can outperform the inverse.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">🏪</div>
+            <h3>Shop Economy</h3>
+            <p>Gold is scarce. Rerolls cost money, buying costs more, selling loses value. Every shop visit is a resource allocation puzzle layered on top of the scoring puzzle.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">📈</div>
+            <h3>Blind Scaling</h3>
+            <p>Score targets scale faster than the player's natural power growth, creating a steady pressure that forces the build to come online at the right time.</p>
+          </div>
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">What I Learned</div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px;">
+          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7;">
+            Building a compressed version of an existing game forces you to understand <em>which</em> systems carry the experience. Dekelatro's depth isn't from the number of jokers — it's from the multiplicative math. That insight shaped how I think about complexity: the best systems create exponential possibility from a small number of clearly defined rules. I also learned how critical feedback timing is; the satisfying "crunch" of a score calculation is as important as the score itself.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     GAME 2 — POKÉMON RPG
+═══════════════════════════════════════════ -->
+<section id="pokemon">
+  <div class="container">
+    <div class="game-section-layout">
+
+      <div class="game-meta-col">
+        <span class="badge badge-wip">In Progress</span>
+        <h2 style="margin-top:12px;">Creature-Collecting RPG</h2>
+        <p class="concept">
+          A monster-collecting RPG built in MonoGame with an exclusive 2v2 battle format. Features an elemental reaction system — where your attack's type matters, and your team composition does too. Intentionally small in scope: around 15 minutes of gameplay with 10 obtainable creatures.
+        </p>
+        <div class="game-info-row">
+          <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">C# · MonoGame</span></div>
+          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">RPG · Turn-Based</span></div>
+          <div class="game-info-item"><span class="game-info-key">Battle Format</span><span class="game-info-val">Exclusively 2v2</span></div>
+          <div class="game-info-item"><span class="game-info-key">Platform</span><span class="game-info-val">PC</span></div>
+          <div class="game-info-item"><span class="game-info-key">Creatures</span><span class="game-info-val">10 obtainable</span></div>
+          <div class="game-info-item"><span class="game-info-key">Play Time</span><span class="game-info-val">~15 minutes</span></div>
+          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">In Development</span></div>
+        </div>
+      </div>
+
+      <div class="game-content-col">
+
+        <div class="section-line">Design Pillars</div>
+        <div class="pillars-grid">
+          <div class="pillar">
+            <div class="pillar-num">01</div>
+            <h4>2v2 as the Default</h4>
+            <p>All battles are built for two active creature per side. Team-building, move selection, and targeting are designed from the ground up around that format — not retrofitted from 1v1.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">02</div>
+            <h4>Elemental Reactions Add Depth</h4>
+            <p>The reaction system rewards players who sequence elements intentionally. It adds a tactical layer without requiring a wiki — the icons on-screen tell you what's primed for a reaction.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">03</div>
+            <h4>Team Synergy over Power</h4>
+            <p>In 2v2, team composition matters more than individual strength. Covering weaknesses, enabling reactions, and supporting the partner creature create genuinely strategic decisions.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">04</div>
+            <h4>Readable at a Glance</h4>
+            <p>Status icons, type indicators, and HP bars must be readable with two creature active per side. Visual clarity is a design constraint, not an afterthought.</p>
+          </div>
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">Key Systems</div>
+        <div class="mechanics-grid">
+          <div class="mechanic-card">
+            <div class="mechanic-icon">🔥</div>
+            <h3>Elemental Reaction System</h3>
+            <p>When a creature is hit by an elemental attack, it receives a corresponding status icon (e.g. a flame for fire). Being hit by a <em>different</em> element afterwards triggers a reaction between the two — creating emergent combos and a reason to stack elemental hits strategically.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">📊</div>
+            <h3>Stat Architecture</h3>
+            <p>HP, ATK, DEF, Sp.ATK, Sp.DEF, Speed. Stats scale with level via a defined formula. Each creature has a base stat spread that encodes its intended role without prescribing it rigidly.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">🌍</div>
+            <h3>World Progression</h3>
+            <p>Linear world with branching encounter paths. Trainer battles gate zone progress, ensuring the player's team keeps pace with the content curve.</p>
+          </div>
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">Design Challenges</div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px;">
+          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7;">
+            A deliberate scope decision defines this project: we are not implementing the advanced mechanics that sit at the margins of the genre — EV/IV training, hidden stat modifiers, or status conditions like Pokérus. These systems are barely surfaced to most players, add significant design and balance complexity, and aren't necessary to deliver a great experience. Cutting them is a conscious design call, not a gap. A smaller, well-executed system is better than a large, half-implemented one.
+          </p>
+          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; margin-top:12px;">
+            The hardest part of designing a creature-style game is the math underneath the surface. Damage formulas, level scaling, and the elemental reaction system all interact in ways that are invisible to the player but critical to balance. MonoGame's lack of built-in systems has also forced me to implement combat flow, state management, and UI logic from first principles — the best possible education in how these systems actually work.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     GAME 3 — ANDROID SURVIVAL
+═══════════════════════════════════════════ -->
+<section id="survival">
+  <div class="container">
+    <div class="game-section-layout">
+
+      <div class="game-meta-col">
+        <span class="badge badge-wip">In Progress</span>
+        <h2 style="margin-top:12px;">Android Survival Game</h2>
+        <p class="concept">
+          A mobile survival game with a full meta progression loop. The design focus is on session architecture — how to make 5-minute play sessions feel rewarding while also pulling players back day after day through meaningful offline rewards and a deep upgrade economy.
+        </p>
+        <div class="game-info-row">
+          <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">Unity</span></div>
+          <div class="game-info-item"><span class="game-info-key">Platform</span><span class="game-info-val">Android</span></div>
+          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">Survival · Meta Progression</span></div>
+          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">In Development</span></div>
+        </div>
+      </div>
+
+      <div class="game-content-col">
+
+        <div class="section-line">Design Pillars</div>
+        <div class="pillars-grid">
+          <div class="pillar">
+            <div class="pillar-num">01</div>
+            <h4>Session Respect</h4>
+            <p>Every 5-minute session should have a clear start, a meaningful decision, and a satisfying reward. Mobile players shouldn't need to commit to a long session to feel progress.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">02</div>
+            <h4>Meta Depth</h4>
+            <p>Individual runs feed into a persistent upgrade system. Each run makes the next one meaningfully different — not just numerically stronger, but strategically broader.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">03</div>
+            <h4>Return Incentives</h4>
+            <p>Offline progress and daily systems create reasons to return. The game should feel like it's working for the player while they're away, not punishing absence.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">04</div>
+            <h4>Economy Balance</h4>
+            <p>Resources must have clear sources and sinks. An uncapped economy breaks retention. The upgrade curve should always give players something meaningful to save toward.</p>
+          </div>
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">Key Systems</div>
+        <div class="mechanics-grid">
+          <div class="mechanic-card">
+            <div class="mechanic-icon">🏕</div>
+            <h3>Survival Loop</h3>
+            <p>Gather resources, manage hunger/health, build shelter, survive nights. Each resource type is a separate economy with its own supply and demand drivers.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">🔁</div>
+            <h3>Meta Progression</h3>
+            <p>Prestige-style reset system — runs end, but permanent upgrades persist across runs. Upgrade trees branch to allow different strategic focuses between runs.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">🌙</div>
+            <h3>Offline Progress</h3>
+            <p>Passive resource generation while offline, capped to prevent inflation. Returning players see accumulated resources and a summary of what happened while away.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">📅</div>
+            <h3>Daily Systems</h3>
+            <p>Daily quests and login rewards create a consistent re-engagement hook. Reward types vary to match different player motivations — some give resources, some give cosmetics.</p>
+          </div>
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">Design Focus</div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px;">
+          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7;">
+            Mobile survival games live and die by their meta loop. The core survival gameplay is the hook, but the meta is the reason players return. My primary design challenge is calibrating offline income: too low and returning feels pointless; too high and the active gameplay loses value. I'm also studying how mobile game economies handle inflation — the difference between a healthy incremental economy and a broken one is a few poorly tuned upgrade multipliers. This project is as much an exercise in numbers design as it is in survival game design.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     GAME 4 — DICE BOUND (Full GDD + Post Mortem)
+═══════════════════════════════════════════ -->
+<section id="dicebound" style="background: radial-gradient(ellipse 70% 50% at 50% 100%, rgba(124,108,255,0.05) 0%, transparent 70%);">
+  <div class="container">
+
+    <div class="section-header">
+      <span class="label">Full Game Design Document</span>
+      <h2>Dice Bound — Idle RPG</h2>
+      <p>A complete GDD covering core concept, gameplay loops, mechanics, systems, economy, and UI — produced as part of a competitive college extracurricular program. I was the game designer on a three-person team (designer, artist, developer).</p>
+    </div>
+
+    <div class="game-section-layout">
+
+      <div class="game-meta-col">
+        <span class="badge badge-plan">Planned</span>
+        <p class="concept" style="margin-top:14px;">
+          A party-based idle battler where players command a team of living dice, each with unique faces, spells, and roles. Dice roll automatically, but tapping accelerates rolls and triggers more spells — a hybrid idle/active feel.
+        </p>
+        <div class="game-info-row">
+          <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">Unity</span></div>
+          <div class="game-info-item"><span class="game-info-key">Platform</span><span class="game-info-val">iOS & Android</span></div>
+          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">Idle · Auto-Battler · RPG</span></div>
+          <div class="game-info-item"><span class="game-info-key">Party</span><span class="game-info-val">3–4 dice</span></div>
+          <div class="game-info-item"><span class="game-info-key">Role</span><span class="game-info-val">Game Designer</span></div>
+          <div class="game-info-item"><span class="game-info-key">Team</span><span class="game-info-val">Designer · Artist · Developer</span></div>
+          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">GDD Complete</span></div>
+        </div>
+
+        <!-- Dice visual -->
+        <div class="dice-scene">
+          <div class="dice-3d">
+            <div class="dice-face front">⚔</div>
+            <div class="dice-face back">✦</div>
+            <div class="dice-face right">🔥</div>
+            <div class="dice-face left">❄</div>
+            <div class="dice-face top">⚡</div>
+            <div class="dice-face bottom">🛡</div>
+          </div>
+        </div>
+        <p style="font-size:0.72rem; color:var(--muted); text-align:center; margin-top:-8px;">Custom face icons coming soon</p>
+      </div>
+
+      <div class="game-content-col">
+
+        <!-- Core Loop -->
+        <div class="section-line">Core Loop</div>
+        <div class="loop-chain">
+          <div class="loop-step"><div class="loop-dot">1</div><span class="loop-step-text">Roll Dice (auto + tap to accelerate)</span></div>
+          <div class="loop-connector"></div>
+          <div class="loop-step"><div class="loop-dot">2</div><span class="loop-step-text">Resolve Face Outcome — damage, spell, resource, utility</span></div>
+          <div class="loop-connector"></div>
+          <div class="loop-step"><div class="loop-dot">3</div><span class="loop-step-text">Earn Dicelets, XP, Materials, Gold</span></div>
+          <div class="loop-connector"></div>
+          <div class="loop-step"><div class="loop-dot">4</div><span class="loop-step-text">Upgrade Dice Faces, Spells, and Stats</span></div>
+          <div class="loop-connector"></div>
+          <div class="loop-step"><div class="loop-dot">5</div><span class="loop-step-text">Become Stronger → Push Further Stages → Repeat</span></div>
+        </div>
+
+        <!-- Design Pillars -->
+        <div class="section-line">Design Pillars</div>
+        <div class="pillars-grid">
+          <div class="pillar">
+            <div class="pillar-num">01</div>
+            <h4>Roll-to-Reward Loop</h4>
+            <p>Rolling should feel fast, punchy, and rewarding. Every roll triggers damage, spells, or resources — the build always matters.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">02</div>
+            <h4>Team-Building & Synergy</h4>
+            <p>3–4 dice, each with a dynamic role. Synergies between spells, faces, and roles create meaningful strategic choices every run.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">03</div>
+            <h4>Meaningful Progression</h4>
+            <p>Every face is upgradeable. Spells evolve. Prestige resets unlock permanent bonuses. The player always feels stronger.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">04</div>
+            <h4>Hybrid Idle + Active</h4>
+            <p>Plays itself, but active play is rewarded. Tapping accelerates rolls and triggers more spells — agency without overwhelm.</p>
+          </div>
+        </div>
+
+        <!-- Dynamic Role System -->
+        <div class="section-line" style="margin-top:36px;">Dynamic Role System</div>
+        <p style="font-size:0.85rem; color:var(--muted); margin-bottom:16px;">
+          Dice don't have fixed roles. Each die's role emerges dynamically from the spells equipped on its faces. Two similar-weight roles create a <strong style="color:var(--accent2)">Hybrid Role</strong> — gaining 50% of both roles' bonuses.
+        </p>
+        <div class="roles-grid">
+          <div class="role-pill role-tank"><div class="role-name">Tank</div><div class="role-desc">+HP, +DEF, +Shield, +Status Resistance</div></div>
+          <div class="role-pill role-dps"><div class="role-name">DPS</div><div class="role-desc">+ATK, +Crit Chance, +Crit Damage</div></div>
+          <div class="role-pill role-sup"><div class="role-name">Support</div><div class="role-desc">+Buff Duration, +Healing Power, +Team HP</div></div>
+          <div class="role-pill role-util"><div class="role-name">Utility</div><div class="role-desc">+Roll Speed, +Gold Gain, +Resource Drop Rate</div></div>
+          <div class="role-pill role-ctrl"><div class="role-name">Control</div><div class="role-desc">+Status Potency, +Status Duration</div></div>
+        </div>
+
+        <!-- Mechanics -->
+        <div class="section-line" style="margin-top:36px;">Key Systems</div>
+        <div class="mechanics-grid">
+          <div class="mechanic-card">
+            <div class="mechanic-icon">🎲</div>
+            <h3>Per-Face Upgrades</h3>
+            <p>Every face on every die is individually upgradeable. Damage faces increase base damage; spell faces unlock higher tiers; utility faces improve resource generation.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">✨</div>
+            <h3>Spell System</h3>
+            <p>Spells trigger on roll (no mana). Each spell has a full technical spec: trigger condition, targeting, damage formula, duration, stacking rules, and cooldown.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">💥</div>
+            <h3>Status Effects</h3>
+            <p>10 effects: Burn, Freeze, Stun, Shield, Weaken, Cursed, Confused, Undead, Darkness, Seal. Each has duration, tick interval, stacking rules, and priority.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">💎</div>
+            <h3>Prestige System</h3>
+            <p>Reset dice levels and stage progress → earn Prestige Shards → spend on permanent upgrades: global Spell Power, Roll Speed, extra party slots, new spell categories.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">🌙</div>
+            <h3>Offline Progress</h3>
+            <p>25% roll speed offline, no spell triggers, reduced resource gain. Capped at 8–12 hours to prevent economy inflation while still rewarding returning players.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">📐</div>
+            <h3>Damage Formula</h3>
+            <p>FinalDamage = BaseDamage × (1 + SpellPower%) × (1 + Buffs%) × (1 − EnemyResist%). Stat scaling: StatValue = BaseValue × (1 + 0.12 × Level). Upgrade cost: BaseCost × 1.15^Level.</p>
+          </div>
+        </div>
+
+        <!-- Progression Loops -->
+        <div class="section-line" style="margin-top:36px;">Progression Loops</div>
+        <div class="prog-row">
+          <div class="prog-block">
+            <h3>Core Loop<br/><span style="font-size:0.73rem; font-weight:400; color:var(--muted);">Moment-to-moment</span></h3>
+            <ul>
+              <li>Roll dice automatically</li>
+              <li>Resolve face outcomes</li>
+              <li>Earn Dicelets, XP, Gold</li>
+              <li>Upgrade faces & spells</li>
+              <li>Defeat enemies, advance stages</li>
+            </ul>
+          </div>
+          <div class="prog-block">
+            <h3>Secondary Loop<br/><span style="font-size:0.73rem; font-weight:400; color:var(--muted);">Session-to-session</span></h3>
+            <ul>
+              <li>Complete daily & weekly quests</li>
+              <li>Earn mid-tier rewards</li>
+              <li>Upgrade dice and spells</li>
+              <li>Push further into stages</li>
+              <li>Unlock new challenges</li>
+            </ul>
+          </div>
+          <div class="prog-block">
+            <h3>Meta Loop<br/><span style="font-size:0.73rem; font-weight:400; color:var(--muted);">Long-term</span></h3>
+            <ul>
+              <li>Prestige reset for Shards</li>
+              <li>Invest in permanent upgrade trees</li>
+              <li>Collect dice, spells, cosmetics</li>
+              <li>Unlock new dice families</li>
+              <li>Rebirth after Prestige</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Status Effects detail -->
+        <div class="section-line" style="margin-top:36px;">Status Effects</div>
+        <div class="effects-wrap">
+          <div class="effect-pill"><strong>Burn</strong> — DoT</div>
+          <div class="effect-pill"><strong>Freeze</strong> — Stacking CC</div>
+          <div class="effect-pill"><strong>Stun</strong> — Skip next roll</div>
+          <div class="effect-pill"><strong>Shield</strong> — Temporary HP</div>
+          <div class="effect-pill"><strong>Weaken</strong> — Reduced damage</div>
+          <div class="effect-pill"><strong>Cursed</strong> — Reduce enemy Luck</div>
+          <div class="effect-pill"><strong>Confused</strong> — Attacks own team</div>
+          <div class="effect-pill"><strong>Undead</strong> — Reduces healing/shielding</div>
+          <div class="effect-pill"><strong>Darkness</strong> — Damage if not tapping</div>
+          <div class="effect-pill"><strong>Seal</strong> — All spells disabled</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ─── POST MORTEM ─── -->
+    <div style="margin-top:80px; padding-top:64px; border-top:1px solid var(--border);">
+      <span class="label">Post Mortem</span>
+      <h2 style="margin-bottom:10px;">What the Design Process Taught Me</h2>
+      <p style="color:var(--muted); max-width:640px; margin-bottom:40px;">
+        Dice Bound was built inside a competitive college extracurricular program — one that first-year students rarely get into. The program mentor saw potential and accepted me anyway. A reflection on leading the design process, working with a team, and what I'd do differently.
+      </p>
+
+      <div class="postmortem-grid">
+        <div class="pm-card pm-good">
+          <h4>What Worked</h4>
+          <ul>
+            <li>The dynamic role system — emerging roles from spell weights was the right call. It reduces the need for dozens of pre-designed dice types while massively increasing build diversity.</li>
+            <li>Writing the damage formula early forced clarity on every downstream decision. Numbers with no formula are just vibes.</li>
+            <li>The three-loop structure (core / secondary / meta) gave every feature a clear home and made scope decisions easier — if a feature doesn't serve one of the three loops, it doesn't belong.</li>
+            <li>Designing the spell template before writing any spells prevented inconsistency and made the compendium easy to expand.</li>
+            <li>The offline cap at 8–12 hours was a specific, defensible decision — not a guess.</li>
+          </ul>
+        </div>
+        <div class="pm-card pm-bad">
+          <h4>What Didn't / Would Change</h4>
+          <ul>
+            <li>Coordinating design decisions across a three-person team revealed how much a GDD needs to serve different readers. Sections I wrote for myself weren't always clear to the artist or developer — better cross-discipline communication up front would have reduced revision cycles.</li>
+            <li>Communication within the team was inconsistent, and deadlines slipped more than once. As the designer and de facto project lead, I should have established clearer accountability structures earlier — regular check-ins, agreed milestones, and explicit ownership per task. Assuming people would self-manage wasn't enough.</li>
+            <li>The name changed from "Dice Slayer" to "Dice Bound" during development. A stronger naming process earlier would have avoided this churn in documentation.</li>
+            <li>The enemy system is underspecified relative to the player systems. Enemies are mirrored dice, but they need more distinctive design — especially bosses, which currently get the most vague treatment in the GDD.</li>
+            <li>The collection systems (pets, map skins, cosmetics) were added late and feel bolted on. A more deliberate retention loop design upfront would have integrated them more cleanly.</li>
+          </ul>
+        </div>
+        <div class="pm-lesson">
+          <h4>Key Takeaway</h4>
+          <p>
+            Writing a full GDD before a single line of code exists is uncomfortable — you're making decisions without feedback. But the process of documenting every system forced me to find contradictions and gaps I wouldn't have caught until deep in development. The biggest lesson: <em>a GDD isn't a blueprint that gets followed — it's a tool for stress-testing ideas before they're expensive to change.</em> The version of Dice Bound that gets built will differ from this document in important ways, and that's fine. The document's job was to ask every question, not answer them all correctly.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     GAME 5 — RUNICRPG
+═══════════════════════════════════════════ -->
+<section id="sidescroller">
+  <div class="container">
+    <div class="game-section-layout">
+
+      <div class="game-meta-col">
+        <span class="badge badge-plan">Planned</span>
+        <h2 style="margin-top:12px;">RunicRPG</h2>
+        <p class="concept">
+          A 2.5D side-scrolling RPG designed to showcase deep systems design. RunicRPG focuses on progression depth, character development, and multiple interlocking systems — runes, crafting, equipment, NPCs, classes — that are built to be coherent with each other rather than independent features stapled together.
+        </p>
+        <div class="game-info-row">
+          <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">Unity</span></div>
+          <div class="game-info-item"><span class="game-info-key">Art</span><span class="game-info-val">Tiny Sword Asset Pack</span></div>
+          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">2.5D · Action RPG</span></div>
+          <div class="game-info-item"><span class="game-info-key">Classes</span><span class="game-info-val">Knight · Lancer · Archer</span></div>
+          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">Pre-Production</span></div>
+        </div>
+      </div>
+
+      <div class="game-content-col">
+
+        <div class="section-line">Design Pillars</div>
+        <div class="pillars-grid">
+          <div class="pillar">
+            <div class="pillar-num">01</div>
+            <h4>Systems That Talk to Each Other</h4>
+            <p>Every system in RunicRPG — runes, crafting, scrolls, NPCs — is designed to interact with the others. A rune that boosts strength becomes meaningful when your scroll-enhanced equipment already scales with it. Coherence is the goal, not feature count.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">02</div>
+            <h4>Meaningful Character Expression</h4>
+            <p>Three classes with distinct playstyles, a rune skill tree that opens specific paths, and armor that visually changes the player — your character should feel like a build, not a default.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">03</div>
+            <h4>Depth Without Bloat</h4>
+            <p>Extensive systems shouldn't mean overwhelming ones. Each layer of progression — runes, crafting, scrolls — should be learnable in isolation before it connects to the whole. Complexity is introduced, not dumped.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">04</div>
+            <h4>The World Responds to You</h4>
+            <p>Hirable NPCs that hunt monsters autonomously or join as party members make the world feel like it has agency. The player isn't just moving through the world — they're shaping it.</p>
+          </div>
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">Intended Systems</div>
+        <div class="mechanics-grid">
+          <div class="mechanic-card">
+            <div class="mechanic-icon">🔮</div>
+            <h3>Rune Skill Tree</h3>
+            <p>Players equip runes into a skill tree to unlock distinct playpaths. The tree isn't linear — rune combinations open different routes, shaping the build in ways that compound across the other systems.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">🧑‍🤝‍🧑</div>
+            <h3>NPC Companions & Hunters</h3>
+            <p>Hire NPCs to autonomously grind monsters in an area while the player explores elsewhere, or bring them along as active party members. Passive income or active support — the player chooses.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">📜</div>
+            <h3>Equipment Scrolls</h3>
+            <p>Scrolls enhance specific stats on individual pieces of equipment — Damage, Strength, HP, and more. A targeted upgrade system that rewards identifying which piece of gear to invest in.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">⚒</div>
+            <h3>Crafting System</h3>
+            <p>Every monster in the game drops materials used in crafting. Nothing is junk — the crafting system is designed so that drops from all monsters have potential value, encouraging exploration over farming one zone.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">🛡</div>
+            <h3>Armor Sets & Appearance</h3>
+            <p>Custom armor sets change the player's visual appearance, not just their stats. Wearing a full set has both a mechanical payoff and an identity payoff — looking like your build matters.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">⚔</div>
+            <h3>3 Classes</h3>
+            <p>Knight, Lancer, and Archer each play distinctly — not just different stat spreads but different combat rhythms and rune affinities. Class choice shapes which parts of the skill tree are most effective.</p>
+          </div>
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">Design Intent</div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px;">
+          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7;">
+            RunicRPG exists in the portfolio specifically to demonstrate systems design at RPG scale. The challenge isn't building any one of these systems — it's making six of them feel like they belong to the same game. A rune that boosts your Knight's defense should matter when you're choosing which armor scroll to use and which NPC to hire for your next zone. That kind of cross-system coherence is what separates a collection of features from a real RPG. That's what this project is designed to prove.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FUTURE PROJECTS
+═══════════════════════════════════════════ -->
+<section id="upcoming">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">On the Horizon</span>
+      <h2>Future Projects</h2>
+      <p>Early-stage concepts I'm exploring. Details are sparse by design — these are ideas, not commitments.</p>
+    </div>
+
+    <div class="toolbox-grid">
+
+      <div class="toolbox-card">
+        <div class="toolbox-card-header">
+          <span class="toolbox-icon">🏰</span>
+          <h3>Tactical Tower Defense</h3>
+        </div>
+        <span class="badge badge-plan" style="margin-bottom:12px; display:inline-block;">Concept</span>
+        <p>You play as the attacking side — an army of monsters assaulting a fortified tower. Waves grow in size and complexity, and the design challenge is flipping the genre's typical perspective: instead of defending, you're coordinating an escalating assault. The tactical layer comes from composing your wave, not placing defenses.</p>
+        <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap;">
+          <span class="tag">Tower Defense</span><span class="tag">Unity</span><span class="tag">Strategy</span>
+        </div>
+      </div>
+
+      <div class="toolbox-card">
+        <div class="toolbox-card-header">
+          <span class="toolbox-icon">🧩</span>
+          <h3>One-Mechanic Puzzle Game</h3>
+        </div>
+        <span class="badge badge-plan" style="margin-bottom:12px; display:inline-block;">Concept</span>
+        <p>A puzzle game built around a single, clearly defined mechanic. The entire design challenge is in restraint — finding the one rule interesting enough to carry a full game, then building levels that explore every implication of it. Emergent complexity from a minimal rule set.</p>
+        <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap;">
+          <span class="tag">Puzzle</span><span class="tag">Unity</span><span class="tag">Mobile</span>
+        </div>
+      </div>
+
+      <div class="toolbox-card">
+        <div class="toolbox-card-header">
+          <span class="toolbox-icon">📱</span>
+          <h3>Hyper-Casual Mobile Game</h3>
+        </div>
+        <span class="badge badge-plan" style="margin-bottom:12px; display:inline-block;">Concept</span>
+        <p>A fast, asset-driven hyper-casual mobile game. The goal here is less about deep design and more about understanding the hyper-casual market — short sessions, instant onboarding, and a monetisation loop. A useful exercise in designing for a completely different player mindset.</p>
+        <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap;">
+          <span class="tag">Hyper-Casual</span><span class="tag">Mobile</span><span class="tag">Unity</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CONTACT
+═══════════════════════════════════════════ -->
+<section id="contact">
+  <div class="container">
+    <span class="label">Get in touch</span>
+    <h2>Let's talk.</h2>
+    <p>Open to internships, collaborations, and feedback on work in progress.</p>
+    <div class="contact-links">
+      <a href="mailto:dekelriess@gmail.com" class="btn btn-primary">dekelriess@gmail.com</a>
+      <a href="https://www.linkedin.com/in/dekel-riess-39172433b/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn ↗</a>
+      <a href="#dicebound" class="btn btn-ghost">Read the GDD</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Dekel Riess · Game Designer Portfolio · Updated June 2026</p>
+</footer>
+
+</body>
+</html>
