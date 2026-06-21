@@ -164,7 +164,8 @@
       border-radius: 10px;
       padding: 20px;
     }
-    .mechanic-icon { font-size: 1.5rem; margin-bottom: 10px; }
+    .mechanic-icon { font-size: 1.5rem; margin-bottom: 10px; display:flex; align-items:center; justify-content:center; width:32px; height:32px; }
+    .mechanic-icon img { width: 32px; height: 32px; object-fit: none; image-rendering: pixelated; image-rendering: crisp-edges; }
     .mechanic-card h3 { font-size: 0.92rem; margin-bottom: 6px; }
     .mechanic-card p  { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
 
@@ -363,11 +364,24 @@
     }
 
     .hero-layout {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 60px;
+      align-items: center;
       width: 100%;
-      max-width: 680px;
+    }
+    .hero-photo {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 40px rgba(124,108,255,0.2);
+      flex-shrink: 0;
+    }
+    @media (max-width: 640px) {
+      .hero-layout { grid-template-columns: 1fr; }
+      .hero-photo { width: 140px; height: 140px; margin: 0 auto; }
     }
 
     .hero-name {
@@ -395,6 +409,124 @@
       .hero-layout { grid-template-columns: 1fr; gap: 48px; }
       .hero-name { font-size: clamp(2.8rem, 10vw, 4rem); }
     }
+
+    /* ─── Experience ─────────────────────────────────────────────── */
+    .experience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+      gap: 24px;
+    }
+    @media (max-width: 820px) {
+      .experience-grid { grid-template-columns: 1fr; }
+    }
+    .experience-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 28px 24px;
+      transition: border-color 0.2s;
+    }
+    .experience-card:hover { border-color: var(--accent); }
+    .experience-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+    .experience-header h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0;
+    }
+    .experience-period {
+      font-size: 0.75rem;
+      color: var(--accent2);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      padding-top: 2px;
+    }
+    .experience-role {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 14px;
+      font-style: italic;
+    }
+    .experience-card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0 0 14px;
+    }
+    .experience-bullets {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .experience-bullets li {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.6;
+      padding-left: 16px;
+      position: relative;
+    }
+    .experience-bullets li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.72rem;
+    }
+    .experience-stat {
+      display: inline-block;
+      background: rgba(124,108,255,0.12);
+      border: 1px solid rgba(124,108,255,0.25);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent2);
+      margin-top: 4px;
+    }
+
+    /* ─── Hero entrance animation ────────────────────────────────── */
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes heroFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    .hero-layout > div {
+      animation: heroFadeUp 0.7s ease both;
+      animation-delay: 0.1s;
+    }
+    .hero-photo {
+      animation: heroFadeIn 0.8s ease both;
+      animation-delay: 0.35s;
+    }
+
+    /* ─── Scroll animations ──────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+    .reveal-delay-4 { transition-delay: 0.32s; }
 
     /* ─── Toolbox ────────────────────────────────────────────────── */
     .toolbox-grid {
@@ -577,14 +709,9 @@
   <div class="nav-inner">
     <span class="nav-logo">Dekel Riess</span>
     <ul class="nav-links">
+      <li><a href="#experience">Experience</a></li>
       <li><a href="#toolbox">Toolbox</a></li>
       <li><a href="#games">Games</a></li>
-      <li><a href="#balatro">Dekelatro</a></li>
-      <li><a href="#pokemon">Creature RPG</a></li>
-      <li><a href="#survival">Survival</a></li>
-      <li><a href="#dicebound">Dice Bound</a></li>
-      <li><a href="#sidescroller">RunicRPG</a></li>
-      <li><a href="#upcoming">Future Projects</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </div>
@@ -612,6 +739,56 @@
           <a href="https://www.linkedin.com/in/dekel-riess-39172433b/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn ↗</a>
           <a href="#dicebound" class="btn btn-ghost">Read GDD</a>
         </div>
+      </div>
+
+      <!-- Right: photo -->
+      <img src="dekel.png" alt="Dekel Riess" class="hero-photo">
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     EXPERIENCE
+═══════════════════════════════════════════ -->
+<section id="experience">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Before the Degree</span>
+      <h2>Experience</h2>
+      <p>The design and creative work that came before college — and shaped why I'm here.</p>
+    </div>
+    <div class="experience-grid">
+
+      <div class="experience-card">
+        <div class="experience-header">
+          <h3>Yourpixel — Community Manager &amp; Game Designer</h3>
+          <span class="experience-period">2017 – 2020</span>
+        </div>
+        <div class="experience-role">Minecraft · Live Game Design · Community Management</div>
+        <p>Held full responsibility for managing an online gaming community, coordinating support teams, developing content, handling player inquiries, and maintaining a dynamic and well-balanced gameplay environment.</p>
+        <ul class="experience-bullets">
+          <li>Designed and developed diverse game modes to support different playstyles</li>
+          <li>Planned and implemented features aimed at increasing player engagement and retention</li>
+          <li>Created and refined quests, world-building elements, and in-game narrative</li>
+          <li>Recruited and led a new team to support the development of upcoming game modes</li>
+        </ul>
+        <span class="experience-stat">📈 Grew active player base from ~30 to ~200 concurrent players</span>
+      </div>
+
+      <div class="experience-card">
+        <div class="experience-header">
+          <h3>YouTuber &amp; Content Creator</h3>
+          <span class="experience-period">2012 – 2023</span>
+        </div>
+        <div class="experience-role">Video Production · Community Building · Long-Form Content</div>
+        <p>Created, filmed, and edited Minecraft-based video content while managing a large, active community. Collaborated with fellow creators, maintained long-term audience engagement, and consistently delivered high-quality creative content over more than a decade.</p>
+        <ul class="experience-bullets">
+          <li>Built and sustained an audience over 10+ years of consistent content output</li>
+          <li>Developed video production skills — scripting, filming, editing — used directly in game trailer work today</li>
+          <li>Managed community interactions and maintained a positive, engaged following</li>
+        </ul>
+        <span class="experience-stat">🎥 20,000+ subscribers</span>
       </div>
 
     </div>
@@ -764,6 +941,16 @@
         <span class="hub-arrow">View design breakdown →</span>
       </a>
 
+      <a href="#trials" class="hub-card">
+        <span class="badge badge-done">Finished</span>
+        <h3>Trials of the Dungeon</h3>
+        <p>Cooperative dungeon-crawl board game — tile exploration, class design, and a final boss fight. Physical product.</p>
+        <div class="tags">
+          <span class="tag">Board Game</span><span class="tag">Cooperative</span><span class="tag">Physical</span>
+        </div>
+        <span class="hub-arrow">View design breakdown →</span>
+      </a>
+
       <a href="#pokemon" class="hub-card">
         <span class="badge badge-wip">In Progress</span>
         <h3>Creature-Collecting RPG</h3>
@@ -876,7 +1063,7 @@
         <div class="section-line" style="margin-top:36px;">Key Systems</div>
         <div class="mechanics-grid">
           <div class="mechanic-card">
-            <div class="mechanic-icon">🃏</div>
+            <div class="mechanic-icon"><img src="handevaluator_icon.png" alt="Hand Evaluator"></div>
             <h3>Hand Evaluation</h3>
             <p>Standard poker hands with custom scoring weights. Higher hands deal more base chips; multipliers amplify everything. The tension between hand type and card value drives the core decisions.</p>
           </div>
@@ -886,12 +1073,12 @@
             <p>Scoring is Chips × Multiplier. The two stats scale differently, encouraging players to seek imbalanced builds rather than balanced ones — small mult on huge chips can outperform the inverse.</p>
           </div>
           <div class="mechanic-card">
-            <div class="mechanic-icon">🏪</div>
+            <div class="mechanic-icon"><img src="shopeconomy.png" alt="Shop Economy"></div>
             <h3>Shop Economy</h3>
             <p>Gold is scarce. Rerolls cost money, buying costs more, selling loses value. Every shop visit is a resource allocation puzzle layered on top of the scoring puzzle.</p>
           </div>
           <div class="mechanic-card">
-            <div class="mechanic-icon">📈</div>
+            <div class="mechanic-icon"><img src="blind_scaling.png" alt="Blind Scaling"></div>
             <h3>Blind Scaling</h3>
             <p>Score targets scale faster than the player's natural power growth, creating a steady pressure that forces the build to come online at the right time.</p>
           </div>
@@ -910,7 +1097,107 @@
 </section>
 
 <!-- ══════════════════════════════════════════
-     GAME 2 — POKÉMON RPG
+     GAME 2 — TRIALS OF THE DUNGEON
+═══════════════════════════════════════════ -->
+<section id="trials">
+  <div class="container">
+    <div class="game-section-layout">
+
+      <div class="game-meta-col">
+        <span class="badge badge-done">Finished</span>
+        <h2 style="margin-top:12px;">Trials of the Dungeon</h2>
+        <p class="concept">
+          A cooperative board game for up to 4 players. A group of trapped explorers must navigate a randomly generated dungeon, gear up, level their characters, and grow strong enough to defeat the final boss — The Slime King. Designed and produced as a physical product for the Game Design course.
+        </p>
+        <div class="game-info-row">
+          <div class="game-info-item"><span class="game-info-key">Type</span><span class="game-info-val">Physical Board Game</span></div>
+          <div class="game-info-item"><span class="game-info-key">Players</span><span class="game-info-val">1–4</span></div>
+          <div class="game-info-item"><span class="game-info-key">Course</span><span class="game-info-val">Game Design</span></div>
+          <div class="game-info-item"><span class="game-info-key">Role</span><span class="game-info-val">Lead Designer</span></div>
+          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">Complete · Physical Product</span></div>
+        </div>
+        <div style="margin-top:20px;">
+          <a href="https://drive.google.com/file/d/1UjtLMn78_mtpdFaLG9MSJMtV2HCodpDk/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%; justify-content:center;">
+            📖 Read the Rulebook
+          </a>
+        </div>
+        <div style="margin-top:16px;">
+          <img src="hero_cards.png" alt="Class cards — Witch, Healer, Paladin, Warrior" style="width:100%; border-radius:8px; border:1px solid var(--border);">
+          <p style="font-size:0.7rem; color:var(--muted); text-align:center; margin-top:6px;">Witch · Healer · Paladin · Warrior — the 4 playable classes</p>
+        </div>
+      </div>
+
+      <div class="game-content-col">
+
+        <div class="section-line">Design Pillars</div>
+        <div class="pillars-grid">
+          <div class="pillar">
+            <div class="pillar-num">01</div>
+            <h4>Cooperative Tension</h4>
+            <p>Players share the same win and lose condition. The dungeon is designed to require teamwork — classes cover each other's weaknesses, and the Slime King fight is tuned to punish parties that didn't coordinate.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">02</div>
+            <h4>Class Identity</h4>
+            <p>Each of the four classes plays differently by design. The Warrior tanks, the Healer sustains, the Witch deals spell damage, and the Paladin balances offence and defence. Your class should change how you approach every encounter.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">03</div>
+            <h4>Emergent Exploration</h4>
+            <p>The dungeon is built from a shuffled tile deck drawn during play. No two runs produce the same layout — encounters, shops, and treasures appear in different orders, keeping each session fresh without requiring pre-designed levels.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">04</div>
+            <h4>Meaningful Progression</h4>
+            <p>Gear upgrades, XP, and gold all serve a single purpose: making the party strong enough to survive The Slime King. Every session decision is framed against that goal — pacing the economy was one of the hardest design problems.</p>
+          </div>
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">Key Systems</div>
+        <div class="mechanics-grid">
+          <div class="mechanic-card">
+            <div class="mechanic-icon">🎴</div>
+            <h3>Tile-Based Exploration</h3>
+            <p>Players draw and place tiles each turn — Monster, Treasure, Shop, Trap, or Blacksmith. The dungeon grows organically as players explore, with mandatory tile reveals keeping the threat alive.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">⚔</div>
+            <h3>Combat with Guard & Crit</h3>
+            <p>Monsters have a Guard range (roll required to deal any damage) and a Crit range (roll required for 2× damage). This creates meaningful dice tension even in standard encounters — not just "roll high, win."</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">🏪</div>
+            <h3>Shop & Blacksmith Economy</h3>
+            <p>Gold funds spells from the Shopkeeper and equipment upgrades from the Blacksmith. Equipment degrades with use and must be repaired — creating a resource loop that persists across the whole session.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">👑</div>
+            <h3>The Slime King</h3>
+            <p>The final boss acts as the pacing forcing function — everything in the game is designed around whether the party is ready for it. It has unique abilities not present in regular encounters, rewarding players who spec intentionally.</p>
+          </div>
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">Monsters</div>
+        <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:8px;">
+          <img src="enemy_1.png" alt="Enemy card 1" style="height:160px; border-radius:8px; border:1px solid var(--border);">
+          <img src="enemy_2.png" alt="Enemy card 2" style="height:160px; border-radius:8px; border:1px solid var(--border);">
+          <img src="enemy_3.png" alt="Enemy card 3" style="height:160px; border-radius:8px; border:1px solid var(--border);">
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">Design Note</div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px;">
+          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7;">
+            Trials of the Dungeon is the only physical product in this portfolio — and that distinction matters. Designing for a tabletop means no engine to handle collision, no code to enforce rules, and no UI to communicate information. Everything has to work through the components themselves: the cards, the tiles, the tokens. Writing the rulebook was its own design challenge — clear rules that cover every edge case without being overwhelming is harder than it sounds. As lead designer on a group project, I also had to make decisions others would need to trust, communicate changes mid-production, and ensure the final product felt cohesive. It shipped as a complete, playable game.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     GAME 3 — POKÉMON RPG
 ═══════════════════════════════════════════ -->
 <section id="pokemon">
   <div class="container">
@@ -1445,6 +1732,14 @@
         </div>
       </div>
 
+      <div class="toolbox-card" style="border-color: var(--accent); background: linear-gradient(135deg, var(--surface) 0%, rgba(124,108,255,0.08) 100%);">
+        <div class="toolbox-card-header">
+          <span class="toolbox-icon">🎓</span>
+          <h3>More from Tiltan</h3>
+        </div>
+        <p>There are still many games to come as part of my studies at Tiltan College of Arts. My goal with every game I work on is to make it the most polished, most intentional, and most fun to play. Stay tuned.</p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1468,6 +1763,38 @@
 <footer>
   <p>© 2026 Dekel Riess · Game Designer Portfolio · Updated June 2026</p>
 </footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  // Observe section headers
+  document.querySelectorAll('.section-header').forEach(el => {
+    el.classList.add('reveal');
+    observer.observe(el);
+  });
+
+  // Observe cards with staggered delays
+  document.querySelectorAll('.hub-card, .toolbox-card, .experience-card, .pillar, .mechanic-card, .pm-card, .pm-lesson, .loop-step').forEach((el, i) => {
+    el.classList.add('reveal');
+    const delay = (i % 4) + 1;
+    if (delay > 1) el.classList.add(`reveal-delay-${delay - 1}`);
+    observer.observe(el);
+  });
+
+  // Observe game section layouts
+  document.querySelectorAll('.game-meta-col, .game-content-col').forEach((el, i) => {
+    el.classList.add('reveal');
+    if (i % 2 === 1) el.classList.add('reveal-delay-2');
+    observer.observe(el);
+  });
+</script>
 
 </body>
 </html>
