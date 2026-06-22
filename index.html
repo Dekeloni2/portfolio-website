@@ -1026,9 +1026,12 @@
           <div class="game-info-item"><span class="game-info-key">Scope</span><span class="game-info-val">Solo · Smaller scale</span></div>
           <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">Complete</span></div>
         </div>
-        <div style="margin-top:20px;">
+        <div style="margin-top:20px; display:flex; flex-direction:column; gap:10px;">
           <a href="https://github.com/Dekeloni2/BalatroInCSharp" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%; justify-content:center;">
             ↗ View on GitHub &amp; Download
+          </a>
+          <a href="https://drive.google.com/file/d/1EI0id9EPUtome2YO-fD9UJKxaZQFsXCU/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-secondary" style="width:100%; justify-content:center;">
+            📄 Read Full GDD
           </a>
         </div>
       </div>
@@ -1083,6 +1086,25 @@
             <p>Score targets scale faster than the player's natural power growth, creating a steady pressure that forces the build to come online at the right time.</p>
           </div>
         </div>
+
+        <div class="section-line" style="margin-top:36px;">Design Highlights</div>
+        <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:8px;">
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px;">
+            <h4 style="margin:0 0 6px; font-size:0.9rem; color:var(--accent2);">Score Preview Before Committing</h4>
+            <p style="font-size:0.83rem; color:var(--muted); line-height:1.65; margin:0;">Every play shows a full chips × mult × final score breakdown <em>before</em> the hand is locked in. The player can cancel without spending a hand. This transparency was intentional — players learn the math by reading it every turn, not by memorising a chart.</p>
+          </div>
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px;">
+            <h4 style="margin:0 0 6px; font-size:0.9rem; color:var(--accent2);">Gros Michel's Risk Design</h4>
+            <p style="font-size:0.83rem; color:var(--muted); line-height:1.65; margin:0;">The strongest common Joker (+15 Mult) has a 1-in-6 chance to break permanently after each blind win. It forces a real decision: hold it through a risky late-game blind, or sell it first? A single joker creates meaningful tension without any extra systems.</p>
+          </div>
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px;">
+            <h4 style="margin:0 0 6px; font-size:0.9rem; color:var(--accent2);">Constellation + Planet Synergy Loop</h4>
+            <p style="font-size:0.83rem; color:var(--muted); line-height:1.65; margin:0;">Planet cards level up a hand type and simultaneously grow Constellation's chip multiplier (+0.1× per use). A deliberate positive feedback loop — players who invest in both systems are rewarded exponentially, which makes the combo feel earned rather than overpowered.</p>
+          </div>
+        </div>
+        <p style="font-size:0.78rem; color:var(--accent2); text-align:right; margin-bottom:28px;">
+          <a href="https://drive.google.com/file/d/1EI0id9EPUtome2YO-fD9UJKxaZQFsXCU/view?usp=sharing" target="_blank" rel="noopener" style="color:var(--accent2); text-decoration:none;">Full system documentation in the GDD →</a>
+        </p>
 
         <div class="section-line" style="margin-top:36px;">What I Learned</div>
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px;">
@@ -1156,22 +1178,22 @@
         <div class="section-line" style="margin-top:36px;">Key Systems</div>
         <div class="mechanics-grid">
           <div class="mechanic-card">
-            <div class="mechanic-icon">🎴</div>
+            <div class="mechanic-icon"><img src="tile_based_exploration.png" alt="Tile-Based Exploration"></div>
             <h3>Tile-Based Exploration</h3>
             <p>Players draw and place tiles each turn — Monster, Treasure, Shop, Trap, or Blacksmith. The dungeon grows organically as players explore, with mandatory tile reveals keeping the threat alive.</p>
           </div>
           <div class="mechanic-card">
-            <div class="mechanic-icon">⚔</div>
+            <div class="mechanic-icon"><img src="combat.png" alt="Combat"></div>
             <h3>Combat with Guard & Crit</h3>
             <p>Monsters have a Guard range (roll required to deal any damage) and a Crit range (roll required for 2× damage). This creates meaningful dice tension even in standard encounters — not just "roll high, win."</p>
           </div>
           <div class="mechanic-card">
-            <div class="mechanic-icon">🏪</div>
+            <div class="mechanic-icon"><img src="blacksmith.png" alt="Blacksmith"></div>
             <h3>Shop & Blacksmith Economy</h3>
             <p>Gold funds spells from the Shopkeeper and equipment upgrades from the Blacksmith. Equipment degrades with use and must be repaired — creating a resource loop that persists across the whole session.</p>
           </div>
           <div class="mechanic-card">
-            <div class="mechanic-icon">👑</div>
+            <div class="mechanic-icon"><img src="slime_king.png" alt="Slime King"></div>
             <h3>The Slime King</h3>
             <p>The final boss acts as the pacing forcing function — everything in the game is designed around whether the party is ready for it. It has unique abilities not present in regular encounters, rewarding players who spec intentionally.</p>
           </div>
@@ -1184,11 +1206,50 @@
           <img src="enemy_3.png" alt="Enemy card 3" style="height:160px; border-radius:8px; border:1px solid var(--border);">
         </div>
 
+        <div class="section-line" style="margin-top:36px;">Vendors</div>
+        <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:8px;">
+          <img src="Shopkeeper.png" alt="Shopkeeper card" style="height:160px; border-radius:8px; border:1px solid var(--border);">
+          <img src="Blacksmith (1).png" alt="Blacksmith card" style="height:160px; border-radius:8px; border:1px solid var(--border);">
+        </div>
+
         <div class="section-line" style="margin-top:36px;">Design Note</div>
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px;">
           <p style="font-size:0.85rem; color:var(--muted); line-height:1.7;">
-            Trials of the Dungeon is the only physical product in this portfolio — and that distinction matters. Designing for a tabletop means no engine to handle collision, no code to enforce rules, and no UI to communicate information. Everything has to work through the components themselves: the cards, the tiles, the tokens. Writing the rulebook was its own design challenge — clear rules that cover every edge case without being overwhelming is harder than it sounds. As lead designer on a group project, I also had to make decisions others would need to trust, communicate changes mid-production, and ensure the final product felt cohesive. It shipped as a complete, playable game.
+            Trials of the Dungeon is the only physical product in this portfolio — and that distinction matters. Designing for a tabletop means no engine to handle collision, no code to enforce rules, and no UI to communicate information. Everything has to work through the components themselves: the cards, the tiles, the tokens. The economy was built around two gold sinks — the Shopkeeper for consumables and the Blacksmith for upgrades — designed to create constant tension between saving and spending. Writing the rulebook was its own design challenge — clear rules that cover every edge case without being overwhelming is harder than it sounds. As lead designer on a group project, I also had to make decisions others would need to trust, communicate changes mid-production, and ensure the final product felt cohesive. It shipped as a complete, playable game.
           </p>
+        </div>
+
+        <div style="margin-top:80px; padding-top:64px; border-top:1px solid var(--border);">
+          <span class="label">Post Mortem</span>
+          <h2 style="margin-bottom:10px;">Judge Feedback &amp; Reflection</h2>
+          <p style="color:var(--muted); max-width:640px; margin-bottom:40px;">
+            Trials of the Dungeon was presented to a panel of judges. Here's what they flagged, what they praised, and what I'd do differently.
+          </p>
+
+          <div class="postmortem-grid">
+            <div class="pm-card pm-good">
+              <h4>What Worked</h4>
+              <ul>
+                <li>Combat was praised for its simplicity — roll a dice, resolve the outcome. No overcomplicated systems blocking the fun. Judges noted this was the right call for a board game.</li>
+                <li>Character progression was implemented and designed correctly — players felt meaningful growth across the session without it feeling arbitrary.</li>
+                <li>The objective is clear and well-designed. Players always know what they're working toward: get strong enough to defeat The Slime King. No ambiguity in the win condition.</li>
+              </ul>
+            </div>
+            <div class="pm-card pm-bad">
+              <h4>What Didn't / Would Change</h4>
+              <ul>
+                <li>Both the tile deck and the monsters should have been seeded. In a fully shuffled deck, players could encounter a powerful monster extremely early with no way to beat it. Seeding both — controlling the order tiles appear and which monsters the player faces at what point — would have created a much more consistent and fair progression curve.</li>
+                <li>The values for both spells and monster HP were too high. Numbers need more careful playtesting and iteration before they feel right. Balance was the weakest part of the design.</li>
+                <li>Board game players want to do as little reading as possible. Spell instructions written in text were a friction point — custom icons to convey spell effects would have dramatically improved the play experience.</li>
+              </ul>
+            </div>
+            <div class="pm-lesson">
+              <h4>Key Takeaway</h4>
+              <p>
+                Physical game design punishes unbalanced numbers more than digital design does — there's no patch, no hotfix, no runtime adjustment. The balance issues and readability problems are things that only surface through playtesting with real people, and we didn't do enough of it before the final presentation. The lesson: <em>playtesting isn't a final step — it's the design process itself.</em> Every session with real players should be changing something.
+              </p>
+            </div>
+          </div>
         </div>
 
       </div>
