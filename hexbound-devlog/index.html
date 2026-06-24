@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hexbound — Development Diary</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0d0d0f;
+      --surface:  #141418;
+      --surface2: #1c1c22;
+      --border:   #2a2a34;
+      --accent:   #7c6cff;
+      --accent2:  #a78bfa;
+      --text:     #e8e8f0;
+      --muted:    #888899;
+      --radius:   8px;
+      --max-w:    780px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    a { color: var(--accent2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+    /* ─── Nav ─────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(13,13,15,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .nav-logo {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo .hex-icon {
+      width: 22px; height: 22px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      flex-shrink: 0;
+    }
+    .nav-back {
+      font-size: 0.82rem;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text); text-decoration: none; }
+
+    /* ─── Hero ────────────────────────────────────────────────── */
+    .site-hero {
+      padding: 120px 0 64px;
+      text-align: center;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,108,255,0.1) 0%, transparent 70%);
+    }
+    .site-hero .label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 16px;
+      display: block;
+    }
+    .site-hero h1 {
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--text) 40%, var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .site-hero .subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 480px;
+      margin: 0 auto 28px;
+      line-height: 1.7;
+    }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(124,108,255,0.1);
+      border: 1px solid rgba(124,108,255,0.25);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent2);
+    }
+    .status-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent2);
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* ─── Entry list / index ──────────────────────────────────── */
+    .entry-index {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 48px 0 64px;
+    }
+    .entry-index-header {
+      padding: 16px 24px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .entry-index a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      font-size: 0.88rem;
+      transition: background 0.15s;
+    }
+    .entry-index a:last-child { border-bottom: none; }
+    .entry-index a:hover { background: var(--surface); text-decoration: none; }
+    .entry-index-num { color: var(--accent2); font-weight: 700; font-size: 0.75rem; min-width: 60px; }
+    .entry-index-title { flex: 1; }
+    .entry-index-date { color: var(--muted); font-size: 0.75rem; white-space: nowrap; }
+
+    /* ─── Devlog entry ────────────────────────────────────────── */
+    .devlog-entry {
+      margin-bottom: 80px;
+      scroll-margin-top: 80px;
+    }
+    .devlog-entry-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+    }
+    .devlog-num {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 6px;
+    }
+    .devlog-entry-header h2 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 0;
+    }
+    .devlog-date {
+      font-size: 0.75rem;
+      color: var(--muted);
+      white-space: nowrap;
+      padding-top: 6px;
+    }
+
+    /* ─── Entry body prose ────────────────────────────────────── */
+    .devlog-body {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+    .devlog-body p { margin-bottom: 20px; }
+    .devlog-body p:last-child { margin-bottom: 0; }
+    .devlog-body h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 40px 0 14px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+    .devlog-body strong { color: var(--text); font-weight: 600; }
+    .devlog-body em { color: var(--accent2); font-style: normal; }
+
+    /* Image embed */
+    .devlog-image {
+      margin: 28px 0;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .devlog-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      image-rendering: pixelated;
+    }
+    .devlog-image figcaption {
+      padding: 10px 16px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* Two-up image layout */
+    .devlog-image-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 28px 0;
+    }
+    @media (max-width: 560px) { .devlog-image-row { grid-template-columns: 1fr; } }
+
+    /* ─── Class roster ────────────────────────────────────────── */
+    .class-roster {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+      margin: 24px 0 32px;
+    }
+    .class-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      transition: border-color 0.2s;
+    }
+    .class-card:hover { border-color: var(--accent); }
+    .class-portrait {
+      width: 52px;
+      height: 52px;
+      border-radius: 8px;
+      background: rgba(124,108,255,0.08);
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      overflow: hidden;
+    }
+    .class-portrait img {
+      width: 52px;
+      height: 52px;
+      object-fit: cover;
+      image-rendering: pixelated;
+    }
+    .class-info { flex: 1; min-width: 0; }
+    .class-name { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .class-passive { font-size: 0.74rem; color: var(--muted); line-height: 1.5; }
+    .class-archetype {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 0.63rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent2);
+    }
+
+    /* ─── Keywords ───────────────────────────────────────────── */
+    .keywords-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      margin: 20px 0 32px;
+    }
+    .keyword-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .keyword-term {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent2);
+      margin-bottom: 6px;
+      font-family: monospace;
+      letter-spacing: 0.03em;
+    }
+    .keyword-def {
+      font-size: 0.76rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ─── Card systems ────────────────────────────────────────── */
+    .card-systems-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 20px 0 28px;
+    }
+    @media (max-width: 600px) { .card-systems-grid { grid-template-columns: 1fr; } }
+    .card-system {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .card-system p { margin-bottom: 10px; }
+    .card-system ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .card-system ul li {
+      padding-left: 14px;
+      position: relative;
+    }
+    .card-system ul li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--accent2);
+    }
+    .card-system-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    .card-system-label.exploration {
+      background: rgba(251,146,60,0.12);
+      color: #fb923c;
+      border: 1px solid rgba(251,146,60,0.25);
+    }
+    .card-system-label.battle {
+      background: rgba(239,68,68,0.1);
+      color: #f87171;
+      border: 1px solid rgba(239,68,68,0.2);
+    }
+
+    /* ─── Callout box ─────────────────────────────────────────── */
+    .callout {
+      background: rgba(124,108,255,0.06);
+      border: 1px solid rgba(124,108,255,0.2);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 24px 0;
+    }
+    .callout h4 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--accent2);
+      margin-bottom: 10px;
+    }
+    .callout ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .callout ul li {
+      font-size: 0.82rem;
+      color: var(--muted);
+      padding-left: 16px;
+      position: relative;
+    }
+    .callout ul li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.72rem;
+    }
+    .callout p { font-size: 0.82rem; color: var(--muted); margin-bottom: 0; }
+
+    /* ─── Divider ─────────────────────────────────────────────── */
+    .entry-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 64px 0;
+    }
+
+    /* ─── Footer ──────────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--accent2); }
+
+    /* ─── Scroll reveal ───────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <div class="hex-icon"></div>
+      Hexbound Devlog
+    </div>
+    <a href="../index.html" class="nav-back">← Back to Portfolio</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="site-hero">
+  <div class="container">
+    <span class="label">Development Diary</span>
+    <h1>Hexbound</h1>
+    <p class="subtitle">A hex exploration game with deck-building combat — documented from first idea to finished build.</p>
+    <div class="status-pill">
+      <div class="status-dot"></div>
+      Concept Phase · Not yet in active development
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Entry index -->
+  <div class="entry-index reveal">
+    <div class="entry-index-header">All Entries</div>
+    <a href="#entry-01">
+      <span class="entry-index-num">#01</span>
+      <span class="entry-index-title">Where Did This Game Come From?</span>
+      <span class="entry-index-date">June 2026</span>
+    </a>
+    <!-- Future entries added here -->
+  </div>
+
+  <!-- ─── Entry #01 ──────────────────────────────── -->
+  <article class="devlog-entry reveal" id="entry-01">
+
+    <div class="devlog-entry-header">
+      <div>
+        <div class="devlog-num">Devlog #01</div>
+        <h2>Where Did This Game Come From?</h2>
+      </div>
+      <span class="devlog-date">June 2026</span>
+    </div>
+
+    <div class="devlog-body">
+
+      <p>Before this was a video game, it was a board game.</p>
+
+      <p>A while back I was prototyping something called <strong>Trials of the Dungeon</strong> — a 4-player hex exploration game where you and a teammate work together to find a key and escape a dungeon before the other team does. You'd place hexagon tiles to build the map as you went, flip them to reveal traps or rewards, and when two players met on the same tile, they'd roll dice to fight.</p>
+
+      <div class="devlog-image-row">
+        <figure class="devlog-image">
+          <img src="hexagon_prototype.png" alt="Hex map prototype">
+          <figcaption>Early hex map mockup with player tokens</figcaption>
+        </figure>
+        <figure class="devlog-image">
+          <img src="light_the_way.png" alt="Solo card — Light the Way">
+          <figcaption>Example exploration card — Light the Way (Solo)</figcaption>
+        </figure>
+      </div>
+
+      <p>The game did eventually get made — just not in that form. Trials of the Dungeon pivoted into a tile-based cooperative board game with a final boss fight, and shipped as a physical product. The hex exploration concept got shelved when the design went in a different direction. The assets — character art for eight classes, a hex map mockup, card designs, a rules document — just sat there.</p>
+
+      <p>Recently I started thinking about what it would take to actually revisit that original idea. Somewhere in that process the question shifted from <em>"how do I build this hex board game?"</em> to <em>"what would make this genuinely interesting as a video game?"</em></p>
+
+      <p>The answer that kept coming back: <strong>not the dice.</strong></p>
+
+      <p>Dice combat was always the weakest part of the design. Roll, compare, subtract HP. It works for a board game where you want something fast and physical — in a video game it's a random number generator with extra steps. No skill, no decision-making, nothing that makes the classes feel different in a fight. So I replaced it with a card/deck-building battle system. That one change made everything else click.</p>
+
+      <h3>What the game actually is</h3>
+
+      <p>It's a singleplayer (or 2-player coop) hex exploration game with two layers:</p>
+
+      <p><strong>Exploration</strong> — You build and traverse the hex map yourself. Hexagons are earned as rewards — from combat, events, and cards — and placed wherever you choose. The dungeon isn't generated for you; you author it. <strong>Dormant</strong> hexagons sit on the map with no effect until someone steps on them or a card activates them. Different types do different things: some affect only you, some affect the whole team, some are traps you can hold and play on anyone's turn.</p>
+
+      <p><strong>Combat</strong> — When you land on a battle hexagon, you drop into a card duel against an AI enemy. The deck you bring into that fight is one you've been building the whole run — from three sources: a starting class deck, cards collected by exploring hexagons, and upgrades bought at shop hexagons. The map you build literally shapes how you fight.</p>
+
+      <p>The player-built map is a deliberate design choice. Procedural generation gives you a map to react to — a player-built map gives you a map you're responsible for. Every hexagon placement is a decision: do you place a battle hexagon to earn rewards, or skip it? Do you build toward the shop, or push for the key? Classes like the Baker (who farms food from battle hexagons) and the Bard (who can skip them) now interact with choices you made, not random luck.</p>
+
+      <h3>Keywords</h3>
+
+      <p>Card games live and die by their vocabulary. Here are the terms that matter in Hexbound — defined once, used everywhere:</p>
+
+      <div class="keywords-grid">
+        <div class="keyword-card">
+          <div class="keyword-term">Dormant</div>
+          <div class="keyword-def">A hexagon placed on the map but not yet active. Has no effect until a player steps on it or a card activates it. Most placed hexagons start dormant.</div>
+        </div>
+        <div class="keyword-card">
+          <div class="keyword-term">Activate</div>
+          <div class="keyword-def">To trigger a hexagon's effect — either by stepping on it or through a card ability. Activating reveals what type it is and draws the corresponding card.</div>
+        </div>
+        <div class="keyword-card">
+          <div class="keyword-term">Rotation</div>
+          <div class="keyword-def">A full cycle where all players have taken at least one action. Several class abilities and card effects are measured in rotations rather than turns.</div>
+        </div>
+        <div class="keyword-card">
+          <div class="keyword-term">Solo / Team / Trap</div>
+          <div class="keyword-def">The three exploration card types. Solo affects only you. Team affects all players. Trap is held in hand and can be played on anyone's turn — including enemies.</div>
+        </div>
+      </div>
+
+      <h3>Two separate card systems</h3>
+
+      <p>This is worth being explicit about because it's easy to confuse: there are <strong>two completely separate card systems</strong> in this game, and they serve different purposes.</p>
+
+      <div class="card-systems-grid">
+        <div class="card-system">
+          <div class="card-system-label exploration">Exploration Cards</div>
+          <p>Drawn when you step on a hexagon during exploration. These are never used inside combat — they affect the map itself. There are three types:</p>
+          <ul>
+            <li><strong>Solo</strong> — affects only you. Your call, your consequence.</li>
+            <li><strong>Team</strong> — affects all players. Everyone deals with it.</li>
+            <li><strong>Trap</strong> — held in hand, played on anyone's turn. Good or bad.</li>
+          </ul>
+          <p style="margin-top:12px; font-size:0.8rem;">Example: <em>Light the Way</em> (shown above) is a Solo card — place 3 dormant hexagons anywhere you want, discard what you don't use. Pure exploration utility.</p>
+        </div>
+        <div class="card-system">
+          <div class="card-system-label battle">Battle Deck</div>
+          <p>Your personal combat deck — used exclusively inside battle hexagons. This is the deck-building system. It grows and changes throughout the run from three sources:</p>
+          <ul>
+            <li><strong>Class starter deck</strong> — small and weak, but defines your identity</li>
+            <li><strong>Exploration rewards</strong> — cards added by exploring hexagons</li>
+            <li><strong>Shop upgrades</strong> — buy, upgrade, or remove cards between fights</li>
+          </ul>
+          <p style="margin-top:12px; font-size:0.8rem;">The two systems interact: exploration cards shape the dungeon, which shapes what battle cards you can access.</p>
+        </div>
+      </div>
+
+      <h3>The classes</h3>
+
+      <p>One thing I didn't change from the original prototype is the class roster. The art already existed, and more importantly, the classes are interesting — not because they're powerful, but because they're all <strong>non-combat specialists</strong>. None of these are warriors. That's the point. Each one brings a different economy to the game — sustain, defense, utility, gold — and the card battle system is where those economies pay off.</p>
+
+      <div class="class-roster">
+
+        <div class="class-card">
+          <div class="class-portrait">
+            <img src="img/class_blacksmith.png" alt="Blacksmith" onerror="this.parentElement.innerHTML='⚒'">
+          </div>
+          <div class="class-info">
+            <div class="class-name">Blacksmith</div>
+            <div class="class-passive">Equip 2 armor pieces at once. Starts with an armor-heavy deck.</div>
+            <span class="class-archetype">Defense Economy</span>
+          </div>
+        </div>
+
+        <div class="class-card">
+          <div class="class-portrait">
+            <img src="img/class_bard.png" alt="Bard" onerror="this.parentElement.innerHTML='🎵'">
+          </div>
+          <div class="class-info">
+            <div class="class-name">Bard</div>
+            <div class="class-passive">Skip a battle hexagon once per 2 rotations.</div>
+            <span class="class-archetype">Mobility / Avoidance</span>
+          </div>
+        </div>
+
+        <div class="class-card">
+          <div class="class-portrait">
+            <img src="img/class_baker.png" alt="Baker" onerror="this.parentElement.innerHTML='🍞'">
+          </div>
+          <div class="class-info">
+            <div class="class-name">Baker</div>
+            <div class="class-passive">Obtain 1 random food item per battle hexagon.</div>
+            <span class="class-archetype">Sustain Economy</span>
+          </div>
+        </div>
+
+        <div class="class-card">
+          <div class="class-portrait">
+            <img src="img/class_chemist.png" alt="Chemist" onerror="this.parentElement.innerHTML='⚗'">
+          </div>
+          <div class="class-info">
+            <div class="class-name">Chemist</div>
+            <div class="class-passive">Obtain 1 potion per team card completed.</div>
+            <span class="class-archetype">Combo Economy</span>
+          </div>
+        </div>
+
+        <div class="class-card">
+          <div class="class-portrait">
+            <img src="img/class_trickster.png" alt="Trickster" onerror="this.parentElement.innerHTML='🃏'">
+          </div>
+          <div class="class-info">
+            <div class="class-name">Trickster</div>
+            <div class="class-passive">Once per rotation, copy a teammate's class skill.</div>
+            <span class="class-archetype">Mirror / Adaptive</span>
+          </div>
+        </div>
+
+        <div class="class-card">
+          <div class="class-portrait">
+            <img src="img/class_wizard.png" alt="Wizard" onerror="this.parentElement.innerHTML='🧙'">
+          </div>
+          <div class="class-info">
+            <div class="class-name">Wizard</div>
+            <div class="class-passive">Potions used during battle grant +1 damage modifier for that battle.</div>
+            <span class="class-archetype">Potion Timing</span>
+          </div>
+        </div>
+
+        <div class="class-card">
+          <div class="class-portrait">
+            <img src="img/class_executioner.png" alt="Executioner" onerror="this.parentElement.innerHTML='🪓'">
+          </div>
+          <div class="class-info">
+            <div class="class-name">Executioner</div>
+            <div class="class-passive">Start with an extra D20 in battle — limited to 3 uses.</div>
+            <span class="class-archetype">High Risk / High Reward</span>
+          </div>
+        </div>
+
+        <div class="class-card">
+          <div class="class-portrait">
+            <img src="img/class_merchant.png" alt="Merchant" onerror="this.parentElement.innerHTML='🪙'">
+          </div>
+          <div class="class-info">
+            <div class="class-name">Merchant</div>
+            <div class="class-passive">Shop restocks as the dungeon is explored. +1 gold per rotation passively. Weak in combat — invaluable to the team.</div>
+            <span class="class-archetype">Idle / Economy Engine</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="callout">
+        <h4>What's next</h4>
+        <ul>
+          <li>Does the hex map feel interesting to explore before combat is involved?</li>
+          <li>Does the card battle system hold up in isolation?</li>
+          <li>Do the two layers actually feed each other, or do they feel disconnected?</li>
+        </ul>
+        <p style="margin-top:10px;">Those are the questions the first prototype needs to answer. When there's something running, that'll be Devlog #2.</p>
+      </div>
+
+    </div>
+  </article>
+  <!-- / Entry #01 -->
+
+</div>
+
+<footer>
+  <p>Hexbound Devlog · <a href="../index.html">Dekel Riess Portfolio</a> · Updated June 2026</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

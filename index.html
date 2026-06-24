@@ -495,6 +495,11 @@
       margin-top: 4px;
     }
 
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
     /* ─── Hero entrance animation ────────────────────────────────── */
     @keyframes heroFadeUp {
       from { opacity: 0; transform: translateY(24px); }
@@ -713,6 +718,10 @@
       <li><a href="#toolbox">Toolbox</a></li>
       <li><a href="#games">Games</a></li>
       <li><a href="#contact">Contact</a></li>
+      <li><a href="hexbound-devlog/index.html" style="color:var(--accent2); display:flex; align-items:center; gap:6px;">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--accent2);animation:pulse 2s ease infinite;flex-shrink:0;"></span>
+        Hexbound Devlog
+      </a></li>
     </ul>
   </div>
 </nav>
@@ -989,6 +998,16 @@
           <span class="tag">2.5D</span><span class="tag">RPG</span><span class="tag">Unity</span>
         </div>
         <span class="hub-arrow">View design breakdown →</span>
+      </a>
+
+      <a href="hexbound-devlog/index.html" class="hub-card" style="border-color: rgba(124,108,255,0.35); background: linear-gradient(135deg, var(--surface) 0%, rgba(124,108,255,0.06) 100%);">
+        <span class="badge badge-plan">Dev Diary ✦</span>
+        <h3>Hexbound</h3>
+        <p>Hex exploration + deck-building combat. Documenting the full process from concept to build — updated as development progresses.</p>
+        <div class="tags">
+          <span class="tag">Hex Exploration</span><span class="tag">Deck Builder</span><span class="tag">Devlog</span>
+        </div>
+        <span class="hub-arrow">Read the devlog →</span>
       </a>
 
       <a href="#upcoming" class="hub-card">
@@ -1632,27 +1651,25 @@
           <h4>What Didn't / Would Change</h4>
           <ul>
             <li>Coordinating design decisions across a three-person team revealed how much a GDD needs to serve different readers. Sections I wrote for myself weren't always clear to the artist or developer — better cross-discipline communication up front would have reduced revision cycles.</li>
-            <li>Communication within the team was inconsistent, and deadlines slipped more than once. As the designer and de facto project lead, I should have established clearer accountability structures earlier — regular check-ins, agreed milestones, and explicit ownership per task. Assuming people would self-manage wasn't enough.</li>
+            <li>Communication within the team was inconsistent, and deadlines slipped more than once. As the designer and de facto project lead, I should have established clearer accountability structures earlier — regular check-ins, agreed milestones, and explicit ownership per task.</li>
             <li>The name changed from "Dice Slayer" to "Dice Bound" during development. A stronger naming process earlier would have avoided this churn in documentation.</li>
             <li>The enemy system is underspecified relative to the player systems. Enemies are mirrored dice, but they need more distinctive design — especially bosses, which currently get the most vague treatment in the GDD.</li>
             <li>The collection systems (pets, map skins, cosmetics) were added late and feel bolted on. A more deliberate retention loop design upfront would have integrated them more cleanly.</li>
           </ul>
         </div>
-        <div class="pm-lesson">
-          <h4>Key Takeaway</h4>
-          <p>
-            Writing a full GDD before a single line of code exists is uncomfortable — you're making decisions without feedback. But the process of documenting every system forced me to find contradictions and gaps I wouldn't have caught until deep in development. The biggest lesson: <em>a GDD isn't a blueprint that gets followed — it's a tool for stress-testing ideas before they're expensive to change.</em> The version of Dice Bound that gets built will differ from this document in important ways, and that's fine. The document's job was to ask every question, not answer them all correctly.
-          </p>
-        </div>
       </div>
-    </div>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px; margin-top:20px;">
+        <h4 style="font-size:0.88rem; font-weight:700; color:var(--accent2); margin-bottom:8px;">Key Takeaway</h4>
+        <p style="font-size:0.82rem; color:var(--muted); line-height:1.7; margin:0;">
+          Writing a full GDD before a single line of code exists is uncomfortable — you're making decisions without feedback. But the process of documenting every system forced me to find contradictions and gaps I wouldn't have caught until deep in development. The biggest lesson: <em>a GDD isn't a blueprint that gets followed — it's a tool for stress-testing ideas before they're expensive to change.</em> The version of Dice Bound that gets built will differ from this document in important ways, and that's fine. The document's job was to ask every question, not answer them all correctly.
+        </p>
+      </div>
 
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     GAME 5 — RUNICRPG
-═══════════════════════════════════════════ -->
+
+<!-- ═══════════════════════════════════════ RunicRPG ═══════════════════════════════════════ -->
 <section id="sidescroller">
   <div class="container">
     <div class="game-section-layout">
@@ -1718,7 +1735,7 @@
           <div class="mechanic-card">
             <div class="mechanic-icon">⚒</div>
             <h3>Crafting System</h3>
-            <p>Every monster in the game drops materials used in crafting. Nothing is junk — the crafting system is designed so that drops from all monsters have potential value, encouraging exploration over farming one zone.</p>
+            <p>Every monster drops materials used in crafting. Nothing is junk — the crafting system is designed so that drops from all monsters have potential value, encouraging exploration over farming one zone.</p>
           </div>
           <div class="mechanic-card">
             <div class="mechanic-icon">🛡</div>
@@ -1744,60 +1761,61 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     FUTURE PROJECTS
-═══════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════ Future Projects ═══════════════════════════════════════ -->
 <section id="upcoming">
   <div class="container">
-    <div class="section-header">
+    <div class="section-header reveal">
       <span class="label">On the Horizon</span>
       <h2>Future Projects</h2>
       <p>Early-stage concepts I'm exploring. Details are sparse by design — these are ideas, not commitments.</p>
     </div>
 
-    <div class="toolbox-grid">
+    <div class="hub-grid reveal">
 
-      <div class="toolbox-card">
-        <div class="toolbox-card-header">
-          <span class="toolbox-icon">🏰</span>
-          <h3>Tactical Tower Defense</h3>
-        </div>
-        <span class="badge badge-plan" style="margin-bottom:12px; display:inline-block;">Concept</span>
+      <div class="hub-card" style="cursor:default;">
+        <div style="font-size:2rem; margin-bottom:12px;">🏰</div>
+        <span class="badge badge-plan">Concept</span>
+        <h3>Tactical Tower Defense</h3>
         <p>You play as the attacking side — an army of monsters assaulting a fortified tower. Waves grow in size and complexity, and the design challenge is flipping the genre's typical perspective: instead of defending, you're coordinating an escalating assault. The tactical layer comes from composing your wave, not placing defenses.</p>
-        <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap;">
+        <div class="tags">
           <span class="tag">Tower Defense</span><span class="tag">Unity</span><span class="tag">Strategy</span>
         </div>
       </div>
 
-      <div class="toolbox-card">
-        <div class="toolbox-card-header">
-          <span class="toolbox-icon">🧩</span>
-          <h3>One-Mechanic Puzzle Game</h3>
-        </div>
-        <span class="badge badge-plan" style="margin-bottom:12px; display:inline-block;">Concept</span>
+      <div class="hub-card" style="cursor:default;">
+        <div style="font-size:2rem; margin-bottom:12px;">🧩</div>
+        <span class="badge badge-plan">Concept</span>
+        <h3>One-Mechanic Puzzle Game</h3>
         <p>A puzzle game built around a single, clearly defined mechanic. The entire design challenge is in restraint — finding the one rule interesting enough to carry a full game, then building levels that explore every implication of it. Emergent complexity from a minimal rule set.</p>
-        <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap;">
+        <div class="tags">
           <span class="tag">Puzzle</span><span class="tag">Unity</span><span class="tag">Mobile</span>
         </div>
       </div>
 
-      <div class="toolbox-card">
-        <div class="toolbox-card-header">
-          <span class="toolbox-icon">📱</span>
-          <h3>Hyper-Casual Mobile Game</h3>
-        </div>
-        <span class="badge badge-plan" style="margin-bottom:12px; display:inline-block;">Concept</span>
+      <div class="hub-card" style="cursor:default;">
+        <div style="font-size:2rem; margin-bottom:12px;">📱</div>
+        <span class="badge badge-plan">Concept</span>
+        <h3>Hyper-Casual Mobile Game</h3>
         <p>A fast, asset-driven hyper-casual mobile game. The goal here is less about deep design and more about understanding the hyper-casual market — short sessions, instant onboarding, and a monetisation loop. A useful exercise in designing for a completely different player mindset.</p>
-        <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap;">
+        <div class="tags">
           <span class="tag">Hyper-Casual</span><span class="tag">Mobile</span><span class="tag">Unity</span>
         </div>
       </div>
 
-      <div class="toolbox-card" style="border-color: var(--accent); background: linear-gradient(135deg, var(--surface) 0%, rgba(124,108,255,0.08) 100%);">
-        <div class="toolbox-card-header">
-          <span class="toolbox-icon">🎓</span>
-          <h3>More from Tiltan</h3>
+      <div class="hub-card" style="cursor:default;">
+        <div style="font-size:2rem; margin-bottom:12px;">🃏</div>
+        <span class="badge badge-plan">Concept</span>
+        <h3>Deck-Building Game</h3>
+        <p>A second take on the deck-building genre — this time with a fully original design direction. Dekelatro proved I understand the formula. This project is about building something that's entirely mine, not inspired by an existing game.</p>
+        <div class="tags">
+          <span class="tag">Deck Builder</span><span class="tag">Roguelite</span><span class="tag">Unity</span>
         </div>
+      </div>
+
+      <div class="hub-card" style="cursor:default; border-color: var(--accent); background: linear-gradient(135deg, var(--surface2) 0%, rgba(124,108,255,0.08) 100%);">
+        <div style="font-size:2rem; margin-bottom:12px;">🎓</div>
+        <span class="badge badge-plan">Tiltan · 2026–2028</span>
+        <h3>More from Tiltan</h3>
         <p>There are still many games to come as part of my studies at Tiltan College of Arts. My goal with every game I work on is to make it the most polished, most intentional, and most fun to play. Stay tuned.</p>
       </div>
 
@@ -1805,57 +1823,27 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     CONTACT
-═══════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════ Contact ═══════════════════════════════════════ -->
 <section id="contact">
   <div class="container">
     <span class="label">Get in touch</span>
     <h2>Let's talk.</h2>
     <p>Open to internships, collaborations, and feedback on work in progress.</p>
     <div class="contact-links">
-      <a href="mailto:dekelriess@gmail.com" class="btn btn-primary">dekelriess@gmail.com</a>
-      <a href="https://www.linkedin.com/in/dekel-riess-39172433b/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn ↗</a>
-      <a href="#dicebound" class="btn btn-ghost">Read the GDD</a>
+      <a href="mailto:dekelriess@gmail.com" class="btn btn-primary">✉ dekelriess@gmail.com</a>
+      <a href="https://linkedin.com/in/dekel-riess-39172433b" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn ↗</a>
+      <a href="https://github.com/Dekeloni2" target="_blank" rel="noopener" class="btn btn-secondary">GitHub</a>
+      <a href="#dicebound" class="btn btn-secondary">Read the GDD</a>
     </div>
+    <p style="margin-top:40px; font-size:0.78rem; color:var(--muted);">© 2026 Dekel Riess · Game Designer Portfolio · Updated June 2026</p>
   </div>
 </section>
 
-<footer>
-  <p>© 2026 Dekel Riess · Game Designer Portfolio · Updated June 2026</p>
-</footer>
-
 <script>
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
-
-  // Observe section headers
-  document.querySelectorAll('.section-header').forEach(el => {
-    el.classList.add('reveal');
-    observer.observe(el);
-  });
-
-  // Observe cards with staggered delays
-  document.querySelectorAll('.hub-card, .toolbox-card, .experience-card, .pillar, .mechanic-card, .pm-card, .pm-lesson, .loop-step').forEach((el, i) => {
-    el.classList.add('reveal');
-    const delay = (i % 4) + 1;
-    if (delay > 1) el.classList.add(`reveal-delay-${delay - 1}`);
-    observer.observe(el);
-  });
-
-  // Observe game section layouts
-  document.querySelectorAll('.game-meta-col, .game-content-col').forEach((el, i) => {
-    el.classList.add('reveal');
-    if (i % 2 === 1) el.classList.add('reveal-delay-2');
-    observer.observe(el);
-  });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
-
 </body>
 </html>
