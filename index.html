@@ -981,9 +981,9 @@
       </a>
 
       <a href="#dicebound" class="hub-card">
-        <span class="badge badge-plan">Planned · Full GDD</span>
+        <span class="badge badge-wip" style="background:rgba(148,163,184,0.12); color:#94a3b8; border-color:rgba(148,163,184,0.3);">Shelved · Full GDD</span>
         <h3>Dice Bound — Idle RPG</h3>
-        <p>Party-based idle battler with dynamic dice roles, spell synergies, and a prestige meta loop.</p>
+        <p>Party-based idle battler with dynamic dice roles, spell synergies, and a prestige meta loop. Shelved after a team post mortem — read why.</p>
         <div class="tags">
           <span class="tag">Idle</span><span class="tag">Auto-Battler</span><span class="tag">Unity</span><span class="tag">Mobile</span>
         </div>
@@ -1458,7 +1458,7 @@
     <div class="game-section-layout">
 
       <div class="game-meta-col">
-        <span class="badge badge-plan">Planned</span>
+        <span class="badge badge-wip" style="background:rgba(148,163,184,0.12); color:#94a3b8; border-color:rgba(148,163,184,0.3);">Shelved</span>
         <p class="concept" style="margin-top:14px;">
           A party-based idle battler where players command a team of living dice, each with unique faces, spells, and roles. Dice roll automatically, but tapping accelerates rolls and triggers more spells — a hybrid idle/active feel.
         </p>
@@ -1631,9 +1631,9 @@
     <!-- ─── POST MORTEM ─── -->
     <div style="margin-top:80px; padding-top:64px; border-top:1px solid var(--border);">
       <span class="label">Post Mortem</span>
-      <h2 style="margin-bottom:10px;">What the Design Process Taught Me</h2>
+      <h2 style="margin-bottom:10px;">Why We Shelved It</h2>
       <p style="color:var(--muted); max-width:640px; margin-bottom:40px;">
-        Dice Bound was built inside a competitive college extracurricular program — one that first-year students rarely get into. The program mentor saw potential and accepted me anyway. A reflection on leading the design process, working with a team, and what I'd do differently.
+        After around two months of work, the team pitched Dice Bound at a pitch night presentation to secure funding. The pitch was rejected. That was the moment we sat down, had an honest conversation, and decided to shelve the project. Here's what we concluded.
       </p>
 
       <div class="postmortem-grid">
@@ -1648,20 +1648,18 @@
           </ul>
         </div>
         <div class="pm-card pm-bad">
-          <h4>What Didn't / Would Change</h4>
+          <h4>Why We Stopped</h4>
           <ul>
-            <li>Coordinating design decisions across a three-person team revealed how much a GDD needs to serve different readers. Sections I wrote for myself weren't always clear to the artist or developer — better cross-discipline communication up front would have reduced revision cycles.</li>
-            <li>Communication within the team was inconsistent, and deadlines slipped more than once. As the designer and de facto project lead, I should have established clearer accountability structures earlier — regular check-ins, agreed milestones, and explicit ownership per task.</li>
-            <li>The name changed from "Dice Slayer" to "Dice Bound" during development. A stronger naming process earlier would have avoided this churn in documentation.</li>
-            <li>The enemy system is underspecified relative to the player systems. Enemies are mirrored dice, but they need more distinctive design — especially bosses, which currently get the most vague treatment in the GDD.</li>
-            <li>The collection systems (pets, map skins, cosmetics) were added late and feel bolted on. A more deliberate retention loop design upfront would have integrated them more cleanly.</li>
+            <li>The developer wasn't ready for mobile. Connecting to cloud services, handling databases, and navigating the mobile deployment pipeline is a significant technical lift — one that would have consumed most of the project's time just to get started.</li>
+            <li>We were missing critical knowledge for mobile game development: no product manager, no monetisation plan, no high-level economy design. These aren't optional — they're load-bearing for a live service game.</li>
+            <li>Attempting to ship something we weren't equipped to ship would have produced a worse game and a worse learning experience than stopping honestly and redirecting.</li>
           </ul>
         </div>
       </div>
       <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px; margin-top:20px;">
-        <h4 style="font-size:0.88rem; font-weight:700; color:var(--accent2); margin-bottom:8px;">Key Takeaway</h4>
+        <h4 style="font-size:0.88rem; font-weight:700; color:var(--accent2); margin-bottom:8px;">What Came Next</h4>
         <p style="font-size:0.82rem; color:var(--muted); line-height:1.7; margin:0;">
-          Writing a full GDD before a single line of code exists is uncomfortable — you're making decisions without feedback. But the process of documenting every system forced me to find contradictions and gaps I wouldn't have caught until deep in development. The biggest lesson: <em>a GDD isn't a blueprint that gets followed — it's a tool for stress-testing ideas before they're expensive to change.</em> The version of Dice Bound that gets built will differ from this document in important ways, and that's fine. The document's job was to ask every question, not answer them all correctly.
+          The team moved on to a new incremental game on Steam — a different concept better matched to the team's current capabilities. Dice Bound itself isn't dead; it's something I plan to return to and complete solo when the time is right. The GDD is done, the design thinking is solid, and the idea is worth seeing through. The biggest takeaway from this experience: <em>knowing when to stop is a design skill, not a failure.</em>
         </p>
       </div>
 
