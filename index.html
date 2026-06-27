@@ -1298,6 +1298,11 @@
           <div class="game-info-item"><span class="game-info-key">Play Time</span><span class="game-info-val">~15 minutes</span></div>
           <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">In Development</span></div>
         </div>
+        <div style="margin-top:20px;">
+          <a href="https://dekeloni2.github.io/monogamepokemon_uml/" target="_blank" rel="noopener" class="btn btn-secondary" style="width:100%; justify-content:center;">
+            🗂 View Architecture UML
+          </a>
+        </div>
       </div>
 
       <div class="game-content-col">
@@ -1371,12 +1376,12 @@
         <span class="badge badge-wip">In Progress</span>
         <h2 style="margin-top:12px;">Android Survival Game</h2>
         <p class="concept">
-          A mobile survival game with a full meta progression loop. The design focus is on session architecture — how to make 5-minute play sessions feel rewarding while also pulling players back day after day through meaningful offline rewards and a deep upgrade economy.
+          A mobile survival game built around a merge-driven progression loop. The player gathers resources, survives, and merges their way up — eventually building a shop that gives their accumulated points a purpose. Getting stronger doesn't require grinding a specific system; it happens naturally from playing well and collecting resources.
         </p>
         <div class="game-info-row">
           <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">Unity</span></div>
           <div class="game-info-item"><span class="game-info-key">Platform</span><span class="game-info-val">Android</span></div>
-          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">Survival · Meta Progression</span></div>
+          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">Survival · Merge</span></div>
           <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">In Development</span></div>
         </div>
       </div>
@@ -1387,54 +1392,210 @@
         <div class="pillars-grid">
           <div class="pillar">
             <div class="pillar-num">01</div>
-            <h4>Session Respect</h4>
-            <p>Every 5-minute session should have a clear start, a meaningful decision, and a satisfying reward. Mobile players shouldn't need to commit to a long session to feel progress.</p>
+            <h4>Survival as the Engine</h4>
+            <p>Staying alive generates points. The longer you survive and the more actively you play, the more you earn — survival isn't just a condition, it's the core reward loop.</p>
           </div>
           <div class="pillar">
             <div class="pillar-num">02</div>
-            <h4>Meta Depth</h4>
-            <p>Individual runs feed into a persistent upgrade system. Each run makes the next one meaningfully different — not just numerically stronger, but strategically broader.</p>
+            <h4>Merge as Progression</h4>
+            <p>Resources and items merge upward into better versions. The player grows stronger naturally through collection and merging, without a separate upgrade menu to gate their power.</p>
           </div>
           <div class="pillar">
             <div class="pillar-num">03</div>
-            <h4>Return Incentives</h4>
-            <p>Offline progress and daily systems create reasons to return. The game should feel like it's working for the player while they're away, not punishing absence.</p>
+            <h4>The Shop as a Goal</h4>
+            <p>Merging far enough eventually produces a shop — an in-world endpoint that gives the player's accumulated points a meaningful use. The shop is something you build, not something you're handed.</p>
           </div>
           <div class="pillar">
             <div class="pillar-num">04</div>
-            <h4>Economy Balance</h4>
-            <p>Resources must have clear sources and sinks. An uncapped economy breaks retention. The upgrade curve should always give players something meaningful to save toward.</p>
+            <h4>Strength from Play</h4>
+            <p>Running around and collecting resources is enough to become significantly more powerful. Skill and engagement are rewarded directly — not gated behind a separate meta system.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">05</div>
+            <h4>Difficulty as a Mechanic</h4>
+            <p>Difficulty scales automatically with survival time — the longer the player stays alive, the harder the game gets. This makes survival time itself a resource: staying in the run longer is always more dangerous, but it's the only way to reach the phases where rare materials drop. The player's real decision is when to stop.</p>
           </div>
         </div>
 
-        <div class="section-line" style="margin-top:36px;">Key Systems</div>
+        <div class="section-line" style="margin-top:36px;">Core Loop</div>
         <div class="mechanics-grid">
           <div class="mechanic-card">
-            <div class="mechanic-icon">🏕</div>
-            <h3>Survival Loop</h3>
-            <p>Gather resources, manage hunger/health, build shelter, survive nights. Each resource type is a separate economy with its own supply and demand drivers.</p>
+            <div class="mechanic-icon">🌿</div>
+            <h3>Gather & Survive</h3>
+            <p>Players collect resources from the world and survive as long as possible. Survival time generates points — the primary currency that feeds into the shop economy.</p>
           </div>
           <div class="mechanic-card">
-            <div class="mechanic-icon">🔁</div>
-            <h3>Meta Progression</h3>
-            <p>Prestige-style reset system — runs end, but permanent upgrades persist across runs. Upgrade trees branch to allow different strategic focuses between runs.</p>
+            <div class="mechanic-icon">🔀</div>
+            <h3>Merge</h3>
+            <p>Resources and items merge together to create higher-tier versions. Merging is how the player upgrades — no separate upgrade screen, just a natural consequence of collecting and combining.</p>
           </div>
           <div class="mechanic-card">
-            <div class="mechanic-icon">🌙</div>
-            <h3>Offline Progress</h3>
-            <p>Passive resource generation while offline, capped to prevent inflation. Returning players see accumulated resources and a summary of what happened while away.</p>
+            <div class="mechanic-icon">⬆️</div>
+            <h3>Upgrade</h3>
+            <p>As players merge and grow stronger, their survivability and resource gain improve. Power scales through engagement — the more you play, the stronger you naturally become.</p>
           </div>
           <div class="mechanic-card">
-            <div class="mechanic-icon">📅</div>
-            <h3>Daily Systems</h3>
-            <p>Daily quests and login rewards create a consistent re-engagement hook. Reward types vary to match different player motivations — some give resources, some give cosmetics.</p>
+            <div class="mechanic-icon">🏪</div>
+            <h3>Shop</h3>
+            <p>Players spend survival points on stat upgrades — flat bonuses early (Attack, Defense, Max HP) and percentage multipliers later (% Attack, % Move Speed). All purchases are run-only: stats reset each session, keeping every run a fresh economy.</p>
           </div>
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">Shop Economy</div>
+
+        <p style="font-size:0.85rem; color:var(--muted); margin-bottom:16px; line-height:1.7;">
+          Points earned from surviving are spent in the shop on stat upgrades. The shop offers two tiers of purchase — flat stats that are affordable early in a run, and percentage multipliers that become meaningful once flat stats are already in place.
+        </p>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;">
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 18px;">
+            <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent2); margin-bottom:8px;">Flat Upgrades</div>
+            <div style="font-size:0.8rem; color:var(--muted); line-height:1.8;">+Max HP<br>+Shield<br>+Attack<br>+Defense</div>
+          </div>
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 18px;">
+            <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent2); margin-bottom:8px;">% Multipliers</div>
+            <div style="font-size:0.8rem; color:var(--muted); line-height:1.8;">+% Attack<br>+% Max HP<br>+% Defense<br>+% Move Speed</div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; margin-bottom:16px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
+          <strong style="color:var(--text);">Run-only by design:</strong> Purchases reset each session. This keeps every run a self-contained economy — the player has to decide how to spend their points with no guarantee of reaching the shop again. It also avoids permanent power creep, meaning the game stays balanced regardless of how many runs a player has completed.
+        </div>
+
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; margin-bottom:36px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
+          <strong style="color:var(--text);">Shop as a crafting gateway:</strong> Beyond stat upgrades, the shop also sells rare materials that can't be reliably farmed from enemies alone — including higher-tier crafting ingredients. This means a player who reaches the shop mid-run can unlock recipes they wouldn't otherwise have access to, creating a direct connection between the shop economy and the crafting progression system.
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">Crafting Progression</div>
+
+        <p style="font-size:0.85rem; color:var(--muted); margin-bottom:20px; line-height:1.7;">
+          Items span five tiers. Each tier gates progress behind a new material source — early tiers use ground pickups, later tiers require actively hunting tougher enemies. Armor stats shift from flat bonuses to percentage multipliers, so a fully geared end-game player feels drastically more powerful than when they started.
+        </p>
+
+        <!-- Materials table -->
+        <div style="overflow-x:auto; margin-bottom:24px;">
+          <table style="width:100%; border-collapse:collapse; font-size:0.8rem;">
+            <thead>
+              <tr style="border-bottom:1px solid var(--border);">
+                <th style="text-align:left; padding:8px 12px; color:var(--accent2); font-weight:600;">Tier</th>
+                <th style="text-align:left; padding:8px 12px; color:var(--accent2); font-weight:600;">Materials</th>
+                <th style="text-align:left; padding:8px 12px; color:var(--accent2); font-weight:600;">Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:8px 12px; color:var(--text); font-weight:600;">T1 — Primitive</td>
+                <td style="padding:8px 12px; color:var(--muted);">Branch, Stone</td>
+                <td style="padding:8px 12px; color:var(--muted);">Ground pickup</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:8px 12px; color:var(--text); font-weight:600;">T2 — Reinforced</td>
+                <td style="padding:8px 12px; color:var(--muted);">Wood Log, Stone Chunk</td>
+                <td style="padding:8px 12px; color:var(--muted);">Harvest with T1 tools</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:8px 12px; color:var(--text); font-weight:600;">T3 — Iron</td>
+                <td style="padding:8px 12px; color:var(--muted);">Zombie Steak, Flower Essence</td>
+                <td style="padding:8px 12px; color:var(--muted);">Regular Zombie drop · 3 Flowers</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:8px 12px; color:var(--text); font-weight:600;">T4 — Crystal</td>
+                <td style="padding:8px 12px; color:var(--muted);">Corrupted Claw</td>
+                <td style="padding:8px 12px; color:var(--muted);">Fast Zombie drop (uncommon)</td>
+              </tr>
+              <tr>
+                <td style="padding:8px 12px; color:var(--text); font-weight:600;">T5 — Void</td>
+                <td style="padding:8px 12px; color:var(--muted);">Dense Bone</td>
+                <td style="padding:8px 12px; color:var(--muted);">Heavy Zombie drop (rare)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Armor stat scaling table -->
+        <div style="overflow-x:auto; margin-bottom:24px;">
+          <table style="width:100%; border-collapse:collapse; font-size:0.8rem;">
+            <thead>
+              <tr style="border-bottom:1px solid var(--border);">
+                <th style="text-align:left; padding:8px 12px; color:var(--accent2); font-weight:600;">Tier</th>
+                <th style="text-align:left; padding:8px 12px; color:var(--accent2); font-weight:600;">Common pieces (Boots, Chest, Helmet, Pants)</th>
+                <th style="text-align:left; padding:8px 12px; color:var(--accent2); font-weight:600;">Rare pieces (Gloves, Shoulders)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:8px 12px; color:var(--text); font-weight:600;">T1</td>
+                <td style="padding:8px 12px; color:var(--muted);">+Defense</td>
+                <td style="padding:8px 12px; color:var(--muted);">Not available</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:8px 12px; color:var(--text); font-weight:600;">T2</td>
+                <td style="padding:8px 12px; color:var(--muted);">+Defense</td>
+                <td style="padding:8px 12px; color:var(--muted);">+Defense, +Attack</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:8px 12px; color:var(--text); font-weight:600;">T3</td>
+                <td style="padding:8px 12px; color:var(--muted);">+Defense, +Attack</td>
+                <td style="padding:8px 12px; color:var(--muted);">+Attack, +Move Speed</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:8px 12px; color:var(--text); font-weight:600;">T4</td>
+                <td style="padding:8px 12px; color:var(--muted);">+Defense, +% Attack</td>
+                <td style="padding:8px 12px; color:var(--muted);">+% Attack, +% Move Speed</td>
+              </tr>
+              <tr>
+                <td style="padding:8px 12px; color:var(--text); font-weight:600;">T5</td>
+                <td style="padding:8px 12px; color:var(--muted);">+% Defense, +% Max HP</td>
+                <td style="padding:8px 12px; color:var(--muted);">+% All Stats (chase item)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; margin-bottom:36px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
+          <strong style="color:var(--text);">Design note — Gloves &amp; Shoulders:</strong> Inspired by MapleStory's equipment rarity curve, Gloves and Shoulders are unavailable in T1 and always require rarer materials than common pieces at the same tier. A T4 or T5 piece is also required as an upgrade ingredient for the next tier — making each step feel earned. Void Shoulders, which boost all stats, are intentionally the hardest item to complete.
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">Difficulty × Loot</div>
+
+        <p style="font-size:0.85rem; color:var(--muted); margin-bottom:20px; line-height:1.7;">
+          The game progresses through four timed difficulty phases — <strong style="color:var(--text);">Easy → Normal → Hard → Expert</strong> — driven by how long the player survives. Rather than purely punishing the player as difficulty rises, each phase also unlocks better drop rates and rarer materials. Surviving longer is risky, but it's the only path to the best loot.
+        </p>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; margin-bottom:28px;">
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 18px;">
+            <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#4ade80; margin-bottom:6px;">Easy</div>
+            <div style="font-size:0.82rem; color:var(--text); font-weight:600; margin-bottom:4px;">Baseline drops</div>
+            <div style="font-size:0.78rem; color:var(--muted); line-height:1.6;">Common materials only. Zombie Steak, Branches, Stones. Low drop chance.</div>
+          </div>
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 18px;">
+            <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#facc15; margin-bottom:6px;">Normal</div>
+            <div style="font-size:0.82rem; color:var(--text); font-weight:600; margin-bottom:4px;">Uncommon unlocks</div>
+            <div style="font-size:0.78rem; color:var(--muted); line-height:1.6;">Drop rates increase. Zombie Tooth and Quartz begin appearing.</div>
+          </div>
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 18px;">
+            <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#f97316; margin-bottom:6px;">Hard</div>
+            <div style="font-size:0.82rem; color:var(--text); font-weight:600; margin-bottom:4px;">Rare tier opens</div>
+            <div style="font-size:0.78rem; color:var(--muted); line-height:1.6;">Corrupted Claw, Infected Blood, Obsidian, and Gems start dropping.</div>
+          </div>
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 18px;">
+            <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#f43f5e; margin-bottom:6px;">Expert</div>
+            <div style="font-size:0.82rem; color:var(--text); font-weight:600; margin-bottom:4px;">Endgame materials</div>
+            <div style="font-size:0.78rem; color:var(--muted); line-height:1.6;">Dense Bone, Zombie Core, Diamond, and Crystal become obtainable.</div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; margin-bottom:36px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
+          <strong style="color:var(--text);">Why this matters:</strong> In most survival games, difficulty is purely a cost — the longer you play, the harder it gets with no offsetting reward. Here, difficulty phase is both a threat and an opportunity. A player who pushes into Expert phase faces tougher, faster enemies, but is the only one who can access T5 materials. This creates a genuine risk/reward tension rather than just a difficulty wall.
         </div>
 
         <div class="section-line" style="margin-top:36px;">Design Focus</div>
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px;">
           <p style="font-size:0.85rem; color:var(--muted); line-height:1.7;">
-            Mobile survival games live and die by their meta loop. The core survival gameplay is the hook, but the meta is the reason players return. My primary design challenge is calibrating offline income: too low and returning feels pointless; too high and the active gameplay loses value. I'm also studying how mobile game economies handle inflation — the difference between a healthy incremental economy and a broken one is a few poorly tuned upgrade multipliers. This project is as much an exercise in numbers design as it is in survival game design.
+            The core design challenge is making the merge chain feel rewarding at every step — not just at the end. Each merge should feel like meaningful progress, not a chore between sessions. The shop as a goal structure also requires careful economy tuning: points need to accumulate at a rate that makes the shop feel earned without being frustrating to reach.
+          </p>
+          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; margin-top:12px;">
+            It's worth noting that most of the design decisions documented here go beyond what the course requires. The pillars, the economy thinking, the attention to how each system feels — none of that was asked of us. It reflects how we approach every project: we want our work to feel complete, considered, and worth playing, regardless of whether it's graded.
           </p>
         </div>
 
