@@ -4,19 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dekel Riess — Game Designer Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* ─── Reset & Base ───────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:       #0d0d0f;
-      --surface:  #141418;
-      --surface2: #1c1c22;
-      --border:   #2a2a34;
-      --accent:   #7c6cff;
-      --accent2:  #a78bfa;
-      --text:     #e8e8f0;
-      --muted:    #888899;
+      --bg:       #07070f;
+      --surface:  #0d0d1a;
+      --surface2: #131320;
+      --border:   #21213a;
+      --accent:   #9333ea;
+      --accent2:  #c084fc;
+      --glow:     rgba(147,51,234,0.25);
+      --text:     #ededf5;
+      --muted:    #7878a0;
       --radius:   8px;
       --max-w:    1100px;
     }
@@ -26,9 +30,20 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
       font-size: 16px;
       line-height: 1.65;
+    }
+
+    /* Subtle film grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.028;
+      pointer-events: none;
+      z-index: 9999;
     }
 
     a { color: var(--accent2); text-decoration: none; }
@@ -38,10 +53,11 @@
     .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
 
     section { padding: 96px 0; }
-    section + section { border-top: 1px solid var(--border); }
+    section + section { border-top: 1px solid transparent; background-image: linear-gradient(var(--bg), var(--bg)), linear-gradient(90deg, transparent, rgba(147,51,234,0.2) 30%, rgba(147,51,234,0.2) 70%, transparent); background-origin: border-box; background-clip: padding-box, border-box; border-top: 1px solid transparent; position: relative; }
+    section + section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(147,51,234,0.25) 30%, rgba(147,51,234,0.25) 70%, transparent); }
 
     h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; line-height: 1.15; }
-    h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; margin-bottom: 12px; }
+    h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; margin-bottom: 12px; }
     h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 6px; }
 
     .label {
@@ -62,9 +78,10 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      background: rgba(13,13,15,0.88);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
+      background: rgba(7,7,15,0.85);
+      backdrop-filter: blur(20px) saturate(1.4);
+      border-bottom: 1px solid rgba(147,51,234,0.18);
+      box-shadow: 0 1px 40px rgba(0,0,0,0.5);
     }
 
     .nav-inner {
@@ -97,8 +114,10 @@
       border: none;
     }
     .btn:hover { opacity: 0.85; text-decoration: none; transform: translateY(-1px); }
-    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), #7c3aed); color: #fff; box-shadow: 0 0 20px rgba(147,51,234,0.35); }
+    .btn-primary:hover { box-shadow: 0 0 32px rgba(147,51,234,0.55); }
     .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-ghost:hover { border-color: rgba(147,51,234,0.5); }
 
     /* ─── Badges ─────────────────────────────────────────────────── */
     .badge {
@@ -133,7 +152,7 @@
       padding: 24px;
       transition: border-color 0.2s, transform 0.2s;
     }
-    .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .card:hover { border-color: rgba(147,51,234,0.6); transform: translateY(-2px); box-shadow: 0 0 24px rgba(147,51,234,0.12); }
 
     /* ─── Pillars ────────────────────────────────────────────────── */
     .pillars-grid {
@@ -360,7 +379,35 @@
       display: flex;
       align-items: center;
       padding-top: 60px;
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,108,255,0.08) 0%, transparent 70%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Animated atmospheric orbs */
+    #hero::before {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(147,51,234,0.14) 0%, transparent 70%);
+      top: -250px; left: -150px;
+      animation: orbDrift 12s ease-in-out infinite;
+      pointer-events: none;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(192,132,252,0.09) 0%, transparent 70%);
+      bottom: -150px; right: -100px;
+      animation: orbDrift 16s ease-in-out infinite reverse;
+      pointer-events: none;
+    }
+    @keyframes orbDrift {
+      0%, 100% { transform: translate(0, 0); }
+      33%       { transform: translate(30px, -20px); }
+      66%       { transform: translate(-20px, 30px); }
     }
 
     .hero-layout {
@@ -375,8 +422,8 @@
       height: 220px;
       border-radius: 50%;
       object-fit: cover;
-      border: 3px solid var(--accent);
-      box-shadow: 0 0 40px rgba(124,108,255,0.2);
+      border: 2px solid rgba(147,51,234,0.6);
+      box-shadow: 0 0 0 6px rgba(147,51,234,0.08), 0 0 60px rgba(147,51,234,0.3);
       flex-shrink: 0;
     }
     @media (max-width: 640px) {
@@ -385,6 +432,7 @@
     }
 
     .hero-name {
+      font-family: 'Playfair Display', Georgia, serif;
       font-size: clamp(3rem, 7vw, 5.5rem);
       font-weight: 800;
       line-height: 1.0;
@@ -394,10 +442,11 @@
     .hero-name .last  {
       display: block;
       font-style: italic;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 60%, #e879f9 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      filter: drop-shadow(0 0 30px rgba(147,51,234,0.4));
     }
 
     .hero-bio { color: var(--muted); font-size: 0.95rem; line-height: 1.75; margin-bottom: 32px; max-width: 420px; }
@@ -426,7 +475,7 @@
       padding: 28px 28px 24px;
       transition: border-color 0.2s;
     }
-    .experience-card:hover { border-color: var(--accent); }
+    .experience-card:hover { border-color: rgba(147,51,234,0.6); box-shadow: 0 0 24px rgba(147,51,234,0.1); }
     .experience-header {
       display: flex;
       justify-content: space-between;
@@ -615,7 +664,7 @@
       position: relative;
       overflow: hidden;
     }
-    .hub-card:hover { border-color: var(--accent); transform: translateY(-3px); text-decoration: none; }
+    .hub-card:hover { border-color: rgba(147,51,234,0.6); transform: translateY(-3px); text-decoration: none; box-shadow: 0 0 28px rgba(147,51,234,0.12); }
     .hub-card::before {
       content: '';
       position: absolute;
