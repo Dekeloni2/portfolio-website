@@ -1012,10 +1012,10 @@
 
       <a href="#pokemon" class="hub-card">
         <span class="badge badge-wip">In Progress</span>
-        <h3>Creature-Collecting RPG</h3>
-        <p>Monster-collecting RPG in MonoGame — creature stats, turn-based combat, and world progression.</p>
+        <h3>TiltanTale</h3>
+        <p>Undertale-inspired RPG in MonoGame — escape Tiltan College, face your teachers as bosses, and find your way back to the overworld.</p>
         <div class="tags">
-          <span class="tag">RPG</span><span class="tag">Turn-Based</span><span class="tag">MonoGame</span>
+          <span class="tag">RPG</span><span class="tag">Bullet Hell</span><span class="tag">MonoGame</span>
         </div>
         <span class="hub-arrow">View design breakdown →</span>
       </a>
@@ -1327,7 +1327,7 @@
 </section>
 
 <!-- ══════════════════════════════════════════
-     GAME 3 — POKÉMON RPG
+     GAME 3 — MONOGAME RPG
 ═══════════════════════════════════════════ -->
 <section id="pokemon">
   <div class="container">
@@ -1335,133 +1335,28 @@
 
       <div class="game-meta-col">
         <span class="badge badge-wip">In Progress</span>
-        <h2 style="margin-top:12px;">Creature-Collecting RPG</h2>
+        <h2 style="margin-top:12px;">TiltanTale</h2>
         <p class="concept">
-          A monster-collecting RPG built in MonoGame with an exclusive 2v2 battle format. Features an elemental reaction system — where your attack's type matters, and your team composition does too. Intentionally small in scope: around 15 minutes of gameplay with 10 obtainable creatures.
+          An Undertale-inspired RPG built in MonoGame. You play as a student who has fallen into Tiltan College of Arts and must navigate the school, face your teachers as bosses, and find a way back to the overworld. Features overworld exploration and a turn-based bullet hell battle system — attack, act, use items, or spare enemies once the right conditions are met.
         </p>
         <div class="game-info-row">
           <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">C# · MonoGame</span></div>
-          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">RPG · Turn-Based</span></div>
-          <div class="game-info-item"><span class="game-info-key">Battle Format</span><span class="game-info-val">Exclusively 2v2</span></div>
+          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">RPG · Bullet Hell</span></div>
+          <div class="game-info-item"><span class="game-info-key">Inspiration</span><span class="game-info-val">Undertale</span></div>
           <div class="game-info-item"><span class="game-info-key">Platform</span><span class="game-info-val">PC</span></div>
-          <div class="game-info-item"><span class="game-info-key">Creatures</span><span class="game-info-val">10 obtainable</span></div>
           <div class="game-info-item"><span class="game-info-key">Play Time</span><span class="game-info-val">~15 minutes</span></div>
           <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">In Development</span></div>
-        </div>
-        <div style="margin-top:20px;">
-          <div style="font-size:0.72rem; color:var(--accent2); font-weight:600; letter-spacing:0.04em; text-transform:uppercase; margin-bottom:4px;">World Maps</div>
-          <div style="font-size:0.72rem; color:var(--muted); margin-bottom:8px;">Designed in Tiled — layout, flow, and encounter zones by me</div>
-          <p style="font-size:0.82rem; color:var(--muted); line-height:1.7; margin-bottom:12px;">Each map is designed to be small enough to fit the game's 15-minute scope while dense enough to feel lived-in — a deliberate nod to the tight, characterful towns of the classic Pok&eacute;mon games. No empty filler tiles; every area has a readable purpose.</p>
-          <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:20px;">
-            <div>
-              <img src="route_1.png" alt="Route 1 map design" style="width:100%; border-radius:8px; border:1px solid var(--border); display:block;"/>
-              <div style="font-size:0.70rem; color:var(--muted); margin-top:4px; text-align:center;">Route 1</div>
-            </div>
-            <div>
-              <img src="town_1.png" alt="Town 1 map design" style="width:100%; border-radius:8px; border:1px solid var(--border); display:block;"/>
-              <div style="font-size:0.70rem; color:var(--muted); margin-top:4px; text-align:center;">Town 1</div>
-            </div>
-          </div>
-        </div>
-        <div style="margin-top:20px;">
-          <div style="font-size:0.72rem; color:var(--accent2); font-weight:600; letter-spacing:0.04em; text-transform:uppercase; margin-bottom:8px;">Architecture UML</div>
-          <div style="border:1px solid var(--border); border-radius:10px; overflow:hidden;">
-            <iframe src="https://dekeloni2.github.io/monogamepokemon_uml/" width="100%" height="320" style="display:block; border:none; background:var(--surface2);" title="Creature RPG Architecture UML"></iframe>
-          </div>
-          <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; font-size:0.72rem; color:var(--muted);">
-            <span style="display:flex; align-items:center; gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:#6c8ebf;display:inline-block;"></span>Core</span>
-            <span style="display:flex; align-items:center; gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:#d6855b;display:inline-block;"></span>Battle</span>
-            <span style="display:flex; align-items:center; gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:#82b366;display:inline-block;"></span>Data</span>
-            <span style="display:flex; align-items:center; gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:#9673a6;display:inline-block;"></span>World</span>
-            <span style="display:flex; align-items:center; gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:#b08050;display:inline-block;"></span>States</span>
-            <span style="display:flex; align-items:center; gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:#6aa84f;display:inline-block;"></span>Entities</span>
-            <span style="display:flex; align-items:center; gap:5px; margin-left:auto;"><span style="width:10px;height:10px;border-radius:2px;background:#999;display:inline-block;"></span>★ Planned</span>
-          </div>
-          <a href="https://dekeloni2.github.io/monogamepokemon_uml/" target="_blank" rel="noopener" style="font-size:0.78rem; color:var(--accent2); text-decoration:none; display:block; text-align:right; margin-top:4px;">Open full view →</a>
         </div>
       </div>
 
       <div class="game-content-col">
-
-        <div class="section-line">Design Pillars</div>
-        <div class="pillars-grid">
-          <div class="pillar">
-            <div class="pillar-num">01</div>
-            <h4>2v2 as the Default</h4>
-            <p>All battles are built for two active creature per side. Team-building, move selection, and targeting are designed from the ground up around that format — not retrofitted from 1v1.</p>
-          </div>
-          <div class="pillar">
-            <div class="pillar-num">02</div>
-            <h4>Elemental Reactions Add Depth</h4>
-            <p>The reaction system rewards players who sequence elements intentionally. It adds a tactical layer without requiring a wiki — the icons on-screen tell you what's primed for a reaction.</p>
-          </div>
-          <div class="pillar">
-            <div class="pillar-num">03</div>
-            <h4>Team Synergy over Power</h4>
-            <p>In 2v2, team composition matters more than individual strength. Covering weaknesses, enabling reactions, and supporting the partner creature create genuinely strategic decisions.</p>
-          </div>
-          <div class="pillar">
-            <div class="pillar-num">04</div>
-            <h4>Readable at a Glance</h4>
-            <p>Status icons, type indicators, and HP bars must be readable with two creature active per side. Visual clarity is a design constraint, not an afterthought.</p>
-          </div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:24px; text-align:center;">
+          <div style="font-size:2rem; margin-bottom:12px;">🚧</div>
+          <p style="font-size:0.88rem; font-weight:600; color:var(--text); margin-bottom:8px;">Section under redesign</p>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.7;">This game is currently pivoting direction. New maps, enemy designs, and design breakdowns are in progress and will be added here as the game takes shape. Check back soon.</p>
         </div>
-
-        <div class="section-line" style="margin-top:36px;">Key Systems</div>
-        <div class="mechanics-grid">
-          <div class="mechanic-card">
-            <div class="mechanic-icon"><img src="elemental_reaction.png" alt="Elemental Reaction"></div>
-            <h3>Elemental Reaction System</h3>
-            <p>When a creature is hit by an elemental attack, it receives a corresponding status icon (e.g. a flame for fire). Being hit by a <em>different</em> element afterwards triggers a reaction between the two — creating emergent combos and a reason to stack elemental hits strategically.</p>
-          </div>
-          <div class="mechanic-card">
-            <div class="mechanic-icon">📊</div>
-            <h3>Stat Architecture</h3>
-            <p>HP, ATK, DEF, Speed. Stats scale with level via a defined formula. Each creature has a base stat spread that encodes its intended role without prescribing it rigidly.</p>
-          </div>
-          <div class="mechanic-card">
-            <div class="mechanic-icon">🌍</div>
-            <h3>World Progression</h3>
-            <p>Linear world with branching encounter paths. Trainer battles gate zone progress, ensuring the player's team keeps pace with the content curve.</p>
-          </div>
-        </div>
-
-        <div class="section-line" style="margin-top:36px;">Creature Design</div>
-        <p style="font-size:0.82rem; color:var(--muted); line-height:1.7; margin-bottom:16px;">All creature sprites are original pixel art drawn by me. Each evolution line was designed with a clear visual throughline — shape, color, and silhouette evolve together to feel like the same creature growing, not three unrelated designs. These are just a few — play the full game to find them all.</p>
-        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:16px;">
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px; text-align:center;">
-            <img src="fire_36.png" alt="Embersaur evolution line" style="width:100%; image-rendering:pixelated; image-rendering:crisp-edges; display:block; margin-bottom:8px;"/>
-            <div style="font-size:0.75rem; font-weight:600; color:var(--text);">Embersaur line</div>
-            <div style="font-size:0.70rem; color:var(--muted);">Fire type · 3 evolutions</div>
-          </div>
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px; text-align:center;">
-            <img src="water_37.png" alt="Spiritine evolution line" style="width:100%; image-rendering:pixelated; image-rendering:crisp-edges; display:block; margin-bottom:8px;"/>
-            <div style="font-size:0.75rem; font-weight:600; color:var(--text);">Spiritine line</div>
-            <div style="font-size:0.70rem; color:var(--muted);">Water type · 3 evolutions</div>
-          </div>
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px; text-align:center;">
-            <img src="normal_64.png" alt="Toddlerbo evolution line" style="width:100%; image-rendering:pixelated; image-rendering:crisp-edges; display:block; margin-bottom:8px;"/>
-            <div style="font-size:0.75rem; font-weight:600; color:var(--text);">Toddlerbo line</div>
-            <div style="font-size:0.70rem; color:var(--muted);">Earth type · 3 evolutions</div>
-          </div>
-        </div>
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px;">
-          <div style="font-size:0.72rem; color:var(--accent2); font-weight:600; letter-spacing:0.04em; text-transform:uppercase; margin-bottom:10px;">Design Process</div>
-          <img src="creature_icons.png" alt="Creature design process — sketch to final sprite" style="width:100%; image-rendering:pixelated; image-rendering:crisp-edges; border-radius:6px; display:block;"/>
-          <p style="font-size:0.78rem; color:var(--muted); margin-top:10px; line-height:1.6;">Starting from a structural concept (dinosaur body, fire tail), the design is annotated before committing to pixel art. Each decision — silhouette, type identity, size relative to its evolution — is made deliberately before a single pixel is placed.</p>
-        </div>
-
-        <div class="section-line" style="margin-top:36px;">Design Challenges</div>
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px;">
-          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7;">
-            A deliberate scope decision defines this project: we are not implementing the advanced mechanics that sit at the margins of the genre — EV/IV training, hidden stat modifiers, or status conditions like Pokérus. These systems are barely surfaced to most players, add significant design and balance complexity, and aren't necessary to deliver a great experience. Cutting them is a conscious design call, not a gap. A smaller, well-executed system is better than a large, half-implemented one.
-          </p>
-          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; margin-top:12px;">
-            The hardest part of designing a creature-style game is the math underneath the surface. Damage formulas, level scaling, and the elemental reaction system all interact in ways that are invisible to the player but critical to balance. MonoGame's lack of built-in systems has also forced me to implement combat flow, state management, and UI logic from first principles — the best possible education in how these systems actually work.
-          </p>
-        </div>
-
       </div>
+
     </div>
   </div>
 </section>
