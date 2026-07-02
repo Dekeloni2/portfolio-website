@@ -680,6 +680,21 @@
     .hub-card p  { font-size: 0.82rem; color: var(--muted); margin: 0; }
     .hub-arrow   { color: var(--accent2); font-size: 0.82rem; margin-top: 4px; }
 
+    .hub-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(147,51,234,0.16), rgba(192,132,252,0.08));
+      border: 1px solid rgba(147,51,234,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .hub-icon svg { width: 22px; height: 22px; stroke: var(--accent2); fill: none; stroke-width: 1.6; }
+    .hub-card:hover .hub-icon { border-color: rgba(147,51,234,0.6); background: linear-gradient(135deg, rgba(147,51,234,0.28), rgba(192,132,252,0.14)); }
+
     /* ─── Skills columns ─────────────────────────────────────────── */
     .skills-cols {
       display: grid;
@@ -991,6 +1006,7 @@
     <div class="hub-grid">
 
       <a href="#balatro" class="hub-card">
+        <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M12 8l3 4-3 4-3-4z"/></svg></div>
         <span class="badge badge-done">Finished</span>
         <h3>Dekelatro</h3>
         <p>Poker-roguelite scoring mechanics, run pacing, and risk/reward economy — built solo in C#.</p>
@@ -1001,6 +1017,7 @@
       </a>
 
       <a href="#trials" class="hub-card">
+        <div class="hub-icon" style="background:none; border:none; padding:0; overflow:hidden;"><img src="trials_of_the_dungeon.png" alt="Trials of the Dungeon" style="width:100%; height:100%; object-fit:cover; border-radius:10px;"></div>
         <span class="badge badge-done">Finished</span>
         <h3>Trials of the Dungeon</h3>
         <p>Cooperative dungeon-crawl board game — tile exploration, class design, and a final boss fight. Physical product.</p>
@@ -1011,6 +1028,7 @@
       </a>
 
       <a href="#pokemon" class="hub-card">
+        <div class="hub-icon"><img src="tiltan_tale.png" alt="TiltanTale" style="width:60%; height:60%; object-fit:contain;"></div>
         <span class="badge badge-wip">In Progress</span>
         <h3>TiltanTale</h3>
         <p>Undertale-inspired RPG in MonoGame — escape Tiltan College, face your teachers as bosses, and find your way back to the overworld.</p>
@@ -1021,8 +1039,9 @@
       </a>
 
       <a href="#survival" class="hub-card">
+        <div class="hub-icon" style="background:none; border:none; padding:0; overflow:hidden;"><img src="brave_the_wilderness.png" alt="Brave the Wilderness" style="width:100%; height:100%; object-fit:cover; border-radius:10px;"></div>
         <span class="badge badge-wip">In Progress</span>
-        <h3>Android Survival Game</h3>
+        <h3>Brave the Wilderness</h3>
         <p>Mobile survival with full meta progression — session design, offline rewards, and layered economy.</p>
         <div class="tags">
           <span class="tag">Survival</span><span class="tag">Meta Progression</span><span class="tag">Unity</span>
@@ -1031,6 +1050,7 @@
       </a>
 
       <a href="#dicebound" class="hub-card">
+        <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="4.5" width="15" height="15" rx="3"/><circle cx="9" cy="9" r="1" fill="var(--accent2)" stroke="none"/><circle cx="15" cy="9" r="1" fill="var(--accent2)" stroke="none"/><circle cx="9" cy="15" r="1" fill="var(--accent2)" stroke="none"/><circle cx="15" cy="15" r="1" fill="var(--accent2)" stroke="none"/><circle cx="12" cy="12" r="1" fill="var(--accent2)" stroke="none"/></svg></div>
         <span class="badge badge-wip" style="background:rgba(148,163,184,0.12); color:#94a3b8; border-color:rgba(148,163,184,0.3);">Shelved · Full GDD</span>
         <h3>Dice Bound — Idle RPG</h3>
         <p>Party-based idle battler with dynamic dice roles, spell synergies, and a prestige meta loop. Shelved after a team post mortem — read why.</p>
@@ -1041,6 +1061,7 @@
       </a>
 
       <a href="#sidescroller" class="hub-card">
+        <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 18.5L18.5 5.5"/><path d="M15 4l5 5-2 2-5-5z"/><path d="M4 20l1.5-1.5"/></svg></div>
         <span class="badge badge-plan">Planned</span>
         <h3>RunicRPG</h3>
         <p>2D action RPG using the Tiny Sword asset pack — layered combat, meta systems, and world exploration.</p>
@@ -1051,6 +1072,7 @@
       </a>
 
       <a href="hexbound-devlog/index.html" class="hub-card" style="border-color: rgba(124,108,255,0.35); background: linear-gradient(135deg, var(--surface) 0%, rgba(124,108,255,0.06) 100%);">
+        <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 4.3v9.4L12 21l-7.5-4.3V7.3z"/><rect x="10" y="9.5" width="4" height="5.5" rx="0.8"/></svg></div>
         <span class="badge badge-plan">Dev Diary ✦</span>
         <h3>Hexbound</h3>
         <p>Hex exploration + deck-building combat. Documenting the full process from concept to build — updated as development progresses.</p>
@@ -1061,6 +1083,7 @@
       </a>
 
       <a href="#upcoming" class="hub-card">
+        <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M15 9l-2 4.5L9 15l2-4.5z"/></svg></div>
         <span class="badge badge-plan">Planned</span>
         <h3>Future Projects</h3>
         <p>Three early-stage concepts in various states of ideation — from tactical design to hyper-casual mobile.</p>
@@ -1220,6 +1243,8 @@
 
       <div class="game-content-col">
 
+        <img src="trials_of_the_dungeon.png" alt="Trials of the Dungeon" style="width:100%; border-radius:8px; border:1px solid var(--border); margin-bottom:24px;">
+
         <div class="section-line">Design Pillars</div>
         <div class="pillars-grid">
           <div class="pillar">
@@ -1335,7 +1360,10 @@
 
       <div class="game-meta-col">
         <span class="badge badge-wip">In Progress</span>
-        <h2 style="margin-top:12px;">TiltanTale</h2>
+        <div style="display:flex; align-items:center; gap:12px; margin-top:12px;">
+          <img src="tiltan_tale.png" alt="TiltanTale logo" style="width:40px; height:40px; object-fit:contain;">
+          <h2 style="margin:0;">TiltanTale</h2>
+        </div>
         <p class="concept">
           An Undertale-inspired RPG built in MonoGame. You play as a student who has fallen into Tiltan College of Arts and must navigate the school, face your teachers as bosses, and find a way back to the overworld. Features overworld exploration and a turn-based bullet hell battle system — attack, act, use items, or spare enemies once the right conditions are met.
         </p>
@@ -1370,7 +1398,7 @@
 
       <div class="game-meta-col">
         <span class="badge badge-wip">In Progress</span>
-        <h2 style="margin-top:12px;">Android Survival Game</h2>
+        <h2 style="margin-top:12px;">Brave the Wilderness</h2>
         <p class="concept">
           A mobile survival game built around a merge-driven progression loop. The player gathers resources, survives, and merges their way up — eventually building a shop that gives their accumulated points a purpose. Getting stronger doesn't require grinding a specific system; it happens naturally from playing well and collecting resources.
         </p>
@@ -1383,6 +1411,8 @@
       </div>
 
       <div class="game-content-col">
+
+        <img src="brave_the_wilderness.png" alt="Brave the Wilderness gameplay" style="width:100%; border-radius:8px; border:1px solid var(--border); margin-bottom:24px;">
 
         <div class="section-line">Design Pillars</div>
         <div class="pillars-grid">
