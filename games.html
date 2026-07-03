@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dekel Riess — Game Designer Portfolio</title>
+  <title>Games — Dekel Riess</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -826,77 +826,122 @@
   </div>
 </nav>
 
-<section id="hero">
-  <div class="container">
-    <div class="hero-layout">
-
-      <!-- Left: name + bio + CTA -->
-      <div>
-        <span class="label">Game Designer &amp; Developer</span>
-        <h1 class="hero-name">
-          <span class="first">Dekel</span>
-          <span class="last">Riess</span>
-        </h1>
-        <p class="hero-bio">
-          A game designer and developer studying at Tiltan College of Arts who designs systems, writes code, creates pixel art, and edits trailers — covering the full pipeline solo when needed. Driven by creative thinking, a strong sense of ownership, and a track record of building games that feel great to play.
-        </p>
-        <div class="hero-buttons">
-          <a href="games.html" class="btn btn-primary">View Projects ↓</a>
-          <a href="https://www.linkedin.com/in/dekel-riess-39172433b/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn ↗</a>
-          <a href="games/dicebound.html" class="btn btn-ghost">Read GDD</a>
-        </div>
-      </div>
-
-      <!-- Right: photo -->
-      <img src="dekel.png" alt="Dekel Riess" class="hero-photo">
-
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════
-     PORTAL NAV
-═══════════════════════════════════════════ -->
-<section id="portal">
+<section id="games">
   <div class="container">
     <div class="section-header">
-      <span class="label">Explore</span>
-      <h2>Where to next?</h2>
-      <p>Pick a section to dive into — each one is its own page.</p>
+      <span class="label">Portfolio</span>
+      <h2>Games</h2>
+      <p>Click any game to jump to its full design breakdown — concept, mechanics, design pillars, systems, and lessons learned.</p>
     </div>
     <div class="hub-grid">
 
-      <a href="experience.html" class="hub-card">
-        <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 5V3.5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1V5"/><path d="M3 10h18"/></svg></div>
-        <h3>Experience</h3>
-        <p>Community management, live game design, and content creation before the degree.</p>
-        <span class="hub-arrow">View experience →</span>
-      </a>
-
-      <a href="toolbox.html" class="hub-card">
-        <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a3 3 0 1 0-4.2 4.2L3 18v3h3l7.5-7.5a3 3 0 1 0 4.2-4.2z"/></svg></div>
-        <h3>Toolbox</h3>
-        <p>The languages, engines, and tools I use to design, code, and ship games.</p>
-        <span class="hub-arrow">View toolbox →</span>
-      </a>
-
-      <a href="games.html" class="hub-card">
+      <a href="games/balatro.html" class="hub-card">
         <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M12 8l3 4-3 4-3-4z"/></svg></div>
-        <h3>Games</h3>
-        <p>How I think through systems, mechanics, and iteration when designing a game.</p>
-        <span class="hub-arrow">View games →</span>
+        <span class="badge badge-done">Finished</span>
+        <h3>Dekelatro</h3>
+        <p>Poker-roguelite scoring mechanics, run pacing, and risk/reward economy — built solo in C#.</p>
+        <div class="tags">
+          <span class="tag">Card Game</span><span class="tag">Roguelite</span><span class="tag">C#</span>
+        </div>
+        <span class="hub-arrow">View design breakdown →</span>
       </a>
 
-      <a href="prototypes.html" class="hub-card">
+      <a href="games/trials.html" class="hub-card">
+        <div class="hub-icon" style="background:none; border:none; padding:0; overflow:hidden;"><img src="trials_of_the_dungeon.png" alt="Trials of the Dungeon" style="width:100%; height:100%; object-fit:cover; border-radius:10px;"></div>
+        <span class="badge badge-done">Finished</span>
+        <h3>Trials of the Dungeon</h3>
+        <p>Cooperative dungeon-crawl board game — tile exploration, class design, and a final boss fight. Physical product.</p>
+        <div class="tags">
+          <span class="tag">Board Game</span><span class="tag">Cooperative</span><span class="tag">Physical</span>
+        </div>
+        <span class="hub-arrow">View design breakdown →</span>
+      </a>
+
+      <a href="games/pokemon.html" class="hub-card">
+        <div class="hub-icon"><img src="tiltan_tale.png" alt="TiltanTale" style="width:60%; height:60%; object-fit:contain;"></div>
+        <span class="badge badge-wip">In Progress</span>
+        <h3>TiltanTale</h3>
+        <p>Undertale-inspired RPG in MonoGame — escape Tiltan College, face your teachers as bosses, and find your way back to the overworld.</p>
+        <div class="tags">
+          <span class="tag">RPG</span><span class="tag">Bullet Hell</span><span class="tag">MonoGame</span>
+        </div>
+        <span class="hub-arrow">View design breakdown →</span>
+      </a>
+
+      <a href="games/survival.html" class="hub-card">
+        <div class="hub-icon" style="background:none; border:none; padding:0; overflow:hidden;"><img src="brave_the_wilderness.png" alt="Brave the Wilderness" style="width:100%; height:100%; object-fit:cover; border-radius:10px;"></div>
+        <span class="badge badge-wip">In Progress</span>
+        <h3>Brave the Wilderness</h3>
+        <p>Mobile survival with full meta progression — session design, offline rewards, and layered economy.</p>
+        <div class="tags">
+          <span class="tag">Survival</span><span class="tag">Meta Progression</span><span class="tag">Unity</span>
+        </div>
+        <span class="hub-arrow">View design breakdown →</span>
+      </a>
+
+      <a href="games/dicebound.html" class="hub-card">
+        <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="4.5" width="15" height="15" rx="3"/><circle cx="9" cy="9" r="1" fill="var(--accent2)" stroke="none"/><circle cx="15" cy="9" r="1" fill="var(--accent2)" stroke="none"/><circle cx="9" cy="15" r="1" fill="var(--accent2)" stroke="none"/><circle cx="15" cy="15" r="1" fill="var(--accent2)" stroke="none"/><circle cx="12" cy="12" r="1" fill="var(--accent2)" stroke="none"/></svg></div>
+        <span class="badge badge-wip" style="background:rgba(148,163,184,0.12); color:#94a3b8; border-color:rgba(148,163,184,0.3);">Shelved · Full GDD</span>
+        <h3>Dice Bound — Idle RPG</h3>
+        <p>Party-based idle battler with dynamic dice roles, spell synergies, and a prestige meta loop. Shelved after a team post mortem — read why.</p>
+        <div class="tags">
+          <span class="tag">Idle</span><span class="tag">Auto-Battler</span><span class="tag">Unity</span><span class="tag">Mobile</span>
+        </div>
+        <span class="hub-arrow">Read full GDD + post mortem →</span>
+      </a>
+
+      <a href="games/sidescroller.html" class="hub-card">
+        <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 18.5L18.5 5.5"/><path d="M15 4l5 5-2 2-5-5z"/><path d="M4 20l1.5-1.5"/></svg></div>
+        <span class="badge badge-plan">Planned</span>
+        <h3>RunicRPG</h3>
+        <p>2D action RPG using the Tiny Sword asset pack — layered combat, meta systems, and world exploration.</p>
+        <div class="tags">
+          <span class="tag">2.5D</span><span class="tag">RPG</span><span class="tag">Unity</span>
+        </div>
+        <span class="hub-arrow">View design breakdown →</span>
+      </a>
+
+      <a href="hexbound-devlog/index.html" class="hub-card" style="border-color: rgba(124,108,255,0.35); background: linear-gradient(135deg, var(--surface) 0%, rgba(124,108,255,0.06) 100%);">
+        <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 4.3v9.4L12 21l-7.5-4.3V7.3z"/><rect x="10" y="9.5" width="4" height="5.5" rx="0.8"/></svg></div>
+        <span class="badge badge-plan">Dev Diary ✦</span>
+        <h3>Hexbound</h3>
+        <p>Hex exploration + deck-building combat. Documenting the full process from concept to build — updated as development progresses.</p>
+        <div class="tags">
+          <span class="tag">Hex Exploration</span><span class="tag">Deck Builder</span><span class="tag">Devlog</span>
+        </div>
+        <span class="hub-arrow">Read the devlog →</span>
+      </a>
+
+      <a href="prototypes.html#upcoming" class="hub-card">
         <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M15 9l-2 4.5L9 15l2-4.5z"/></svg></div>
-        <h3>Prototypes</h3>
-        <p>Smaller experiments and early-stage concepts, including Pizzapocalypse.</p>
-        <span class="hub-arrow">View prototypes →</span>
+        <span class="badge badge-plan">Planned</span>
+        <h3>Future Projects</h3>
+        <p>Three early-stage concepts in various states of ideation — from tactical design to hyper-casual mobile.</p>
+        <div class="tags">
+          <span class="tag">Tower Defense</span><span class="tag">Puzzle</span><span class="tag">Mobile</span>
+        </div>
+        <span class="hub-arrow">View design breakdown →</span>
       </a>
 
     </div>
   </div>
 </section>
+
+<!-- ═══════════════════════════════════════ Site Nav Footer ═══════════════════════════════════════ -->
+<div class="site-nav-footer">
+  <div class="container">
+    <span class="site-nav-footer-label">Jump to</span>
+    <div class="site-nav-footer-grid">
+      <a href="index.html">Home</a>
+      <a href="experience.html">Experience</a>
+      <a href="toolbox.html">Toolbox</a>
+      <a href="games.html">Games</a>
+      <a href="prototypes.html">Prototypes</a>
+      <a href="#contact">Contact</a>
+      <a href="hexbound-devlog/index.html">Hexbound Devlog</a>
+    </div>
+  </div>
+</div>
 
 <!-- ═══════════════════════════════════════ Contact ═══════════════════════════════════════ -->
 <section id="contact">

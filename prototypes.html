@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dekel Riess — Game Designer Portfolio</title>
+  <title>Prototypes — Dekel Riess</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -826,77 +826,123 @@
   </div>
 </nav>
 
-<section id="hero">
+<section id="prototypes">
   <div class="container">
-    <div class="hero-layout">
+    <div class="section-header reveal">
+      <span class="label">Rapid Prototyping</span>
+      <h2>Prototypes &amp; Jams</h2>
+      <p>Short-scope projects built fast — focused on shipping, collaborating, and learning under constraints.</p>
+    </div>
 
-      <!-- Left: name + bio + CTA -->
+    <div style="display:grid; grid-template-columns:1fr 1.6fr; gap:56px; align-items:start;">
+
       <div>
-        <span class="label">Game Designer &amp; Developer</span>
-        <h1 class="hero-name">
-          <span class="first">Dekel</span>
-          <span class="last">Riess</span>
-        </h1>
-        <p class="hero-bio">
-          A game designer and developer studying at Tiltan College of Arts who designs systems, writes code, creates pixel art, and edits trailers — covering the full pipeline solo when needed. Driven by creative thinking, a strong sense of ownership, and a track record of building games that feel great to play.
-        </p>
-        <div class="hero-buttons">
-          <a href="games.html" class="btn btn-primary">View Projects ↓</a>
-          <a href="https://www.linkedin.com/in/dekel-riess-39172433b/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn ↗</a>
-          <a href="games/dicebound.html" class="btn btn-ghost">Read GDD</a>
+        <span class="badge badge-done">Shipped</span>
+        <h2 style="font-size:1.6rem; margin-top:12px; margin-bottom:10px;">Pizzapocalypse</h2>
+        <p style="color:var(--muted); font-size:0.9rem; margin-bottom:20px;">A top-down survival game built in Construct during a rapid prototyping course. Survive a zombie apocalypse while running pizza deliveries.</p>
+        <div style="display:flex; flex-direction:column; gap:6px; padding-top:20px; border-top:1px solid var(--border);">
+          <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">Construct</span></div>
+          <div class="game-info-item"><span class="game-info-key">Team</span><span class="game-info-val">5 students</span></div>
+          <div class="game-info-item"><span class="game-info-key">My Role</span><span class="game-info-val">All artwork &amp; sprites</span></div>
+          <div class="game-info-item"><span class="game-info-key">Context</span><span class="game-info-val">Rapid Prototyping course</span></div>
         </div>
       </div>
 
-      <!-- Right: photo -->
-      <img src="dekel.png" alt="Dekel Riess" class="hero-photo">
+      <div>
+        <img src="Screenshot_95.png" alt="Pizzapocalypse gameplay screenshot" style="width:100%; border-radius:10px; border:1px solid var(--border); display:block; image-rendering:pixelated; margin-bottom:20px;"/>
+
+        <div class="section-line">Core Loop</div>
+        <div style="display:flex; flex-direction:column; gap:0;">
+          <div class="loop-step"><div class="loop-dot">01</div><span class="loop-step-text">Get an order from the pizzeria</span></div>
+          <div class="loop-connector"></div>
+          <div class="loop-step"><div class="loop-dot">02</div><span class="loop-step-text">Kill zombies to collect ingredients</span></div>
+          <div class="loop-connector"></div>
+          <div class="loop-step"><div class="loop-dot">03</div><span class="loop-step-text">Fill the order</span></div>
+          <div class="loop-connector"></div>
+          <div class="loop-step"><div class="loop-dot">04</div><span class="loop-step-text">Deliver for points — survive as long as possible</span></div>
+        </div>
+      </div>
 
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     PORTAL NAV
-═══════════════════════════════════════════ -->
-<section id="portal">
+<section id="upcoming">
   <div class="container">
-    <div class="section-header">
-      <span class="label">Explore</span>
-      <h2>Where to next?</h2>
-      <p>Pick a section to dive into — each one is its own page.</p>
+    <div class="section-header reveal">
+      <span class="label">On the Horizon</span>
+      <h2>Future Projects</h2>
+      <p>Early-stage concepts I'm exploring. Details are sparse by design — these are ideas, not commitments.</p>
     </div>
-    <div class="hub-grid">
 
-      <a href="experience.html" class="hub-card">
-        <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 5V3.5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1V5"/><path d="M3 10h18"/></svg></div>
-        <h3>Experience</h3>
-        <p>Community management, live game design, and content creation before the degree.</p>
-        <span class="hub-arrow">View experience →</span>
-      </a>
+    <div class="hub-grid reveal">
 
-      <a href="toolbox.html" class="hub-card">
-        <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a3 3 0 1 0-4.2 4.2L3 18v3h3l7.5-7.5a3 3 0 1 0 4.2-4.2z"/></svg></div>
-        <h3>Toolbox</h3>
-        <p>The languages, engines, and tools I use to design, code, and ship games.</p>
-        <span class="hub-arrow">View toolbox →</span>
-      </a>
+      <div class="hub-card" style="cursor:default;">
+        <div style="font-size:2rem; margin-bottom:12px;">🏰</div>
+        <span class="badge badge-plan">Concept</span>
+        <h3>Tactical Tower Defense</h3>
+        <p>You play as the attacking side — an army of monsters assaulting a fortified tower. Waves grow in size and complexity, and the design challenge is flipping the genre's typical perspective: instead of defending, you're coordinating an escalating assault. The tactical layer comes from composing your wave, not placing defenses.</p>
+        <div class="tags">
+          <span class="tag">Tower Defense</span><span class="tag">Unity</span><span class="tag">Strategy</span>
+        </div>
+      </div>
 
-      <a href="games.html" class="hub-card">
-        <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M12 8l3 4-3 4-3-4z"/></svg></div>
-        <h3>Games</h3>
-        <p>How I think through systems, mechanics, and iteration when designing a game.</p>
-        <span class="hub-arrow">View games →</span>
-      </a>
+      <div class="hub-card" style="cursor:default;">
+        <div style="font-size:2rem; margin-bottom:12px;">🧩</div>
+        <span class="badge badge-plan">Concept</span>
+        <h3>One-Mechanic Puzzle Game</h3>
+        <p>A puzzle game built around a single, clearly defined mechanic. The entire design challenge is in restraint — finding the one rule interesting enough to carry a full game, then building levels that explore every implication of it. Emergent complexity from a minimal rule set.</p>
+        <div class="tags">
+          <span class="tag">Puzzle</span><span class="tag">Unity</span><span class="tag">Mobile</span>
+        </div>
+      </div>
 
-      <a href="prototypes.html" class="hub-card">
-        <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M15 9l-2 4.5L9 15l2-4.5z"/></svg></div>
-        <h3>Prototypes</h3>
-        <p>Smaller experiments and early-stage concepts, including Pizzapocalypse.</p>
-        <span class="hub-arrow">View prototypes →</span>
-      </a>
+      <div class="hub-card" style="cursor:default;">
+        <div style="font-size:2rem; margin-bottom:12px;">📱</div>
+        <span class="badge badge-plan">Concept</span>
+        <h3>Hyper-Casual Mobile Game</h3>
+        <p>A fast, asset-driven hyper-casual mobile game. The goal here is less about deep design and more about understanding the hyper-casual market — short sessions, instant onboarding, and a monetisation loop. A useful exercise in designing for a completely different player mindset.</p>
+        <div class="tags">
+          <span class="tag">Hyper-Casual</span><span class="tag">Mobile</span><span class="tag">Unity</span>
+        </div>
+      </div>
+
+      <div class="hub-card" style="cursor:default;">
+        <div style="font-size:2rem; margin-bottom:12px;">🃏</div>
+        <span class="badge badge-plan">Concept</span>
+        <h3>Deck-Building Game</h3>
+        <p>A second take on the deck-building genre — this time with a fully original design direction. Dekelatro proved I understand the formula. This project is about building something that's entirely mine, not inspired by an existing game.</p>
+        <div class="tags">
+          <span class="tag">Deck Builder</span><span class="tag">Roguelite</span><span class="tag">Unity</span>
+        </div>
+      </div>
+
+      <div class="hub-card" style="cursor:default; border-color: var(--accent); background: linear-gradient(135deg, var(--surface2) 0%, rgba(124,108,255,0.08) 100%);">
+        <div style="font-size:2rem; margin-bottom:12px;">🎓</div>
+        <span class="badge badge-plan">Tiltan · 2026–2028</span>
+        <h3>More from Tiltan</h3>
+        <p>There are still many games to come as part of my studies at Tiltan College of Arts. My goal with every game I work on is to make it the most polished, most intentional, and most fun to play. Stay tuned.</p>
+      </div>
 
     </div>
   </div>
 </section>
+
+<!-- ═══════════════════════════════════════ Site Nav Footer ═══════════════════════════════════════ -->
+<div class="site-nav-footer">
+  <div class="container">
+    <span class="site-nav-footer-label">Jump to</span>
+    <div class="site-nav-footer-grid">
+      <a href="index.html">Home</a>
+      <a href="experience.html">Experience</a>
+      <a href="toolbox.html">Toolbox</a>
+      <a href="games.html">Games</a>
+      <a href="prototypes.html">Prototypes</a>
+      <a href="#contact">Contact</a>
+      <a href="hexbound-devlog/index.html">Hexbound Devlog</a>
+    </div>
+  </div>
+</div>
 
 <!-- ═══════════════════════════════════════ Contact ═══════════════════════════════════════ -->
 <section id="contact">

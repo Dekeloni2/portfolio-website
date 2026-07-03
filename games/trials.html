@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dekel Riess — Game Designer Portfolio</title>
+  <title>Trials of the Dungeon — Dekel Riess</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -811,14 +811,14 @@
 
 <nav>
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo" style="text-decoration:none;">Dekel Riess</a>
+    <a href="../index.html" class="nav-logo" style="text-decoration:none;">Dekel Riess</a>
     <ul class="nav-links">
-      <li><a href="experience.html">Experience</a></li>
-      <li><a href="toolbox.html">Toolbox</a></li>
-      <li><a href="games.html">Games</a></li>
-      <li><a href="prototypes.html">Prototypes</a></li>
+      <li><a href="../experience.html">Experience</a></li>
+      <li><a href="../toolbox.html">Toolbox</a></li>
+      <li><a href="../games.html">Games</a></li>
+      <li><a href="../prototypes.html">Prototypes</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="hexbound-devlog/index.html" style="color:var(--accent2); display:flex; align-items:center; gap:6px;">
+      <li><a href="../hexbound-devlog/index.html" style="color:var(--accent2); display:flex; align-items:center; gap:6px;">
         <span style="width:6px;height:6px;border-radius:50%;background:var(--accent2);animation:pulse 2s ease infinite;flex-shrink:0;"></span>
         Hexbound Devlog
       </a></li>
@@ -826,77 +826,167 @@
   </div>
 </nav>
 
-<section id="hero">
+<section id="trials">
   <div class="container">
-    <div class="hero-layout">
+    <div class="game-section-layout">
 
-      <!-- Left: name + bio + CTA -->
-      <div>
-        <span class="label">Game Designer &amp; Developer</span>
-        <h1 class="hero-name">
-          <span class="first">Dekel</span>
-          <span class="last">Riess</span>
-        </h1>
-        <p class="hero-bio">
-          A game designer and developer studying at Tiltan College of Arts who designs systems, writes code, creates pixel art, and edits trailers — covering the full pipeline solo when needed. Driven by creative thinking, a strong sense of ownership, and a track record of building games that feel great to play.
+      <div class="game-meta-col">
+        <span class="badge badge-done">Finished</span>
+        <h2 style="margin-top:12px;">Trials of the Dungeon</h2>
+        <p class="concept">
+          A cooperative board game for up to 4 players. A group of trapped explorers must navigate a randomly generated dungeon, gear up, level their characters, and grow strong enough to defeat the final boss — The Slime King. Designed and produced as a physical product for the Game Design course.
         </p>
-        <div class="hero-buttons">
-          <a href="games.html" class="btn btn-primary">View Projects ↓</a>
-          <a href="https://www.linkedin.com/in/dekel-riess-39172433b/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn ↗</a>
-          <a href="games/dicebound.html" class="btn btn-ghost">Read GDD</a>
+        <div class="game-info-row">
+          <div class="game-info-item"><span class="game-info-key">Type</span><span class="game-info-val">Physical Board Game</span></div>
+          <div class="game-info-item"><span class="game-info-key">Players</span><span class="game-info-val">1–4</span></div>
+          <div class="game-info-item"><span class="game-info-key">Course</span><span class="game-info-val">Game Design</span></div>
+          <div class="game-info-item"><span class="game-info-key">Role</span><span class="game-info-val">Lead Designer</span></div>
+          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">Complete · Physical Product</span></div>
+        </div>
+        <div style="margin-top:20px;">
+          <a href="https://drive.google.com/file/d/1UjtLMn78_mtpdFaLG9MSJMtV2HCodpDk/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%; justify-content:center;">
+            📖 Read the Rulebook
+          </a>
+        </div>
+        <div style="margin-top:16px;">
+          <img src="../hero_cards.png" alt="Class cards — Witch, Healer, Paladin, Warrior" style="width:100%; border-radius:8px; border:1px solid var(--border);">
+          <p style="font-size:0.7rem; color:var(--muted); text-align:center; margin-top:6px;">Witch · Healer · Paladin · Warrior — the 4 playable classes</p>
         </div>
       </div>
 
-      <!-- Right: photo -->
-      <img src="dekel.png" alt="Dekel Riess" class="hero-photo">
+      <div class="game-content-col">
 
+        <div class="section-line">Design Pillars</div>
+        <div class="pillars-grid">
+          <div class="pillar">
+            <div class="pillar-num">01</div>
+            <h4>Cooperative Tension</h4>
+            <p>Players share the same win and lose condition. The dungeon is designed to require teamwork — classes cover each other's weaknesses, and the Slime King fight is tuned to punish parties that didn't coordinate.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">02</div>
+            <h4>Class Identity</h4>
+            <p>Each of the four classes plays differently by design. The Warrior tanks, the Healer sustains, the Witch deals spell damage, and the Paladin balances offence and defence. Your class should change how you approach every encounter.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">03</div>
+            <h4>Emergent Exploration</h4>
+            <p>The dungeon is built from a shuffled tile deck drawn during play. No two runs produce the same layout — encounters, shops, and treasures appear in different orders, keeping each session fresh without requiring pre-designed levels.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">04</div>
+            <h4>Meaningful Progression</h4>
+            <p>Gear upgrades, XP, and gold all serve a single purpose: making the party strong enough to survive The Slime King. Every session decision is framed against that goal — pacing the economy was one of the hardest design problems.</p>
+          </div>
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">Key Systems</div>
+        <div class="mechanics-grid">
+          <div class="mechanic-card">
+            <div class="mechanic-icon"><img src="../tile_based_exploration.png" alt="Tile-Based Exploration"></div>
+            <h3>Tile-Based Exploration</h3>
+            <p>Players draw and place tiles each turn — Monster, Treasure, Shop, Trap, or Blacksmith. The dungeon grows organically as players explore, with mandatory tile reveals keeping the threat alive.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon"><img src="../combat.png" alt="Combat"></div>
+            <h3>Combat with Guard & Crit</h3>
+            <p>Monsters have a Guard range (roll required to deal any damage) and a Crit range (roll required for 2× damage). This creates meaningful dice tension even in standard encounters — not just "roll high, win."</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon"><img src="../blacksmith.png" alt="Blacksmith"></div>
+            <h3>Shop & Blacksmith Economy</h3>
+            <p>Gold funds spells from the Shopkeeper and equipment upgrades from the Blacksmith. Equipment degrades with use and must be repaired — creating a resource loop that persists across the whole session.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon"><img src="../slime_king.png" alt="Slime King"></div>
+            <h3>The Slime King</h3>
+            <p>The final boss acts as the pacing forcing function — everything in the game is designed around whether the party is ready for it. It has unique abilities not present in regular encounters, rewarding players who spec intentionally.</p>
+          </div>
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">Monsters</div>
+        <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:8px;">
+          <img src="../enemy_1.png" alt="Enemy card 1" style="height:160px; border-radius:8px; border:1px solid var(--border);">
+          <img src="../enemy_2.png" alt="Enemy card 2" style="height:160px; border-radius:8px; border:1px solid var(--border);">
+          <img src="../enemy_3.png" alt="Enemy card 3" style="height:160px; border-radius:8px; border:1px solid var(--border);">
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">Vendors</div>
+        <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:8px;">
+          <img src="../Shopkeeper.png" alt="Shopkeeper card" style="height:160px; border-radius:8px; border:1px solid var(--border);">
+          <img src="../Blacksmith (1).png" alt="Blacksmith card" style="height:160px; border-radius:8px; border:1px solid var(--border);">
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">Design Note</div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px;">
+          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7;">
+            Trials of the Dungeon is the only physical product in this portfolio — and that distinction matters. Designing for a tabletop means no engine to handle collision, no code to enforce rules, and no UI to communicate information. Everything has to work through the components themselves: the cards, the tiles, the tokens. The economy was built around two gold sinks — the Shopkeeper for consumables and the Blacksmith for upgrades — designed to create constant tension between saving and spending. Writing the rulebook was its own design challenge — clear rules that cover every edge case without being overwhelming is harder than it sounds. As lead designer on a group project, I also had to make decisions others would need to trust, communicate changes mid-production, and ensure the final product felt cohesive. It shipped as a complete, playable game.
+          </p>
+        </div>
+
+        <div style="margin-top:80px; padding-top:64px; border-top:1px solid var(--border);">
+          <span class="label">Post Mortem</span>
+          <h2 style="margin-bottom:10px;">Judge Feedback &amp; Reflection</h2>
+          <p style="color:var(--muted); max-width:640px; margin-bottom:40px;">
+            Trials of the Dungeon was presented to a panel of judges. Here's what they flagged, what they praised, and what I'd do differently.
+          </p>
+
+          <div class="postmortem-grid">
+            <div class="pm-card pm-good">
+              <h4>What Worked</h4>
+              <ul>
+                <li>Combat was praised for its simplicity — roll a dice, resolve the outcome. No overcomplicated systems blocking the fun. Judges noted this was the right call for a board game.</li>
+                <li>Character progression was implemented and designed correctly — players felt meaningful growth across the session without it feeling arbitrary.</li>
+                <li>The objective is clear and well-designed. Players always know what they're working toward: get strong enough to defeat The Slime King. No ambiguity in the win condition.</li>
+              </ul>
+            </div>
+            <div class="pm-card pm-bad">
+              <h4>What Didn't / Would Change</h4>
+              <ul>
+                <li>Both the tile deck and the monsters should have been seeded. In a fully shuffled deck, players could encounter a powerful monster extremely early with no way to beat it. Seeding both — controlling the order tiles appear and which monsters the player faces at what point — would have created a much more consistent and fair progression curve.</li>
+                <li>The values for both spells and monster HP were too high. Numbers need more careful playtesting and iteration before they feel right. Balance was the weakest part of the design.</li>
+                <li>Board game players want to do as little reading as possible. Spell instructions written in text were a friction point — custom icons to convey spell effects would have dramatically improved the play experience.</li>
+              </ul>
+            </div>
+            <div class="pm-lesson">
+              <h4>Key Takeaway</h4>
+              <p>
+                Physical game design punishes unbalanced numbers more than digital design does — there's no patch, no hotfix, no runtime adjustment. The balance issues and readability problems are things that only surface through playtesting with real people, and we didn't do enough of it before the final presentation. The lesson: <em>playtesting isn't a final step — it's the design process itself.</em> Every session with real players should be changing something.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     PORTAL NAV
-═══════════════════════════════════════════ -->
-<section id="portal">
+<!-- ═══════════════════════════════════════ Site Nav Footer ═══════════════════════════════════════ -->
+<div class="site-nav-footer">
   <div class="container">
-    <div class="section-header">
-      <span class="label">Explore</span>
-      <h2>Where to next?</h2>
-      <p>Pick a section to dive into — each one is its own page.</p>
+    <span class="site-nav-footer-label">Jump to</span>
+    <div class="site-nav-footer-grid">
+      <a href="../index.html">Home</a>
+      <a href="../experience.html">Experience</a>
+      <a href="../toolbox.html">Toolbox</a>
+      <a href="../games.html">Games</a>
+      <a href="../prototypes.html">Prototypes</a>
+      <a href="#contact">Contact</a>
+      <a href="../hexbound-devlog/index.html">Hexbound Devlog</a>
     </div>
-    <div class="hub-grid">
-
-      <a href="experience.html" class="hub-card">
-        <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 5V3.5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1V5"/><path d="M3 10h18"/></svg></div>
-        <h3>Experience</h3>
-        <p>Community management, live game design, and content creation before the degree.</p>
-        <span class="hub-arrow">View experience →</span>
-      </a>
-
-      <a href="toolbox.html" class="hub-card">
-        <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a3 3 0 1 0-4.2 4.2L3 18v3h3l7.5-7.5a3 3 0 1 0 4.2-4.2z"/></svg></div>
-        <h3>Toolbox</h3>
-        <p>The languages, engines, and tools I use to design, code, and ship games.</p>
-        <span class="hub-arrow">View toolbox →</span>
-      </a>
-
-      <a href="games.html" class="hub-card">
-        <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M12 8l3 4-3 4-3-4z"/></svg></div>
-        <h3>Games</h3>
-        <p>How I think through systems, mechanics, and iteration when designing a game.</p>
-        <span class="hub-arrow">View games →</span>
-      </a>
-
-      <a href="prototypes.html" class="hub-card">
-        <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M15 9l-2 4.5L9 15l2-4.5z"/></svg></div>
-        <h3>Prototypes</h3>
-        <p>Smaller experiments and early-stage concepts, including Pizzapocalypse.</p>
-        <span class="hub-arrow">View prototypes →</span>
-      </a>
-
+    <div class="site-nav-footer-games">
+      <span class="site-nav-footer-label">More Games</span>
+      <div class="site-nav-footer-grid">
+        <a href="balatro.html">Dekelatro</a>
+        <a href="pokemon.html">TiltanTale</a>
+        <a href="survival.html">Brave the Wilderness</a>
+        <a href="dicebound.html">Dice Bound</a>
+        <a href="sidescroller.html">RunicRPG</a>
+      </div>
     </div>
   </div>
-</section>
+</div>
 
 <!-- ═══════════════════════════════════════ Contact ═══════════════════════════════════════ -->
 <section id="contact">
@@ -908,7 +998,7 @@
       <a href="mailto:dekelriess@gmail.com" class="btn btn-primary">✉ dekelriess@gmail.com</a>
       <a href="https://linkedin.com/in/dekel-riess-39172433b" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn ↗</a>
       <a href="https://github.com/Dekeloni2" target="_blank" rel="noopener" class="btn btn-secondary">GitHub</a>
-      <a href="games/dicebound.html" class="btn btn-secondary">Read the GDD</a>
+      <a href="dicebound.html" class="btn btn-secondary">Read the GDD</a>
     </div>
     <p style="margin-top:40px; font-size:0.78rem; color:var(--muted);">© 2026 Dekel Riess · Game Designer Portfolio · Updated July 2026</p>
   </div>
