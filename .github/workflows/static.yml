@@ -1,3 +1,4 @@
+```yaml name=static.yml url=https://github.com/Dekeloni2/portfolio-website/blob/8c5a47c9fa59e9be1e2ba2f05c214556abafd736/.github/workflows/static.yml
 # Simple workflow for deploying static content to GitHub Pages
 name: Deploy static content to Pages
 
@@ -44,3 +45,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+```
