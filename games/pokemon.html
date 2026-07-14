@@ -840,7 +840,7 @@
           <h2 style="margin:0;">TiltanTale</h2>
         </div>
         <p class="concept">
-          An Undertale-inspired RPG built in MonoGame. You play as a student who has fallen into Tiltan College of Arts and must navigate the school, face your teachers as bosses, and find a way back to the overworld. Features overworld exploration and a turn-based bullet hell battle system — attack, act, use items, or spare enemies once the right conditions are met.
+          An Undertale-inspired RPG built in MonoGame. You play as a student who has fallen into Tiltan College of Visual Design and Communication and must navigate the school, face your teachers as bosses, and find a way back to the overworld. Features overworld exploration and a turn-based bullet hell battle system — attack, act, use items, or spare enemies once the right conditions are met.
         </p>
         <div class="game-info-row">
           <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">C# · MonoGame</span></div>
@@ -848,21 +848,291 @@
           <div class="game-info-item"><span class="game-info-key">Inspiration</span><span class="game-info-val">Undertale</span></div>
           <div class="game-info-item"><span class="game-info-key">Platform</span><span class="game-info-val">PC</span></div>
           <div class="game-info-item"><span class="game-info-key">Play Time</span><span class="game-info-val">~15 minutes</span></div>
+          <div class="game-info-item"><span class="game-info-key">Team</span><span class="game-info-val">2 people</span></div>
+          <div class="game-info-item"><span class="game-info-key">Role</span><span class="game-info-val">Developer · Lead Gameplay Designer</span></div>
+          <div class="game-info-item"><span class="game-info-key">Owned</span><span class="game-info-val">Narrative, level design, attack patterns, sprites</span></div>
           <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">In Development</span></div>
         </div>
       </div>
 
       <div class="game-content-col">
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:24px; text-align:center;">
-          <div style="font-size:2rem; margin-bottom:12px;">🚧</div>
-          <p style="font-size:0.88rem; font-weight:600; color:var(--text); margin-bottom:8px;">Section under redesign</p>
-          <p style="font-size:0.82rem; color:var(--muted); line-height:1.7;">This game is currently pivoting direction. New maps, enemy designs, and design breakdowns are in progress and will be added here as the game takes shape. Check back soon.</p>
+
+        <div class="section-line">Design Pillars</div>
+        <div class="pillars-grid">
+          <div class="pillar">
+            <div class="pillar-num">01</div>
+            <h4>The Fight Is a Conversation</h4>
+            <p>Every encounter can end in violence or mercy. FIGHT, ACT, ITEM, and SPARE are all valid answers — the player decides whether a teacher is an obstacle to beat or a person to understand. Combat carries narrative weight, not just damage numbers.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">02</div>
+            <h4>Readable, Fair Bullet Hell</h4>
+            <p>Attack patterns are designed to be tough but honest — telegraphed, learnable, and beatable on skill. Difficulty comes from reading the pattern, not from cheap hits. Each boss escalates its patterns as the fight goes on.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">03</div>
+            <h4>Teachers as Bosses</h4>
+            <p>Each boss is a Tiltan College teacher, and their fight reflects who they are — their subject, their personality, their quirks are baked into their attack patterns and dialogue. The school itself is the antagonist and the joke.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">04</div>
+            <h4>Personality in Every Frame</h4>
+            <p>Undertale earned its love through character and tone. TiltanTale leans into that — writing, expressions, and pattern design all serve the humor and heart of being a student trying to escape their own design school.</p>
+          </div>
         </div>
+
+        <div class="section-line" style="margin-top:36px;">Battle System</div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px; margin-bottom:8px;">
+          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; margin-bottom:16px;">
+            Combat alternates between two phases. On your turn you choose an action from the menu; on the enemy's turn, control shifts to your CLOVER — a token you steer through a bullet-hell attack inside the battle box. Survive the pattern, and it's your turn again.
+          </p>
+          <div class="loop-chain">
+            <div class="loop-step"><div class="loop-dot">1</div><div class="loop-step-text">Choose FIGHT · ACT · ITEM · MERCY</div></div>
+            <div class="loop-connector"></div>
+            <div class="loop-step"><div class="loop-dot">2</div><div class="loop-step-text">Enemy turn — dodge the bullet pattern with your CLOVER</div></div>
+            <div class="loop-connector"></div>
+            <div class="loop-step"><div class="loop-dot">3</div><div class="loop-step-text">Read the tell, weave through, take no hits</div></div>
+            <div class="loop-connector"></div>
+            <div class="loop-step"><div class="loop-dot">4</div><div class="loop-step-text">Wear them down — or meet the SPARE condition and end it peacefully</div></div>
+          </div>
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">Core Actions</div>
+        <div class="mechanics-grid">
+          <div class="mechanic-card">
+            <div class="mechanic-icon"><img src="../attack.png" alt="FIGHT"></div>
+            <h3>FIGHT</h3>
+            <p>A timing-based strike, à la Undertale: a marker sweeps across the attack bar and you hit at the right moment — land it dead center to maximize your damage. The straightforward path — but fighting every teacher isn't always the ending you want.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon"><img src="../act.png" alt="ACT"></div>
+            <h3>ACT</h3>
+            <p>Talk, observe, or interact in boss-specific ways. The right ACTs change the fight, soften a teacher, and open the path to sparing them.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon"><img src="../item.png" alt="ITEM"></div>
+            <h3>ITEM</h3>
+            <p>Heal and use consumables collected through the school. Resource management matters when a boss has a long, escalating pattern set.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon"><img src="../mercy.png" alt="MERCY"></div>
+            <h3>MERCY</h3>
+            <p>Spare an enemy once its condition is met. Ending a fight without a knockout is its own kind of win — and shapes how the school responds to you.</p>
+          </div>
+        </div>
+
       </div>
 
     </div>
+
+    <!-- ═══ Attack Pattern Showcase ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">Attack Patterns — In Motion</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:640px; margin-bottom:28px;">
+        The bullet-hell patterns are the heart of every boss fight — designed to be readable, escalating, and fair. Each one telegraphs before it strikes, rewarding players who learn the tell. Gameplay clips are on the way.
+      </p>
+
+      <div class="coming-soon">
+        <div class="coming-soon-icon">◆</div>
+        <div>
+          <p class="coming-soon-title">Gameplay footage coming soon</p>
+          <p class="coming-soon-sub">Attack-pattern clips will be added once the game's sound and sprites are finalized.</p>
+        </div>
+      </div>
+
+      <!-- GIF slots — restore this block (and delete .coming-soon above) once footage is ready:
+      <div class="gif-showcase">
+        <figure class="gif-slot">
+          <img src="../tiltantale_attack1.gif" alt="TiltanTale attack pattern 1" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop tiltantale_attack1.gif here</span></div>
+          <figcaption>Pattern 01 — <span>name / boss</span></figcaption>
+        </figure>
+        <figure class="gif-slot">
+          <img src="../tiltantale_attack2.gif" alt="TiltanTale attack pattern 2" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop tiltantale_attack2.gif here</span></div>
+          <figcaption>Pattern 02 — <span>name / boss</span></figcaption>
+        </figure>
+        <figure class="gif-slot">
+          <img src="../tiltantale_attack3.gif" alt="TiltanTale attack pattern 3" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop tiltantale_attack3.gif here</span></div>
+          <figcaption>Pattern 03 — <span>name / boss</span></figcaption>
+        </figure>
+      </div>
+      -->
+    </div>
+
+    <!-- ═══ Narrative Design ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">Narrative Design</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:660px; margin-bottom:28px;">
+        TiltanTale is built around a story, not just a battle system. You play a student who has fallen into Tiltan and has to find a way back to the overworld — a premise that turns the school itself into the world you fight through. It's designed for replayability: your spare and fight choices open different teacher and NPC dialogue and lead to multiple endings, so no single playthrough sees everything. The narrative is fully implemented in the current build, and the design work below is what shapes how that story is told.
+      </p>
+      <div class="pillars-grid">
+        <div class="pillar">
+          <div class="pillar-num">01</div>
+          <h4>Premise &amp; Hook</h4>
+          <p>A student trapped in their own design school, trying to escape. It's an immediately relatable hook wrapped in an absurd situation — grounded enough to care about, strange enough to be funny. The escape goal gives every room and every boss a clear narrative purpose.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">02</div>
+          <h4>Choice-Driven Story</h4>
+          <p>Because fights can end in a knockout or a spared enemy, the player's choices shape how the school responds to them and how the story reads. The narrative and the combat system aren't separate layers — the way you fight <em>is</em> the way you tell the story.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">03</div>
+          <h4>Character Through Combat</h4>
+          <p>Each teacher-boss reveals who they are through dialogue and how they fight. Personality, subject, and quirks are expressed in-battle, so characterization and mechanics deliver the same beat at the same time — the fight teaches you who this person is.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">04</div>
+          <h4>Tone: Humor with Heart</h4>
+          <p>The writing balances comedy about student life at Tiltan with genuine emotional stakes about wanting out. Holding that tonal line — funny without being hollow — is the core narrative-design challenge, and it's what makes the escape land.</p>
+        </div>
+      </div>
+      <div style="margin-top:28px;">
+        <a href="https://drive.google.com/file/d/1zqWfrjA0Ob6FdtLIK3nvDj8_BYWL_L3j/view" target="_blank" rel="noopener" class="btn btn-primary">Read the full narrative script ↗</a>
+        <p style="font-size:0.78rem; color:var(--muted); margin-top:10px;">The full branching script — every teacher conversation, spare/fight route, and reactive NPC — with tracked state flags.</p>
+      </div>
+    </div>
+
+    <!-- ═══ Map & Level Design ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">Map &amp; Level Design</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:660px; margin-bottom:28px;">
+        The maps of Tiltan were designed and built by hand to realize a specific vision of the school as a navigable space. Level design here is about readability and pacing — guiding the player toward their next goal, placing encounters where they land with impact, and letting the environment tell part of the story. Below are the current maps from the build.
+      </p>
+      <div class="map-showcase">
+
+        <figure class="map-slot">
+          <img src="../entrance.png" alt="TiltanTale — Entrance map" onerror="this.closest('.map-slot').classList.add('gif-missing')">
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">▦</span><span>Drop <code>entrance.png</code> here</span></div>
+          <figcaption>Map 01 — <span>Entrance</span></figcaption>
+        </figure>
+
+        <figure class="map-slot">
+          <img src="../elevator.png" alt="TiltanTale — Elevator map" onerror="this.closest('.map-slot').classList.add('gif-missing')">
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">▦</span><span>Drop <code>elevator.png</code> here</span></div>
+          <figcaption>Map 02 — <span>Elevator</span>
+            <span style="display:block; font-weight:400; color:var(--muted); margin-top:6px; line-height:1.5;">A central hub connecting three floors — Floor 0, Floor 2 (Cloverbite Offices), and Floor 3 (Tiltan College) — letting the elevator gate progression and tie the school's areas together.</span>
+          </figcaption>
+        </figure>
+
+      </div>
+    </div>
+
   </div>
 </section>
+
+<style>
+  .gif-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+  }
+  .gif-slot {
+    margin: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .gif-slot:hover { border-color: rgba(147,51,234,0.6); transform: translateY(-3px); box-shadow: 0 0 28px rgba(147,51,234,0.12); }
+  .gif-slot img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    background: #000;
+    image-rendering: pixelated;
+  }
+  .gif-slot .gif-placeholder { display: none; }
+  .gif-slot.gif-missing img { display: none; }
+  .gif-slot.gif-missing .gif-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    aspect-ratio: 4 / 3;
+    background: repeating-linear-gradient(45deg, rgba(147,51,234,0.04), rgba(147,51,234,0.04) 10px, transparent 10px, transparent 20px);
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 20px;
+  }
+  .gif-placeholder-icon { font-size: 1.4rem; color: var(--accent2); opacity: 0.7; }
+  .gif-placeholder code { color: var(--accent2); font-size: 0.78rem; }
+  .gif-slot figcaption {
+    padding: 12px 16px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .gif-slot figcaption span { color: var(--muted); font-weight: 400; }
+
+  /* Coming-soon panel (footage placeholder for live page) */
+  .coming-soon {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    padding: 26px 30px;
+  }
+  .coming-soon-icon { font-size: 1.6rem; color: var(--accent2); opacity: 0.75; flex-shrink: 0; }
+  .coming-soon-title { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .coming-soon-sub { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+  /* Map slots — show full map, don't crop */
+  .map-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 18px;
+  }
+  .map-slot {
+    margin: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .map-slot:hover { border-color: rgba(147,51,234,0.6); transform: translateY(-3px); box-shadow: 0 0 28px rgba(147,51,234,0.12); }
+  .map-slot img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    background: #05050c;
+    image-rendering: pixelated;
+  }
+  .map-slot .gif-placeholder { display: none; }
+  .map-slot.gif-missing img { display: none; }
+  .map-slot.gif-missing .gif-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    aspect-ratio: 1 / 1;
+    background: repeating-linear-gradient(45deg, rgba(147,51,234,0.04), rgba(147,51,234,0.04) 10px, transparent 10px, transparent 20px);
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 20px;
+  }
+  .map-slot figcaption {
+    padding: 12px 16px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .map-slot figcaption span { color: var(--muted); font-weight: 400; }
+</style>
 
 <!-- ═══════════════════════════════════════ Site Nav Footer ═══════════════════════════════════════ -->
 <div class="site-nav-footer">
@@ -888,7 +1158,7 @@
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════ Contact ═══════════════════════════════════════ -->
+<!-- Contact -->
 <section id="contact">
   <div class="container">
     <span class="label">Get in touch</span>
