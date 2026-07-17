@@ -782,6 +782,25 @@
     body.fade-out { opacity: 0 !important; transition: opacity 0.22s ease; }
     a, .hub-card, .toolbox-card, .card, .experience-card { transition: opacity 0.2s, transform 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s; }
 
+    /* ─── Filter bar ─────────────────────────────────────────────── */
+    .filter-bar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 28px; }
+    .filter-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 13px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      font-family: inherit;
+    }
+    .filter-btn:hover { border-color: rgba(147,51,234,0.5); color: var(--text); }
+    .filter-btn.active { background: rgba(147,51,234,0.18); border-color: var(--accent); color: var(--accent2); }
+    .filter-sep { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--border); margin: 0 2px; user-select: none; }
+    [data-tags].hidden { display: none !important; }
+
     /* ─── Site footer nav ────────────────────────────────────────── */
     .site-nav-footer {
       border-top: 1px solid var(--border);
@@ -836,9 +855,30 @@
       <div style="display:flex; align-items:center; gap:12px;"><img src="joystick.png" alt="" style="width:32px; height:32px; object-fit:contain; filter: drop-shadow(0 0 6px rgba(147,51,234,0.65)) drop-shadow(0 0 12px rgba(192,132,252,0.35));"><h2 style="margin:0;">Games</h2></div>
       <p>Click any game to jump to its full design breakdown — concept, mechanics, design pillars, systems, and lessons learned.</p>
     </div>
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all" onclick="filterItems('all')">All</button>
+      <span class="filter-sep">·</span>
+      <button class="filter-btn" data-filter="roguelite" onclick="filterItems('roguelite')">Roguelite</button>
+      <button class="filter-btn" data-filter="rpg" onclick="filterItems('rpg')">RPG</button>
+      <button class="filter-btn" data-filter="survival" onclick="filterItems('survival')">Survival</button>
+      <button class="filter-btn" data-filter="idle" onclick="filterItems('idle')">Idle</button>
+      <button class="filter-btn" data-filter="board-game" onclick="filterItems('board-game')">Board Game</button>
+      <span class="filter-sep">·</span>
+      <button class="filter-btn" data-filter="pc" onclick="filterItems('pc')">PC</button>
+      <button class="filter-btn" data-filter="mobile" onclick="filterItems('mobile')">Mobile</button>
+      <button class="filter-btn" data-filter="physical" onclick="filterItems('physical')">Physical</button>
+      <span class="filter-sep">·</span>
+      <button class="filter-btn" data-filter="solo" onclick="filterItems('solo')">Solo</button>
+      <button class="filter-btn" data-filter="team" onclick="filterItems('team')">Team</button>
+      <span class="filter-sep">·</span>
+      <button class="filter-btn" data-filter="finished" onclick="filterItems('finished')">Finished</button>
+      <button class="filter-btn" data-filter="in-progress" onclick="filterItems('in-progress')">In Progress</button>
+      <button class="filter-btn" data-filter="shelved" onclick="filterItems('shelved')">Shelved</button>
+    </div>
+
     <div class="hub-grid">
 
-      <a href="games/balatro.html" class="hub-card">
+      <a href="games/balatro.html" class="hub-card" data-tags="roguelite pc solo finished">
         <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M12 8l3 4-3 4-3-4z"/></svg></div>
         <span class="badge badge-done">Finished</span>
         <h3>Dekelatro</h3>
@@ -849,7 +889,7 @@
         <span class="hub-arrow">View design breakdown →</span>
       </a>
 
-      <a href="games/trials.html" class="hub-card">
+      <a href="games/trials.html" class="hub-card" data-tags="board-game physical cooperative team finished">
         <div class="hub-icon" style="background:none; border:none; padding:0; overflow:hidden;"><img src="trials_of_the_dungeon.png" alt="Trials of the Dungeon" style="width:100%; height:100%; object-fit:cover; border-radius:10px;"></div>
         <span class="badge badge-done">Finished</span>
         <h3>Trials of the Dungeon</h3>
@@ -860,7 +900,7 @@
         <span class="hub-arrow">View design breakdown →</span>
       </a>
 
-      <a href="games/pokemon.html" class="hub-card">
+      <a href="games/pokemon.html" class="hub-card" data-tags="rpg narrative bullet-hell pc team in-progress">
         <div class="hub-icon"><img src="tiltan_tale.png" alt="TiltanTale" style="width:60%; height:60%; object-fit:contain;"></div>
         <span class="badge badge-wip">In Progress</span>
         <h3>TiltanTale</h3>
@@ -871,7 +911,7 @@
         <span class="hub-arrow">View design breakdown →</span>
       </a>
 
-      <a href="games/survival.html" class="hub-card">
+      <a href="games/survival.html" class="hub-card" data-tags="survival mobile team in-progress">
         <div class="hub-icon" style="background:none; border:none; padding:0; overflow:hidden;"><img src="brave_the_wilderness.png" alt="Brave the Wilderness" style="width:100%; height:100%; object-fit:cover; border-radius:10px;"></div>
         <span class="badge badge-wip">In Progress</span>
         <h3>Brave the Wilderness</h3>
@@ -882,7 +922,7 @@
         <span class="hub-arrow">View design breakdown →</span>
       </a>
 
-      <a href="games/dicebound.html" class="hub-card">
+      <a href="games/dicebound.html" class="hub-card" data-tags="idle rpg auto-battler mobile team shelved">
         <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="4.5" width="15" height="15" rx="3"/><circle cx="9" cy="9" r="1" fill="var(--accent2)" stroke="none"/><circle cx="15" cy="9" r="1" fill="var(--accent2)" stroke="none"/><circle cx="9" cy="15" r="1" fill="var(--accent2)" stroke="none"/><circle cx="15" cy="15" r="1" fill="var(--accent2)" stroke="none"/><circle cx="12" cy="12" r="1" fill="var(--accent2)" stroke="none"/></svg></div>
         <span class="badge badge-wip" style="background:rgba(148,163,184,0.12); color:#94a3b8; border-color:rgba(148,163,184,0.3);">Shelved · Full GDD</span>
         <h3>Dice Bound — Idle RPG</h3>
@@ -891,17 +931,6 @@
           <span class="tag">Idle</span><span class="tag">Auto-Battler</span><span class="tag">Unity</span><span class="tag">Mobile</span>
         </div>
         <span class="hub-arrow">Read full GDD + post mortem →</span>
-      </a>
-
-      <a href="games/sidescroller.html" class="hub-card">
-        <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 18.5L18.5 5.5"/><path d="M15 4l5 5-2 2-5-5z"/><path d="M4 20l1.5-1.5"/></svg></div>
-        <span class="badge badge-plan">Planned</span>
-        <h3>RunicRPG</h3>
-        <p>2D action RPG using the Tiny Sword asset pack — layered combat, meta systems, and world exploration.</p>
-        <div class="tags">
-          <span class="tag">2.5D</span><span class="tag">RPG</span><span class="tag">Unity</span>
-        </div>
-        <span class="hub-arrow">View design breakdown →</span>
       </a>
 
     </div>
@@ -954,6 +983,15 @@
     document.body.classList.add('fade-out');
     setTimeout(() => { window.location.href = href; }, 200);
   });
+
+  function filterItems(tag) {
+    document.querySelectorAll('[data-tags]').forEach(el => {
+      el.classList.toggle('hidden', tag !== 'all' && !el.dataset.tags.split(' ').includes(tag));
+    });
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.filter === tag);
+    });
+  }
 </script>
 </body>
 </html>

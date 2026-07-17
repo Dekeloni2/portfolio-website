@@ -782,6 +782,26 @@
     body.fade-out { opacity: 0 !important; transition: opacity 0.22s ease; }
     a, .hub-card, .toolbox-card, .card, .experience-card { transition: opacity 0.2s, transform 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s; }
 
+    /* ─── Filter bar ─────────────────────────────────────────────── */
+    .filter-bar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 28px; }
+    .filter-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 13px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      font-family: inherit;
+    }
+    .filter-btn:hover { border-color: rgba(147,51,234,0.5); color: var(--text); }
+    .filter-btn.active { background: rgba(147,51,234,0.18); border-color: var(--accent); color: var(--accent2); }
+    .filter-sep { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--border); margin: 0 2px; user-select: none; }
+    [data-tags].hidden { display: none !important; }
+    .filter-divider-line.hidden { display: none !important; }
+
     /* ─── Site footer nav ────────────────────────────────────────── */
     .site-nav-footer {
       border-top: 1px solid var(--border);
@@ -837,7 +857,71 @@
       <p>Short-scope projects built fast — focused on shipping, collaborating, and learning under constraints.</p>
     </div>
 
-    <div style="display:grid; grid-template-columns:1fr 1.6fr; gap:56px; align-items:start;">
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all" onclick="filterItems('all')">All</button>
+      <span class="filter-sep">·</span>
+      <button class="filter-btn" data-filter="rpg" onclick="filterItems('rpg')">RPG</button>
+      <button class="filter-btn" data-filter="survival" onclick="filterItems('survival')">Survival</button>
+      <button class="filter-btn" data-filter="idle" onclick="filterItems('idle')">Idle</button>
+      <button class="filter-btn" data-filter="auto-battler" onclick="filterItems('auto-battler')">Auto-Battler</button>
+      <button class="filter-btn" data-filter="strategy" onclick="filterItems('strategy')">Strategy</button>
+      <span class="filter-sep">·</span>
+      <button class="filter-btn" data-filter="pc" onclick="filterItems('pc')">PC</button>
+      <button class="filter-btn" data-filter="mobile" onclick="filterItems('mobile')">Mobile</button>
+      <span class="filter-sep">·</span>
+      <button class="filter-btn" data-filter="solo" onclick="filterItems('solo')">Solo</button>
+      <button class="filter-btn" data-filter="team" onclick="filterItems('team')">Team</button>
+      <span class="filter-sep">·</span>
+      <button class="filter-btn" data-filter="shipped" onclick="filterItems('shipped')">Shipped</button>
+      <button class="filter-btn" data-filter="pre-production" onclick="filterItems('pre-production')">Pre-Production</button>
+      <button class="filter-btn" data-filter="concept" onclick="filterItems('concept')">Concept</button>
+    </div>
+
+    <div data-tags="rpg action pc solo pre-production" style="display:grid; grid-template-columns:1fr 1.6fr; gap:56px; align-items:start; margin-bottom:80px;">
+
+      <div>
+        <span class="badge badge-plan">Pre-Production</span>
+        <h2 style="font-size:1.6rem; margin-top:12px; margin-bottom:10px;">RunicRPG</h2>
+        <p style="color:var(--muted); font-size:0.9rem; margin-bottom:20px;">A 2.5D action RPG built in Unity using the Tiny Sword asset pack. Six interlocking systems — runes, crafting, scrolls, NPCs, classes, and armor — designed around one principle: coherence over feature count.</p>
+        <div style="display:flex; flex-direction:column; gap:6px; padding-top:20px; border-top:1px solid var(--border);">
+          <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">Unity</span></div>
+          <div class="game-info-item"><span class="game-info-key">Art</span><span class="game-info-val">Tiny Sword Asset Pack</span></div>
+          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">2.5D · Action RPG</span></div>
+          <div class="game-info-item"><span class="game-info-key">Team</span><span class="game-info-val">Solo</span></div>
+          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">Pre-Production</span></div>
+        </div>
+      </div>
+
+      <div>
+        <img src="runicrpg.png" alt="RunicRPG concept" style="width:100%; border-radius:10px; border:1px solid var(--border); display:block; image-rendering:pixelated; margin-bottom:6px;"/>
+        <p style="font-size:0.7rem; color:var(--muted); text-align:center; margin-bottom:20px;">Very early prototype — work in progress</p>
+
+        <div class="section-line">Planned Systems</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px;">
+            <div style="font-size:0.72rem; font-weight:700; color:var(--accent2); margin-bottom:4px;">🔮 Rune Skill Tree</div>
+            <p style="font-size:0.78rem; color:var(--muted);">Equip runes to unlock and shape your build path.</p>
+          </div>
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px;">
+            <div style="font-size:0.72rem; font-weight:700; color:var(--accent2); margin-bottom:4px;">🧑‍🤝‍🧑 NPC Companions</div>
+            <p style="font-size:0.78rem; color:var(--muted);">Hire NPCs to grind zones passively or fight alongside you.</p>
+          </div>
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px;">
+            <div style="font-size:0.72rem; font-weight:700; color:var(--accent2); margin-bottom:4px;">📜 Equipment Scrolls</div>
+            <p style="font-size:0.78rem; color:var(--muted);">Targeted stat upgrades on individual gear pieces.</p>
+          </div>
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px;">
+            <div style="font-size:0.72rem; font-weight:700; color:var(--accent2); margin-bottom:4px;">⚒ Crafting</div>
+            <p style="font-size:0.78rem; color:var(--muted);">Every monster drop has crafting value — no junk loot.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="filter-divider-line" style="border-top:1px solid var(--border); margin-bottom:80px;"></div>
+
+    <div data-tags="survival pc team shipped" style="display:grid; grid-template-columns:1fr 1.6fr; gap:56px; align-items:start;">
 
       <div>
         <span class="badge badge-done">Shipped</span>
@@ -880,57 +964,7 @@
 
     <div class="hub-grid reveal">
 
-      <div class="hub-card" style="cursor:default;">
-        <div style="font-size:2rem; margin-bottom:12px;">🏰</div>
-        <span class="badge badge-plan">Concept</span>
-        <h3>Tactical Tower Defense</h3>
-        <p>You play as the attacking side — an army of monsters assaulting a fortified tower. Waves grow in size and complexity, and the design challenge is flipping the genre's typical perspective: instead of defending, you're coordinating an escalating assault. The tactical layer comes from composing your wave, not placing defenses.</p>
-        <div class="tags">
-          <span class="tag">Tower Defense</span><span class="tag">Unity</span><span class="tag">Strategy</span>
-        </div>
-      </div>
-
-      <div class="hub-card" style="cursor:default;">
-        <div style="font-size:2rem; margin-bottom:12px;">🧩</div>
-        <span class="badge badge-plan">Concept</span>
-        <h3>One-Mechanic Puzzle Game</h3>
-        <p>A puzzle game built around a single, clearly defined mechanic. The entire design challenge is in restraint — finding the one rule interesting enough to carry a full game, then building levels that explore every implication of it. Emergent complexity from a minimal rule set.</p>
-        <div class="tags">
-          <span class="tag">Puzzle</span><span class="tag">Unity</span><span class="tag">Mobile</span>
-        </div>
-      </div>
-
-      <div class="hub-card" style="cursor:default;">
-        <div style="font-size:2rem; margin-bottom:12px;">📱</div>
-        <span class="badge badge-plan">Concept</span>
-        <h3>Hyper-Casual Mobile Game</h3>
-        <p>A fast, asset-driven hyper-casual mobile game. The goal here is less about deep design and more about understanding the hyper-casual market — short sessions, instant onboarding, and a monetisation loop. A useful exercise in designing for a completely different player mindset.</p>
-        <div class="tags">
-          <span class="tag">Hyper-Casual</span><span class="tag">Mobile</span><span class="tag">Unity</span>
-        </div>
-      </div>
-
-      <div class="hub-card" style="cursor:default;">
-        <div style="font-size:2rem; margin-bottom:12px;">🃏</div>
-        <span class="badge badge-plan">Concept</span>
-        <h3>Deck-Building Game</h3>
-        <p>A second take on the deck-building genre — this time with a fully original design direction. Dekelatro proved I understand the formula. This project is about building something that's entirely mine, not inspired by an existing game.</p>
-        <div class="tags">
-          <span class="tag">Deck Builder</span><span class="tag">Roguelite</span><span class="tag">Unity</span>
-        </div>
-      </div>
-
-      <div class="hub-card" style="cursor:default;">
-        <div style="font-size:2rem; margin-bottom:12px;"><img src="cpp.png" alt="C++" style="width:32px; height:32px; object-fit:contain;"></div>
-        <span class="badge badge-plan">Concept</span>
-        <h3>C++ Game</h3>
-        <p>After building games in C# and Unity, the next step is going lower level. I plan to learn C++ and build a console-based game — no engine, just core language and logic. A way to deepen my understanding of how games actually work under the hood.</p>
-        <div class="tags">
-          <span class="tag">C++</span><span class="tag">Console</span>
-        </div>
-      </div>
-
-      <div class="hub-card" style="cursor:default;">
+      <div class="hub-card" data-tags="auto-battler puzzle mobile concept" style="cursor:default;">
         <div style="font-size:2rem; margin-bottom:12px;">⚔️</div>
         <span class="badge badge-plan">Concept</span>
         <h3>Untitled Mobile Auto Battler</h3>
@@ -940,21 +974,21 @@
         </div>
       </div>
 
-      <div class="hub-card" style="cursor:default;">
+      <div class="hub-card" data-tags="idle incremental mobile concept" style="cursor:default;">
         <div style="font-size:2rem; margin-bottom:12px;">🌊</div>
         <span class="badge badge-plan">Concept</span>
         <h3>Deep Haul</h3>
-        <p>An incremental game built around sending submarines to the ocean floor to collect scrap. The longer a sub is down, the richer the haul — but also the higher the risk. Upgrade your fleet, unlock deeper zones, and figure out how far you're willing to go.</p>
+        <p>Send submarines to the ocean floor to collect scrap. The deeper the zone, the richer the haul — and the higher the risk. Upgrade your fleet and decide how far you're willing to go.</p>
         <div class="tags">
           <span class="tag">Incremental</span><span class="tag">Idle</span><span class="tag">Unity</span>
         </div>
       </div>
 
-      <div class="hub-card" style="cursor:default;">
+      <div class="hub-card" data-tags="strategy pc concept" style="cursor:default;">
         <div style="font-size:2rem; margin-bottom:12px;"><img src="hexbound.png" alt="Hexbound" style="width:32px; height:32px; object-fit:contain;"></div>
         <span class="badge badge-plan">Concept</span>
         <h3>Hexbound</h3>
-        <p>A hex-grid strategy game built around territory control and asymmetric factions. The prototype proved the core idea works — once I have a stronger foundation of shipped games, this is one I plan to come back to and build properly.</p>
+        <p>Territory control on a hex grid with asymmetric factions. The prototype proved the concept works — returning to it once I have more shipped games behind me.</p>
         <div class="tags">
           <span class="tag">Strategy</span><span class="tag">Hex Grid</span><span class="tag">Unity</span>
         </div>
@@ -964,7 +998,7 @@
         <div style="font-size:2rem; margin-bottom:12px;">🎓</div>
         <span class="badge badge-plan">Tiltan · 2026–2028</span>
         <h3>More from Tiltan</h3>
-        <p>There are still many games to come as part of my studies at Tiltan College of Visual Design and Communication. My goal with every game I work on is to make it the most polished, most intentional, and most fun to play. Stay tuned.</p>
+        <p>More games are coming as part of my studies at Tiltan. Every one of them gets treated like it matters. Stay tuned.</p>
       </div>
 
     </div>
@@ -1017,6 +1051,20 @@
     document.body.classList.add('fade-out');
     setTimeout(() => { window.location.href = href; }, 200);
   });
+
+  function filterItems(tag) {
+    document.querySelectorAll('[data-tags]').forEach(el => {
+      el.classList.toggle('hidden', tag !== 'all' && !el.dataset.tags.split(' ').includes(tag));
+    });
+    // Hide the divider line if either featured section is hidden
+    const runic = document.querySelector('[data-tags="rpg action pc solo pre-production"]');
+    const pizza = document.querySelector('[data-tags="survival pc team shipped"]');
+    const divider = document.querySelector('.filter-divider-line');
+    if (divider) divider.classList.toggle('hidden', runic.classList.contains('hidden') || pizza.classList.contains('hidden'));
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.filter === tag);
+    });
+  }
 </script>
 </body>
 </html>

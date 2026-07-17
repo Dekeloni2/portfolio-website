@@ -838,7 +838,7 @@
         <span class="badge badge-done">Finished</span>
         <h2 style="margin-top:12px;">Dekelatro</h2>
         <p class="concept">
-          A smaller-scope take on the poker-roguelite formula, built as the final project for my Introduction to C# course. It covered the basic principles of the language alongside more advanced topics — concepts I later expanded on in my Object-Oriented Programming course. The focus was on nailing the feel of a satisfying scoring run — fast escalation, meaningful shop decisions, and the joy of watching a build come together on the final hand.
+          A compressed poker-roguelite built as my Intro to C# final project. The focus: nailing the feel of a satisfying scoring run — fast escalation, meaningful shop decisions, and the payoff of a build coming together on the final hand.
         </p>
         <div class="game-info-row">
           <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">C# · Custom</span></div>
@@ -871,22 +871,22 @@
           <div class="pillar">
             <div class="pillar-num">01</div>
             <h4>Scoring Satisfaction</h4>
-            <p>Every hand should feel punchy. Big multiplier moments are the core emotional beat — the game is built around creating and then detonating them.</p>
+            <p>Big multiplier moments are the core beat. Build them up, detonate them.</p>
           </div>
           <div class="pillar">
             <div class="pillar-num">02</div>
             <h4>Run Pacing</h4>
-            <p>Blind structure creates a natural pressure curve. Early blinds teach, mid-game challenges the build, final blinds demand execution.</p>
+            <p>Early blinds teach. Mid-game pressures the build. Final blinds demand execution.</p>
           </div>
           <div class="pillar">
             <div class="pillar-num">03</div>
             <h4>Meaningful Shop Decisions</h4>
-            <p>The shop isn't just upgrades — it's a trade-off engine. Every purchase should have a cost, and every skip should feel deliberate.</p>
+            <p>A trade-off engine. Every purchase has a cost; every skip should feel deliberate.</p>
           </div>
           <div class="pillar">
             <div class="pillar-num">04</div>
             <h4>Build Emergence</h4>
-            <p>No run should feel the same. Scoring combos emerge from the interaction of cards, jokers, and hand selection — not from a fixed path.</p>
+            <p>Combos emerge from cards, jokers, and hand selection — not a fixed path. No two runs play the same.</p>
           </div>
         </div>
 
@@ -895,22 +895,22 @@
           <div class="mechanic-card">
             <div class="mechanic-icon"><img src="../handevaluator_icon.png" alt="Hand Evaluator"></div>
             <h3>Hand Evaluation</h3>
-            <p>Standard poker hands with custom scoring weights. Higher hands deal more base chips; multipliers amplify everything. The tension between hand type and card value drives the core decisions.</p>
+            <p>Standard poker hands, custom scoring weights. The tension between hand type and card value drives every decision.</p>
           </div>
           <div class="mechanic-card">
             <div class="mechanic-icon">✖</div>
             <h3>Chip × Mult System</h3>
-            <p>Scoring is Chips × Multiplier. The two stats scale differently, encouraging players to seek imbalanced builds rather than balanced ones — small mult on huge chips can outperform the inverse.</p>
+            <p>Chips × Multiplier. The two stats scale differently — an imbalanced build often outperforms a balanced one.</p>
           </div>
           <div class="mechanic-card">
             <div class="mechanic-icon"><img src="../shopeconomy.png" alt="Shop Economy"></div>
             <h3>Shop Economy</h3>
-            <p>Gold is scarce. Rerolls cost money, buying costs more, selling loses value. Every shop visit is a resource allocation puzzle layered on top of the scoring puzzle.</p>
+            <p>Gold is scarce. Every shop visit is a resource allocation puzzle on top of the scoring puzzle.</p>
           </div>
           <div class="mechanic-card">
             <div class="mechanic-icon"><img src="../blind_scaling.png" alt="Blind Scaling"></div>
             <h3>Blind Scaling</h3>
-            <p>Score targets scale faster than the player's natural power growth, creating a steady pressure that forces the build to come online at the right time.</p>
+            <p>Score targets scale faster than natural power growth — the build has to come online at the right time.</p>
           </div>
         </div>
 
@@ -918,15 +918,15 @@
         <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:8px;">
           <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px;">
             <h4 style="margin:0 0 6px; font-size:0.9rem; color:var(--accent2);">Score Preview Before Committing</h4>
-            <p style="font-size:0.83rem; color:var(--muted); line-height:1.65; margin:0;">Every play shows a full chips × mult × final score breakdown <em>before</em> the hand is locked in. The player can cancel without spending a hand. This transparency was intentional — players learn the math by reading it every turn, not by memorising a chart.</p>
+            <p style="font-size:0.83rem; color:var(--muted); line-height:1.65; margin:0;">Full chips × mult × score breakdown visible before committing. Players learn the math by reading it every turn — no chart needed.</p>
           </div>
           <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px;">
             <h4 style="margin:0 0 6px; font-size:0.9rem; color:var(--accent2);">Gros Michel's Risk Design</h4>
-            <p style="font-size:0.83rem; color:var(--muted); line-height:1.65; margin:0;">The strongest common Joker (+15 Mult) has a 1-in-6 chance to break permanently after each blind win. It forces a real decision: hold it through a risky late-game blind, or sell it first? A single joker creates meaningful tension without any extra systems.</p>
+            <p style="font-size:0.83rem; color:var(--muted); line-height:1.65; margin:0;">The strongest common Joker (+15 Mult) has a 1-in-6 chance to break permanently after each blind. Hold it into a risky late blind, or sell first? One rule, real tension.</p>
           </div>
           <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px;">
             <h4 style="margin:0 0 6px; font-size:0.9rem; color:var(--accent2);">Constellation + Planet Synergy Loop</h4>
-            <p style="font-size:0.83rem; color:var(--muted); line-height:1.65; margin:0;">Planet cards level up a hand type and simultaneously grow Constellation's chip multiplier (+0.1× per use). A deliberate positive feedback loop — players who invest in both systems are rewarded exponentially, which makes the combo feel earned rather than overpowered.</p>
+            <p style="font-size:0.83rem; color:var(--muted); line-height:1.65; margin:0;">Planet cards level up a hand type and grow Constellation's multiplier (+0.1× per use). Invest in both and the reward is exponential — designed to feel earned, not broken.</p>
           </div>
         </div>
         <p style="font-size:0.78rem; color:var(--accent2); text-align:right; margin-bottom:28px;">
@@ -936,7 +936,7 @@
         <div class="section-line" style="margin-top:36px;">What I Learned</div>
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px;">
           <p style="font-size:0.85rem; color:var(--muted); line-height:1.7;">
-            Building a compressed version of an existing game forces you to understand <em>which</em> systems carry the experience. Dekelatro's depth isn't from the number of jokers — it's from the multiplicative math. That insight shaped how I think about complexity: the best systems create exponential possibility from a small number of clearly defined rules. I also learned how critical feedback timing is; the satisfying "crunch" of a score calculation is as important as the score itself.
+            Compressing an existing game forces you to identify which systems actually carry the experience. Dekelatro's depth isn't the number of jokers — it's the multiplicative math. I also learned that feedback timing matters as much as the feedback itself: the "crunch" of a score calculation is half the satisfaction.
           </p>
         </div>
 
@@ -963,7 +963,6 @@
         <a href="pokemon.html" style="display:inline-flex; align-items:center; gap:6px;"><img src="../monogame.png" alt="" style="width:14px;height:14px;object-fit:contain;flex-shrink:0;">TiltanTale</a>
         <a href="survival.html" style="display:inline-flex; align-items:center; gap:6px;"><img src="../unity.png" alt="" style="width:14px;height:14px;object-fit:contain;flex-shrink:0;">Brave the Wilderness</a>
         <a href="dicebound.html" style="display:inline-flex; align-items:center; gap:6px;"><img src="../unity.png" alt="" style="width:14px;height:14px;object-fit:contain;flex-shrink:0;">Dice Bound</a>
-        <a href="sidescroller.html" style="display:inline-flex; align-items:center; gap:6px;"><img src="../unity.png" alt="" style="width:14px;height:14px;object-fit:contain;flex-shrink:0;">RunicRPG</a>
       </div>
     </div>
   </div>
@@ -1004,3 +1003,4 @@
 </script>
 </body>
 </html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
