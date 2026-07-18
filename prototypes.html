@@ -916,7 +916,7 @@
       <button class="filter-btn" data-filter="survival" onclick="filterItems('survival')">Survival</button>
       <button class="filter-btn" data-filter="idle" onclick="filterItems('idle')">Idle</button>
       <button class="filter-btn" data-filter="auto-battler" onclick="filterItems('auto-battler')">Auto-Battler</button>
-      <button class="filter-btn" data-filter="strategy" onclick="filterItems('strategy')">Strategy</button>
+      <button class="filter-btn" data-filter="deckbuilder" onclick="filterItems('deckbuilder')">Deckbuilder</button>
       <span class="filter-sep">·</span>
       <button class="filter-btn" data-filter="pc" onclick="filterItems('pc')">PC</button>
       <button class="filter-btn" data-filter="mobile" onclick="filterItems('mobile')">Mobile</button>
@@ -1036,11 +1036,98 @@
         </div>
       </div>
 
-      <div class="hub-card" data-tags="strategy pc concept" style="cursor:default;">
+      <div class="hub-card" data-tags="deckbuilder pc concept" style="cursor:default;">
         <div style="font-size:2rem; margin-bottom:12px;"><img src="hexbound.png" alt="Hexbound" style="width:32px; height:32px; object-fit:contain;"></div>
         <span class="badge badge-plan">Concept</span>
         <h3>Hexbound</h3>
-        <p>Territory control on a hex grid with asymmetric fa
+        <p>A hex exploration game with deck-building combat. You author the map yourself — hexes are earned and placed where you choose — and the deck you build across the run decides every card duel. Evolved from the original Trials of the Dungeon board game concept. Returning to it once I have more shipped games behind me.</p>
+        <div class="tags">
+          <span class="tag">Deckbuilder</span><span class="tag">Hex Grid</span><span class="tag">Unity</span>
+        </div>
+      </div>
+
+      <div class="hub-card" style="cursor:default; border-color: var(--accent); background: linear-gradient(135deg, var(--surface2) 0%, rgba(124,108,255,0.08) 100%);">
+        <div style="font-size:2rem; margin-bottom:12px;">🎓</div>
+        <span class="badge badge-plan">Tiltan · 2026–2028</span>
+        <h3>More from Tiltan</h3>
+        <p>More games are coming as part of my studies at Tiltan. Every one of them gets treated like it matters. Stay tuned.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ Site Nav Footer ═══════════════════════════════════════ -->
+<div class="site-nav-footer">
+  <div class="container">
+    <span class="site-nav-footer-label">Jump to</span>
+    <div class="site-nav-footer-grid">
+      <a href="index.html">Home</a>
+      <a href="games.html">Games</a>
+      <a href="prototypes.html">Prototypes</a>
+      <a href="experience.html">Experience</a>
+      <a href="toolbox.html">Toolbox</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ Contact ═══════════════════════════════════════ -->
+<section id="contact">
+  <div class="container">
+    <span class="label">Get in touch</span>
+    <h2>Let's talk.</h2>
+    <p>Open to internships, collaborations, and feedback on work in progress.</p>
+    <div class="contact-links">
+      <a href="mailto:dekelriess@gmail.com" class="btn btn-primary">✉ dekelriess@gmail.com</a>
+      <a href="https://linkedin.com/in/dekel-riess-39172433b" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn ↗</a>
+      <a href="Dekel_Riess_Resume.pdf" target="_blank" rel="noopener" class="btn btn-secondary">Resume ↓</a>
+      <a href="https://github.com/Dekeloni2" target="_blank" rel="noopener" class="btn btn-secondary">GitHub</a>
+      <span class="btn btn-secondary" style="cursor:default;"><img src="discord.png" alt="" style="width:16px;height:16px;object-fit:contain;margin-right:6px;vertical-align:-3px;">Discord: Dekeloni2</span>
+    </div>
+    <p style="margin-top:40px; font-size:0.78rem; color:var(--muted);">© 2026 Dekel Riess · Game Designer Portfolio · Updated July 2026</p>
+  </div>
+</section>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  document.addEventListener('click', function (e) {
+    const a = e.target.closest('a');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto:') || a.target === '_blank') return;
+    e.preventDefault();
+    document.body.classList.add('fade-out');
+    setTimeout(() => { window.location.href = href; }, 200);
+  });
+
+  function filterItems(tag) {
+    document.querySelectorAll('[data-tags]').forEach((el, i) => {
+      const matches = tag === 'all' || el.dataset.tags.split(' ').includes(tag);
+      if (matches) {
+        el.classList.remove('hidden');
+        if (el.classList.contains('hub-card')) {
+          el.style.animation = 'none';
+          el.offsetHeight;
+          el.style.animation = `cardEnter 0.35s ease ${i * 0.06}s forwards`;
+        }
+      } else {
+        el.classList.add('hidden');
+      }
+    });
+    const runic = document.querySelector('[data-tags="rpg action pc solo pre-production"]');
+    const pizza = document.querySelector('[data-tags="survival pc team shipped"]');
+    const divider = document.querySelector('.filter-divider-line');
+    if (divider) divider.classList.toggle('hidden', runic.classList.contains('hidden') || pizza.classList.contains('hidden'));
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.filter === tag);
+    });
+  }
+</script>
+
 <script>
   // Progress bar
   const pbar = document.createElement('div'); pbar.id = 'progress-bar'; document.body.appendChild(pbar);
@@ -1091,4 +1178,5 @@
   })();
 </script>
 
-c
+</body>
+</html>
