@@ -782,6 +782,22 @@
     body.fade-out { opacity: 0 !important; transition: opacity 0.22s ease; }
     a, .hub-card, .toolbox-card, .card, .experience-card { transition: opacity 0.2s, transform 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s; }
 
+    /* ─── Card entrance animation ────────────────────────────────── */
+    @keyframes cardEnter {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hub-card {
+      opacity: 0;
+      animation: cardEnter 0.45s ease forwards;
+    }
+    .hub-card:nth-child(1) { animation-delay: 0.05s; }
+    .hub-card:nth-child(2) { animation-delay: 0.12s; }
+    .hub-card:nth-child(3) { animation-delay: 0.19s; }
+    .hub-card:nth-child(4) { animation-delay: 0.26s; }
+    .hub-card:nth-child(5) { animation-delay: 0.33s; }
+    .hub-card:nth-child(6) { animation-delay: 0.40s; }
+
     /* ─── Filter bar ─────────────────────────────────────────────── */
     .filter-bar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 28px; }
     .filter-btn {
@@ -985,8 +1001,16 @@
   });
 
   function filterItems(tag) {
-    document.querySelectorAll('[data-tags]').forEach(el => {
-      el.classList.toggle('hidden', tag !== 'all' && !el.dataset.tags.split(' ').includes(tag));
+    document.querySelectorAll('[data-tags]').forEach((el, i) => {
+      const matches = tag === 'all' || el.dataset.tags.split(' ').includes(tag);
+      if (matches) {
+        el.classList.remove('hidden');
+        el.style.animation = 'none';
+        el.offsetHeight; // force reflow
+        el.style.animation = `cardEnter 0.35s ease ${i * 0.06}s forwards`;
+      } else {
+        el.classList.add('hidden');
+      }
     });
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.filter === tag);
