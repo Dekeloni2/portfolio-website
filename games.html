@@ -848,7 +848,43 @@
       padding-top: 24px;
       border-top: 1px solid var(--border);
     }
-  </style>
+  
+    /* ─── Polish: progress bar, back-to-top, copy toast, active nav ── */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      z-index: 200; transition: width 0.08s linear;
+      box-shadow: 0 0 8px rgba(147,51,234,0.5);
+    }
+    #back-to-top {
+      position: fixed; bottom: 28px; right: 28px;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--accent2); font-size: 1.1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transform: translateY(12px);
+      transition: opacity 0.25s, transform 0.25s, border-color 0.2s;
+      z-index: 150;
+    }
+    #back-to-top.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    #back-to-top:hover { border-color: var(--accent); box-shadow: 0 0 16px rgba(147,51,234,0.3); }
+    #copy-toast {
+      position: fixed; bottom: 88px; right: 28px;
+      background: var(--surface); border: 1px solid var(--accent);
+      color: var(--accent2); font-size: 0.8rem; font-weight: 600;
+      padding: 8px 16px; border-radius: 8px;
+      opacity: 0; transform: translateY(8px);
+      transition: opacity 0.25s, transform 0.25s;
+      pointer-events: none; z-index: 150;
+    }
+    #copy-toast.show { opacity: 1; transform: translateY(0); }
+    .nav-links a.nav-active { color: var(--accent2); position: relative; }
+    .nav-links a.nav-active::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: -6px;
+      height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 2px;
+    }
+</style>
 </head>
 <body>
 
@@ -1017,5 +1053,56 @@
     });
   }
 </script>
+
+<script>
+  // Progress bar
+  const pbar = document.createElement('div'); pbar.id = 'progress-bar'; document.body.appendChild(pbar);
+  // Back to top
+  const btt = document.createElement('button'); btt.id = 'back-to-top'; btt.innerHTML = '&#8593;'; btt.setAttribute('aria-label','Back to top'); document.body.appendChild(btt);
+  btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  // Copy toast
+  const toast = document.createElement('div'); toast.id = 'copy-toast'; toast.textContent = 'Email copied!'; document.body.appendChild(toast);
+
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    pbar.style.width = pct + '%';
+    btt.classList.toggle('show', h.scrollTop > 600);
+  }, { passive: true });
+
+  // Email copy
+  document.querySelectorAll('a[href^="mailto:"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const email = a.getAttribute('href').replace('mailto:', '');
+      navigator.clipboard.writeText(email).then(() => {
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 1800);
+      });
+    });
+  });
+
+  // Active nav state
+  (function() {
+    let page = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      const target = a.getAttribute('href').split('/').pop();
+      if (target === page) a.classList.add('nav-active');
+    });
+  })();
+
+  // Filter tag counts
+  (function() {
+    const items = document.querySelectorAll('[data-tags]');
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      const tag = btn.dataset.filter;
+      const count = tag === 'all'
+        ? items.length
+        : [...items].filter(el => el.dataset.tags.split(' ').includes(tag)).length;
+      btn.textContent = btn.textContent + ' (' + count + ')';
+    });
+  })();
+</script>
+
 </body>
 </html>
