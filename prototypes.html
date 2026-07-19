@@ -897,6 +897,7 @@
       <li><a href="prototypes.html">Prototypes</a></li>
       <li><a href="experience.html">Experience</a></li>
       <li><a href="toolbox.html">Toolbox</a></li>
+      <li><a href="roadmap.html">Roadmap</a></li>
     </ul>
   </div>
 </nav>
@@ -1067,6 +1068,7 @@
       <a href="prototypes.html">Prototypes</a>
       <a href="experience.html">Experience</a>
       <a href="toolbox.html">Toolbox</a>
+      <a href="roadmap.html">Roadmap</a>
     </div>
   </div>
 </div>
@@ -1172,11 +1174,4 @@
       const tag = btn.dataset.filter;
       const count = tag === 'all'
         ? items.length
-        : [...items].filter(el => el.dataset.tags.split(' ').includes(tag)).length;
-      btn.textContent = btn.textContent + ' (' + count + ')';
-    });
-  })();
-</script>
-
-</body>
-</html>
+        : [..
