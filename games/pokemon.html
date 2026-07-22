@@ -925,40 +925,75 @@
 
     </div>
 
-    <!-- ═══ Attack Pattern Showcase ═══ -->
+    <!-- ═══ Battle System Showcase ═══ -->
     <div style="margin-top:72px;">
-      <div class="section-line">Attack Patterns — In Motion</div>
-      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:640px; margin-bottom:28px;">
-        The bullet-hell patterns are the heart of every boss fight — designed to be readable, escalating, and fair. Each one telegraphs before it strikes, rewarding players who learn the tell.
+      <div class="section-line">The Battle System — In Motion</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:14px;">
+        The battle system is TiltanTale's deepest and most polished layer — a full turn-based bullet-hell built on <strong style="color:var(--text);">MonoGame</strong>, where every system is authored in code with no engine-level tooling doing the heavy lifting. No visual editor placed these patterns, no animation timeline drives the teachers — it's all hand-built.
+      </p>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
+        It's designed as a <strong style="color:var(--accent2);">scalable framework</strong>, not a set of one-off fights: new teachers — with their own patterns, animations, and spare conditions — can be built on top of it with relative ease.
       </p>
 
-      <div class="coming-soon">
-        <div class="coming-soon-icon">◆</div>
-        <div>
-          <p class="coming-soon-title">Gameplay footage coming soon</p>
-          <p class="coming-soon-sub">Attack-pattern clips will be added once the game's sound and sprites are finalized.</p>
-        </div>
-      </div>
-
-      <!-- GIF slots — restore this block (and delete .coming-soon above) once footage is ready:
-      <div class="gif-showcase">
+      <!-- Group 1: Attack patterns / game feel -->
+      <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin-bottom:6px;">Game Feel &amp; Character</h4>
+      <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; max-width:640px; margin-bottom:18px;">
+        Every pattern is built from a real trait of the teacher it belongs to — an in-joke, a quirk, a thing they always say. It's the "personality drives design" pillar taken literally: the attack <em>is</em> the character. All readable, escalating, and rendered from code.
+      </p>
+      <div class="gif-showcase" style="margin-bottom:40px;">
         <figure class="gif-slot">
           <img src="../tiltantale_attack1.gif" alt="TiltanTale attack pattern 1" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop tiltantale_attack1.gif here</span></div>
-          <figcaption>Pattern 01 — <span>name / boss</span></figcaption>
+          <figcaption>Hexagon — <span>David, our math teacher, swears "hexagons are best-a-gons." His fight opens with a wall of them.</span></figcaption>
         </figure>
         <figure class="gif-slot">
           <img src="../tiltantale_attack2.gif" alt="TiltanTale attack pattern 2" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop tiltantale_attack2.gif here</span></div>
-          <figcaption>Pattern 02 — <span>name / boss</span></figcaption>
+          <figcaption>Napoleon's March — <span>Dor, our game design teacher, keeps Minard's famous flow chart framed in his office. His pattern is built from it.</span></figcaption>
         </figure>
         <figure class="gif-slot">
           <img src="../tiltantale_attack3.gif" alt="TiltanTale attack pattern 3" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop tiltantale_attack3.gif here</span></div>
-          <figcaption>Pattern 03 — <span>name / boss</span></figcaption>
+          <figcaption>Galick Gun — <span>a nod to Yakir, who cosplayed Vegeta for Purim.</span></figcaption>
         </figure>
       </div>
-      -->
+      <p style="font-size:0.82rem; color:var(--muted); line-height:1.6; max-width:640px; margin-top:16px;">
+        These are just a taste — each teacher has many more. <strong style="color:var(--text);">Over 15 custom attack patterns</strong> were built for the game. Play it to find them all.
+      </p>
+
+      <!-- Group 2: Spare vs Defeat — the core pillar -->
+      <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin-top:44px; margin-bottom:6px;">Your Choices Matter — Spare vs. Defeat</h4>
+      <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; max-width:640px; margin-bottom:18px;">
+        The same teacher, two endings — and the visual language carries the moral weight. <strong style="color:var(--text);">Spare</strong> them and they resolve peacefully, dissolving into a harmless puff of smoke; they still exist in the world afterward. <strong style="color:var(--text);">Defeat</strong> them and it's a brutal end — final words, then they crumble to dust, gone for good. Smoke means they're still out there; dust means you erased them. The core pillar, told through how a character leaves the screen.
+      </p>
+      <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; max-width:640px; margin-bottom:18px;">
+        The point isn't just a branching outcome — it's that the game hands you the power and refuses to tell you what to do with it. Every teacher is someone you could understand instead of destroy, and mercy is always harder than the fight. Whether you take it says something about you, not the game. That discomfort is the design goal: a choice the player has to own.
+      </p>
+      <div class="gif-showcase" style="margin-bottom:40px;">
+        <figure class="gif-slot">
+          <img src="../tiltantale_spare.gif" alt="TiltanTale sparing a teacher" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop tiltantale_spare.gif here</span></div>
+          <figcaption>Spared — <span>a peaceful resolution: they dissolve into smoke and still exist in the world.</span></figcaption>
+        </figure>
+        <figure class="gif-slot">
+          <img src="../tiltantale_defeat.gif" alt="TiltanTale defeating a teacher" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop tiltantale_defeat.gif here</span></div>
+          <figcaption>Defeated — <span>final words, then they crumble to dust. Gone for good.</span></figcaption>
+        </figure>
+      </div>
+
+      <!-- Group 3: The attack mini-game / systems -->
+      <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin-bottom:6px;">Combat Systems — The Attack Mini-Game</h4>
+      <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; max-width:640px; margin-bottom:18px;">
+        Under the feel is a real, readable system: the timing mini-game on FIGHT, live HP updating and display, and the strike animation resolving. Systems, not scripted one-offs.
+      </p>
+      <div class="gif-showcase">
+        <figure class="gif-slot">
+          <img src="../tiltantale_attackminigame.gif" alt="TiltanTale attack timing mini-game" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop tiltantale_attackminigame.gif here</span></div>
+          <figcaption>FIGHT — <span>timing bar, HP update, strike animation</span></figcaption>
+        </figure>
+      </div>
     </div>
 
     <!-- ═══ Narrative Design ═══ -->
