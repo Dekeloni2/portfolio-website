@@ -15,6 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.6/standalone/umd/vis-network.min.js"></script>
   <style>
     /* ─── Reset & Base ───────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,6 +32,7 @@
       --muted:    #7878a0;
       --radius:   8px;
       --max-w:    1100px;
+      --t1:#9CAF88; --t2:#C79A6E; --t3:#8FA3B3; --t4:#A98CEB; --t5:#7C6BB0;
     }
 
     html { scroll-behavior: smooth; }
@@ -849,7 +851,79 @@
       height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2));
       border-radius: 2px;
     }
-</style>
+
+    /* ─── Crafting Web (matches btw-crafting-web.html) ─── */
+    .controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;align-items:center;}
+    .search-wrap{position:relative;flex:1;min-width:230px;max-width:420px;}
+    .search{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:22px;padding:9px 38px 9px 40px;color:var(--text);font-family:inherit;font-size:0.86rem;outline:none;transition:border-color 0.15s,box-shadow 0.15s;}
+    .search:focus{border-color:rgba(147,51,234,0.6);box-shadow:0 0 18px rgba(147,51,234,0.22);}
+    .search::placeholder{color:var(--muted);}
+    .search-ico{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:0.9rem;pointer-events:none;}
+    .search-x{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--muted);cursor:pointer;font-size:1rem;line-height:1;display:none;background:none;border:none;padding:2px;}
+    .search-x:hover{color:var(--text);}
+    .fbtn{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:0.78rem;font-weight:600;color:var(--muted);cursor:pointer;transition:all 0.15s;font-family:inherit;}
+    .fbtn:hover{border-color:rgba(147,51,234,0.5);color:var(--text);}
+    .fbtn.active{background:linear-gradient(135deg,var(--accent),#7c3aed);color:#fff;border-color:transparent;box-shadow:0 0 16px rgba(147,51,234,0.35);}
+    .web{display:grid;grid-template-columns:1fr 300px;gap:16px;}
+    #graph{height:640px;background:radial-gradient(circle at 50% 40%,#0e0e1e,#07070f 80%);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+    .panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;height:640px;overflow-y:auto;}
+    .panel h3{font-size:1.05rem;margin-bottom:4px;}
+    .panel .phint{color:var(--muted);font-size:0.82rem;}
+    .pill{display:inline-block;padding:3px 10px;border-radius:20px;font-size:0.66rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin:2px 4px 2px 0;}
+    .prow{margin:14px 0;}
+    .prow .k{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:5px;}
+    .chip{display:inline-block;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:4px 9px;font-size:0.78rem;margin:0 5px 5px 0;cursor:pointer;transition:border-color 0.15s;}
+    .chip:hover{border-color:var(--accent2);}
+    .merge-eq{font-size:0.9rem;line-height:2;}
+    .statblock{width:100%;border-collapse:collapse;font-size:0.8rem;margin-top:2px;}
+    .statblock td{padding:3px 8px 3px 0;vertical-align:top;border-bottom:1px solid rgba(255,255,255,0.05);}
+    .statblock td.sl{color:var(--muted);white-space:nowrap;width:46%;}
+    .statblock td.sv{color:var(--text);font-weight:500;}
+    .op{color:var(--accent2);font-weight:700;margin:0 4px;}
+    .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:16px;font-size:0.75rem;color:var(--muted);align-items:center;}
+    .legend .li{display:flex;align-items:center;gap:6px;}
+    .dot{width:12px;height:12px;border-radius:50%;display:inline-block;}
+    .dia{width:11px;height:11px;transform:rotate(45deg);display:inline-block;}
+    .ring{width:12px;height:12px;border-radius:50%;display:inline-block;background:transparent;border:2px solid #e8c07d;}
+    .note{color:var(--muted);font-size:0.78rem;margin-top:18px;line-height:1.6;}
+    @media(max-width:820px){.web{grid-template-columns:1fr;}.panel{height:auto;}#graph{height:460px;}}
+    @media(max-width:640px){#graph{height:320px;}.controls{flex-direction:column;align-items:stretch;}#filters{flex-direction:row;flex-wrap:wrap;}}
+
+    /* ─── Showcase (gifs) ─────────────────────────────────────────── */
+    .gif-showcase{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;}
+    .gif-slot{margin:0;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .2s,transform .2s;}
+    .gif-slot:hover{border-color:rgba(147,51,234,0.6);transform:translateY(-3px);box-shadow:0 0 28px rgba(147,51,234,0.12);}
+    .gif-slot img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#000;}
+    .gif-slot .gif-placeholder{display:none;}
+    .gif-slot.gif-missing img{display:none;}
+    .gif-slot.gif-missing .gif-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;aspect-ratio:4/3;background:repeating-linear-gradient(45deg,rgba(147,51,234,0.04),rgba(147,51,234,0.04) 10px,transparent 10px,transparent 20px);border-bottom:1px solid var(--border);color:var(--muted);font-size:0.8rem;text-align:center;padding:20px;}
+    .gif-placeholder-icon{font-size:1.4rem;color:var(--accent2);opacity:0.7;}
+    .gif-slot figcaption{padding:12px 16px;font-size:0.82rem;font-weight:600;color:var(--text);}
+    .gif-slot figcaption span{color:var(--muted);font-weight:400;}
+    
+    /* ─── Tier ladder / spec cards ────────────────────────────────── */
+    .tier-ladder{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;}
+    .tier-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--tc,var(--accent));border-radius:10px;padding:16px 18px;}
+    .tier-card .tname{font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--tc,var(--accent2));margin-bottom:6px;}
+    .tier-card .tmat{font-size:0.84rem;color:var(--text);font-weight:600;margin-bottom:4px;line-height:1.45;}
+    .tier-card .tsrc{font-size:0.78rem;color:var(--muted);line-height:1.55;}
+    .spec-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;}
+    .spec-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px;}
+    .spec-card h5{font-size:0.92rem;font-weight:700;margin-bottom:2px;color:var(--text);}
+    .spec-card .arch{font-size:0.74rem;color:var(--accent2);font-weight:600;letter-spacing:0.04em;margin-bottom:12px;}
+    .spec-row{display:flex;justify-content:space-between;gap:10px;font-size:0.78rem;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+    .spec-row:last-child{border-bottom:none;}
+    .spec-row .sk{color:var(--muted);}
+    .spec-row .sv{color:var(--text);font-weight:600;}
+    .apex-note{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(223,227,255,0.25);font-size:0.76rem;color:var(--muted);}
+    .apex-note strong{color:#dfe3ff;}
+    .cat-track{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px;}
+    .cat-track .tt{font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent2);margin-bottom:10px;}
+    .cat-flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:0.8rem;}
+    .cat-flow .ci{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:4px 10px;color:var(--text);}
+    .cat-flow .ar{color:var(--accent);font-weight:700;}
+    @media(max-width:640px){.spec-grid,.tier-ladder{grid-template-columns:1fr;}}
+  </style>
 </head>
 <body>
 
@@ -874,15 +948,20 @@
         <span class="badge badge-wip">In Progress</span>
         <h2 style="margin-top:12px;">Brave the Wilderness</h2>
         <p class="concept">
-          A mobile survival game built on a merge-driven loop. Gather resources, survive, merge upward — and eventually build a shop that gives your accumulated points a purpose.
+          A mobile survival game built on a merge-driven loop. Gather resources, survive, merge upward &mdash; and eventually build a shop that gives your accumulated points a purpose.
         </p>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 14px; margin-top:12px; font-size:0.78rem; color:var(--muted); line-height:1.6;">
+          <strong style="color:var(--text);">Overview:</strong> A 2-person mobile survival game where every session is a self-contained run. The core design challenge &mdash; making merges feel like progress, not grind &mdash; is solved through a shop economy that resets each run, a difficulty curve that gates better loot behind longer survival, and a single merge rule that scales from T1 pickups to T5 apex weapons.
+        </div>
         <div class="game-info-row">
           <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">Unity</span></div>
           <div class="game-info-item"><span class="game-info-key">Platform</span><span class="game-info-val">Android</span></div>
-          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">Survival · Merge</span></div>
+          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">Survival &middot; Merge</span></div>
           <div class="game-info-item"><span class="game-info-key">Team</span><span class="game-info-val">2 people</span></div>
-          <div class="game-info-item"><span class="game-info-key">Role</span><span class="game-info-val">Developer · Lead Gameplay Designer</span></div>
-          <div class="game-info-item"><span class="game-info-key">Owned</span><span class="game-info-val">Progression design, gameplay mechanics, polish</span></div>
+          <div class="game-info-item" style="background:rgba(147,51,234,0.08); border:1px solid rgba(147,51,234,0.2); border-radius:6px; padding:6px 10px;">
+            <span class="game-info-key" style="color:var(--accent2);">Lead Designer</span><span class="game-info-val">Progression, economy, crafting system, balance</span>
+          </div>
+          <div class="game-info-item"><span class="game-info-key">System</span><span class="game-info-val">117 items &middot; 196 merges &middot; 5 tiers</span></div>
           <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">In Development</span></div>
         </div>
       </div>
@@ -894,215 +973,426 @@
           <div class="pillar">
             <div class="pillar-num">01</div>
             <h4>Survival as the Engine</h4>
-            <p>Staying alive generates points. Survival isn't just a condition — it's the reward loop.</p>
+            <p>Staying alive generates points. Survival isn't just a win condition &mdash; it's the reward loop itself.</p>
           </div>
           <div class="pillar">
             <div class="pillar-num">02</div>
             <h4>Merge as Progression</h4>
-            <p>Resources merge into better versions. No upgrade menu — power comes naturally from collecting and combining.</p>
+            <p>Resources merge into better versions. No upgrade menu &mdash; power comes from collecting and combining.</p>
           </div>
           <div class="pillar">
             <div class="pillar-num">03</div>
             <h4>The Shop as a Goal</h4>
-            <p>Merge far enough and you build a shop — giving your accumulated points a place to go. You earn it, you don't start with it.</p>
+            <p>Merge far enough and you build a shop, giving your points a place to go. You earn it, you don't start with it.</p>
           </div>
           <div class="pillar">
             <div class="pillar-num">04</div>
             <h4>Strength from Play</h4>
-            <p>Playing actively is enough to get strong. No meta grind — engagement is rewarded directly.</p>
+            <p>Playing actively is enough to get strong. No meta grind &mdash; engagement is rewarded directly.</p>
           </div>
           <div class="pillar">
             <div class="pillar-num">05</div>
             <h4>Difficulty as a Mechanic</h4>
-            <p>The longer you survive, the harder it gets — but also the rarer the loot. Survival time is a resource. The real decision is when to stop.</p>
+            <p>The longer you survive the harder it gets &mdash; but the rarer the loot. Survival time is a resource; the real decision is when to stop.</p>
           </div>
         </div>
 
-        <div class="section-line" style="margin-top:36px;">Core Loop</div>
+        <div class="section-line" style="margin-top:36px;">The Core Loop</div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px; margin-bottom:8px;">
+          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; margin-bottom:16px;">
+            One loop, four beats, no menus in between. Every step feeds the next &mdash; which is what keeps a run going and what makes stopping a real decision.
+          </p>
+          <div class="loop-chain">
+            <div class="loop-step"><div class="loop-dot">1</div><div class="loop-step-text">Gather resources while staying alive</div></div>
+            <div class="loop-connector"></div>
+            <div class="loop-step"><div class="loop-dot">2</div><div class="loop-step-text">Merge two items into one better item</div></div>
+            <div class="loop-connector"></div>
+            <div class="loop-step"><div class="loop-dot">3</div><div class="loop-step-text">Survive longer &mdash; deeper phases drop rarer materials</div></div>
+            <div class="loop-connector"></div>
+            <div class="loop-step"><div class="loop-dot">4</div><div class="loop-step-text">Spend survival points in the shop, then push further</div></div>
+          </div>
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">Systems at a Glance</div>
         <div class="mechanics-grid">
           <div class="mechanic-card">
-            <div class="mechanic-icon">🌿</div>
-            <h3>Gather & Survive</h3>
-            <p>Collect resources, stay alive. Survival time generates points for the shop economy.</p>
+            <div class="mechanic-icon">&#127807;</div>
+            <h3>Gather &amp; Survive</h3>
+            <p>Collect resources, stay alive. Survival time generates the points that feed the shop economy.</p>
           </div>
           <div class="mechanic-card">
-            <div class="mechanic-icon">🔀</div>
+            <div class="mechanic-icon">&#128260;</div>
             <h3>Merge</h3>
-            <p>Match resources to merge them into higher-tier versions. Upgrading is a byproduct of playing, not a separate screen.</p>
+            <p>Two items in, one better item out. Upgrading is a byproduct of playing, not a separate screen.</p>
           </div>
           <div class="mechanic-card">
-            <div class="mechanic-icon">⬆️</div>
+            <div class="mechanic-icon">&#11014;&#65039;</div>
             <h3>Upgrade</h3>
-            <p>Merging makes you stronger, which makes you survive longer, which gets you more resources. The loop reinforces itself.</p>
+            <p>Merging makes you stronger, which makes you survive longer, which gets you more resources.</p>
           </div>
           <div class="mechanic-card">
-            <div class="mechanic-icon">🏪</div>
+            <div class="mechanic-icon">&#127978;</div>
             <h3>Shop</h3>
-            <p>Spend points on flat stat bonuses early, percentage multipliers later. All purchases reset each run — keeping the economy fresh every session.</p>
+            <p>Flat stat bonuses early, percentage multipliers later. All purchases reset each run.</p>
           </div>
-        </div>
-
-        <div class="section-line" style="margin-top:36px;">Shop Economy</div>
-
-        <p style="font-size:0.85rem; color:var(--muted); margin-bottom:16px; line-height:1.7;">
-          Survival points are spent in the shop on two tiers of upgrade — flat stats early, percentage multipliers once the flat stats are in place.
-        </p>
-
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;">
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 18px;">
-            <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent2); margin-bottom:8px;">Flat Upgrades</div>
-            <div style="font-size:0.8rem; color:var(--muted); line-height:1.8;">+Max HP<br>+Shield<br>+Attack<br>+Defense</div>
-          </div>
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 18px;">
-            <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent2); margin-bottom:8px;">% Multipliers</div>
-            <div style="font-size:0.8rem; color:var(--muted); line-height:1.8;">+% Attack<br>+% Max HP<br>+% Defense<br>+% Move Speed</div>
-          </div>
-        </div>
-
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; margin-bottom:16px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
-          <strong style="color:var(--text);">Run-only by design:</strong> Stats reset each session. Every run is a fresh economy — no permanent power creep, no guarantee of reaching the shop again.
-        </div>
-
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; margin-bottom:36px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
-          <strong style="color:var(--text);">Shop as a crafting gateway:</strong> The shop also sells rare materials that can't be reliably farmed — connecting the point economy directly to the crafting system.
-        </div>
-
-        <div class="section-line" style="margin-top:36px;">Crafting Progression</div>
-
-        <p style="font-size:0.85rem; color:var(--muted); margin-bottom:20px; line-height:1.7;">
-          Five tiers, each gated behind a new material source. Early tiers use ground pickups; later tiers require hunting tougher enemies. Stats shift from flat to percentage multipliers as gear improves.
-        </p>
-
-        <!-- Materials table -->
-        <div style="overflow-x:auto; margin-bottom:24px;">
-          <table style="width:100%; border-collapse:collapse; font-size:0.8rem;">
-            <thead>
-              <tr style="border-bottom:1px solid var(--border);">
-                <th style="text-align:left; padding:8px 12px; color:var(--accent2); font-weight:600;">Tier</th>
-                <th style="text-align:left; padding:8px 12px; color:var(--accent2); font-weight:600;">Materials</th>
-                <th style="text-align:left; padding:8px 12px; color:var(--accent2); font-weight:600;">Source</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="border-bottom:1px solid var(--border);">
-                <td style="padding:8px 12px; color:var(--text); font-weight:600;">T1 — Primitive</td>
-                <td style="padding:8px 12px; color:var(--muted);">Branch, Stone</td>
-                <td style="padding:8px 12px; color:var(--muted);">Ground pickup</td>
-              </tr>
-              <tr style="border-bottom:1px solid var(--border);">
-                <td style="padding:8px 12px; color:var(--text); font-weight:600;">T2 — Reinforced</td>
-                <td style="padding:8px 12px; color:var(--muted);">Wood Log, Stone Chunk</td>
-                <td style="padding:8px 12px; color:var(--muted);">Harvest with T1 tools</td>
-              </tr>
-              <tr style="border-bottom:1px solid var(--border);">
-                <td style="padding:8px 12px; color:var(--text); font-weight:600;">T3 — Iron</td>
-                <td style="padding:8px 12px; color:var(--muted);">Zombie Steak, Flower Essence</td>
-                <td style="padding:8px 12px; color:var(--muted);">Regular Zombie drop · 3 Flowers</td>
-              </tr>
-              <tr style="border-bottom:1px solid var(--border);">
-                <td style="padding:8px 12px; color:var(--text); font-weight:600;">T4 — Crystal</td>
-                <td style="padding:8px 12px; color:var(--muted);">Corrupted Claw</td>
-                <td style="padding:8px 12px; color:var(--muted);">Fast Zombie drop (uncommon)</td>
-              </tr>
-              <tr>
-                <td style="padding:8px 12px; color:var(--text); font-weight:600;">T5 — Void</td>
-                <td style="padding:8px 12px; color:var(--muted);">Dense Bone</td>
-                <td style="padding:8px 12px; color:var(--muted);">Heavy Zombie drop (rare)</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Armor stat scaling table -->
-        <div style="overflow-x:auto; margin-bottom:24px;">
-          <table style="width:100%; border-collapse:collapse; font-size:0.8rem;">
-            <thead>
-              <tr style="border-bottom:1px solid var(--border);">
-                <th style="text-align:left; padding:8px 12px; color:var(--accent2); font-weight:600;">Tier</th>
-                <th style="text-align:left; padding:8px 12px; color:var(--accent2); font-weight:600;">Common pieces (Boots, Chest, Helmet, Pants)</th>
-                <th style="text-align:left; padding:8px 12px; color:var(--accent2); font-weight:600;">Rare pieces (Gloves, Shoulders)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="border-bottom:1px solid var(--border);">
-                <td style="padding:8px 12px; color:var(--text); font-weight:600;">T1</td>
-                <td style="padding:8px 12px; color:var(--muted);">+Defense</td>
-                <td style="padding:8px 12px; color:var(--muted);">Not available</td>
-              </tr>
-              <tr style="border-bottom:1px solid var(--border);">
-                <td style="padding:8px 12px; color:var(--text); font-weight:600;">T2</td>
-                <td style="padding:8px 12px; color:var(--muted);">+Defense</td>
-                <td style="padding:8px 12px; color:var(--muted);">+Defense, +Attack</td>
-              </tr>
-              <tr style="border-bottom:1px solid var(--border);">
-                <td style="padding:8px 12px; color:var(--text); font-weight:600;">T3</td>
-                <td style="padding:8px 12px; color:var(--muted);">+Defense, +Attack</td>
-                <td style="padding:8px 12px; color:var(--muted);">+Attack, +Move Speed</td>
-              </tr>
-              <tr style="border-bottom:1px solid var(--border);">
-                <td style="padding:8px 12px; color:var(--text); font-weight:600;">T4</td>
-                <td style="padding:8px 12px; color:var(--muted);">+Defense, +% Attack</td>
-                <td style="padding:8px 12px; color:var(--muted);">+% Attack, +% Move Speed</td>
-              </tr>
-              <tr>
-                <td style="padding:8px 12px; color:var(--text); font-weight:600;">T5</td>
-                <td style="padding:8px 12px; color:var(--muted);">+% Defense, +% Max HP</td>
-                <td style="padding:8px 12px; color:var(--muted);">+% All Stats (chase item)</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; margin-bottom:36px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
-          <strong style="color:var(--text);">Design note — Gloves &amp; Shoulders:</strong> Inspired by MapleStory's rarity curve — unavailable at T1, always requiring rarer materials than common pieces. Void Shoulders (all-stat boost) are intentionally the hardest item to complete.
-        </div>
-
-        <div class="section-line" style="margin-top:36px;">Difficulty × Loot</div>
-
-        <p style="font-size:0.85rem; color:var(--muted); margin-bottom:20px; line-height:1.7;">
-          Four phases — <strong style="color:var(--text);">Easy → Normal → Hard → Expert</strong> — tied to survival time. Each phase is harder, but also unlocks better drop rates. Surviving longer is risky and the only path to the best loot.
-        </p>
-
-        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; margin-bottom:28px;">
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 18px;">
-            <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#4ade80; margin-bottom:6px;">Easy</div>
-            <div style="font-size:0.82rem; color:var(--text); font-weight:600; margin-bottom:4px;">Baseline drops</div>
-            <div style="font-size:0.78rem; color:var(--muted); line-height:1.6;">Common materials only. Zombie Steak, Branches, Stones. Low drop chance.</div>
-          </div>
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 18px;">
-            <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#facc15; margin-bottom:6px;">Normal</div>
-            <div style="font-size:0.82rem; color:var(--text); font-weight:600; margin-bottom:4px;">Uncommon unlocks</div>
-            <div style="font-size:0.78rem; color:var(--muted); line-height:1.6;">Drop rates increase. Zombie Tooth and Quartz begin appearing.</div>
-          </div>
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 18px;">
-            <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#f97316; margin-bottom:6px;">Hard</div>
-            <div style="font-size:0.82rem; color:var(--text); font-weight:600; margin-bottom:4px;">Rare tier opens</div>
-            <div style="font-size:0.78rem; color:var(--muted); line-height:1.6;">Corrupted Claw, Infected Blood, Obsidian, and Gems start dropping.</div>
-          </div>
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 18px;">
-            <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#f43f5e; margin-bottom:6px;">Expert</div>
-            <div style="font-size:0.82rem; color:var(--text); font-weight:600; margin-bottom:4px;">Endgame materials</div>
-            <div style="font-size:0.78rem; color:var(--muted); line-height:1.6;">Dense Bone, Zombie Core, Diamond, and Crystal become obtainable.</div>
-          </div>
-        </div>
-
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; margin-bottom:36px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
-          <strong style="color:var(--text);">Why this matters:</strong> Difficulty is usually a pure cost. Here it's also an opportunity — push into Expert and face tougher enemies, but gain access to T5 materials no other phase drops.
-        </div>
-
-        <div class="section-line" style="margin-top:36px;">Design Focus</div>
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px;">
-          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7;">
-            The hardest problem is making every merge feel like progress — not just the last one. The shop structure also demands careful economy tuning: points need to accumulate fast enough to feel rewarding, slow enough that reaching the shop feels earned.
-          </p>
         </div>
 
       </div>
+
     </div>
+
+    <!-- ═══ The Merge Rule ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">The Merge Rule &mdash; The Whole System on One Idea</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:14px;">
+        Every craft in the game is <strong style="color:var(--text);">exactly two items in, one item out</strong> &mdash; same type or different. There is no crafting bench, no furnace, no upgrade menu. Even ore becomes an ingot by merging two ore. The constraint is the design: one rule the player learns in the first ten seconds, then never has to relearn.
+      </p>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
+        The interesting problem is making that one rule carry <strong style="color:var(--accent2);">117 items across five tiers</strong> without turning into a memorisation test. It does that through three layered rules below.
+      </p>
+
+      <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin-bottom:6px;">01 &middot; Tier-up is uniform</h4>
+      <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; max-width:660px; margin-bottom:18px;">
+        You never re-craft a finished item from scratch. Merge it with that tier's <em>catalyst</em> and it becomes the same item, one tier up. Two catalyst tracks keep weapons and armour on separate material economies, so a good weapon run doesn't automatically hand you good armour.
+      </p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:12px;">
+        <div class="cat-track">
+          <div class="tt">Armour &amp; Tools &mdash; structural</div>
+          <div class="cat-flow">
+            <span class="ci">Stone Chunk</span><span class="ar">&rarr;</span><span class="ci">Iron Ingot</span><span class="ar">&rarr;</span><span class="ci">Refined Crystal</span><span class="ar">&rarr;</span><span class="ci">Voidsteel</span>
+          </div>
+        </div>
+        <div class="cat-track">
+          <div class="tt">Weapons &mdash; ore ingots</div>
+          <div class="cat-flow">
+            <span class="ci">Copper</span><span class="ar">&rarr;</span><span class="ci">Iron</span><span class="ar">&rarr;</span><span class="ci">Silver</span><span class="ar">&rarr;</span><span class="ci">Hell</span>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 18px; margin-bottom:32px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
+        <strong style="color:var(--text);">All seven ores earn their place:</strong> Copper, Iron, Silver and Hell are the weapon tier catalysts. <strong style="color:#e8c07d;">Gold</strong> is the economy metal &mdash; it brews the Fortune Draught (+30% survival points), tying mining to the shop instead of to combat. <strong style="color:#dfe3ff;">Moon</strong> is Expert-only and forges the apex Lunar weapons. No ore is decorative.
+      </div>
+
+      <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin-bottom:6px;">02 &middot; Difficulty gates the catalysts</h4>
+      <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; max-width:660px; margin-bottom:18px;">
+        Materials don't sit around waiting. Each catalyst only becomes reachable in a later difficulty phase, and phase is tied to how long you've survived. That's what turns difficulty from a pure cost into an <strong style="color:var(--text);">opportunity</strong> &mdash; the only path to T5 runs straight through the hardest part of the run.
+      </p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; margin-bottom:14px;">
+        <div class="tier-card" style="--tc:#4ade80;">
+          <div class="tname">Easy</div>
+          <div class="tmat">Baseline drops</div>
+          <div class="tsrc">Branch, Stone, Flower, Vine, Zombie Steak. Full T1 gear, low drop rates.</div>
+        </div>
+        <div class="tier-card" style="--tc:#facc15;">
+          <div class="tname">Normal</div>
+          <div class="tmat">Uncommon unlocks</div>
+          <div class="tsrc">+ Zombie Tooth, Quartz, Copper &amp; Iron ore. The iron line opens &rarr; T2/T3 gear.</div>
+        </div>
+        <div class="tier-card" style="--tc:#f97316;">
+          <div class="tname">Hard</div>
+          <div class="tmat">Rare tier</div>
+          <div class="tsrc">+ Corrupted Claw, Infected Blood, Gem, Silver &amp; Gold ore. Refined Crystal &rarr; T4 gear.</div>
+        </div>
+        <div class="tier-card" style="--tc:#f43f5e;">
+          <div class="tname">Expert</div>
+          <div class="tmat">Endgame</div>
+          <div class="tsrc">+ Dense Bone, Zombie Core, Diamond, Moon &amp; Hell ore. Voidsteel &rarr; T5 and chase items.</div>
+        </div>
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 18px; margin-bottom:32px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
+        <strong style="color:var(--text);">Why this matters:</strong> difficulty is usually a pure cost. Here it's also the loot table. Pushing into Expert means tougher enemies <em>and</em> the only access to T5 materials &mdash; so "how long do I stay?" becomes the run's central decision.
+      </div>
+
+      <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin-bottom:6px;">03 &middot; Flat early, percentage late</h4>
+      <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; max-width:660px; margin-bottom:0;">
+        T1&ndash;T3 gear grants flat stats so early upgrades feel punchy and readable. T4&ndash;T5 switch to percentages so late gear multiplies with your shop purchases instead of double-dipping on flat bonuses. It's a small rule that keeps the endgame from either flattening out or exploding.
+      </p>
+    </div>
+
+    <!-- ═══ The Crafting Web (embedded) ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">The Crafting Web &mdash; The Full System, Interactive</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:14px;">
+        Every item in the game and how it's made, as one graph: <strong style="color:var(--text);">117 items, 196 merge links, five tiers</strong>, all on the single rule above. Search a name, drag nodes, hover to trace a chain, or click any item for its recipe and full stat block.
+      </p>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:24px;">
+        This is the production data, not an illustration &mdash; the same table that generates the design doc and the import sheet below.
+      </p>
+
+      <div class="controls">
+        <div class="search-wrap">
+          <span class="search-ico">&#128269;</span>
+          <input id="search" class="search" type="text" placeholder="Search items… try Iron, Void, Axe, Bone" autocomplete="off" spellcheck="false" />
+          <button id="searchX" class="search-x" title="Clear">&times;</button>
+        </div>
+      </div>
+
+      <div class="controls" id="filters">
+        <span style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-right:4px;">Filter</span>
+        <button class="fbtn active" data-cat="All">All</button>
+        <button class="fbtn" data-cat="Material">Materials</button>
+        <button class="fbtn" data-cat="Component">Components</button>
+        <button class="fbtn" data-cat="Tool">Tools</button>
+        <button class="fbtn" data-cat="Weapon">Weapons</button>
+        <button class="fbtn" data-cat="Armor">Armor</button>
+        <button class="fbtn" data-cat="Consumable">Consumables</button>
+      </div>
+
+      <div class="web">
+        <div id="graph"></div>
+        <div class="panel" id="panel"></div>
+      </div>
+    </div>
+
+    <!-- ═══ Core loop in motion ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">The Core Loop &mdash; In Motion</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:24px;">
+        No crafting tables, no upgrade menus &mdash; just <strong style="color:var(--text);">pick up &rarr; merge &rarr; survive longer &rarr; repeat</strong>, built in Unity on a merge system that scales from T1 pickups to T5 apex weapons on the single rule above.
+      </p>
+      <div class="gif-showcase">
+        <figure class="gif-slot">
+          <img src="../survival_gather.gif" alt="Gathering resources and surviving" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">&#9670;</span><span>Drop survival_gather.gif here</span></div>
+          <figcaption>Gather &amp; Survive &mdash; <span>collecting branches, stone and flowers while dodging zombies</span></figcaption>
+        </figure>
+        <figure class="gif-slot">
+          <img src="../survival_merge.gif" alt="Merging two items into a higher tier" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">&#9670;</span><span>Drop survival_merge.gif here</span></div>
+          <figcaption>Merge in Action &mdash; <span>two Branches &rarr; one Stick. Instant, tactile, no menu</span></figcaption>
+        </figure>
+        <figure class="gif-slot">
+          <img src="../survival_shop.gif" alt="Opening the shop and buying upgrades" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">&#9670;</span><span>Drop survival_shop.gif here</span></div>
+          <figcaption>Shop Economy &mdash; <span>spending survival points on flat stats, then % multipliers</span></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- ═══ Shop economy ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">Shop Economy</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:24px;">
+        Survival points buy two kinds of upgrade &mdash; flat stats first, percentage multipliers once the flats are in place. The ordering is deliberate: percentages are worthless until there's something to multiply, so the shop teaches its own build order.
+      </p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;">
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:18px 20px;">
+          <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent2); margin-bottom:10px;">Flat Upgrades</div>
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.9;">+ Max HP<br>+ Attack<br>+ Defense<br>+ Crit Chance</div>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:18px 20px;">
+          <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent2); margin-bottom:10px;">% Multipliers</div>
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.9;">+% Attack<br>+% Max HP<br>+% Defense<br>+% Crit Damage &amp; Move Speed</div>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
+          <strong style="color:var(--text);">Run-only by design:</strong> stats reset each session. Every run is a fresh economy &mdash; no permanent power creep, and no guarantee you'll reach the shop again.
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
+          <strong style="color:var(--text);">A crafting gateway too:</strong> the shop sells rare materials that can't be reliably farmed, wiring the point economy directly into the crafting tree.
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ Weapons ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">Weapons &mdash; Three Archetypes</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:14px;">
+        Each line trades attack speed against per-hit damage and all three land in the same DPS band per tier &mdash; the choice is feel, not power. The Dagger is the crit archetype and carries the game's only weapon bonus; Club and Spear stay clean damage-and-speed profiles.
+      </p>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:24px;">
+        Beyond T5 sits an optional apex: a finished Void weapon plus a <strong style="color:#dfe3ff;">Moon Ingot</strong> forges its <strong style="color:#dfe3ff;">Lunar</strong> capstone &mdash; the strongest weapons in the game and the real endgame chase.
+      </p>
+      <div class="spec-grid">
+        <div class="spec-card">
+          <h5>Dagger line</h5>
+          <div class="arch">Fast &middot; high crit</div>
+          <div class="spec-row"><span class="sk">Attack Speed</span><span class="sv">1.6 / s</span></div>
+          <div class="spec-row"><span class="sk">Damage T1 &rarr; T5</span><span class="sv">8 &rarr; 1,100</span></div>
+          <div class="spec-row"><span class="sk">Crit Chance</span><span class="sv">8% &rarr; 25%</span></div>
+          <div class="spec-row"><span class="sk">Crit Damage</span><span class="sv">+50% &rarr; +100%</span></div>
+          <div class="apex-note"><strong>Lunar Reaper</strong> &mdash; 1,900 dmg &middot; 35% crit &middot; +150% crit dmg</div>
+        </div>
+        <div class="spec-card">
+          <h5>Club line</h5>
+          <div class="arch">Slow &middot; heavy hits</div>
+          <div class="spec-row"><span class="sk">Attack Speed</span><span class="sv">0.7 / s</span></div>
+          <div class="spec-row"><span class="sk">Damage T1 &rarr; T5</span><span class="sv">18 &rarr; 2,500</span></div>
+          <div class="spec-row"><span class="sk">Profile</span><span class="sv">Highest per-hit</span></div>
+          <div class="spec-row"><span class="sk">Bonus</span><span class="sv">None &mdash; pure damage</span></div>
+          <div class="apex-note"><strong>Lunar Breaker</strong> &mdash; 4,300 dmg, the biggest single hit in the game</div>
+        </div>
+        <div class="spec-card">
+          <h5>Spear line</h5>
+          <div class="arch">Balanced &middot; mid speed</div>
+          <div class="spec-row"><span class="sk">Attack Speed</span><span class="sv">1.1 / s</span></div>
+          <div class="spec-row"><span class="sk">Damage T1 &rarr; T5</span><span class="sv">12 &rarr; 1,600</span></div>
+          <div class="spec-row"><span class="sk">Profile</span><span class="sv">Middle of both</span></div>
+          <div class="spec-row"><span class="sk">Bonus</span><span class="sv">None &mdash; pure damage</span></div>
+          <div class="apex-note"><strong>Lunar Impaler</strong> &mdash; 2,800 dmg</div>
+        </div>
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; margin-top:16px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
+        <strong style="color:var(--text);">Damage scales to the HP curve:</strong> per-hit damage grows roughly 3&ndash;4&times; per tier, taking DPS from ~13 at T1 to ~1,760 at T5 and ~3,040 at apex &mdash; then shop and armour percentages stack on top. Late-phase enemies run into the thousands of HP, so the curve is built to chase them rather than flatten out.
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; margin-top:12px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
+        <strong style="color:var(--text);">On the numbers themselves:</strong> these are a deliberate first pass, tuned for feel over balance on a five-day ship &mdash; the <em>shape</em> of the curve matters more here than any individual value, and the game is meant to feel generous rather than finely balanced. That's a survivable trade-off because every number lives in the data table, not in code: the entire curve can be re-tuned from the spreadsheet and re-exported without touching the game.
+      </div>
+    </div>
+
+    <!-- ═══ Armour ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">Armour &mdash; Six Slots, Two Rarities</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:24px;">
+        Four common slots run the full T1&ndash;T5 ladder and lean defensive. Two rare slots &mdash; Gloves and Shoulders &mdash; are unavailable at T1 and always need a rarer base, and they carry the offensive stats. Stats cross from flat to percentage at T4, in step with the shop.
+      </p>
+      <div style="overflow-x:auto; margin-bottom:16px;">
+        <table style="width:100%; border-collapse:collapse; font-size:0.8rem;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);">
+              <th style="text-align:left; padding:9px 12px; color:var(--accent2); font-weight:600;">Tier</th>
+              <th style="text-align:left; padding:9px 12px; color:var(--accent2); font-weight:600;">Common &mdash; Boots, Pants, Helmet, Chest</th>
+              <th style="text-align:left; padding:9px 12px; color:var(--accent2); font-weight:600;">Rare &mdash; Gloves, Shoulders</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:9px 12px; color:var(--t1); font-weight:700;">T1 Primitive</td><td style="padding:9px 12px; color:var(--muted);">+3 Defense</td><td style="padding:9px 12px; color:var(--muted); opacity:0.6;">Not available</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:9px 12px; color:var(--t2); font-weight:700;">T2 Reinforced</td><td style="padding:9px 12px; color:var(--muted);">+6 Defense</td><td style="padding:9px 12px; color:var(--muted);">+5 Defense, +5 Attack</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:9px 12px; color:var(--t3); font-weight:700;">T3 Iron</td><td style="padding:9px 12px; color:var(--muted);">+10 Defense, +3 Attack</td><td style="padding:9px 12px; color:var(--muted);">+8 Attack, +4% Move Speed</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:9px 12px; color:var(--t4); font-weight:700;">T4 Crystal</td><td style="padding:9px 12px; color:var(--muted);">+15 Defense, +5% Attack</td><td style="padding:9px 12px; color:var(--muted);">+8% Attack, +6% Move Speed</td></tr>
+            <tr><td style="padding:9px 12px; color:var(--t5); font-weight:700;">T5 Void</td><td style="padding:9px 12px; color:var(--muted);">+8% Defense, +6% Max HP</td><td style="padding:9px 12px; color:var(--muted);">+6% ALL stats (chase item)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
+        <strong style="color:var(--text);">Design note &mdash; Gloves &amp; Shoulders:</strong> inspired by MapleStory's rarity curve. Void Shoulders (+6% ALL stats) is intentionally the hardest item in the game &mdash; it needs Voidsteel, whose own recipe pulls in a Zombie Core, so finishing it means repeatedly surviving into Expert.
+      </div>
+    </div>
+
+    <!-- ═══ Materials ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">Materials &mdash; The Five-Tier Ladder</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:24px;">
+        Every chain starts with ground pickups and climbs through same-material refinements. Two cross-line merges open the tier gates: <strong style="color:var(--text);">Refined Crystal</strong> (Quartz Cluster + Gem) and <strong style="color:var(--text);">Void Shard</strong> (Zombie Core + Diamond) &mdash; tying progression directly to the drop table.
+      </p>
+      <div class="tier-ladder" style="margin-bottom:16px;">
+        <div class="tier-card" style="--tc:var(--t1);">
+          <div class="tname">T1 Primitive</div>
+          <div class="tmat">Branch, Stone, Flower, Vine</div>
+          <div class="tsrc">Ground pickups. Craft with bare hands into Stick, Flint, Cord, Crushed Petals.</div>
+        </div>
+        <div class="tier-card" style="--tc:var(--t2);">
+          <div class="tname">T2 Reinforced</div>
+          <div class="tmat">Wood Log, Stone Chunk, Copper</div>
+          <div class="tsrc">Harvested with T1 tools or refined 2:1. Stone Chunk is the first armour catalyst.</div>
+        </div>
+        <div class="tier-card" style="--tc:var(--t3);">
+          <div class="tname">T3 Iron</div>
+          <div class="tmat">Zombie Steak, Flower Essence, Iron</div>
+          <div class="tsrc">Enemy drops and alchemy. Cured Hide and Iron Ingot open real combat gear.</div>
+        </div>
+        <div class="tier-card" style="--tc:var(--t4);">
+          <div class="tname">T4 Crystal</div>
+          <div class="tmat">Corrupted Claw, Gem, Silver, Gold</div>
+          <div class="tsrc">Hard-phase only. Refined Crystal gates T4; percentage stats begin here.</div>
+        </div>
+        <div class="tier-card" style="--tc:var(--t5);">
+          <div class="tname">T5 Void</div>
+          <div class="tmat">Dense Bone, Zombie Core, Diamond, Moon, Hell</div>
+          <div class="tsrc">Expert only. Voidsteel is the hardest material; Moon forges the Lunar apex.</div>
+        </div>
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
+        <strong style="color:var(--text);">Separate ladders, on purpose:</strong> cordage (Vine &rarr; Cord &rarr; Rope) and alchemy (Flower &rarr; Crushed Petals &rarr; Flower Essence) are kept apart so binding material never distils into essence. Small consistency rules like this are what stop a 117-item tree from feeling arbitrary.
+      </div>
+    </div>
+
+    <!-- ═══ Crafting & economy in motion ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">Crafting &amp; Economy &mdash; In Motion</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:24px;">
+        The shop bridges survival points and crafting: buy the rare catalysts that gate T3&ndash;T5 merges and you turn time survived into tiers climbed. That's the meaningful choice each run &mdash; <strong style="color:var(--text);">stats now, or progression materials later</strong>.
+      </p>
+      <div class="gif-showcase">
+        <figure class="gif-slot">
+          <img src="../survival_craft.gif" alt="Crafting a higher tier item" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">&#9670;</span><span>Drop survival_craft.gif here</span></div>
+          <figcaption>Tier-Up &mdash; <span>finished item + catalyst &rarr; the same item, one tier higher</span></figcaption>
+        </figure>
+        <figure class="gif-slot">
+          <img src="../survival_gear.gif" alt="Equipping crafted gear" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">&#9670;</span><span>Drop survival_gear.gif here</span></div>
+          <figcaption>Gear Up &mdash; <span>equipping a fresh tier and watching the stat block move</span></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- ═══ Design in practice / design focus ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">Design in Practice &mdash; Reworking a Dead-End Material</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:24px;">
+        The tree didn't arrive in its current shape. This is the clearest example of a pass that changed it &mdash; auditing every material to check it actually fed something, and finding one that didn't.
+      </p>
+      <div class="postmortem-grid">
+        <div class="pm-card pm-bad">
+          <h4>Before &mdash; Gold was a dead end</h4>
+          <ul>
+            <li>Seven ore types existed as art assets, so the system was built to use all seven.</li>
+            <li>Six had a clear job: Copper, Iron, Silver and Hell as the weapon tier catalysts, Moon as the apex material.</li>
+            <li>Gold refined into a Gold Ingot that <strong style="color:var(--text);">nothing consumed</strong> &mdash; a leaf node on the graph.</li>
+            <li>Players would mine it, read it as rare, and find no use. That reads as an oversight, not a choice.</li>
+          </ul>
+        </div>
+        <div class="pm-card pm-good">
+          <h4>After &mdash; Gold became the economy metal</h4>
+          <ul>
+            <li>Gold Ingot + Flower Essence &rarr; <strong style="color:var(--text);">Fortune Draught</strong>, +30% survival points earned for 25s.</li>
+            <li>Gold now connects mining to the shop pillar instead of to combat &mdash; the one pillar no other ore touched.</li>
+            <li>Every ore now has a distinct role, and none of them overlap.</li>
+            <li>The graph has no orphan nodes: every material feeds at least one recipe.</li>
+          </ul>
+        </div>
+        <div class="pm-lesson">
+          <h4>Why not just make a Gold weapon?</h4>
+          <p>
+            That was the obvious fix and it was the wrong one. A fifth weapon catalyst would have meant a fifth tier-up track, which breaks the uniform tier-up rule the whole system rests on &mdash; and it would have made Gold redundant with Silver rather than distinct from it. Pointing it at the point economy instead gave it a job nothing else had, without adding a rule.
+            <br><br>
+            The same pass cut <strong style="color:var(--text);">Sickle, Obsidian and Bronze</strong> for the opposite reason: they existed, but nothing consumed them and no gameplay needed them. Verifying the graph first confirmed tools and weapons are dead ends by design, so removing them cost nothing downstream. The working rule that came out of it: <strong style="color:var(--text);">if a material doesn't feed something, it's decoration &mdash; give it a purpose or cut it.</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:72px;">
+      <div class="section-line">Design Focus &amp; Open Problems</div>
+      <div class="pillars-grid">
+        <div class="pillar">
+          <div class="pillar-num">01</div>
+          <h4>Every merge has to feel like progress</h4>
+          <p>The hardest problem in the system, and not fully solved. The uniform tier-up helps &mdash; each merge visibly changes the item's name and tier colour rather than a hidden stat &mdash; but mid-ladder merges still need a stronger flourish to read as a win.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">02</div>
+          <h4>Tuning the point economy</h4>
+          <p>Points have to accumulate fast enough to feel rewarding and slow enough that reaching the shop feels earned. Because everything resets each run, this curve decides whether a session feels generous or pointless.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">03</div>
+          <h4>Gate by supply, not by steps</h4>
+          <p>Tier-up is deliberately trivial to perform and hard to supply. Progression speed is tuned through drop rates on Quartz, Gem, Diamond and boss materials &mdash; never by adding merge steps, which would break the one rule.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">04</div>
+          <h4>Built to be data-driven</h4>
+          <p>Every merge is one flat row &mdash; Category, Output, Input A, Input B, Tier. The crafting DB keys on the unordered pair {A,B} so merge order never matters, and the whole tree can be rebalanced from a spreadsheet rather than from code.</p>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════ Site Nav Footer ═══════════════════════════════════════ -->
 <div class="site-nav-footer">
   <div class="container">
     <span class="site-nav-footer-label">Jump to</span>
@@ -1196,6 +1486,132 @@
       if (target === page) a.classList.add('nav-active');
     });
   })();
+</script>
+
+<script>
+const GRAPH = {"nodes": [{"id": "Branch", "label": "Branch", "cat": "Material", "tier": 1, "recipe": "Source: Ground pickup (Easy+)", "base": true, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Kind", "Base pickup"], ["Role", "Primary wood source"]]}, {"id": "Stone", "label": "Stone", "cat": "Material", "tier": 1, "recipe": "Source: Ground pickup (Easy+)", "base": true, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Kind", "Base pickup"], ["Role", "Primary mineral source"]]}, {"id": "Flower", "label": "Flower", "cat": "Material", "tier": 1, "recipe": "Source: Ground pickup (Easy+)", "base": true, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Kind", "Base pickup"], ["Role", "Alchemy base (essences)"]]}, {"id": "Vine", "label": "Vine", "cat": "Material", "tier": 1, "recipe": "Source: Ground pickup (Easy+)", "base": true, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Kind", "Base pickup"], ["Role", "Cordage / binding source"]]}, {"id": "Zombie Steak", "label": "Zombie Steak", "cat": "Material", "tier": 3, "recipe": "Source: Regular Zombie (Easy+)", "base": true, "apex": false, "catalyst": false, "stats": [["Tier", "T3 Iron"], ["Kind", "Enemy drop"], ["Role", "Hide + food source"]]}, {"id": "Zombie Tooth", "label": "Zombie Tooth", "cat": "Material", "tier": 3, "recipe": "Source: Regular Zombie (Normal+)", "base": true, "apex": false, "catalyst": false, "stats": [["Tier", "T3 Iron"], ["Kind", "Enemy drop"], ["Role", "Bone-shard source"]]}, {"id": "Quartz", "label": "Quartz", "cat": "Material", "tier": 3, "recipe": "Source: Mining (Normal+)", "base": true, "apex": false, "catalyst": false, "stats": [["Tier", "T3 Iron"], ["Kind", "Node/drop"], ["Role", "Crystal gate (Refined Crystal)"]]}, {"id": "Copper (ore)", "label": "Copper (ore)", "cat": "Material", "tier": 2, "recipe": "Source: Mining (Normal+)", "base": true, "apex": false, "catalyst": false, "stats": [["Tier", "T2 Reinforced"], ["Kind", "Ore (mined)"], ["Role", "Weapon metal \u2014 T2 catalyst"]]}, {"id": "Iron (ore)", "label": "Iron (ore)", "cat": "Material", "tier": 3, "recipe": "Source: Mining (Normal+)", "base": true, "apex": false, "catalyst": false, "stats": [["Tier", "T3 Iron"], ["Kind", "Ore (mined)"], ["Role", "Weapon metal \u2014 T3; also armor T3"]]}, {"id": "Silver (ore)", "label": "Silver (ore)", "cat": "Material", "tier": 4, "recipe": "Source: Mining (Hard+)", "base": true, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Kind", "Ore (mined)"], ["Role", "Weapon metal \u2014 T4 catalyst"]]}, {"id": "Gold (ore)", "label": "Gold (ore)", "cat": "Material", "tier": 4, "recipe": "Source: Mining (Hard+)", "base": true, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Kind", "Ore (mined)"], ["Role", "Economy metal \u2014 feeds Fortune Draught"]]}, {"id": "Moon (ore)", "label": "Moon (ore)", "cat": "Material", "tier": 5, "recipe": "Source: Mining (Expert, rare)", "base": true, "apex": false, "catalyst": false, "stats": [["Tier", "T5 Void"], ["Kind", "Ore (mined)"], ["Role", "Apex material \u2014 forges Lunar weapons"]]}, {"id": "Hell (ore)", "label": "Hell (ore)", "cat": "Material", "tier": 5, "recipe": "Source: Mining (Expert)", "base": true, "apex": false, "catalyst": false, "stats": [["Tier", "T5 Void"], ["Kind", "Ore (mined)"], ["Role", "Weapon metal \u2014 T5 catalyst"]]}, {"id": "Corrupted Claw", "label": "Corrupted Claw", "cat": "Material", "tier": 4, "recipe": "Source: Fast Zombie (Hard+)", "base": true, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Kind", "Enemy drop"], ["Role", "T4 signature material"]]}, {"id": "Infected Blood", "label": "Infected Blood", "cat": "Material", "tier": 4, "recipe": "Source: Fast Zombie (Hard+)", "base": true, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Kind", "Enemy drop"], ["Role", "Alloys + adrenaline"]]}, {"id": "Gem", "label": "Gem", "cat": "Material", "tier": 4, "recipe": "Source: Mining (Hard+)", "base": true, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Kind", "Node/drop"], ["Role", "Refined Crystal input"]]}, {"id": "Dense Bone", "label": "Dense Bone", "cat": "Material", "tier": 5, "recipe": "Source: Heavy Zombie (Expert)", "base": true, "apex": false, "catalyst": false, "stats": [["Tier", "T5 Void"], ["Kind", "Enemy drop"], ["Role", "T5 signature material"]]}, {"id": "Zombie Core", "label": "Zombie Core", "cat": "Material", "tier": 5, "recipe": "Source: Heavy Zombie (Expert)", "base": true, "apex": false, "catalyst": false, "stats": [["Tier", "T5 Void"], ["Kind", "Enemy drop"], ["Role", "Void catalyst + chase items"]]}, {"id": "Diamond", "label": "Diamond", "cat": "Material", "tier": 5, "recipe": "Source: Mining (Expert)", "base": true, "apex": false, "catalyst": false, "stats": [["Tier", "T5 Void"], ["Kind", "Node/drop"], ["Role", "Void Shard input"]]}, {"id": "Stick", "label": "Stick", "cat": "Material", "tier": 1, "recipe": "Branch + Branch", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Role", "Basic handle stock"]]}, {"id": "Wood Log", "label": "Wood Log", "cat": "Material", "tier": 2, "recipe": "Stick + Stick", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T2 Reinforced"], ["Role", "= harvested Wood Log (canon T2)"]]}, {"id": "Plank", "label": "Plank", "cat": "Material", "tier": 2, "recipe": "Wood Log + Wood Log", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T2 Reinforced"], ["Role", "Structural / armor backing"]]}, {"id": "Flint", "label": "Flint", "cat": "Material", "tier": 1, "recipe": "Stone + Stone", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Role", "Sharp knapped edge stock"]]}, {"id": "Stone Chunk", "label": "Stone Chunk", "cat": "Material", "tier": 2, "recipe": "Flint + Flint", "base": false, "apex": false, "catalyst": true, "stats": [["Tier", "T2 Reinforced"], ["Role", "= harvested Stone Chunk (canon T2). T2 catalyst"]]}, {"id": "Cut Stone", "label": "Cut Stone", "cat": "Material", "tier": 2, "recipe": "Stone Chunk + Stone Chunk", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T2 Reinforced"], ["Role", "Masonry / heavy heads"]]}, {"id": "Cord", "label": "Cord", "cat": "Material", "tier": 1, "recipe": "Vine + Vine", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Role", "Binding / lashings (rope)"]]}, {"id": "Rope", "label": "Rope", "cat": "Material", "tier": 2, "recipe": "Cord + Cord", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T2 Reinforced"], ["Role", "Heavy straps / T2+ armor"]]}, {"id": "Crushed Petals", "label": "Crushed Petals", "cat": "Material", "tier": 1, "recipe": "Flower + Flower", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Role", "Mash \u2014 feeds extraction"]]}, {"id": "Flower Essence", "label": "Flower Essence", "cat": "Material", "tier": 3, "recipe": "Crushed Petals + Crushed Petals", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T3 Iron"], ["Role", "Canon T3 material"]]}, {"id": "Potent Extract", "label": "Potent Extract", "cat": "Material", "tier": 4, "recipe": "Flower Essence + Flower Essence", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Role", "High-tier consumable base"]]}, {"id": "Copper Ingot", "label": "Copper Ingot", "cat": "Material", "tier": 2, "recipe": "Copper (ore) + Copper (ore)", "base": false, "apex": false, "catalyst": true, "stats": [["Tier", "T2 Reinforced"], ["Role", "Weapon catalyst T1->T2"]]}, {"id": "Iron Ingot", "label": "Iron Ingot", "cat": "Material", "tier": 3, "recipe": "Iron (ore) + Iron (ore)", "base": false, "apex": false, "catalyst": true, "stats": [["Tier", "T3 Iron"], ["Role", "Weapon T2->T3; also armor T3 catalyst"]]}, {"id": "Silver Ingot", "label": "Silver Ingot", "cat": "Material", "tier": 4, "recipe": "Silver (ore) + Silver (ore)", "base": false, "apex": false, "catalyst": true, "stats": [["Tier", "T4 Crystal"], ["Role", "Weapon catalyst T3->T4"]]}, {"id": "Gold Ingot", "label": "Gold Ingot", "cat": "Material", "tier": 4, "recipe": "Gold (ore) + Gold (ore)", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Role", "Economy metal \u2014 crafts Fortune Draught"]]}, {"id": "Moon Ingot", "label": "Moon Ingot", "cat": "Material", "tier": 5, "recipe": "Moon (ore) + Moon (ore)", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T5 Void"], ["Role", "Apex weapon material (Lunar)"]]}, {"id": "Hell Ingot", "label": "Hell Ingot", "cat": "Material", "tier": 5, "recipe": "Hell (ore) + Hell (ore)", "base": false, "apex": false, "catalyst": true, "stats": [["Tier", "T5 Void"], ["Role", "Weapon catalyst T4->T5"]]}, {"id": "Cured Hide", "label": "Cured Hide", "cat": "Material", "tier": 3, "recipe": "Zombie Steak + Zombie Steak", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T3 Iron"], ["Role", "Leather armor base"]]}, {"id": "Tough Leather", "label": "Tough Leather", "cat": "Material", "tier": 3, "recipe": "Cured Hide + Cured Hide", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T3 Iron"], ["Role", "Rare-piece backing"]]}, {"id": "Bone Shard", "label": "Bone Shard", "cat": "Material", "tier": 3, "recipe": "Zombie Tooth + Zombie Tooth", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T3 Iron"], ["Role", "Traps / serrated edges"]]}, {"id": "Quartz Cluster", "label": "Quartz Cluster", "cat": "Material", "tier": 4, "recipe": "Quartz + Quartz", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Role", "Refined Crystal input"]]}, {"id": "Refined Crystal", "label": "Refined Crystal", "cat": "Material", "tier": 4, "recipe": "Quartz Cluster + Gem", "base": false, "apex": false, "catalyst": true, "stats": [["Tier", "T4 Crystal"], ["Role", "T4 catalyst"]]}, {"id": "Pure Crystal", "label": "Pure Crystal", "cat": "Material", "tier": 4, "recipe": "Refined Crystal + Refined Crystal", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Role", "T4 armor cores"]]}, {"id": "Claw Cluster", "label": "Claw Cluster", "cat": "Material", "tier": 4, "recipe": "Corrupted Claw + Corrupted Claw", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Role", "T4 weapon cores"]]}, {"id": "Corrupted Alloy", "label": "Corrupted Alloy", "cat": "Material", "tier": 4, "recipe": "Corrupted Claw + Infected Blood", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Role", "Rage draught / T4 alloys"]]}, {"id": "Bone Plate", "label": "Bone Plate", "cat": "Material", "tier": 5, "recipe": "Dense Bone + Dense Bone", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T5 Void"], ["Role", "Voidsteel input"]]}, {"id": "Void Shard", "label": "Void Shard", "cat": "Material", "tier": 5, "recipe": "Zombie Core + Diamond", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T5 Void"], ["Role", "Void catalyst input"]]}, {"id": "Voidsteel", "label": "Voidsteel", "cat": "Material", "tier": 5, "recipe": "Void Shard + Bone Plate", "base": false, "apex": false, "catalyst": true, "stats": [["Tier", "T5 Void"], ["Role", "T5 catalyst \u2014 hardest material"]]}, {"id": "Long Shaft", "label": "Long Shaft", "cat": "Component", "tier": 1, "recipe": "Stick + Stick", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Use", "Spear & pickaxe hafts"]]}, {"id": "Handle", "label": "Handle", "cat": "Component", "tier": 1, "recipe": "Stick + Cord", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Use", "Wrapped grip"]]}, {"id": "Sharp Edge", "label": "Sharp Edge", "cat": "Component", "tier": 1, "recipe": "Flint + Stone", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Use", "Cutting head"]]}, {"id": "Heavy Head", "label": "Heavy Head", "cat": "Component", "tier": 1, "recipe": "Flint + Flint", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Use", "Blunt / mining head"]]}, {"id": "Padding", "label": "Padding", "cat": "Component", "tier": 1, "recipe": "Cord + Cord", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Use", "Soft armor base"]]}, {"id": "Bark Plate", "label": "Bark Plate", "cat": "Component", "tier": 1, "recipe": "Stick + Cord", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Use", "Hard armor base"]]}, {"id": "Stone Axe", "label": "Stone Axe", "cat": "Tool", "tier": 1, "recipe": "Sharp Edge + Handle", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Damage", "5"], ["Attack Speed", "0.9/s"], ["Harvest", "wood, up to T1 Primitive"]]}, {"id": "Reinforced Axe", "label": "Reinforced Axe", "cat": "Tool", "tier": 2, "recipe": "Stone Axe + Stone Chunk", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T2 Reinforced"], ["Damage", "18"], ["Attack Speed", "0.9/s"], ["Harvest", "wood, up to T2 Reinforced"]]}, {"id": "Iron Axe", "label": "Iron Axe", "cat": "Tool", "tier": 3, "recipe": "Reinforced Axe + Iron Ingot", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T3 Iron"], ["Damage", "60"], ["Attack Speed", "0.9/s"], ["Harvest", "wood, up to T3 Iron"]]}, {"id": "Crystal Axe", "label": "Crystal Axe", "cat": "Tool", "tier": 4, "recipe": "Iron Axe + Refined Crystal", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Damage", "200"], ["Attack Speed", "0.9/s"], ["Harvest", "wood, up to T4 Crystal"]]}, {"id": "Void Axe", "label": "Void Axe", "cat": "Tool", "tier": 5, "recipe": "Crystal Axe + Voidsteel", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T5 Void"], ["Damage", "600"], ["Attack Speed", "0.9/s"], ["Harvest", "wood, up to T5 Void"]]}, {"id": "Stone Pickaxe", "label": "Stone Pickaxe", "cat": "Tool", "tier": 1, "recipe": "Heavy Head + Long Shaft", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Damage", "5"], ["Attack Speed", "0.9/s"], ["Harvest", "stone & ore, up to T1 Primitive"]]}, {"id": "Reinforced Pickaxe", "label": "Reinforced Pickaxe", "cat": "Tool", "tier": 2, "recipe": "Stone Pickaxe + Stone Chunk", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T2 Reinforced"], ["Damage", "18"], ["Attack Speed", "0.9/s"], ["Harvest", "stone & ore, up to T2 Reinforced"]]}, {"id": "Iron Pickaxe", "label": "Iron Pickaxe", "cat": "Tool", "tier": 3, "recipe": "Reinforced Pickaxe + Iron Ingot", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T3 Iron"], ["Damage", "60"], ["Attack Speed", "0.9/s"], ["Harvest", "stone & ore, up to T3 Iron"]]}, {"id": "Crystal Pickaxe", "label": "Crystal Pickaxe", "cat": "Tool", "tier": 4, "recipe": "Iron Pickaxe + Refined Crystal", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Damage", "200"], ["Attack Speed", "0.9/s"], ["Harvest", "stone & ore, up to T4 Crystal"]]}, {"id": "Void Pickaxe", "label": "Void Pickaxe", "cat": "Tool", "tier": 5, "recipe": "Crystal Pickaxe + Voidsteel", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T5 Void"], ["Damage", "600"], ["Attack Speed", "0.9/s"], ["Harvest", "stone & ore, up to T5 Void"]]}, {"id": "Flint Dagger", "label": "Flint Dagger", "cat": "Weapon", "tier": 1, "recipe": "Sharp Edge + Stick", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Type", "Fast \u00b7 high crit"], ["Damage", "8"], ["Attack Speed", "1.6/s"], ["Crit Chance", "8%"], ["Crit Damage", "+50%"]]}, {"id": "Serrated Knife", "label": "Serrated Knife", "cat": "Weapon", "tier": 2, "recipe": "Flint Dagger + Copper Ingot", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T2 Reinforced"], ["Type", "Fast \u00b7 high crit"], ["Damage", "30"], ["Attack Speed", "1.6/s"], ["Crit Chance", "10%"], ["Crit Damage", "+50%"]]}, {"id": "Iron Dagger", "label": "Iron Dagger", "cat": "Weapon", "tier": 3, "recipe": "Serrated Knife + Iron Ingot", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T3 Iron"], ["Type", "Fast \u00b7 high crit"], ["Damage", "110"], ["Attack Speed", "1.6/s"], ["Crit Chance", "13%"], ["Crit Damage", "+60%"]]}, {"id": "Crystal Fang", "label": "Crystal Fang", "cat": "Weapon", "tier": 4, "recipe": "Iron Dagger + Silver Ingot", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Type", "Fast \u00b7 high crit"], ["Damage", "380"], ["Attack Speed", "1.6/s"], ["Crit Chance", "18%"], ["Crit Damage", "+75%"]]}, {"id": "Void Reaper", "label": "Void Reaper", "cat": "Weapon", "tier": 5, "recipe": "Crystal Fang + Hell Ingot", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T5 Void"], ["Type", "Fast \u00b7 high crit"], ["Damage", "1100"], ["Attack Speed", "1.6/s"], ["Crit Chance", "25%"], ["Crit Damage", "+100%"]]}, {"id": "Wooden Club", "label": "Wooden Club", "cat": "Weapon", "tier": 1, "recipe": "Heavy Head + Handle", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Type", "Slow \u00b7 heavy hits"], ["Damage", "18"], ["Attack Speed", "0.7/s"]]}, {"id": "Reinforced Maul", "label": "Reinforced Maul", "cat": "Weapon", "tier": 2, "recipe": "Wooden Club + Copper Ingot", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T2 Reinforced"], ["Type", "Slow \u00b7 heavy hits"], ["Damage", "70"], ["Attack Speed", "0.7/s"]]}, {"id": "Iron Mace", "label": "Iron Mace", "cat": "Weapon", "tier": 3, "recipe": "Reinforced Maul + Iron Ingot", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T3 Iron"], ["Type", "Slow \u00b7 heavy hits"], ["Damage", "250"], ["Attack Speed", "0.7/s"]]}, {"id": "Crystal Crusher", "label": "Crystal Crusher", "cat": "Weapon", "tier": 4, "recipe": "Iron Mace + Silver Ingot", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Type", "Slow \u00b7 heavy hits"], ["Damage", "850"], ["Attack Speed", "0.7/s"]]}, {"id": "Void Breaker", "label": "Void Breaker", "cat": "Weapon", "tier": 5, "recipe": "Crystal Crusher + Hell Ingot", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T5 Void"], ["Type", "Slow \u00b7 heavy hits"], ["Damage", "2500"], ["Attack Speed", "0.7/s"]]}, {"id": "Flint Spear", "label": "Flint Spear", "cat": "Weapon", "tier": 1, "recipe": "Sharp Edge + Long Shaft", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Type", "Balanced \u00b7 mid speed"], ["Damage", "12"], ["Attack Speed", "1.1/s"]]}, {"id": "Reinforced Pike", "label": "Reinforced Pike", "cat": "Weapon", "tier": 2, "recipe": "Flint Spear + Copper Ingot", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T2 Reinforced"], ["Type", "Balanced \u00b7 mid speed"], ["Damage", "45"], ["Attack Speed", "1.1/s"]]}, {"id": "Iron Halberd", "label": "Iron Halberd", "cat": "Weapon", "tier": 3, "recipe": "Reinforced Pike + Iron Ingot", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T3 Iron"], ["Type", "Balanced \u00b7 mid speed"], ["Damage", "165"], ["Attack Speed", "1.1/s"]]}, {"id": "Crystal Lance", "label": "Crystal Lance", "cat": "Weapon", "tier": 4, "recipe": "Iron Halberd + Silver Ingot", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Type", "Balanced \u00b7 mid speed"], ["Damage", "560"], ["Attack Speed", "1.1/s"]]}, {"id": "Void Impaler", "label": "Void Impaler", "cat": "Weapon", "tier": 5, "recipe": "Crystal Lance + Hell Ingot", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T5 Void"], ["Type", "Balanced \u00b7 mid speed"], ["Damage", "1600"], ["Attack Speed", "1.1/s"]]}, {"id": "Lunar Reaper", "label": "Lunar Reaper", "cat": "Weapon", "tier": 5, "recipe": "Void Reaper + Moon Ingot", "base": false, "apex": true, "catalyst": false, "stats": [["Tier", "T5 Void \u00b7 Apex"], ["Type", "Fast \u00b7 high crit"], ["Damage", "1900"], ["Attack Speed", "1.6/s"], ["Crit Chance", "35%"], ["Crit Damage", "+150%"]]}, {"id": "Lunar Breaker", "label": "Lunar Breaker", "cat": "Weapon", "tier": 5, "recipe": "Void Breaker + Moon Ingot", "base": false, "apex": true, "catalyst": false, "stats": [["Tier", "T5 Void \u00b7 Apex"], ["Type", "Slow \u00b7 heavy hits"], ["Damage", "4300"], ["Attack Speed", "0.7/s"]]}, {"id": "Lunar Impaler", "label": "Lunar Impaler", "cat": "Weapon", "tier": 5, "recipe": "Void Impaler + Moon Ingot", "base": false, "apex": true, "catalyst": false, "stats": [["Tier", "T5 Void \u00b7 Apex"], ["Type", "Balanced \u00b7 mid speed"], ["Damage", "2800"], ["Attack Speed", "1.1/s"]]}, {"id": "Bark Boots", "label": "Bark Boots", "cat": "Armor", "tier": 1, "recipe": "Padding + Cord", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Slot", "Boots \u00b7 Common"], ["Grants", "+3 Defense"]]}, {"id": "Reinforced Boots", "label": "Reinforced Boots", "cat": "Armor", "tier": 2, "recipe": "Bark Boots + Stone Chunk", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T2 Reinforced"], ["Slot", "Boots \u00b7 Common"], ["Grants", "+6 Defense"]]}, {"id": "Iron Boots", "label": "Iron Boots", "cat": "Armor", "tier": 3, "recipe": "Reinforced Boots + Iron Ingot", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T3 Iron"], ["Slot", "Boots \u00b7 Common"], ["Grants", "+10 Defense"], ["Grants", "+3 Attack"]]}, {"id": "Crystal Boots", "label": "Crystal Boots", "cat": "Armor", "tier": 4, "recipe": "Iron Boots + Refined Crystal", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Slot", "Boots \u00b7 Common"], ["Grants", "+15 Defense"], ["Grants", "+5% Attack"]]}, {"id": "Void Boots", "label": "Void Boots", "cat": "Armor", "tier": 5, "recipe": "Crystal Boots + Voidsteel", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T5 Void"], ["Slot", "Boots \u00b7 Common"], ["Grants", "+8% Defense"], ["Grants", "+6% Max HP"]]}, {"id": "Bark Pants", "label": "Bark Pants", "cat": "Armor", "tier": 1, "recipe": "Padding + Bark Plate", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Slot", "Pants \u00b7 Common"], ["Grants", "+3 Defense"]]}, {"id": "Reinforced Pants", "label": "Reinforced Pants", "cat": "Armor", "tier": 2, "recipe": "Bark Pants + Stone Chunk", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T2 Reinforced"], ["Slot", "Pants \u00b7 Common"], ["Grants", "+6 Defense"]]}, {"id": "Iron Pants", "label": "Iron Pants", "cat": "Armor", "tier": 3, "recipe": "Reinforced Pants + Iron Ingot", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T3 Iron"], ["Slot", "Pants \u00b7 Common"], ["Grants", "+10 Defense"], ["Grants", "+3 Attack"]]}, {"id": "Crystal Pants", "label": "Crystal Pants", "cat": "Armor", "tier": 4, "recipe": "Iron Pants + Refined Crystal", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Slot", "Pants \u00b7 Common"], ["Grants", "+15 Defense"], ["Grants", "+5% Attack"]]}, {"id": "Void Pants", "label": "Void Pants", "cat": "Armor", "tier": 5, "recipe": "Crystal Pants + Voidsteel", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T5 Void"], ["Slot", "Pants \u00b7 Common"], ["Grants", "+8% Defense"], ["Grants", "+6% Max HP"]]}, {"id": "Bark Helmet", "label": "Bark Helmet", "cat": "Armor", "tier": 1, "recipe": "Bark Plate + Cord", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Slot", "Helmet \u00b7 Common"], ["Grants", "+3 Defense"]]}, {"id": "Reinforced Helmet", "label": "Reinforced Helmet", "cat": "Armor", "tier": 2, "recipe": "Bark Helmet + Stone Chunk", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T2 Reinforced"], ["Slot", "Helmet \u00b7 Common"], ["Grants", "+6 Defense"]]}, {"id": "Iron Helmet", "label": "Iron Helmet", "cat": "Armor", "tier": 3, "recipe": "Reinforced Helmet + Iron Ingot", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T3 Iron"], ["Slot", "Helmet \u00b7 Common"], ["Grants", "+10 Defense"], ["Grants", "+3 Attack"]]}, {"id": "Crystal Helmet", "label": "Crystal Helmet", "cat": "Armor", "tier": 4, "recipe": "Iron Helmet + Refined Crystal", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Slot", "Helmet \u00b7 Common"], ["Grants", "+15 Defense"], ["Grants", "+5% Attack"]]}, {"id": "Void Helmet", "label": "Void Helmet", "cat": "Armor", "tier": 5, "recipe": "Crystal Helmet + Voidsteel", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T5 Void"], ["Slot", "Helmet \u00b7 Common"], ["Grants", "+8% Defense"], ["Grants", "+6% Max HP"]]}, {"id": "Bark Chest", "label": "Bark Chest", "cat": "Armor", "tier": 1, "recipe": "Bark Plate + Bark Plate", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Slot", "Chest \u00b7 Common"], ["Grants", "+3 Defense"]]}, {"id": "Reinforced Chest", "label": "Reinforced Chest", "cat": "Armor", "tier": 2, "recipe": "Bark Chest + Stone Chunk", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T2 Reinforced"], ["Slot", "Chest \u00b7 Common"], ["Grants", "+6 Defense"]]}, {"id": "Iron Chest", "label": "Iron Chest", "cat": "Armor", "tier": 3, "recipe": "Reinforced Chest + Iron Ingot", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T3 Iron"], ["Slot", "Chest \u00b7 Common"], ["Grants", "+10 Defense"], ["Grants", "+3 Attack"]]}, {"id": "Crystal Chest", "label": "Crystal Chest", "cat": "Armor", "tier": 4, "recipe": "Iron Chest + Refined Crystal", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Slot", "Chest \u00b7 Common"], ["Grants", "+15 Defense"], ["Grants", "+5% Attack"]]}, {"id": "Void Chest", "label": "Void Chest", "cat": "Armor", "tier": 5, "recipe": "Crystal Chest + Voidsteel", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T5 Void"], ["Slot", "Chest \u00b7 Common"], ["Grants", "+8% Defense"], ["Grants", "+6% Max HP"]]}, {"id": "Reinforced Gloves", "label": "Reinforced Gloves", "cat": "Armor", "tier": 2, "recipe": "Padding + Cured Hide", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T2 Reinforced"], ["Slot", "Gloves \u00b7 Rare"], ["Grants", "+5 Defense"], ["Grants", "+5 Attack"]]}, {"id": "Iron Gloves", "label": "Iron Gloves", "cat": "Armor", "tier": 3, "recipe": "Reinforced Gloves + Iron Ingot", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T3 Iron"], ["Slot", "Gloves \u00b7 Rare"], ["Grants", "+8 Attack"], ["Grants", "+4% Move Speed"]]}, {"id": "Crystal Gloves", "label": "Crystal Gloves", "cat": "Armor", "tier": 4, "recipe": "Iron Gloves + Refined Crystal", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Slot", "Gloves \u00b7 Rare"], ["Grants", "+8% Attack"], ["Grants", "+6% Move Speed"]]}, {"id": "Void Gloves", "label": "Void Gloves", "cat": "Armor", "tier": 5, "recipe": "Crystal Gloves + Voidsteel", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T5 Void"], ["Slot", "Gloves \u00b7 Rare"], ["Grants", "+6% ALL Stats (chase item)"]]}, {"id": "Reinforced Shoulders", "label": "Reinforced Shoulders", "cat": "Armor", "tier": 2, "recipe": "Bark Plate + Cured Hide", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T2 Reinforced"], ["Slot", "Shoulders \u00b7 Rare"], ["Grants", "+5 Defense"], ["Grants", "+5 Attack"]]}, {"id": "Iron Shoulders", "label": "Iron Shoulders", "cat": "Armor", "tier": 3, "recipe": "Reinforced Shoulders + Iron Ingot", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T3 Iron"], ["Slot", "Shoulders \u00b7 Rare"], ["Grants", "+8 Attack"], ["Grants", "+4% Move Speed"]]}, {"id": "Crystal Shoulders", "label": "Crystal Shoulders", "cat": "Armor", "tier": 4, "recipe": "Iron Shoulders + Refined Crystal", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Slot", "Shoulders \u00b7 Rare"], ["Grants", "+8% Attack"], ["Grants", "+6% Move Speed"]]}, {"id": "Void Shoulders", "label": "Void Shoulders", "cat": "Armor", "tier": 5, "recipe": "Crystal Shoulders + Voidsteel", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T5 Void"], ["Slot", "Shoulders \u00b7 Rare"], ["Grants", "+6% ALL Stats (chase item)"]]}, {"id": "Herbal Poultice", "label": "Herbal Poultice", "cat": "Consumable", "tier": 1, "recipe": "Crushed Petals + Cord", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T1 Primitive"], ["Effect", "+15 HP instant"]]}, {"id": "Stoneskin Brew", "label": "Stoneskin Brew", "cat": "Consumable", "tier": 2, "recipe": "Cut Stone + Flower Essence", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T2 Reinforced"], ["Effect", "+20 Defense for 20s"]]}, {"id": "Cooked Steak", "label": "Cooked Steak", "cat": "Consumable", "tier": 3, "recipe": "Zombie Steak + Flint", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T3 Iron"], ["Effect", "+40 HP + regen 8s (Flint = firestarter)"]]}, {"id": "Bone Caltrops", "label": "Bone Caltrops", "cat": "Consumable", "tier": 3, "recipe": "Bone Shard + Stick", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T3 Iron"], ["Effect", "Deployable trap, area damage"]]}, {"id": "Adrenaline Shot", "label": "Adrenaline Shot", "cat": "Consumable", "tier": 4, "recipe": "Infected Blood + Cord", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Effect", "+15% Move & Atk Speed for 12s"]]}, {"id": "Rage Draught", "label": "Rage Draught", "cat": "Consumable", "tier": 4, "recipe": "Corrupted Alloy + Flower Essence", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Effect", "+25% Attack for 15s"]]}, {"id": "Fortune Draught", "label": "Fortune Draught", "cat": "Consumable", "tier": 4, "recipe": "Gold Ingot + Flower Essence", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T4 Crystal"], ["Effect", "+30% survival points earned for 25s"]]}, {"id": "Void Elixir", "label": "Void Elixir", "cat": "Consumable", "tier": 5, "recipe": "Void Shard + Potent Extract", "base": false, "apex": false, "catalyst": false, "stats": [["Tier", "T5 Void"], ["Effect", "+15% ALL Stats for 20s"]]}], "edges": [{"from": "Branch", "to": "Stick"}, {"from": "Branch", "to": "Stick"}, {"from": "Stick", "to": "Wood Log"}, {"from": "Stick", "to": "Wood Log"}, {"from": "Wood Log", "to": "Plank"}, {"from": "Wood Log", "to": "Plank"}, {"from": "Stone", "to": "Flint"}, {"from": "Stone", "to": "Flint"}, {"from": "Flint", "to": "Stone Chunk"}, {"from": "Flint", "to": "Stone Chunk"}, {"from": "Stone Chunk", "to": "Cut Stone"}, {"from": "Stone Chunk", "to": "Cut Stone"}, {"from": "Vine", "to": "Cord"}, {"from": "Vine", "to": "Cord"}, {"from": "Cord", "to": "Rope"}, {"from": "Cord", "to": "Rope"}, {"from": "Flower", "to": "Crushed Petals"}, {"from": "Flower", "to": "Crushed Petals"}, {"from": "Crushed Petals", "to": "Flower Essence"}, {"from": "Crushed Petals", "to": "Flower Essence"}, {"from": "Flower Essence", "to": "Potent Extract"}, {"from": "Flower Essence", "to": "Potent Extract"}, {"from": "Copper (ore)", "to": "Copper Ingot"}, {"from": "Copper (ore)", "to": "Copper Ingot"}, {"from": "Iron (ore)", "to": "Iron Ingot"}, {"from": "Iron (ore)", "to": "Iron Ingot"}, {"from": "Silver (ore)", "to": "Silver Ingot"}, {"from": "Silver (ore)", "to": "Silver Ingot"}, {"from": "Gold (ore)", "to": "Gold Ingot"}, {"from": "Gold (ore)", "to": "Gold Ingot"}, {"from": "Moon (ore)", "to": "Moon Ingot"}, {"from": "Moon (ore)", "to": "Moon Ingot"}, {"from": "Hell (ore)", "to": "Hell Ingot"}, {"from": "Hell (ore)", "to": "Hell Ingot"}, {"from": "Zombie Steak", "to": "Cured Hide"}, {"from": "Zombie Steak", "to": "Cured Hide"}, {"from": "Cured Hide", "to": "Tough Leather"}, {"from": "Cured Hide", "to": "Tough Leather"}, {"from": "Zombie Tooth", "to": "Bone Shard"}, {"from": "Zombie Tooth", "to": "Bone Shard"}, {"from": "Quartz", "to": "Quartz Cluster"}, {"from": "Quartz", "to": "Quartz Cluster"}, {"from": "Quartz Cluster", "to": "Refined Crystal"}, {"from": "Gem", "to": "Refined Crystal"}, {"from": "Refined Crystal", "to": "Pure Crystal"}, {"from": "Refined Crystal", "to": "Pure Crystal"}, {"from": "Corrupted Claw", "to": "Claw Cluster"}, {"from": "Corrupted Claw", "to": "Claw Cluster"}, {"from": "Corrupted Claw", "to": "Corrupted Alloy"}, {"from": "Infected Blood", "to": "Corrupted Alloy"}, {"from": "Dense Bone", "to": "Bone Plate"}, {"from": "Dense Bone", "to": "Bone Plate"}, {"from": "Zombie Core", "to": "Void Shard"}, {"from": "Diamond", "to": "Void Shard"}, {"from": "Void Shard", "to": "Voidsteel"}, {"from": "Bone Plate", "to": "Voidsteel"}, {"from": "Stick", "to": "Long Shaft"}, {"from": "Stick", "to": "Long Shaft"}, {"from": "Stick", "to": "Handle"}, {"from": "Cord", "to": "Handle"}, {"from": "Flint", "to": "Sharp Edge"}, {"from": "Stone", "to": "Sharp Edge"}, {"from": "Flint", "to": "Heavy Head"}, {"from": "Flint", "to": "Heavy Head"}, {"from": "Cord", "to": "Padding"}, {"from": "Cord", "to": "Padding"}, {"from": "Stick", "to": "Bark Plate"}, {"from": "Cord", "to": "Bark Plate"}, {"from": "Sharp Edge", "to": "Stone Axe"}, {"from": "Handle", "to": "Stone Axe"}, {"from": "Stone Axe", "to": "Reinforced Axe"}, {"from": "Stone Chunk", "to": "Reinforced Axe"}, {"from": "Reinforced Axe", "to": "Iron Axe"}, {"from": "Iron Ingot", "to": "Iron Axe"}, {"from": "Iron Axe", "to": "Crystal Axe"}, {"from": "Refined Crystal", "to": "Crystal Axe"}, {"from": "Crystal Axe", "to": "Void Axe"}, {"from": "Voidsteel", "to": "Void Axe"}, {"from": "Heavy Head", "to": "Stone Pickaxe"}, {"from": "Long Shaft", "to": "Stone Pickaxe"}, {"from": "Stone Pickaxe", "to": "Reinforced Pickaxe"}, {"from": "Stone Chunk", "to": "Reinforced Pickaxe"}, {"from": "Reinforced Pickaxe", "to": "Iron Pickaxe"}, {"from": "Iron Ingot", "to": "Iron Pickaxe"}, {"from": "Iron Pickaxe", "to": "Crystal Pickaxe"}, {"from": "Refined Crystal", "to": "Crystal Pickaxe"}, {"from": "Crystal Pickaxe", "to": "Void Pickaxe"}, {"from": "Voidsteel", "to": "Void Pickaxe"}, {"from": "Sharp Edge", "to": "Flint Dagger"}, {"from": "Stick", "to": "Flint Dagger"}, {"from": "Flint Dagger", "to": "Serrated Knife"}, {"from": "Copper Ingot", "to": "Serrated Knife"}, {"from": "Serrated Knife", "to": "Iron Dagger"}, {"from": "Iron Ingot", "to": "Iron Dagger"}, {"from": "Iron Dagger", "to": "Crystal Fang"}, {"from": "Silver Ingot", "to": "Crystal Fang"}, {"from": "Crystal Fang", "to": "Void Reaper"}, {"from": "Hell Ingot", "to": "Void Reaper"}, {"from": "Heavy Head", "to": "Wooden Club"}, {"from": "Handle", "to": "Wooden Club"}, {"from": "Wooden Club", "to": "Reinforced Maul"}, {"from": "Copper Ingot", "to": "Reinforced Maul"}, {"from": "Reinforced Maul", "to": "Iron Mace"}, {"from": "Iron Ingot", "to": "Iron Mace"}, {"from": "Iron Mace", "to": "Crystal Crusher"}, {"from": "Silver Ingot", "to": "Crystal Crusher"}, {"from": "Crystal Crusher", "to": "Void Breaker"}, {"from": "Hell Ingot", "to": "Void Breaker"}, {"from": "Sharp Edge", "to": "Flint Spear"}, {"from": "Long Shaft", "to": "Flint Spear"}, {"from": "Flint Spear", "to": "Reinforced Pike"}, {"from": "Copper Ingot", "to": "Reinforced Pike"}, {"from": "Reinforced Pike", "to": "Iron Halberd"}, {"from": "Iron Ingot", "to": "Iron Halberd"}, {"from": "Iron Halberd", "to": "Crystal Lance"}, {"from": "Silver Ingot", "to": "Crystal Lance"}, {"from": "Crystal Lance", "to": "Void Impaler"}, {"from": "Hell Ingot", "to": "Void Impaler"}, {"from": "Void Reaper", "to": "Lunar Reaper"}, {"from": "Moon Ingot", "to": "Lunar Reaper"}, {"from": "Void Breaker", "to": "Lunar Breaker"}, {"from": "Moon Ingot", "to": "Lunar Breaker"}, {"from": "Void Impaler", "to": "Lunar Impaler"}, {"from": "Moon Ingot", "to": "Lunar Impaler"}, {"from": "Padding", "to": "Bark Boots"}, {"from": "Cord", "to": "Bark Boots"}, {"from": "Bark Boots", "to": "Reinforced Boots"}, {"from": "Stone Chunk", "to": "Reinforced Boots"}, {"from": "Reinforced Boots", "to": "Iron Boots"}, {"from": "Iron Ingot", "to": "Iron Boots"}, {"from": "Iron Boots", "to": "Crystal Boots"}, {"from": "Refined Crystal", "to": "Crystal Boots"}, {"from": "Crystal Boots", "to": "Void Boots"}, {"from": "Voidsteel", "to": "Void Boots"}, {"from": "Padding", "to": "Bark Pants"}, {"from": "Bark Plate", "to": "Bark Pants"}, {"from": "Bark Pants", "to": "Reinforced Pants"}, {"from": "Stone Chunk", "to": "Reinforced Pants"}, {"from": "Reinforced Pants", "to": "Iron Pants"}, {"from": "Iron Ingot", "to": "Iron Pants"}, {"from": "Iron Pants", "to": "Crystal Pants"}, {"from": "Refined Crystal", "to": "Crystal Pants"}, {"from": "Crystal Pants", "to": "Void Pants"}, {"from": "Voidsteel", "to": "Void Pants"}, {"from": "Bark Plate", "to": "Bark Helmet"}, {"from": "Cord", "to": "Bark Helmet"}, {"from": "Bark Helmet", "to": "Reinforced Helmet"}, {"from": "Stone Chunk", "to": "Reinforced Helmet"}, {"from": "Reinforced Helmet", "to": "Iron Helmet"}, {"from": "Iron Ingot", "to": "Iron Helmet"}, {"from": "Iron Helmet", "to": "Crystal Helmet"}, {"from": "Refined Crystal", "to": "Crystal Helmet"}, {"from": "Crystal Helmet", "to": "Void Helmet"}, {"from": "Voidsteel", "to": "Void Helmet"}, {"from": "Bark Plate", "to": "Bark Chest"}, {"from": "Bark Plate", "to": "Bark Chest"}, {"from": "Bark Chest", "to": "Reinforced Chest"}, {"from": "Stone Chunk", "to": "Reinforced Chest"}, {"from": "Reinforced Chest", "to": "Iron Chest"}, {"from": "Iron Ingot", "to": "Iron Chest"}, {"from": "Iron Chest", "to": "Crystal Chest"}, {"from": "Refined Crystal", "to": "Crystal Chest"}, {"from": "Crystal Chest", "to": "Void Chest"}, {"from": "Voidsteel", "to": "Void Chest"}, {"from": "Padding", "to": "Reinforced Gloves"}, {"from": "Cured Hide", "to": "Reinforced Gloves"}, {"from": "Reinforced Gloves", "to": "Iron Gloves"}, {"from": "Iron Ingot", "to": "Iron Gloves"}, {"from": "Iron Gloves", "to": "Crystal Gloves"}, {"from": "Refined Crystal", "to": "Crystal Gloves"}, {"from": "Crystal Gloves", "to": "Void Gloves"}, {"from": "Voidsteel", "to": "Void Gloves"}, {"from": "Bark Plate", "to": "Reinforced Shoulders"}, {"from": "Cured Hide", "to": "Reinforced Shoulders"}, {"from": "Reinforced Shoulders", "to": "Iron Shoulders"}, {"from": "Iron Ingot", "to": "Iron Shoulders"}, {"from": "Iron Shoulders", "to": "Crystal Shoulders"}, {"from": "Refined Crystal", "to": "Crystal Shoulders"}, {"from": "Crystal Shoulders", "to": "Void Shoulders"}, {"from": "Voidsteel", "to": "Void Shoulders"}, {"from": "Crushed Petals", "to": "Herbal Poultice"}, {"from": "Cord", "to": "Herbal Poultice"}, {"from": "Cut Stone", "to": "Stoneskin Brew"}, {"from": "Flower Essence", "to": "Stoneskin Brew"}, {"from": "Zombie Steak", "to": "Cooked Steak"}, {"from": "Flint", "to": "Cooked Steak"}, {"from": "Bone Shard", "to": "Bone Caltrops"}, {"from": "Stick", "to": "Bone Caltrops"}, {"from": "Infected Blood", "to": "Adrenaline Shot"}, {"from": "Cord", "to": "Adrenaline Shot"}, {"from": "Corrupted Alloy", "to": "Rage Draught"}, {"from": "Flower Essence", "to": "Rage Draught"}, {"from": "Gold Ingot", "to": "Fortune Draught"}, {"from": "Flower Essence", "to": "Fortune Draught"}, {"from": "Void Shard", "to": "Void Elixir"}, {"from": "Potent Extract", "to": "Void Elixir"}], "tiers": {"1": {"name": "T1 Primitive", "color": "#9CAF88"}, "2": {"name": "T2 Reinforced", "color": "#B08968"}, "3": {"name": "T3 Iron", "color": "#7A8B99"}, "4": {"name": "T4 Crystal", "color": "#9B7EDE"}, "5": {"name": "T5 Void", "color": "#5B4B8A"}}};
+const TIERCOL = {1:'#9CAF88',2:'#C79A6E',3:'#8FA3B3',4:'#A98CEB',5:'#7C6BB0'};
+const TIERNAME={1:'T1 Primitive',2:'T2 Reinforced',3:'T3 Iron',4:'T4 Crystal',5:'T5 Void'};
+
+const allNodes = GRAPH.nodes.map(n=>{
+  const col = TIERCOL[n.tier]||'#7878a0';
+  return {
+    id:n.id, label:n.id, cat:n.cat, tier:n.tier, recipe:n.recipe, base:n.base,
+    catalyst:n.catalyst, apex:n.apex, stats:n.stats,
+    shape: n.base ? 'diamond' : 'dot',
+    size: n.cat==='Weapon'||n.cat==='Armor' ? 15 : (n.base?11:12),
+    color:{ background:col, border: n.catalyst ? '#e8c07d' : (n.apex ? '#dfe3ff' : col),
+            highlight:{background:col,border:'#ffffff'} },
+    borderWidth: (n.catalyst||n.apex) ? 3 : 1, borderWidthSelected: 3,
+    font:{color:'#d7d7ea',size:12,face:'Inter',strokeWidth:3,strokeColor:'#07070f'}
+  };
+});
+const baseBorderWidth = n => (n.catalyst||n.apex)?3:1;
+const allEdges = GRAPH.edges.map((e,i)=>({id:i,from:e.from,to:e.to,
+  arrows:{to:{enabled:true,scaleFactor:0.4}},
+  color:{color:'rgba(147,51,234,0.28)',highlight:'#c084fc',hover:'#c084fc'},
+  width:1, smooth:{type:'continuous'}}));
+
+const outMap={}, inMap={};
+GRAPH.edges.forEach(e=>{ (outMap[e.from]=outMap[e.from]||[]).push(e.to); (inMap[e.to]=inMap[e.to]||[]).push(e.from); });
+const neighbors = id => [...(inMap[id]||[]),...(outMap[id]||[])];
+
+const nodes=new vis.DataSet(allNodes);
+const edges=new vis.DataSet(allEdges);
+const network=new vis.Network(document.getElementById('graph'),{nodes,edges},{
+  physics:{barnesHut:{gravitationalConstant:-9000,springLength:110,springConstant:0.03,damping:0.5,avoidOverlap:0.4},stabilization:{iterations:350},minVelocity:0.6},
+  interaction:{hover:true,tooltipDelay:120},
+  nodes:{shadow:{enabled:true,color:'rgba(0,0,0,0.4)',size:8,x:0,y:2}},
+  edges:{selectionWidth:1.5}
+});
+network.once('stabilizationIterationsDone',()=>network.setOptions({physics:false}));
+
+const panel=document.getElementById('panel');
+const DEFAULT='<h3>Explore the web</h3><p class="phint">Search a name above, or click any node to see its recipe and everything it feeds into. Hover to light up a merge chain.</p>'
+ +'<div class="legend"><div class="li"><span class="dot" style="background:var(--t1)"></span>T1 Primitive</div><div class="li"><span class="dot" style="background:var(--t2)"></span>T2 Reinforced</div><div class="li"><span class="dot" style="background:var(--t3)"></span>T3 Iron</div><div class="li"><span class="dot" style="background:var(--t4)"></span>T4 Crystal</div><div class="li"><span class="dot" style="background:var(--t5)"></span>T5 Void</div></div>'
+ +'<div class="legend"><div class="li"><span class="dia" style="background:var(--muted)"></span>Raw material (found)</div><div class="li"><span class="ring"></span>Tier-up catalyst</div><div class="li"><span class="ring" style="border-color:#dfe3ff"></span>Apex (Moon)</div></div>';
+panel.innerHTML=DEFAULT;
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+function chip(name){return '<span class="chip" data-node="'+esc(name)+'">'+esc(name)+'</span>';}
+function bindChips(){panel.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{const t=c.getAttribute('data-node');network.selectNodes([t]);showNode(t);network.focus(t,{scale:1.1,animation:{duration:400}});}));}
+
+function showNode(id){
+  const n=nodes.get(id); if(!n) return;
+  const inputs=(inMap[id]||[]), outs=(outMap[id]||[]);
+  let tags='<span class="pill" style="background:'+TIERCOL[n.tier]+'22;color:'+TIERCOL[n.tier]+'">'+(TIERNAME[n.tier]||'')+'</span>';
+  tags+='<span class="pill" style="background:#7878a022;color:#b9b9d6">'+esc(n.cat)+'</span>';
+  if(n.catalyst) tags+='<span class="pill" style="background:#e8c07d22;color:#e8c07d">Catalyst</span>';
+  if(n.apex) tags+='<span class="pill" style="background:#dfe3ff22;color:#dfe3ff">Apex</span>';
+  let html='<h3>'+esc(n.id)+'</h3><div style="margin:8px 0 6px">'+tags+'</div>';if(n.stats&&n.stats.length){html+='<div class="prow"><div class="k">Stats</div><table class="statblock">'+n.stats.map(function(r){return '<tr><td class="sl">'+esc(r[0])+'</td><td class="sv">'+esc(r[1])+'</td></tr>';}).join('')+'</table></div>';}
+  if(n.base){ html+='<div class="prow"><div class="k">Source</div><div style="font-size:0.85rem">'+esc(n.recipe.replace(/^Source:\s*/,''))+'</div></div>'; }
+  else if(inputs.length>=2){ html+='<div class="prow"><div class="k">Merge recipe</div><div class="merge-eq">'+chip(inputs[0])+'<span class="op">+</span>'+chip(inputs[1])+'<span class="op">&rarr;</span><strong>'+esc(n.id)+'</strong></div></div>'; }
+  else { html+='<div class="prow"><div class="k">Recipe</div><div class="merge-eq">'+esc(n.recipe)+'</div></div>'; }
+  if(outs.length){ html+='<div class="prow"><div class="k">Feeds into ('+outs.length+')</div><div>'+outs.map(chip).join('')+'</div></div>'; }
+  else { html+='<div class="prow"><div class="k">Feeds into</div><div class="phint">Top of its chain &mdash; a finished item.</div></div>'; }
+  panel.innerHTML=html; bindChips();
+}
+
+// ---- dimming helpers ----
+function dimTo(keepSet, matchSet){
+  nodes.update(allNodes.map(n=>{
+    const upd={id:n.id, opacity: keepSet.has(n.id)?1:0.12};
+    if(matchSet && matchSet.has(n.id)){ upd.color={...n.color,border:'#ffffff'}; upd.borderWidth=3; }
+    else { upd.color=n.color; upd.borderWidth=baseBorderWidth(n); }
+    return upd;
+  }));
+  edges.update(allEdges.map(e=>({id:e.id, color:{color:(keepSet.has(e.from)&&keepSet.has(e.to))?'rgba(192,132,252,0.5)':'rgba(147,51,234,0.05)'}})));
+}
+function resetVisual(){
+  nodes.update(allNodes.map(n=>({id:n.id,opacity:1,color:n.color,borderWidth:baseBorderWidth(n)})));
+  edges.update(allEdges.map(e=>({id:e.id,color:{color:'rgba(147,51,234,0.28)'}})));
+}
+
+// ---- search ----
+let query='';
+const searchEl=document.getElementById('search');
+const searchX=document.getElementById('searchX');
+function runSearch(){
+  const q=query.trim().toLowerCase();
+  searchX.style.display=q?'block':'none';
+  if(!q){ resetVisual(); panel.innerHTML=DEFAULT; return; }
+  const matches=allNodes.filter(n=>n.id.toLowerCase().includes(q)).map(n=>n.id);
+  const matchSet=new Set(matches);
+  const keep=new Set();
+  matches.forEach(m=>{keep.add(m); neighbors(m).forEach(x=>keep.add(x));});
+  dimTo(keep, matchSet);
+  if(matches.length){
+    panel.innerHTML='<h3>'+matches.length+' match'+(matches.length>1?'es':'')+' for &ldquo;'+esc(q)+'&rdquo;</h3>'
+      +'<p class="phint">Lit up: matches (white ring) plus everything they merge with. Click any for its recipe.</p>'
+      +'<div class="prow"><div class="k">Matches</div><div>'+matches.map(chip).join('')+'</div></div>';
+    bindChips();
+  } else {
+    panel.innerHTML='<h3>No matches</h3><p class="phint">Nothing contains &ldquo;'+esc(q)+'&rdquo;. Try Iron, Void, Bone, Axe, Crystal…</p>';
+  }
+}
+searchEl.addEventListener('input',e=>{query=e.target.value; runSearch();});
+searchX.addEventListener('click',()=>{searchEl.value='';query='';runSearch();searchEl.focus();});
+
+// ---- hover / click (respect active search) ----
+function searchActive(){return query.trim().length>0;}
+network.on('selectNode',p=>{const id=p.nodes[0];showNode(id); const keep=new Set([id,...neighbors(id)]); dimTo(keep,new Set([id]));});
+network.on('deselectNode',()=>{ if(searchActive()){runSearch();} else {panel.innerHTML=DEFAULT;resetVisual();} });
+network.on('hoverNode',p=>{ if(searchActive()||network.getSelectedNodes().length)return; const id=p.node; dimTo(new Set([id,...neighbors(id)]),null); });
+network.on('blurNode',()=>{ if(searchActive()||network.getSelectedNodes().length)return; resetVisual(); });
+
+// ---- category filter ----
+let active=new Set(['All']);
+document.querySelectorAll('.fbtn').forEach(b=>b.addEventListener('click',()=>{
+  const c=b.getAttribute('data-cat');
+  if(c==='All'){active=new Set(['All']);}
+  else{active.delete('All'); active.has(c)?active.delete(c):active.add(c); if(active.size===0)active=new Set(['All']);}
+  document.querySelectorAll('.fbtn').forEach(x=>x.classList.toggle('active', active.has(x.getAttribute('data-cat'))));
+  const showAll=active.has('All');
+  nodes.update(allNodes.map(n=>({id:n.id,hidden: showAll?false:!active.has(n.cat)})));
+  const visible=new Set(allNodes.filter(n=>showAll||active.has(n.cat)).map(n=>n.id));
+  edges.update(allEdges.map(e=>({id:e.id,hidden: !(visible.has(e.from)&&visible.has(e.to))})));
+  if(searchActive())runSearch();
+}));
 </script>
 
 </body>
