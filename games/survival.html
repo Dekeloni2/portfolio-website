@@ -893,9 +893,9 @@
     .gif-showcase{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;}
     .gif-slot{margin:0;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .2s,transform .2s;}
     .gif-slot:hover{border-color:rgba(147,51,234,0.6);transform:translateY(-3px);box-shadow:0 0 28px rgba(147,51,234,0.12);}
-    .gif-slot img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#000;}
+    .gif-slot img,.gif-slot video{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#000;}
     .gif-slot .gif-placeholder{display:none;}
-    .gif-slot.gif-missing img{display:none;}
+    .gif-slot.gif-missing img,.gif-slot.gif-missing video{display:none;}
     .gif-slot.gif-missing .gif-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;aspect-ratio:4/3;background:repeating-linear-gradient(45deg,rgba(147,51,234,0.04),rgba(147,51,234,0.04) 10px,transparent 10px,transparent 20px);border-bottom:1px solid var(--border);color:var(--muted);font-size:0.8rem;text-align:center;padding:20px;}
     .gif-placeholder-icon{font-size:1.4rem;color:var(--accent2);opacity:0.7;}
     .gif-slot figcaption{padding:12px 16px;font-size:0.82rem;font-weight:600;color:var(--text);}
@@ -945,8 +945,11 @@
     <div class="game-section-layout">
 
       <div class="game-meta-col">
-        <span class="badge badge-wip">In Progress</span>
-        <h2 style="margin-top:12px;">Brave the Wilderness</h2>
+        <span class="badge badge-done">Shipped</span>
+        <div style="display:flex; align-items:center; gap:12px; margin-top:12px;">
+          <img src="../brave_the_wilderness.png" alt="Brave the Wilderness logo" style="width:40px; height:40px; object-fit:contain; flex-shrink:0;">
+          <h2 style="margin:0;">Brave the Wilderness</h2>
+        </div>
         <p class="concept">
           A mobile survival game built on a merge-driven loop. Gather resources, survive, merge upward. A shop economy to give accumulated points a purpose was fully designed, then cut from this build's scope.
         </p>
@@ -962,7 +965,7 @@
             <span class="game-info-key" style="color:var(--accent2);">Lead Designer</span><span class="game-info-val">Progression, economy, crafting system, balance</span>
           </div>
           <div class="game-info-item"><span class="game-info-key">System</span><span class="game-info-val">117 items &middot; 196 merges &middot; 5 tiers</span></div>
-          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">In Development</span></div>
+          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">Shipped</span></div>
         </div>
       </div>
 
@@ -1155,13 +1158,13 @@
       </p>
       <div class="gif-showcase">
         <figure class="gif-slot">
-          <img src="../survival_gather.gif" alt="Gathering resources and surviving" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
-          <div class="gif-placeholder"><span class="gif-placeholder-icon">&#9670;</span><span>Drop survival_gather.gif here</span></div>
+          <video src="../survival_gather.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Gathering resources and surviving" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">&#9670;</span><span>Drop survival_gather.mp4 here</span></div>
           <figcaption>Gather &amp; Survive &mdash; <span>collecting branches, stone and flowers while dodging zombies</span></figcaption>
         </figure>
         <figure class="gif-slot">
-          <img src="../survival_merge.gif" alt="Merging two items into a higher tier" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
-          <div class="gif-placeholder"><span class="gif-placeholder-icon">&#9670;</span><span>Drop survival_merge.gif here</span></div>
+          <video src="../survival_merge.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Merging two items into a higher tier" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">&#9670;</span><span>Drop survival_merge.mp4 here</span></div>
           <figcaption>Merge in Action &mdash; <span>two Branches &rarr; one Stick. Instant, tactile, no menu</span></figcaption>
         </figure>
       </div>
@@ -1306,26 +1309,6 @@
       </div>
       <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
         <strong style="color:var(--text);">Separate ladders, on purpose:</strong> cordage (Vine &rarr; Cord &rarr; Rope) and alchemy (Flower &rarr; Crushed Petals &rarr; Flower Essence) are kept apart so binding material never distils into essence. Small consistency rules like this are what stop a 117-item tree from feeling arbitrary.
-      </div>
-    </div>
-
-    <!-- ═══ Crafting & economy in motion ═══ -->
-    <div style="margin-top:72px;">
-      <div class="section-line">Crafting &amp; Tier-Up &mdash; In Motion</div>
-      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:24px;">
-        The catalysts that gate T3&ndash;T5 merges turn time survived into tiers climbed &mdash; survive deeper, gather the rarer materials, merge up. A shop economy &mdash; designed, then cut for scope &mdash; would have layered a second, paid path on top: <strong style="color:var(--text);">stats now, or progression materials later</strong>.
-      </p>
-      <div class="gif-showcase">
-        <figure class="gif-slot">
-          <img src="../survival_craft.gif" alt="Crafting a higher tier item" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
-          <div class="gif-placeholder"><span class="gif-placeholder-icon">&#9670;</span><span>Drop survival_craft.gif here</span></div>
-          <figcaption>Tier-Up &mdash; <span>finished item + catalyst &rarr; the same item, one tier higher</span></figcaption>
-        </figure>
-        <figure class="gif-slot">
-          <img src="../survival_gear.gif" alt="Equipping crafted gear" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
-          <div class="gif-placeholder"><span class="gif-placeholder-icon">&#9670;</span><span>Drop survival_gear.gif here</span></div>
-          <figcaption>Gear Up &mdash; <span>equipping a fresh tier and watching the stat block move</span></figcaption>
-        </figure>
       </div>
     </div>
 
