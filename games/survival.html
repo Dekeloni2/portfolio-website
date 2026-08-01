@@ -852,7 +852,7 @@
       border-radius: 2px;
     }
 
-    /* ─── Crafting Web (matches btw-crafting-web.html) ─── */
+    /* ─── Crafting Web ─── */
     .controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;align-items:center;}
     .search-wrap{position:relative;flex:1;min-width:230px;max-width:420px;}
     .search{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:22px;padding:9px 38px 9px 40px;color:var(--text);font-family:inherit;font-size:0.86rem;outline:none;transition:border-color 0.15s,box-shadow 0.15s;}
@@ -1053,6 +1053,24 @@
         The interesting problem is making that one rule carry <strong style="color:var(--accent2);">117 items across five tiers</strong> without turning into a memorisation test. It does that through three layered rules below.
       </p>
 
+      <figure style="margin:0 0 34px; max-width:680px;">
+        <svg viewBox="0 0 680 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two items merge into one: two Copper become one Copper Ingot, one tier up" style="width:100%; height:auto; display:block; font-family:'Inter',system-ui,sans-serif;">
+          <defs><marker id="mrg-arrow" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9333ea"/></marker></defs>
+          <text x="140" y="24" text-anchor="middle" fill="#7878a0" font-size="12" font-weight="700" letter-spacing="2">TWO IN</text>
+          <text x="555" y="24" text-anchor="middle" fill="#c084fc" font-size="12" font-weight="700" letter-spacing="2">ONE OUT</text>
+          <rect x="40" y="42" width="120" height="70" rx="10" fill="#131320" stroke="#21213a" stroke-width="1.5"/>
+          <text x="100" y="84" text-anchor="middle" fill="#ededf5" font-size="16" font-weight="600">Copper</text>
+          <text x="185" y="88" text-anchor="middle" fill="#7878a0" font-size="26" font-weight="700">+</text>
+          <rect x="210" y="42" width="120" height="70" rx="10" fill="#131320" stroke="#21213a" stroke-width="1.5"/>
+          <text x="270" y="84" text-anchor="middle" fill="#ededf5" font-size="16" font-weight="600">Copper</text>
+          <line x1="352" y1="77" x2="452" y2="77" stroke="#9333ea" stroke-width="3" marker-end="url(#mrg-arrow)"/>
+          <rect x="470" y="34" width="170" height="86" rx="12" fill="#1b1233" stroke="#9333ea" stroke-width="2"/>
+          <text x="555" y="72" text-anchor="middle" fill="#ededf5" font-size="17" font-weight="700">Copper Ingot</text>
+          <text x="555" y="96" text-anchor="middle" fill="#c084fc" font-size="12" font-weight="600">T2 · one tier up ↑</text>
+          <text x="340" y="142" text-anchor="middle" fill="#7878a0" font-size="12.5">The same rule builds all 117 items — even ore becomes an ingot by merging two ore.</text>
+        </svg>
+      </figure>
+
       <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin-bottom:6px;">01 &middot; Tier-up is uniform</h4>
       <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; max-width:660px; margin-bottom:18px;">
         You never re-craft a finished item from scratch. Merge it with that tier's <em>catalyst</em> and it becomes the same item, one tier up. Two catalyst tracks keep weapons and armour on separate material economies, so a good weapon run doesn't automatically hand you good armour.
@@ -1250,6 +1268,65 @@
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:24px;">
         Four common slots run the full T1&ndash;T5 ladder and lean defensive. Two rare slots &mdash; Gloves and Shoulders &mdash; are unavailable at T1 and always need a rarer base, and they carry the offensive stats. Stats cross from flat to percentage at T4, the same point the design's percentage layer kicks in.
       </p>
+      <figure style="margin:0 0 22px; max-width:520px;">
+        <svg viewBox="0 0 560 322" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Six armour slots on a character: Helmet, Chest, Pants and Boots are common; Gloves and Shoulders are rare and carry offensive stats" style="width:100%; height:auto; display:block; font-family:'Inter',system-ui,sans-serif;">
+          <text x="280" y="16" text-anchor="middle" fill="#7878a0" font-size="12" font-weight="700" letter-spacing="1.5">EQUIPMENT · SIX SLOTS</text>
+          <!-- silhouette -->
+          <g fill="#16162c" stroke="#2a2a48" stroke-width="1.5">
+            <circle cx="280" cy="54" r="25"/>
+            <rect x="272" y="76" width="16" height="12"/>
+            <rect x="244" y="86" width="72" height="94" rx="12"/>
+            <rect x="224" y="86" width="28" height="22" rx="6"/>
+            <rect x="308" y="86" width="28" height="22" rx="6"/>
+            <rect x="224" y="104" width="18" height="76" rx="8"/>
+            <rect x="318" y="104" width="18" height="76" rx="8"/>
+            <circle cx="233" cy="188" r="12"/>
+            <circle cx="327" cy="188" r="12"/>
+            <rect x="250" y="180" width="27" height="88" rx="8"/>
+            <rect x="283" y="180" width="27" height="88" rx="8"/>
+            <rect x="244" y="268" width="34" height="18" rx="5"/>
+            <rect x="282" y="268" width="34" height="18" rx="5"/>
+          </g>
+          <!-- connectors -->
+          <g stroke="#7878a0" stroke-width="1.3" fill="#7878a0">
+            <line x1="138" y1="55" x2="255" y2="54"/><circle cx="255" cy="54" r="3"/>
+            <line x1="138" y1="145" x2="245" y2="132"/><circle cx="245" cy="132" r="3"/>
+            <line x1="138" y1="231" x2="251" y2="206"/><circle cx="251" cy="206" r="3"/>
+          </g>
+          <g stroke="#9333ea" stroke-width="1.4" fill="#9333ea">
+            <line x1="422" y1="96" x2="334" y2="97"/><circle cx="334" cy="97" r="3"/>
+            <line x1="422" y1="189" x2="339" y2="188"/><circle cx="339" cy="188" r="3"/>
+          </g>
+          <g stroke="#7878a0" stroke-width="1.3" fill="#7878a0">
+            <line x1="422" y1="273" x2="316" y2="275"/><circle cx="316" cy="275" r="3"/>
+          </g>
+          <!-- common pills (left + boots) -->
+          <g>
+            <rect x="20" y="38" width="118" height="34" rx="8" fill="#131320" stroke="#21213a" stroke-width="1.5"/>
+            <text x="79" y="60" text-anchor="middle" fill="#ededf5" font-size="14" font-weight="600">Helmet</text>
+            <rect x="20" y="128" width="118" height="34" rx="8" fill="#131320" stroke="#21213a" stroke-width="1.5"/>
+            <text x="79" y="150" text-anchor="middle" fill="#ededf5" font-size="14" font-weight="600">Chest</text>
+            <rect x="20" y="214" width="118" height="34" rx="8" fill="#131320" stroke="#21213a" stroke-width="1.5"/>
+            <text x="79" y="236" text-anchor="middle" fill="#ededf5" font-size="14" font-weight="600">Pants</text>
+            <rect x="422" y="256" width="118" height="34" rx="8" fill="#131320" stroke="#21213a" stroke-width="1.5"/>
+            <text x="481" y="278" text-anchor="middle" fill="#ededf5" font-size="14" font-weight="600">Boots</text>
+          </g>
+          <!-- rare pills (right) -->
+          <g>
+            <rect x="422" y="74" width="118" height="44" rx="8" fill="#1b1233" stroke="#9333ea" stroke-width="1.8"/>
+            <text x="481" y="94" text-anchor="middle" fill="#ededf5" font-size="14" font-weight="600">Shoulders</text>
+            <text x="481" y="109" text-anchor="middle" fill="#c084fc" font-size="8.5" font-weight="700" letter-spacing="1">RARE · OFFENSIVE</text>
+            <rect x="422" y="167" width="118" height="44" rx="8" fill="#1b1233" stroke="#9333ea" stroke-width="1.8"/>
+            <text x="481" y="187" text-anchor="middle" fill="#ededf5" font-size="14" font-weight="600">Gloves</text>
+            <text x="481" y="202" text-anchor="middle" fill="#c084fc" font-size="8.5" font-weight="700" letter-spacing="1">RARE · OFFENSIVE</text>
+          </g>
+          <!-- legend -->
+          <rect x="120" y="301" width="13" height="13" rx="3" fill="#131320" stroke="#21213a" stroke-width="1.5"/>
+          <text x="140" y="311" fill="#7878a0" font-size="11.5">Common ×4</text>
+          <rect x="250" y="301" width="13" height="13" rx="3" fill="#1b1233" stroke="#9333ea" stroke-width="1.8"/>
+          <text x="270" y="311" fill="#7878a0" font-size="11.5">Rare ×2 — Gloves &amp; Shoulders</text>
+        </svg>
+      </figure>
       <div style="overflow-x:auto; margin-bottom:16px;">
         <table style="width:100%; border-collapse:collapse; font-size:0.8rem;">
           <thead>
@@ -1279,6 +1356,26 @@
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:24px;">
         Every chain starts with ground pickups and climbs through same-material refinements. Two cross-line merges open the tier gates: <strong style="color:var(--text);">Refined Crystal</strong> (Quartz Cluster + Gem) and <strong style="color:var(--text);">Void Shard</strong> (Zombie Core + Diamond) &mdash; tying progression directly to the drop table.
       </p>
+      <figure style="margin:0 0 22px; max-width:680px;">
+        <svg viewBox="0 0 680 182" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Five material tiers ascending from T1 Primitive to T5 Void, each rarer and stronger" style="width:100%; height:auto; display:block; font-family:'Inter',system-ui,sans-serif;">
+          <text x="30" y="16" fill="#7878a0" font-size="12" font-weight="700" letter-spacing="1.5">T1 → T5 · EACH TIER RARER, STRONGER, HARDER TO REACH</text>
+          <rect x="30"  y="106" width="110" height="44"  rx="8" fill="#9CAF88"/>
+          <rect x="158" y="88"  width="110" height="62"  rx="8" fill="#C79A6E"/>
+          <rect x="286" y="70"  width="110" height="80"  rx="8" fill="#8FA3B3"/>
+          <rect x="414" y="52"  width="110" height="98"  rx="8" fill="#A98CEB"/>
+          <rect x="542" y="34"  width="110" height="116" rx="8" fill="#7C6BB0"/>
+          <text x="85"  y="134" text-anchor="middle" fill="#0d0d1a" font-size="15" font-weight="800">T1</text>
+          <text x="213" y="122" text-anchor="middle" fill="#0d0d1a" font-size="15" font-weight="800">T2</text>
+          <text x="341" y="112" text-anchor="middle" fill="#0d0d1a" font-size="15" font-weight="800">T3</text>
+          <text x="469" y="106" text-anchor="middle" fill="#0d0d1a" font-size="15" font-weight="800">T4</text>
+          <text x="597" y="98"  text-anchor="middle" fill="#0d0d1a" font-size="15" font-weight="800">T5</text>
+          <text x="85"  y="170" text-anchor="middle" fill="#ededf5" font-size="12.5" font-weight="600">Primitive</text>
+          <text x="213" y="170" text-anchor="middle" fill="#ededf5" font-size="12.5" font-weight="600">Reinforced</text>
+          <text x="341" y="170" text-anchor="middle" fill="#ededf5" font-size="12.5" font-weight="600">Iron</text>
+          <text x="469" y="170" text-anchor="middle" fill="#ededf5" font-size="12.5" font-weight="600">Crystal</text>
+          <text x="597" y="170" text-anchor="middle" fill="#ededf5" font-size="12.5" font-weight="600">Void</text>
+        </svg>
+      </figure>
       <div class="tier-ladder" style="margin-bottom:16px;">
         <div class="tier-card" style="--tc:var(--t1);">
           <div class="tname">T1 Primitive</div>
@@ -1369,6 +1466,33 @@
           <div class="pillar-num">04</div>
           <h4>Built to be data-driven</h4>
           <p>Every merge is one flat row &mdash; Category, Output, Input A, Input B, Tier. The crafting DB keys on the unordered pair {A,B} so merge order never matters, and the whole tree can be rebalanced from a spreadsheet rather than from code.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ Post-Mortem ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">Post-Mortem</div>
+      <div class="postmortem-grid">
+        <div class="pm-card pm-good">
+          <h4>What worked</h4>
+          <ul>
+            <li>The merge mechanic was fast to implement and fast to author for — every craft is one flat recipe row, so adding content never meant touching engine code.</li>
+            <li>It scales without limit. New items cost imagination, not engineering — the tree can grow indefinitely off a single rule.</li>
+            <li>One idea carried the whole economy: easy to learn in seconds, deep enough to build the entire item ladder on top of.</li>
+          </ul>
+        </div>
+        <div class="pm-card pm-bad">
+          <h4>What I'd change</h4>
+          <ul>
+            <li>Without the two-item merge constraint, I'd allow recipes that combine more than two components — which is actually where the project started before the rule was locked in.</li>
+            <li>Lean into expensive, multi-component recipes. They reward exploration and automation, and that depth is the part of crafting I most enjoy designing.</li>
+            <li>Add the systems that were planned but cut for scope: machines and workstations, plus more storage options like backpacks.</li>
+          </ul>
+        </div>
+        <div class="pm-lesson">
+          <h4>What I learned</h4>
+          <p>Scope discipline, and how to work around burnout. The design I wanted was massive — I wanted to build everything — but the version that shipped was the version I could finish without burning out. Learning to size the project to the energy I actually had, and to protect that energy, mattered more than any single mechanic in the game.</p>
         </div>
       </div>
     </div>
