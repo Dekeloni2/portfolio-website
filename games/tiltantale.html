@@ -813,7 +813,55 @@
       padding-top: 24px;
       border-top: 1px solid var(--border);
     }
-  </style>
+  
+    /* ─── At a glance band ───────────────────────────────────────── */
+    .at-glance {
+      background: linear-gradient(135deg, rgba(147,51,234,0.09), rgba(192,132,252,0.03));
+      border: 1px solid rgba(147,51,234,0.28);
+      border-radius: 14px;
+      padding: 24px 26px 22px;
+      margin-bottom: 44px;
+    }
+    .at-glance .label { margin-bottom: 8px; }
+    .at-glance-hook {
+      font-size: 1.02rem;
+      color: var(--text);
+      line-height: 1.6;
+      font-weight: 500;
+      margin: 0 0 18px;
+    }
+    .at-glance-hook strong { color: var(--accent2); font-weight: 600; }
+    .highlight-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .highlight-chip {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .highlight-chip::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .jump-to-detail {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent2);
+    }
+    .jump-to-detail:hover { text-decoration: none; opacity: 0.82; }
+    .section-line { scroll-margin-top: 80px; }
+
+</style>
 </head>
 <body>
 
@@ -858,13 +906,26 @@
       </div>
 
       <div class="game-content-col">
+        <!-- At a glance -->
+        <div class="at-glance reveal">
+          <span class="label">At a glance</span>
+          <p class="at-glance-hook">An <strong>Undertale-inspired RPG</strong> in MonoGame — explore the college, face your teachers as bosses, and choose to fight or spare them in a turn-based bullet-hell battle system.</p>
+          <div class="highlight-chips">
+            <span class="highlight-chip">Lead Gameplay Designer + Dev</span>
+            <span class="highlight-chip">Turn-based bullet hell</span>
+            <span class="highlight-chip">Fight-or-spare endings</span>
+            <span class="highlight-chip">Released on itch.io</span>
+          </div>
+          <a href="#breakdown" class="jump-to-detail">Jump to the full breakdown ↓</a>
+        </div>
+
 
         <a href="#playtest" style="display:block; text-decoration:none; background:linear-gradient(90deg, rgba(147,51,234,0.10), rgba(147,51,234,0.02)); border:1px solid var(--accent); border-radius:10px; padding:14px 18px; margin-bottom:32px;">
           <span style="display:block; font-size:0.68rem; font-weight:700; letter-spacing:0.08em; color:var(--accent2); text-transform:uppercase; margin-bottom:6px;">Design in practice ↓</span>
           <span style="display:block; font-size:0.88rem; color:var(--text); line-height:1.55;">Playtested with a real player, then <strong>benchmarked attack pacing against Undertale</strong> and cut it — plus a UX pass on the same feedback. <span style="color:var(--accent2); font-weight:600;">See the iteration loop →</span></span>
         </a>
 
-        <div class="section-line">Design Pillars</div>
+        <div class="section-line" id="breakdown">Design Pillars</div>
         <div class="pillars-grid">
           <div class="pillar">
             <div class="pillar-num">01</div>

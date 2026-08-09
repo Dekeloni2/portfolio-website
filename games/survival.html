@@ -923,7 +923,55 @@
     .cat-flow .ci{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:4px 10px;color:var(--text);}
     .cat-flow .ar{color:var(--accent);font-weight:700;}
     @media(max-width:640px){.spec-grid,.tier-ladder{grid-template-columns:1fr;}}
-  </style>
+  
+    /* ─── At a glance band ───────────────────────────────────────── */
+    .at-glance {
+      background: linear-gradient(135deg, rgba(147,51,234,0.09), rgba(192,132,252,0.03));
+      border: 1px solid rgba(147,51,234,0.28);
+      border-radius: 14px;
+      padding: 24px 26px 22px;
+      margin-bottom: 44px;
+    }
+    .at-glance .label { margin-bottom: 8px; }
+    .at-glance-hook {
+      font-size: 1.02rem;
+      color: var(--text);
+      line-height: 1.6;
+      font-weight: 500;
+      margin: 0 0 18px;
+    }
+    .at-glance-hook strong { color: var(--accent2); font-weight: 600; }
+    .highlight-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .highlight-chip {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .highlight-chip::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .jump-to-detail {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent2);
+    }
+    .jump-to-detail:hover { text-decoration: none; opacity: 0.82; }
+    .section-line { scroll-margin-top: 80px; }
+
+</style>
 </head>
 <body>
 
@@ -969,8 +1017,21 @@
       </div>
 
       <div class="game-content-col">
+        <!-- At a glance -->
+        <div class="at-glance reveal">
+          <span class="label">At a glance</span>
+          <p class="at-glance-hook">A mobile survival game built on a <strong>merge-driven loop</strong> — gather resources, survive, merge upward. I owned the progression, economy, crafting web, and balance.</p>
+          <div class="highlight-chips">
+            <span class="highlight-chip">Lead Designer</span>
+            <span class="highlight-chip">117 items · 196 merges</span>
+            <span class="highlight-chip">5-tier crafting web</span>
+            <span class="highlight-chip">Shipped on Android</span>
+          </div>
+          <a href="#breakdown" class="jump-to-detail">Jump to the full breakdown ↓</a>
+        </div>
 
-        <div class="section-line">Design Pillars</div>
+
+        <div class="section-line" id="breakdown">Design Pillars</div>
         <div class="pillars-grid">
           <div class="pillar">
             <div class="pillar-num">01</div>
