@@ -913,7 +913,6 @@
     <div class="filter-bar">
       <button class="filter-btn active" data-filter="all" onclick="filterItems('all')">All</button>
       <span class="filter-sep">·</span>
-      <button class="filter-btn" data-filter="rpg" onclick="filterItems('rpg')">RPG</button>
       <button class="filter-btn" data-filter="survival" onclick="filterItems('survival')">Survival</button>
       <button class="filter-btn" data-filter="idle" onclick="filterItems('idle')">Idle</button>
       <button class="filter-btn" data-filter="auto-battler" onclick="filterItems('auto-battler')">Auto-Battler</button>
@@ -922,57 +921,11 @@
       <button class="filter-btn" data-filter="pc" onclick="filterItems('pc')">PC</button>
       <button class="filter-btn" data-filter="mobile" onclick="filterItems('mobile')">Mobile</button>
       <span class="filter-sep">·</span>
-      <button class="filter-btn" data-filter="solo" onclick="filterItems('solo')">Solo</button>
       <button class="filter-btn" data-filter="team" onclick="filterItems('team')">Team</button>
       <span class="filter-sep">·</span>
       <button class="filter-btn" data-filter="shipped" onclick="filterItems('shipped')">Shipped</button>
-      <button class="filter-btn" data-filter="pre-production" onclick="filterItems('pre-production')">Pre-Production</button>
       <button class="filter-btn" data-filter="concept" onclick="filterItems('concept')">Concept</button>
     </div>
-
-    <div data-tags="rpg action pc solo pre-production" style="display:grid; grid-template-columns:1fr 1.6fr; gap:56px; align-items:start; margin-bottom:80px;">
-
-      <div>
-        <span class="badge badge-wip">In Development</span>
-        <h2 style="font-size:1.6rem; margin-top:12px; margin-bottom:10px;">RunicRPG</h2>
-        <p style="color:var(--muted); font-size:0.9rem; margin-bottom:20px;">A 2.5D action RPG built in Unity using the Tiny Sword asset pack. Six interlocking systems — runes, crafting, scrolls, NPCs, classes, and armor — designed around one principle: coherence over feature count.</p>
-        <div style="display:flex; flex-direction:column; gap:6px; padding-top:20px; border-top:1px solid var(--border);">
-          <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">Unity</span></div>
-          <div class="game-info-item"><span class="game-info-key">Art</span><span class="game-info-val">Tiny Sword Asset Pack</span></div>
-          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">2.5D · Action RPG</span></div>
-          <div class="game-info-item"><span class="game-info-key">Team</span><span class="game-info-val">Solo</span></div>
-          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">In Development · Playable</span></div>
-        </div>
-      </div>
-
-      <div>
-        <img src="runicrpg.png" alt="RunicRPG concept" style="width:100%; border-radius:10px; border:1px solid var(--border); display:block; image-rendering:pixelated; margin-bottom:6px;"/>
-        <p style="font-size:0.7rem; color:var(--muted); text-align:center; margin-bottom:20px;">In active development — playable build in progress</p>
-
-        <div class="section-line">Planned Systems</div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px;">
-            <div style="font-size:0.72rem; font-weight:700; color:var(--accent2); margin-bottom:4px;">🔮 Rune Skill Tree</div>
-            <p style="font-size:0.78rem; color:var(--muted);">Equip runes to unlock and shape your build path.</p>
-          </div>
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px;">
-            <div style="font-size:0.72rem; font-weight:700; color:var(--accent2); margin-bottom:4px;">🧑‍🤝‍🧑 NPC Companions</div>
-            <p style="font-size:0.78rem; color:var(--muted);">Hire NPCs to grind zones passively or fight alongside you.</p>
-          </div>
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px;">
-            <div style="font-size:0.72rem; font-weight:700; color:var(--accent2); margin-bottom:4px;">📜 Equipment Scrolls</div>
-            <p style="font-size:0.78rem; color:var(--muted);">Targeted stat upgrades on individual gear pieces.</p>
-          </div>
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px;">
-            <div style="font-size:0.72rem; font-weight:700; color:var(--accent2); margin-bottom:4px;">⚒ Crafting</div>
-            <p style="font-size:0.78rem; color:var(--muted);">Every monster drop has crafting value — no junk loot.</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="filter-divider-line" style="border-top:1px solid var(--border); margin-bottom:80px;"></div>
 
     <div data-tags="survival pc team shipped" style="display:grid; grid-template-columns:1fr 1.6fr; gap:56px; align-items:start;">
 
@@ -1121,10 +1074,6 @@
         el.classList.add('hidden');
       }
     });
-    const runic = document.querySelector('[data-tags="rpg action pc solo pre-production"]');
-    const pizza = document.querySelector('[data-tags="survival pc team shipped"]');
-    const divider = document.querySelector('.filter-divider-line');
-    if (divider) divider.classList.toggle('hidden', runic.classList.contains('hidden') || pizza.classList.contains('hidden'));
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.filter === tag);
     });
