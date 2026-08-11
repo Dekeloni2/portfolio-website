@@ -312,6 +312,36 @@
     .pm-lesson h4 { font-size: 0.88rem; font-weight: 700; color: var(--accent2); margin-bottom: 10px; }
     .pm-lesson p  { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
 
+    /* ─── Playtest log ───────────────────────────────────────────── */
+    .pt-summary { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; }
+    .pt-stat { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 16px; }
+    .pt-stat b { display: block; font-size: 1.15rem; font-weight: 700; color: var(--text); line-height: 1.1; }
+    .pt-stat span { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+    .pt-table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 40px; -webkit-overflow-scrolling: touch; }
+    table.pt { border-collapse: collapse; width: 100%; min-width: 720px; font-size: 0.8rem; }
+    table.pt th { text-align: left; font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--accent2); font-weight: 700; padding: 12px 14px; background: var(--surface2); border-bottom: 1px solid var(--border); white-space: nowrap; }
+    table.pt td { padding: 12px 14px; color: var(--muted); border-bottom: 1px solid var(--border); vertical-align: top; }
+    table.pt tr:last-child td { border-bottom: none; }
+    table.pt tbody tr:hover td { background: rgba(147,51,234,0.04); }
+    table.pt td.pt-when { color: var(--text); font-weight: 600; white-space: nowrap; }
+    table.pt td.pt-verdict { color: var(--muted); min-width: 220px; }
+    .pt-pill { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.05em; white-space: nowrap; }
+    .pt-kill { background: rgba(34,197,94,0.14); color: #4ade80; }
+    .pt-wipe { background: rgba(239,68,68,0.13); color: #f87171; }
+    .pt-score { font-weight: 700; color: var(--text); }
+    .iter-log { display: flex; flex-direction: column; gap: 12px; margin-bottom: 8px; }
+    .iter-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 16px 20px; }
+    .iter-card h4 { font-size: 0.86rem; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .iter-row { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+    .iter-row .iter-k { display: inline-block; font-size: 0.64rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; width: 62px; flex-shrink: 0; }
+    .iter-row .iter-k.k-problem { color: #f87171; }
+    .iter-row .iter-k.k-change { color: #4ade80; }
+    .iter-line { display: flex; gap: 10px; align-items: baseline; padding: 2px 0; }
+    @media (max-width: 720px) {
+      .iter-line { flex-direction: column; gap: 0; }
+      .iter-row .iter-k { width: auto; }
+    }
+
     /* ─── Dice visual ────────────────────────────────────────────── */
     .dice-scene {
       display: flex;
@@ -1025,6 +1055,115 @@
           <p style="font-size:0.85rem; color:var(--muted); line-height:1.7;">
             The only physical product in this portfolio. Tabletop design means no engine to enforce rules, no UI to communicate state — everything has to work through the components alone. The economy runs on two gold sinks (Shopkeeper for consumables, Blacksmith for upgrades) tuned for constant tension between saving and spending. Writing the rulebook was its own challenge: unambiguous rules that cover every edge case without overwhelming new players. Shipped as a complete, playable product.
           </p>
+        </div>
+
+        <div style="margin-top:80px; padding-top:64px; border-top:1px solid var(--border);">
+          <span class="label">Playtesting</span>
+          <h2 style="margin-bottom:10px;">The Playtest Log</h2>
+          <p style="color:var(--muted); max-width:660px; margin-bottom:26px;">
+            Five structured playtests across February 2026. Every session logged the party's state, the outcome, and a design verdict — and every session changed a rule. This is where the balance was actually found.
+          </p>
+
+          <div class="pt-summary">
+            <div class="pt-stat"><b>5</b><span>Sessions</span></div>
+            <div class="pt-stat"><b>7 hrs</b><span>Logged Play</span></div>
+            <div class="pt-stat"><b>3–4</b><span>Players / Run</span></div>
+            <div class="pt-stat"><b>2 / 5</b><span>Boss Kills</span></div>
+            <div class="pt-stat"><b>6.6</b><span>Avg Fun / 10</span></div>
+          </div>
+
+          <div class="pt-table-wrap">
+            <table class="pt">
+              <thead>
+                <tr>
+                  <th>Session</th>
+                  <th>Party</th>
+                  <th>Top Lvl</th>
+                  <th>Gold</th>
+                  <th>Boss</th>
+                  <th>Monsters Faced</th>
+                  <th>Score</th>
+                  <th>Design Verdict</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="pt-when">18 Feb · 1h</td>
+                  <td>4 players</td>
+                  <td>Lv 2</td>
+                  <td>15g</td>
+                  <td><span class="pt-pill pt-wipe">Wipe</span></td>
+                  <td>Slime ×1, Skeleton ×1</td>
+                  <td><span class="pt-score">4.5</span></td>
+                  <td class="pt-verdict">Defense is a bad mechanic — scale HP and a simple attack stat instead. More user-friendly.</td>
+                </tr>
+                <tr>
+                  <td class="pt-when">21 Feb · 2h</td>
+                  <td>4 players</td>
+                  <td>Lv 3</td>
+                  <td>30g</td>
+                  <td><span class="pt-pill pt-kill">Killed</span></td>
+                  <td>Skeleton ×1, Slime ×1, Beholder ×1</td>
+                  <td><span class="pt-score">8</span></td>
+                  <td class="pt-verdict">Monsters at ×2 HP die too easily — the game needs bigger HP scales.</td>
+                </tr>
+                <tr>
+                  <td class="pt-when">24 Feb · 1h</td>
+                  <td>3 players</td>
+                  <td>Lv 3</td>
+                  <td>49g</td>
+                  <td><span class="pt-pill pt-wipe">Wipe</span></td>
+                  <td>Skeleton ×1, Beholder ×3</td>
+                  <td><span class="pt-score">7.5</span></td>
+                  <td class="pt-verdict">Teamwork carries the game, but the coordination bar is too high — needs lowering.</td>
+                </tr>
+                <tr>
+                  <td class="pt-when">27 Feb · 2h</td>
+                  <td>3 players</td>
+                  <td>Lv 3</td>
+                  <td>51g</td>
+                  <td><span class="pt-pill pt-kill">Killed</span></td>
+                  <td>Skeleton ×2, Slime ×1, Beholder ×2</td>
+                  <td><span class="pt-score">8</span></td>
+                  <td class="pt-verdict">Boss mechanics still break in too many scenarios — the fight needs a rework.</td>
+                </tr>
+                <tr>
+                  <td class="pt-when">29 Feb · 1h</td>
+                  <td>3 players</td>
+                  <td>Lv 2</td>
+                  <td>35g</td>
+                  <td><span class="pt-pill pt-wipe">Wipe</span></td>
+                  <td>Skeleton ×1, Slime ×1, Beholder ×1</td>
+                  <td><span class="pt-score">5</span></td>
+                  <td class="pt-verdict">The boss must be shuffled in only after a 15-tile minimum — otherwise the run is unwinnable.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="section-line">What the Log Changed</div>
+          <div class="iter-log">
+            <div class="iter-card">
+              <h4>Defense → Monster Guard</h4>
+              <div class="iter-line"><span class="iter-k k-problem">Problem</span><span class="iter-row">The Defense stat produced feel-bad fights — a Paladin could roll and deal zero damage, and combat came down to raw luck.</span></div>
+              <div class="iter-line"><span class="iter-k k-change">Change</span><span class="iter-row">Cut Defense entirely. Added Monster Guard: you must clear the monster's Guard range to deal damage, and rolling into its Crit range deals 2× — folding the old crit-and-fumble rolls into one cleaner mechanic.</span></div>
+            </div>
+            <div class="iter-card">
+              <h4>Monster HP Rescaled</h4>
+              <div class="iter-line"><span class="iter-k k-problem">Problem</span><span class="iter-row">With Defense gone, monsters died too fast — the Witch was one-shotting skeletons on a crit and a two-person party beat down three Beholders.</span></div>
+              <div class="iter-line"><span class="iter-k k-change">Change</span><span class="iter-row">Tested ×2 HP (still too easy), then ×3, which held tension without stalling the fight — moving balance onto HP scaling rather than a defense stat.</span></div>
+            </div>
+            <div class="iter-card">
+              <h4>Progression &amp; XP Catch-Up</h4>
+              <div class="iter-line"><span class="iter-k k-problem">Problem</span><span class="iter-row">Players who fell behind on tiles couldn't level, and monster rewards didn't match the effort of the fight — the party reached the boss underpowered.</span></div>
+              <div class="iter-line"><span class="iter-k k-change">Change</span><span class="iter-row">Made spells and equipment more obtainable and buffed player health, so exploring and fighting actually translates into being ready for the Slime King.</span></div>
+            </div>
+            <div class="iter-card">
+              <h4>Boss Shuffle Rule</h4>
+              <div class="iter-line"><span class="iter-k k-problem">Problem</span><span class="iter-row">The Slime King kept surfacing before the party was ready and steamrolled the run — a purely random draw made the game unwinnable on bad luck.</span></div>
+              <div class="iter-line"><span class="iter-k k-change">Change</span><span class="iter-row">The boss can't enter the tile deck until at least 15 tiles are down, guaranteeing a minimum ramp before the final fight.</span></div>
+            </div>
+          </div>
         </div>
 
         <div style="margin-top:80px; padding-top:64px; border-top:1px solid var(--border);">
