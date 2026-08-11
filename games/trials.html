@@ -342,6 +342,23 @@
       .iter-row .iter-k { width: auto; }
     }
 
+    /* ─── Rulebook gallery ───────────────────────────────────────── */
+    .rb-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .rb-item { margin: 0; }
+    .rb-item a { display: block; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--surface); transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; }
+    .rb-item a:hover { border-color: rgba(147,51,234,0.6); transform: translateY(-3px); box-shadow: 0 0 24px rgba(147,51,234,0.14); text-decoration: none; }
+    .rb-item img { display: block; width: 100%; height: auto; }
+    .rb-item figcaption { font-size: 0.72rem; color: var(--muted); margin-top: 8px; text-align: center; line-height: 1.4; }
+    @media (max-width: 720px) { .rb-gallery { grid-template-columns: 1fr 1fr; } }
+
+    /* ─── Component photo gallery ────────────────────────────────── */
+    .comp-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
+    .comp-item { margin: 0; }
+    .comp-item a { display: block; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--surface); transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; }
+    .comp-item a:hover { border-color: rgba(147,51,234,0.6); transform: translateY(-3px); box-shadow: 0 0 24px rgba(147,51,234,0.14); text-decoration: none; }
+    .comp-item img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+    .comp-item figcaption { font-size: 0.72rem; color: var(--muted); margin-top: 8px; text-align: center; line-height: 1.4; }
+
     /* ─── Dice visual ────────────────────────────────────────────── */
     .dice-scene {
       display: flex;
@@ -959,13 +976,16 @@
           <div class="game-info-item"><span class="game-info-key">Players</span><span class="game-info-val">1–4</span></div>
           <div class="game-info-item"><span class="game-info-key">Course</span><span class="game-info-val">Game Design</span></div>
           <div class="game-info-item"><span class="game-info-key">Team</span><span class="game-info-val">4 people</span></div>
-          <div class="game-info-item"><span class="game-info-key">Role</span><span class="game-info-val">Lead Game Designer</span></div>
-          <div class="game-info-item"><span class="game-info-key">Owned</span><span class="game-info-val">Gameplay loop, progression, economy, spells</span></div>
+          <div class="game-info-item"><span class="game-info-key">Role</span><span class="game-info-val">Rulebook Design · Game Design · Co-Director</span></div>
+          <div class="game-info-item"><span class="game-info-key">Owned</span><span class="game-info-val">Rulebook, gameplay systems, economy, spells, balancing</span></div>
           <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">Complete · Physical Product</span></div>
         </div>
         <div style="margin-top:20px;">
           <a href="https://drive.google.com/file/d/1UjtLMn78_mtpdFaLG9MSJMtV2HCodpDk/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%; justify-content:center;">
             📖 Read the Rulebook
+          </a>
+          <a href="../Trials of the Dungeon - Rulebook.pdf" download class="btn btn-ghost" style="width:100%; justify-content:center; margin-top:8px;">
+            ⤓ Download the full PDF
           </a>
         </div>
         <div style="margin-top:16px;">
@@ -980,7 +1000,7 @@
           <span class="label">At a glance</span>
           <p class="at-glance-hook">A <strong>co-op board game</strong> for 1–4 players — crawl a randomly generated dungeon, gear up, and grow strong enough to beat the Slime King. Designed and produced as a physical product.</p>
           <div class="highlight-chips">
-            <span class="highlight-chip">Lead Game Designer</span>
+            <span class="highlight-chip">Game Designer &amp; Co-Director</span>
             <span class="highlight-chip">1–4 player co-op</span>
             <span class="highlight-chip">Randomized dungeon</span>
             <span class="highlight-chip">Shipped as a physical product</span>
@@ -1057,11 +1077,61 @@
           </p>
         </div>
 
+        <div class="section-line" style="margin-top:36px;">Physical Components</div>
+        <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; margin-bottom:18px;">
+          The game was produced as a real, physical product — each of the four classes has its own 3D-printed miniature, alongside custom components like a printed gold-tracker dial. Tap any to enlarge.
+        </p>
+        <div class="comp-gallery">
+          <figure class="comp-item">
+            <a href="../trials_warrior.png" target="_blank" rel="noopener"><img src="../trials_warrior.png" alt="3D-printed Warrior miniatures" loading="lazy"></a>
+            <figcaption>Warrior minis</figcaption>
+          </figure>
+          <figure class="comp-item">
+            <a href="../trials_paladins.png" target="_blank" rel="noopener"><img src="../trials_paladins.png" alt="3D-printed Paladin miniatures" loading="lazy"></a>
+            <figcaption>Paladin minis</figcaption>
+          </figure>
+          <figure class="comp-item">
+            <a href="../trials_priests.png" target="_blank" rel="noopener"><img src="../trials_priests.png" alt="3D-printed Healer miniatures" loading="lazy"></a>
+            <figcaption>Healer minis</figcaption>
+          </figure>
+          <figure class="comp-item">
+            <a href="../trials_witch.png" target="_blank" rel="noopener"><img src="../trials_witch.png" alt="3D-printed Witch miniature" loading="lazy"></a>
+            <figcaption>Witch mini</figcaption>
+          </figure>
+          <figure class="comp-item">
+            <a href="../trials_goldtracker.png" target="_blank" rel="noopener"><img src="../trials_goldtracker.png" alt="3D-printed gold tracker dial" loading="lazy"></a>
+            <figcaption>Custom gold-tracker dial</figcaption>
+          </figure>
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">From the Rulebook</div>
+        <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; margin-bottom:18px;">
+          I designed, wrote, and laid out the full rulebook myself — a 14-page rules-and-almanac in a hand-built parchment style. Every system in the game had to be explained unambiguously through the components alone. A few spreads:
+        </p>
+        <div class="rb-gallery">
+          <figure class="rb-item">
+            <a href="../rulebook_cover.jpg" target="_blank" rel="noopener"><img src="../rulebook_cover.jpg" alt="Trials of the Dungeon rulebook cover" loading="lazy"></a>
+            <figcaption>Cover — Rules &amp; Almanac</figcaption>
+          </figure>
+          <figure class="rb-item">
+            <a href="../rulebook_setup.jpg" target="_blank" rel="noopener"><img src="../rulebook_setup.jpg" alt="Rulebook setup and turn structure page" loading="lazy"></a>
+            <figcaption>Setup &amp; turn structure</figcaption>
+          </figure>
+          <figure class="rb-item">
+            <a href="../rulebook_classes.jpg" target="_blank" rel="noopener"><img src="../rulebook_classes.jpg" alt="Class statistics and build page" loading="lazy"></a>
+            <figcaption>Class stats &amp; the four builds</figcaption>
+          </figure>
+          <figure class="rb-item">
+            <a href="../rulebook_spells.jpg" target="_blank" rel="noopener"><img src="../rulebook_spells.jpg" alt="Spell encyclopedia page" loading="lazy"></a>
+            <figcaption>Spell encyclopedia</figcaption>
+          </figure>
+        </div>
+
         <div style="margin-top:80px; padding-top:64px; border-top:1px solid var(--border);">
           <span class="label">Playtesting</span>
           <h2 style="margin-bottom:10px;">The Playtest Log</h2>
           <p style="color:var(--muted); max-width:660px; margin-bottom:26px;">
-            Five structured playtests across February 2026. Every session logged the party's state, the outcome, and a design verdict — and every session changed a rule. This is where the balance was actually found.
+            Five structured playtests across February 2026. Every session logged the party's state, the outcome, and a design verdict — and every session changed a rule. This is where the balance was actually found. Each run's fun score is the average of all four players' out-of-10 ratings.
           </p>
 
           <div class="pt-summary">
@@ -1128,7 +1198,7 @@
                   <td class="pt-verdict">Boss mechanics still break in too many scenarios — the fight needs a rework.</td>
                 </tr>
                 <tr>
-                  <td class="pt-when">29 Feb · 1h</td>
+                  <td class="pt-when">28 Feb · 1h</td>
                   <td>3 players</td>
                   <td>Lv 2</td>
                   <td>35g</td>
@@ -1170,7 +1240,7 @@
           <span class="label">Post Mortem</span>
           <h2 style="margin-bottom:10px;">Judge Feedback &amp; Reflection</h2>
           <p style="color:var(--muted); max-width:640px; margin-bottom:40px;">
-            Trials of the Dungeon was presented to a panel of judges. Here's what they flagged, what they praised, and what I'd do differently.
+            Trials of the Dungeon was presented to a panel of judges, who responded enthusiastically to the game. Here's what they flagged, what they praised, and what I'd do differently.
           </p>
 
           <div class="postmortem-grid">
