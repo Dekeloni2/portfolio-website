@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Play TiltanTale — Dekel Riess</title>
+  <meta name="description" content="Play TiltanTale in your browser — an Undertale-inspired RPG built in MonoGame, ported to the web with KNI." />
+  <link rel="icon" type="image/png" href="../favicon.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Play TiltanTale — Dekel Riess" />
+  <meta property="og:description" content="Play TiltanTale in your browser — no download needed." />
+  <meta property="og:url" content="https://dekeloni2.github.io/portfolio-website/games/play-tiltantale.html" />
+  <meta property="og:image" content="https://dekeloni2.github.io/portfolio-website/tiltan_tale.png" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #07070f;
+      --surface:  #0d0d1a;
+      --surface2: #131320;
+      --border:   #21213a;
+      --accent:   #9333ea;
+      --accent2:  #c084fc;
+      --text:     #ededf5;
+      --muted:    #7878a0;
+      --radius:   8px;
+      --max-w:    1100px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      animation: pageFadeIn 0.45s ease;
+    }
+    @keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    body.fade-out { opacity: 0 !important; transition: opacity 0.22s ease; }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.028; pointer-events: none; z-index: 9999;
+    }
+
+    a { color: var(--accent2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+    /* Nav */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(7,7,15,0.85);
+      backdrop-filter: blur(20px) saturate(1.4);
+      border-bottom: 1px solid rgba(147,51,234,0.18);
+      box-shadow: 0 1px 40px rgba(0,0,0,0.5);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px; max-width: var(--max-w); margin: 0 auto; padding: 0 24px;
+    }
+    .nav-logo { font-weight: 700; font-size: 0.95rem; color: var(--text); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--muted); font-size: 0.85rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+    .nav-links a.nav-active { color: var(--accent2); }
+
+    /* Badges / labels */
+    .label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent2); margin-bottom: 10px; display: block;
+    }
+    .badge {
+      display: inline-block; padding: 3px 10px; border-radius: 20px;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      background: rgba(34,197,94,0.15); color: #4ade80;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 22px; border-radius: var(--radius);
+      font-size: 0.88rem; font-weight: 600; cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s, border-color 0.2s; border: none;
+    }
+    .btn:hover { opacity: 0.9; text-decoration: none; transform: translateY(-1px); }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), #7c3aed); color: #fff; box-shadow: 0 0 20px rgba(147,51,234,0.35); }
+    .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { border-color: rgba(147,51,234,0.5); }
+
+    /* Page head */
+    .play-head { padding: 96px 0 24px; }
+    .play-head h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 800; line-height: 1.1; margin: 10px 0 8px;
+    }
+    .play-head h1 .accent {
+      font-style: italic;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 60%, #e879f9 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .play-head p { color: var(--muted); max-width: 640px; font-size: 0.92rem; }
+
+    /* Game stage */
+    .game-stage { padding-bottom: 20px; }
+    .game-frame {
+      position: relative; width: 100%; aspect-ratio: 3 / 2;
+      background: #000; border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden; box-shadow: 0 0 44px rgba(147,51,234,0.16);
+    }
+    .game-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+    .game-frame.is-fs { border-radius: 0; }
+
+    .game-controls {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 16px;
+    }
+    .game-controls .spacer { flex: 1; }
+    .control-hint {
+      font-size: 0.8rem; color: var(--muted); line-height: 1.5;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 12px 16px; margin-top: 16px;
+    }
+    .control-hint strong { color: var(--text); }
+    .control-hint kbd {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 4px;
+      padding: 1px 6px; font-size: 0.74rem; color: var(--accent2); font-family: inherit;
+    }
+
+    /* Footer nav */
+    .site-nav-footer { border-top: 1px solid var(--border); background: var(--surface); padding: 44px 0; margin-top: 56px; }
+    .site-nav-footer-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 16px; display: block;
+    }
+    .site-nav-footer-grid { display: flex; flex-wrap: wrap; gap: 10px 28px; }
+    .site-nav-footer-grid a { font-size: 0.86rem; font-weight: 600; color: var(--text); }
+    .site-nav-footer-grid a:hover { color: var(--accent2); text-decoration: none; }
+    .site-nav-footer-games { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); }
+
+    /* Contact */
+    #contact { text-align: center; padding: 72px 0; }
+    #contact h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(1.4rem, 3vw, 2rem); margin-bottom: 10px; }
+    #contact p { color: var(--muted); margin-bottom: 28px; }
+    .contact-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .play-head { padding-top: 84px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo" style="text-decoration:none;">Dekel Riess</a>
+    <ul class="nav-links">
+      <li><a href="../games.html" class="nav-active">Games</a></li>
+      <li><a href="../prototypes.html">Prototypes</a></li>
+      <li><a href="../experience.html">Experience</a></li>
+      <li><a href="../toolbox.html">Toolbox</a></li>
+      <li><a href="../roadmap.html">Roadmap</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section>
+  <div class="container">
+    <div class="play-head">
+      <span class="badge">Playable in browser</span>
+      <h1>Play <span class="accent">TiltanTale</span></h1>
+      <p>The full game, running right here — no download. Ported from MonoGame to the web with KNI (WebAssembly). Prefer the full breakdown? <a href="tiltantale.html">Read the design breakdown →</a></p>
+    </div>
+
+    <div class="game-stage">
+      <div class="game-frame" id="gameFrame">
+        <iframe id="gameIframe" src="../play/tiltantale/index.html" title="TiltanTale" allow="autoplay; fullscreen; gamepad" allowfullscreen></iframe>
+      </div>
+
+      <div class="game-controls">
+        <button class="btn btn-primary" id="fsBtn" type="button">⛶ Fullscreen</button>
+        <button class="btn btn-secondary" id="reloadBtn" type="button">↻ Restart</button>
+        <span class="spacer"></span>
+        <a href="https://dekeloni2.itch.io/tiltantale" target="_blank" rel="noopener" class="btn btn-secondary">Also on itch.io ↗</a>
+        <a href="https://github.com/Dekeloni2/TiltanTale" target="_blank" rel="noopener" class="btn btn-secondary">&lt;/&gt; Source</a>
+      </div>
+
+      <div class="control-hint">
+        <strong>Click the game first</strong> so it captures your keyboard, then play with the <kbd>arrow keys</kbd> and confirm with the on-screen prompts. First load streams roughly 60&nbsp;MB, so give it a moment — and <strong>desktop is recommended</strong> (the game needs a keyboard).
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="site-nav-footer">
+  <div class="container">
+    <span class="site-nav-footer-label">Jump to</span>
+    <div class="site-nav-footer-grid">
+      <a href="../index.html">Home</a>
+      <a href="../games.html">Games</a>
+      <a href="../prototypes.html">Prototypes</a>
+      <a href="../experience.html">Experience</a>
+      <a href="../toolbox.html">Toolbox</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </div>
+    <div class="site-nav-footer-games">
+      <span class="site-nav-footer-label">More Games</span>
+      <div class="site-nav-footer-grid">
+        <a href="balatro.html" style="display:inline-flex; align-items:center; gap:6px;"><img src="../csharp.png" alt="" style="width:14px;height:14px;object-fit:contain;flex-shrink:0;">Dekelatro</a>
+        <a href="trials.html" style="display:inline-flex; align-items:center; gap:6px;"><span style="flex-shrink:0;">🌐</span>Trials of the Dungeon</a>
+        <a href="tiltantale.html" style="display:inline-flex; align-items:center; gap:6px;"><img src="../monogame.png" alt="" style="width:14px;height:14px;object-fit:contain;flex-shrink:0;">TiltanTale</a>
+        <a href="survival.html" style="display:inline-flex; align-items:center; gap:6px;"><img src="../unity.png" alt="" style="width:14px;height:14px;object-fit:contain;flex-shrink:0;">Brave the Wilderness</a>
+        <a href="dicebound.html" style="display:inline-flex; align-items:center; gap:6px;"><img src="../unity.png" alt="" style="width:14px;height:14px;object-fit:contain;flex-shrink:0;">Dice Bound</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="contact">
+  <div class="container">
+    <span class="label">Get in touch</span>
+    <h2>Let's talk.</h2>
+    <p>Open to internships, collaborations, and feedback on work in progress.</p>
+    <div class="contact-links">
+      <a href="mailto:dekelriess@gmail.com" class="btn btn-primary">✉ dekelriess@gmail.com</a>
+      <a href="https://linkedin.com/in/dekel-riess-39172433b" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn ↗</a>
+      <a href="../Dekel_Riess_Resume.pdf" target="_blank" rel="noopener" class="btn btn-secondary">Resume ↓</a>
+      <a href="https://github.com/Dekeloni2" target="_blank" rel="noopener" class="btn btn-secondary">GitHub</a>
+    </div>
+    <p style="margin-top:40px; font-size:0.78rem; color:var(--muted);">© 2026 Dekel Riess · Game Designer Portfolio</p>
+  </div>
+</section>
+
+<script>
+  // Fullscreen toggle on the frame
+  const frame = document.getElementById('gameFrame');
+  const fsBtn = document.getElementById('fsBtn');
+  fsBtn.addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+      (frame.requestFullscreen || frame.webkitRequestFullscreen || function(){}).call(frame);
+    } else {
+      (document.exitFullscreen || document.webkitExitFullscreen || function(){}).call(document);
+    }
+  });
+  document.addEventListener('fullscreenchange', () => {
+    frame.classList.toggle('is-fs', !!document.fullscreenElement);
+    fsBtn.textContent = document.fullscreenElement ? '⛶ Exit fullscreen' : '⛶ Fullscreen';
+  });
+
+  // Restart reloads the game iframe
+  document.getElementById('reloadBtn').addEventListener('click', () => {
+    const f = document.getElementById('gameIframe');
+    // eslint-disable-next-line no-self-assign
+    f.src = f.src;
+  });
+
+  // Soft page transitions for internal links (skip the game iframe controls)
+  document.addEventListener('click', function (e) {
+    const a = e.target.closest('a');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto:') || a.target === '_blank') return;
+    e.preventDefault();
+    document.body.classList.add('fade-out');
+    setTimeout(() => { window.location.href = href; }, 200);
+  });
+</script>
+
+</body>
+</html>
