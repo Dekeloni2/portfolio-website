@@ -912,7 +912,7 @@
       transition: border-color 0.2s, transform 0.2s;
     }
     .gif-slot:hover { border-color: rgba(147,51,234,0.6); transform: translateY(-3px); box-shadow: 0 0 28px rgba(147,51,234,0.12); }
-    .gif-slot img {
+    .gif-slot img, .gif-slot video {
       display: block;
       width: 100%;
       aspect-ratio: 4 / 3;
@@ -920,8 +920,9 @@
       background: #000;
       image-rendering: pixelated;
     }
+    .gif-slot video { object-fit: contain; }
     .gif-slot .gif-placeholder { display: none; }
-    .gif-slot.gif-missing img { display: none; }
+    .gif-slot.gif-missing img, .gif-slot.gif-missing video { display: none; }
     .gif-slot.gif-missing .gif-placeholder {
       display: flex;
       flex-direction: column;
@@ -991,6 +992,7 @@
         <div class="at-glance reveal">
           <span class="label">At a glance</span>
           <p class="at-glance-hook">A 2.5D side-scroller RPG built to show off <strong>deep systems design</strong>. Fight monsters, upgrade gear, upgrade your character — every system is intertwined to create an addictive <strong>min-maxing loop</strong>.</p>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.55; margin:-6px 0 16px;">In active development — the systems below are built and playable; the final world and art land as the build progresses.</p>
           <div class="highlight-chips">
             <span class="highlight-chip">Solo systems design</span>
             <span class="highlight-chip">Playable core loop</span>
@@ -1050,30 +1052,33 @@
         <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; margin-bottom:24px; max-width:640px;">
           These aren't mockups — they're the systems already built and running in the playable Knight build. Each one is authored in code and juiced for feel, because a progression system only proves itself when the moment-to-moment feedback lands. This is the systems-design layer the whole project is meant to demonstrate.
         </p>
+        <div style="font-size:0.8rem; color:var(--muted); line-height:1.6; background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--accent); border-radius:8px; padding:12px 16px; margin-bottom:24px; max-width:640px;">
+          <strong style="color:var(--text);">Early-build footage.</strong> Captured from an in-development version on a placeholder map — the environment isn't final. The systems shown are real and running, and the art is the final asset set headed into the shipped game.
+        </div>
         <div class="gif-showcase">
           <figure class="gif-slot">
-            <img src="../runic_xp.gif" alt="RunicRPG XP and leveling" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
-            <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>runic_xp.gif</code> here</span></div>
+            <video src="../runic_xp.mp4" autoplay muted loop playsinline preload="metadata" aria-label="RunicRPG XP and leveling" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+            <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>runic_xp.mp4</code> here</span></div>
             <figcaption>XP &amp; Leveling — <span>kill, earn XP, level up — with the bar fill and level-up feedback juiced so progression feels good moment to moment.</span></figcaption>
           </figure>
           <figure class="gif-slot">
-            <img src="../runic_drops.gif" alt="RunicRPG item drops" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
-            <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>runic_drops.gif</code> here</span></div>
+            <video src="../runic_drops.mp4" autoplay muted loop playsinline preload="metadata" aria-label="RunicRPG item drops" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+            <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>runic_drops.mp4</code> here</span></div>
             <figcaption>Drops — <span>enemies drop loot on death across rarity tiers — COMMON, RARE, EPIC, LEGENDARY — that flow straight into the inventory.</span></figcaption>
           </figure>
           <figure class="gif-slot">
-            <img src="../runic_scrolling.gif" alt="RunicRPG equipment scrolling" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
-            <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>runic_scrolling.gif</code> here</span></div>
+            <video src="../runic_scrolling.mp4" autoplay muted loop playsinline preload="metadata" aria-label="RunicRPG equipment scrolling" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+            <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>runic_scrolling.mp4</code> here</span></div>
             <figcaption>Scrolling — <span>apply a scroll to a gear piece to enhance a specific stat, with the before/after read clearly on the item.</span></figcaption>
           </figure>
           <figure class="gif-slot">
-            <img src="../runic_scenario_scroll.gif" alt="RunicRPG scenario scrolling" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
-            <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>runic_scenario_scroll.gif</code> here</span></div>
+            <video src="../runic_scenario_scroll.mp4" autoplay muted loop playsinline preload="metadata" aria-label="RunicRPG scenario scrolling" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+            <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>runic_scenario_scroll.mp4</code> here</span></div>
             <figcaption>Scenario Scrolling — <span>the world scrolls with the player through the level, making the side-scroller space feel alive as you move.</span></figcaption>
           </figure>
           <figure class="gif-slot">
-            <img src="../runic_skilltree.gif" alt="RunicRPG skill tree" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
-            <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>runic_skilltree.gif</code> here</span></div>
+            <video src="../runic_skilltree.mp4" autoplay muted loop playsinline preload="metadata" aria-label="RunicRPG skill tree" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+            <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>runic_skilltree.mp4</code> here</span></div>
             <figcaption>Skill Tree — <span>a branching rune tree: unlock nodes to shape the build, each choice opening a distinct path.</span></figcaption>
           </figure>
         </div>
