@@ -1105,6 +1105,40 @@
 
     </div>
 
+
+    <!-- ═══ Design Story (skim-first spine) ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">How I Designed It</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">The 60-second version &mdash; the one idea the whole game runs on, the decisions that kept it coherent, and what I'd change.</p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px;">
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+        <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">01 · Problem</div>
+        <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">One idea, a whole economy</h4>
+        <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">As lead designer on a 2-person team, build a mobile survival game's entire progression, economy and crafting on a single mechanic &mdash; 117 items, 196 merges, 5 tiers &mdash; that a player learns in seconds but that stays deep, and that I could actually finish.</p>
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+        <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">02 · Design Decision</div>
+        <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Merge is the only rule</h4>
+        <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Survival generates points, resources merge upward, no upgrade menus. Tier-up is trivial to perform but hard to supply &mdash; gated by drop rates, never by adding steps &mdash; and the whole tree is data-driven: every merge is one flat row, rebalanced from a spreadsheet, not code.</p>
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+        <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">03 · Prototype / Test</div>
+        <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Audit the graph</h4>
+        <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Went through every material to check it actually feeds something &mdash; no orphan nodes, no decoration.</p>
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+        <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">04 · Result</div>
+        <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Every material earns its place</h4>
+        <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Found Gold was a dead end (an ingot nothing consumed) and repointed it at the <strong>point economy</strong> instead of adding a fifth weapon track that would have broken the uniform tier-up rule; cut Sickle, Obsidian and Bronze for the same reason. The rule that came out: if a material doesn't feed something, give it a purpose or cut it.</p>
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+        <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">05 · What I'd Change Next</div>
+        <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Multi-component depth</h4>
+        <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Drop the two-item merge constraint and allow expensive multi-component recipes &mdash; the depth I most enjoy designing &mdash; and add the machines, workstations and storage that were cut for scope.</p>
+      </div>
+      </div>
+    </div>
+
     <!-- ═══ The Merge Rule ═══ -->
     <div style="margin-top:72px;">
       <div class="section-line">The Merge Rule &mdash; The Whole System on One Idea</div>
@@ -1276,6 +1310,13 @@
           <strong style="color:var(--text);">A crafting gateway too:</strong> the shop sells rare materials that can't be reliably farmed, wiring the point economy directly into the crafting tree.
         </div>
       </div>
+    </div>
+
+
+    <!-- ═══ Deep Dive divider ═══ -->
+    <div style="margin-top:80px;">
+      <div class="section-line">Deep Dive</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px;">Everything below is the full designed system &mdash; the weapon, armour and material catalogs, then the design-in-practice rework and post-mortem. The summary above is the whole argument in short; go as deep as you want from here.</p>
     </div>
 
     <!-- ═══ Weapons ═══ -->

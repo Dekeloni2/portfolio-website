@@ -920,12 +920,6 @@
           <a href="#breakdown" class="jump-to-detail">Jump to the full breakdown ↓</a>
         </div>
 
-
-        <a href="#playtest" style="display:block; text-decoration:none; background:linear-gradient(90deg, rgba(147,51,234,0.10), rgba(147,51,234,0.02)); border:1px solid var(--accent); border-radius:10px; padding:14px 18px; margin-bottom:32px;">
-          <span style="display:block; font-size:0.68rem; font-weight:700; letter-spacing:0.08em; color:var(--accent2); text-transform:uppercase; margin-bottom:6px;">Design in practice ↓</span>
-          <span style="display:block; font-size:0.88rem; color:var(--text); line-height:1.55;">Playtested with a real player, then <strong>benchmarked attack pacing against Undertale</strong> and cut it — plus a UX pass on the same feedback. <span style="color:var(--accent2); font-weight:600;">See the iteration loop →</span></span>
-        </a>
-
         <div class="section-line" id="breakdown">Design Pillars</div>
         <div class="pillars-grid">
           <div class="pillar">
@@ -994,6 +988,105 @@
 
     </div>
 
+
+    <!-- ═══ Design Story (skim-first spine) ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">How I Designed It</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
+        The 60-second version &mdash; the reasoning behind TiltanTale, from the core problem to what I'd change next. The full breakdown is below; this is the map.
+      </p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px;">
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">01 · Problem</div>
+          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Make mercy cost something</h4>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Undertale's fight-or-spare works because every enemy is a <em style="color:var(--text);">person</em>. I wanted that moral weight in a turn-based bullet-hell &mdash; built by two people in MonoGame with no engine tooling, at a ~15-minute scope. How do you make sparing feel like a real decision at that size?</p>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">02 · Design Decision</div>
+          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">The attack is the character</h4>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Every boss is a real Tiltan teacher, with their personality baked straight into their attack patterns. Every ending combination is authored from scratch &mdash; no templated &ldquo;neutral&rdquo; route &mdash; so the choice actually costs something. And one scalable boss framework carries 15+ fights instead of one-offs.</p>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">03 · Prototype / Test</div>
+          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Watch, don't coach</h4>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Late in development I sat a player down for a full session and watched without steering &mdash; real-time notes, no hints. Then I triaged: build what serves the game, defer what doesn't.</p>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">04 · Result</div>
+          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Cut to the rhythm</h4>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Benchmarked pacing against Undertale (~40s attack ceiling) and caught my <em style="color:var(--text);">basic</em> attacks running boss-climax long &mdash; so I cut them. Added a no-repeat rule for readability and a batch UX pass &mdash; and <em style="color:var(--text);">cut</em> a suggested feature that wasn't worth the build. <a href="#playtest" style="color:var(--accent2); font-weight:600;">See the full iteration &darr;</a></p>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">05 · What I'd Change Next</div>
+          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Teach the spare route</h4>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Some players never found that the right ACTs open mercy. I'd add a clearer in-fight tell when a spare condition is met, and a lighter difficulty option so the story stays reachable for players who bounce off bullet-hell.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ Playtesting & Iteration ═══ -->
+    <div id="playtest" style="margin-top:72px; scroll-margin-top:90px;">
+      <div class="section-line">Playtesting &amp; Iteration</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:660px; margin-bottom:28px;">
+        Late in development I sat a friend down for a full playtest and watched without steering — one session, real-time notes. Then I triaged the feedback: implement what served the game, defer what didn't. The decision of <em>what not to build</em> mattered as much as the fixes.
+      </p>
+
+      <!-- Tier 1 — design judgment -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+
+        <!-- Attack pacing (with footage) -->
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden;">
+          <video src="../tiltantale_cloverbyte.mp4" aria-label="TiltanTale — Cloverbyte final attack (shortened after playtest)" style="display:block; width:100%; aspect-ratio:16/9; object-fit:cover; background:#05050c;" autoplay loop muted playsinline preload="metadata" onerror="this.style.display='none'"></video>
+          <div style="padding:18px 20px;">
+            <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">Cut attack durations — measured against the genre</h4>
+            <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
+              <span style="font-size:0.68rem; font-weight:700; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:3px 8px;">BEFORE · final ≈ 60s</span>
+              <span style="font-size:0.68rem; font-weight:700; color:var(--accent2); border:1px solid var(--accent); border-radius:6px; padding:3px 8px;">AFTER · trimmed to feel</span>
+            </div>
+            <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">The playtest flagged that fights dragged. Undertale's longest attacks top out near 40 seconds — yet my <em>basic</em> attacks were hitting that ceiling and the Cloverbyte <em>final</em> ran close to a full minute. If a basic attack costs as much player attention as a boss's climax, the pacing is broken. I shortened both the Yakir final-lesson and Cloverbyte patterns; the finales now read as finales instead of endurance tests.</p>
+          </div>
+        </div>
+
+        <!-- No back-to-back repeats -->
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 20px;">
+          <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">Removed back-to-back attack repeats</h4>
+          <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
+            <span style="font-size:0.68rem; font-weight:700; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:3px 8px;">BEFORE · same attack could repeat</span>
+            <span style="font-size:0.68rem; font-weight:700; color:var(--accent2); border:1px solid var(--accent); border-radius:6px; padding:3px 8px;">AFTER · no consecutive repeats</span>
+          </div>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">David and Dor could fire the same attack twice in a row. Players parse boss fights as patterns, and repetition flattens tension and telegraphs the wrong things. I added a rule so these characters can't repeat an attack consecutively — keeping each exchange readable and varied.</p>
+          <p style="font-size:0.78rem; color:var(--muted); line-height:1.6; margin:14px 0 0; padding-top:12px; border-top:1px solid var(--border);">Both changes came from the same instinct: a boss fight is a rhythm, and the player has to be able to <em>read</em> it. Length and variety are the levers.</p>
+        </div>
+      </div>
+
+      <!-- Tier 2 — UX & QoL pass -->
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 22px; margin-bottom:16px;">
+        <h4 style="margin:0 0 6px; font-size:0.95rem; color:var(--text);">Same session — UX &amp; quality-of-life pass</h4>
+        <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0 0 14px;">The playtest also surfaced a batch of friction points I cleared in one pass:</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:10px;">
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Long-hold to quit (1.25s)</strong><br>Escape used to close instantly — one misclick and you're out. Exiting is now deliberate.</div>
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">In-game settings (C menu)</strong><br>Settings were external-only; now adjustable on the fly from the menu.</div>
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Split SFX / BGM</strong><br>One volume slider became separate sound-effect and music controls.</div>
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Fullscreen (F11)</strong><br>Added a proper fullscreen toggle.</div>
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Hall music mix</strong><br>The Tiltan Hall track sat too loud against everything else — lowered to sit right.</div>
+        </div>
+      </div>
+
+      <!-- Scoped out -->
+      <div style="border-left:2px solid var(--border); padding:4px 0 4px 16px;">
+        <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;"><strong style="color:var(--text);">Scoped out:</strong> the playtester suggested in-game signs could pull live photos from Tiltan. I deferred it — signs will carry small jokes and flavor rather than a system that adds complexity without proportional payoff. Knowing when a good idea isn't worth the build is part of the job.</p>
+      </div>
+    </div>
+
+
+    <!-- ═══ Deep Dive divider ═══ -->
+    <div style="margin-top:80px;">
+      <div class="section-line">Deep Dive</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px;">
+        Everything below is the full breakdown &mdash; the battle system in motion, the narrative design, all eight endings, and the level design. The summary above is the whole argument in short; go as deep as you want from here.
+      </p>
+    </div>
+
     <!-- ═══ Battle System Showcase ═══ -->
     <div style="margin-top:72px;">
       <div class="section-line">The Battle System — In Motion</div>
@@ -1014,22 +1107,22 @@
       </p>
       <div class="gif-showcase" style="margin-bottom:40px;">
         <figure class="gif-slot">
-          <img src="../tiltantale_attack1.gif" alt="TiltanTale attack pattern 1" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
+          <video src="../tiltantale_attack1.mp4" aria-label="TiltanTale attack pattern 1" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop tiltantale_attack1.gif here</span></div>
           <figcaption>Hexagon — <span>David, our math teacher, swears "hexagons are best-a-gons." His fight opens with a wall of them.</span></figcaption>
         </figure>
         <figure class="gif-slot">
-          <img src="../tiltantale_attack2.gif" alt="TiltanTale attack pattern 2" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
+          <video src="../tiltantale_attack2.mp4" aria-label="TiltanTale attack pattern 2" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop tiltantale_attack2.gif here</span></div>
           <figcaption>Napoleon's March — <span>Dor, our game design teacher, keeps Minard's famous flow chart framed in his office. His pattern is built from it.</span></figcaption>
         </figure>
         <figure class="gif-slot">
-          <img src="../tiltantale_cloverbyte.gif" alt="TiltanTale Cloverbyte attack pattern" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
+          <video src="../tiltantale_cloverbyte.mp4" aria-label="TiltanTale Cloverbyte attack pattern" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop tiltantale_cloverbyte.gif here</span></div>
           <figcaption>Cloverbyte — <span>an in-joke about a studio Dor often brings up in class, turned into a pattern with a twist: it loops back around when you least expect it.</span></figcaption>
         </figure>
         <figure class="gif-slot">
-          <img src="../tiltantale_chess.gif" alt="TiltanTale chess board attack pattern" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
+          <video src="../tiltantale_chess.mp4" aria-label="TiltanTale chess board attack pattern" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop tiltantale_chess.gif here</span></div>
           <figcaption>Chessboard — <span>Dor praises chess for its simplicity paired with a sky-high skill ceiling, so his fight has a pattern built around it: you move only on chess tiles, attacking by capturing enemy pieces. The board escalates by adding more pieces over time, ramping the pressure to think before you act.</span></figcaption>
         </figure>
@@ -1048,12 +1141,12 @@
       </p>
       <div class="gif-showcase" style="margin-bottom:40px;">
         <figure class="gif-slot">
-          <img src="../tiltantale_spare.gif" alt="TiltanTale sparing a teacher" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
+          <video src="../tiltantale_spare.mp4" aria-label="TiltanTale sparing a teacher" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop tiltantale_spare.gif here</span></div>
           <figcaption>Spared — <span>a peaceful resolution: they dissolve into smoke and still exist in the world.</span></figcaption>
         </figure>
         <figure class="gif-slot">
-          <img src="../tiltantale_defeat.gif" alt="TiltanTale defeating a teacher" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
+          <video src="../tiltantale_defeat.mp4" aria-label="TiltanTale defeating a teacher" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop tiltantale_defeat.gif here</span></div>
           <figcaption>Defeated — <span>final words, then they crumble to dust. Gone for good.</span></figcaption>
         </figure>
@@ -1066,7 +1159,7 @@
       </p>
       <div class="gif-showcase">
         <figure class="gif-slot">
-          <img src="../tiltantale_attackminigame.gif" alt="TiltanTale attack timing mini-game" onerror="this.closest('.gif-slot').classList.add('gif-missing')">
+          <video src="../tiltantale_attackminigame.mp4" aria-label="TiltanTale attack timing mini-game" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop tiltantale_attackminigame.gif here</span></div>
           <figcaption>FIGHT — <span>timing bar, HP update, strike animation</span></figcaption>
         </figure>
@@ -1230,61 +1323,6 @@
 
       </div>
     </div>
-
-    <!-- ═══ Playtesting & Iteration ═══ -->
-    <div id="playtest" style="margin-top:72px; scroll-margin-top:90px;">
-      <div class="section-line">Playtesting &amp; Iteration</div>
-      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:660px; margin-bottom:28px;">
-        Late in development I sat a friend down for a full playtest and watched without steering — one session, real-time notes. Then I triaged the feedback: implement what served the game, defer what didn't. The decision of <em>what not to build</em> mattered as much as the fixes.
-      </p>
-
-      <!-- Tier 1 — design judgment -->
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
-
-        <!-- Attack pacing (with footage) -->
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden;">
-          <img src="../tiltantale_cloverbyte.gif" alt="TiltanTale — Cloverbyte final attack (shortened after playtest)" style="display:block; width:100%; aspect-ratio:16/9; object-fit:cover; background:#05050c;" onerror="this.style.display='none'">
-          <div style="padding:18px 20px;">
-            <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">Cut attack durations — measured against the genre</h4>
-            <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
-              <span style="font-size:0.68rem; font-weight:700; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:3px 8px;">BEFORE · final ≈ 60s</span>
-              <span style="font-size:0.68rem; font-weight:700; color:var(--accent2); border:1px solid var(--accent); border-radius:6px; padding:3px 8px;">AFTER · trimmed to feel</span>
-            </div>
-            <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">The playtest flagged that fights dragged. Undertale's longest attacks top out near 40 seconds — yet my <em>basic</em> attacks were hitting that ceiling and the Cloverbyte <em>final</em> ran close to a full minute. If a basic attack costs as much player attention as a boss's climax, the pacing is broken. I shortened both the Yakir final-lesson and Cloverbyte patterns; the finales now read as finales instead of endurance tests.</p>
-          </div>
-        </div>
-
-        <!-- No back-to-back repeats -->
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 20px;">
-          <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">Removed back-to-back attack repeats</h4>
-          <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
-            <span style="font-size:0.68rem; font-weight:700; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:3px 8px;">BEFORE · same attack could repeat</span>
-            <span style="font-size:0.68rem; font-weight:700; color:var(--accent2); border:1px solid var(--accent); border-radius:6px; padding:3px 8px;">AFTER · no consecutive repeats</span>
-          </div>
-          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">David and Dor could fire the same attack twice in a row. Players parse boss fights as patterns, and repetition flattens tension and telegraphs the wrong things. I added a rule so these characters can't repeat an attack consecutively — keeping each exchange readable and varied.</p>
-          <p style="font-size:0.78rem; color:var(--muted); line-height:1.6; margin:14px 0 0; padding-top:12px; border-top:1px solid var(--border);">Both changes came from the same instinct: a boss fight is a rhythm, and the player has to be able to <em>read</em> it. Length and variety are the levers.</p>
-        </div>
-      </div>
-
-      <!-- Tier 2 — UX & QoL pass -->
-      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 22px; margin-bottom:16px;">
-        <h4 style="margin:0 0 6px; font-size:0.95rem; color:var(--text);">Same session — UX &amp; quality-of-life pass</h4>
-        <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0 0 14px;">The playtest also surfaced a batch of friction points I cleared in one pass:</p>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:10px;">
-          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Long-hold to quit (1.25s)</strong><br>Escape used to close instantly — one misclick and you're out. Exiting is now deliberate.</div>
-          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">In-game settings (C menu)</strong><br>Settings were external-only; now adjustable on the fly from the menu.</div>
-          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Split SFX / BGM</strong><br>One volume slider became separate sound-effect and music controls.</div>
-          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Fullscreen (F11)</strong><br>Added a proper fullscreen toggle.</div>
-          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Hall music mix</strong><br>The Tiltan Hall track sat too loud against everything else — lowered to sit right.</div>
-        </div>
-      </div>
-
-      <!-- Scoped out -->
-      <div style="border-left:2px solid var(--border); padding:4px 0 4px 16px;">
-        <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;"><strong style="color:var(--text);">Scoped out:</strong> the playtester suggested in-game signs could pull live photos from Tiltan. I deferred it — signs will carry small jokes and flavor rather than a system that adds complexity without proportional payoff. Knowing when a good idea isn't worth the build is part of the job.</p>
-      </div>
-    </div>
-
   </div>
 </section>
 
@@ -1303,7 +1341,7 @@
     transition: border-color 0.2s, transform 0.2s;
   }
   .gif-slot:hover { border-color: rgba(147,51,234,0.6); transform: translateY(-3px); box-shadow: 0 0 28px rgba(147,51,234,0.12); }
-  .gif-slot img {
+  .gif-slot img, .gif-slot video {
     display: block;
     width: 100%;
     aspect-ratio: 4 / 3;
@@ -1312,7 +1350,7 @@
     image-rendering: pixelated;
   }
   .gif-slot .gif-placeholder { display: none; }
-  .gif-slot.gif-missing img { display: none; }
+  .gif-slot.gif-missing img, .gif-slot.gif-missing video { display: none; }
   .gif-slot.gif-missing .gif-placeholder {
     display: flex;
     flex-direction: column;

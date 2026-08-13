@@ -966,6 +966,40 @@
         </div>
 
 
+
+        <!-- ═══ Design Story (skim-first spine) ═══ -->
+        <div style="margin-top:72px;">
+          <div class="section-line">How I Designed It</div>
+          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">The 60-second version &mdash; why I rebuilt Balatro from scratch, the decisions that made it mine, and what I'd do next.</p>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px;">
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+            <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">01 · Problem</div>
+            <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Rebuild, don't clone</h4>
+            <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Reconstruct a systems-heavy roguelike in C# for my Intro to C# final &mdash; no engine, no card library. Rebuilding forces you to understand <strong>why</strong> the scoring, jokers and shop interlock, not just that they do.</p>
+          </div>
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+            <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">02 · Design Decision</div>
+            <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Architecture that extends</h4>
+            <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Reverse-engineer the math, then re-implement it clean: a polymorphic joker base class (a new effect is one small subclass), a fixed-order scoring pipeline, and a weighted-RNG shop with dedupe &mdash; extensible instead of a growing switch statement.</p>
+          </div>
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+            <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">03 · Prototype / Test</div>
+            <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Tune the whole numbers layer</h4>
+            <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">A full balance pass &mdash; retuned every hand's chips and mult well above the source, set my own joker prices, sell values and reroll curve &mdash; and validated the evaluator against edge cases like the Ace-low straight and partial hands.</p>
+          </div>
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+            <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">04 · Result</div>
+            <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">A clone I can defend as mine</h4>
+            <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Original rules and content of my own &mdash; the &ldquo;Pi Man&rdquo; joker, an involved-cards-only scoring rule, partial-hand scoring &mdash; on top of a re-engineered stack. Graded 100/100.</p>
+          </div>
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+            <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">05 · What I'd Change Next</div>
+            <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Deeper build-arounds</h4>
+            <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">More build-around jokers and stronger synergies to push the deck-building further, and a real UI layer beyond the console so the scoring drama reads visually.</p>
+          </div>
+          </div>
+        </div>
+
         <div class="section-line">Gameplay Walkthrough</div>
         <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:10px; border:1px solid var(--border); margin-bottom:8px;">
           <iframe src="https://www.youtube.com/embed/I_cDxYgxb6o" title="Dekelatro gameplay walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
