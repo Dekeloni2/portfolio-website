@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minecraft Level &amp; World Design — Dekel Riess</title>
+  <meta name="description" content="A decade of designing Minecraft servers — worlds, zones, economies, and progression. Level-design breakdown of six servers, several with live player bases, one concept acquired by a studio." />
+  <link rel="icon" type="image/png" href="../favicon.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Minecraft Level &amp; World Design — Dekel Riess" />
+  <meta property="og:description" content="A decade of designing Minecraft servers — worlds, zones, economies, and progression. Six servers, several live, one concept acquired." />
+  <meta property="og:url" content="https://dekeloni2.github.io/portfolio-website/games/minecraft.html" />
+  <meta property="og:image" content="https://dekeloni2.github.io/portfolio-website/dekel.png" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ─── Reset & Base ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #07070f;
+      --surface:  #0d0d1a;
+      --surface2: #131320;
+      --border:   #21213a;
+      --accent:   #9333ea;
+      --accent2:  #c084fc;
+      --glow:     rgba(147,51,234,0.25);
+      --text:     #ededf5;
+      --muted:    #7878a0;
+      --radius:   8px;
+      --max-w:    1100px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.028;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    a { color: var(--accent2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+    section { padding: 96px 0; }
+
+    h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; line-height: 1.15; }
+    h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; margin-bottom: 12px; }
+    h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 6px; }
+
+    .label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent2); margin-bottom: 10px; display: block;
+    }
+
+    /* ─── Nav ────────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(7,7,15,0.85);
+      backdrop-filter: blur(20px) saturate(1.4);
+      border-bottom: 1px solid rgba(147,51,234,0.18);
+      box-shadow: 0 1px 40px rgba(0,0,0,0.5);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px; max-width: var(--max-w); margin: 0 auto; padding: 0 24px;
+    }
+    .nav-logo { font-weight: 700; font-size: 0.95rem; color: var(--text); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--muted); font-size: 0.85rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+    /* ─── Buttons ────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 22px; border-radius: var(--radius);
+      font-size: 0.88rem; font-weight: 600; cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s; border: none;
+    }
+    .btn:hover { opacity: 0.85; text-decoration: none; transform: translateY(-1px); }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), #7c3aed); color: #fff; box-shadow: 0 0 20px rgba(147,51,234,0.35); }
+    .btn-primary:hover { box-shadow: 0 0 32px rgba(147,51,234,0.55); }
+    .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { border-color: rgba(147,51,234,0.5); }
+
+    /* ─── Badges ─────────────────────────────────────────────────── */
+    .badge {
+      display: inline-block; padding: 3px 10px; border-radius: 20px;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .badge-done { background: rgba(34,197,94,0.15);  color: #4ade80; }
+    .badge-wip  { background: rgba(251,146,60,0.15); color: #fb923c; }
+    .badge-plan { background: rgba(124,108,255,0.15); color: var(--accent2); }
+    .badge-shelf{ background: rgba(148,163,184,0.12); color: #94a3b8; }
+
+    /* ─── Tags ───────────────────────────────────────────────────── */
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .tag {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 4px; padding: 2px 8px; font-size: 0.72rem; color: var(--muted);
+    }
+
+    /* ─── Pillars ────────────────────────────────────────────────── */
+    .pillars-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .pillar { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
+    .pillar-num { font-size: 0.68rem; font-weight: 700; color: var(--accent2); letter-spacing: 0.08em; margin-bottom: 4px; }
+    .pillar h4  { font-size: 0.88rem; font-weight: 700; margin-bottom: 5px; }
+    .pillar p   { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+    /* ─── Game section layout ────────────────────────────────────── */
+    .game-section-layout { display: grid; grid-template-columns: 1fr 1.6fr; gap: 56px; align-items: start; }
+    .game-meta-col .badge { margin-bottom: 14px; }
+    .game-meta-col h2 { font-size: 1.6rem; margin-bottom: 10px; }
+    .game-meta-col .concept { color: var(--muted); font-size: 0.9rem; margin-bottom: 20px; }
+    .game-info-row { display: flex; flex-direction: column; gap: 6px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+    .game-info-item { display: flex; gap: 10px; font-size: 0.8rem; }
+    .game-info-key { color: var(--muted); min-width: 78px; flex-shrink: 0; }
+    .game-info-val { color: var(--text); font-weight: 500; }
+
+    /* section accent lines */
+    .section-line {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); border-bottom: 1px solid var(--border);
+      padding-bottom: 8px; margin-bottom: 20px; margin-top: 40px; scroll-margin-top: 80px;
+    }
+    .section-line:first-child { margin-top: 0; }
+
+    /* ─── Hero ───────────────────────────────────────────────────── */
+    #hero-mc { padding-top: 120px; padding-bottom: 0; position: relative; overflow: hidden; }
+
+    /* ─── Reveal ─────────────────────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── At a glance band ───────────────────────────────────────── */
+    .at-glance {
+      background: linear-gradient(135deg, rgba(147,51,234,0.09), rgba(192,132,252,0.03));
+      border: 1px solid rgba(147,51,234,0.28); border-radius: 14px;
+      padding: 24px 26px 22px; margin-bottom: 44px;
+    }
+    .at-glance .label { margin-bottom: 8px; }
+    .at-glance-hook { font-size: 1.02rem; color: var(--text); line-height: 1.6; font-weight: 500; margin: 0 0 18px; }
+    .at-glance-hook strong { color: var(--accent2); font-weight: 600; }
+    .highlight-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .highlight-chip {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 999px;
+      padding: 6px 14px; font-size: 0.78rem; color: var(--text); display: inline-flex; align-items: center; gap: 7px;
+    }
+    .highlight-chip::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+    .jump-to-detail { display: inline-flex; align-items: center; gap: 8px; font-size: 0.82rem; font-weight: 600; color: var(--accent2); }
+    .jump-to-detail:hover { text-decoration: none; opacity: 0.82; }
+
+    /* ─── Spine (How I approached it) ────────────────────────────── */
+    .spine-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+    .spine-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; border-top: 2px solid var(--accent); display: flex; flex-direction: column; gap: 8px; }
+    .spine-kicker { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.1em; color: var(--accent2); text-transform: uppercase; }
+    .spine-card h4 { font-size: 0.9rem; font-weight: 700; color: var(--text); margin: 0; }
+    .spine-card p { font-size: 0.8rem; color: var(--muted); line-height: 1.6; margin: 0; }
+    .spine-card em { color: var(--text); font-style: italic; }
+
+    /* ─── Server cards ───────────────────────────────────────────── */
+    .server { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 20px; transition: border-color 0.2s, transform 0.2s; }
+    .server:hover { border-color: rgba(147,51,234,0.45); }
+    .server-media { display: block; width: 100%; max-height: 340px; object-fit: cover; background: #05050c; border-bottom: 1px solid var(--border); }
+    .server-body { padding: 24px 26px; }
+    .server-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-bottom: 4px; }
+    .server-head h3 { font-size: 1.15rem; font-weight: 700; color: var(--text); margin: 0; }
+    .server-kind { font-size: 0.78rem; color: var(--accent2); font-weight: 600; margin-bottom: 14px; }
+    .server-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 8px; }
+    .server-cols h5 { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
+    .server-cols p { font-size: 0.83rem; color: var(--muted); line-height: 1.65; margin: 0; }
+    .server-cols p strong, .server p strong { color: var(--text); font-weight: 600; }
+    .server-foot { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--border); align-items: center; }
+    .server-link { font-size: 0.8rem; font-weight: 600; color: var(--accent2); display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border); border-radius: 7px; padding: 7px 13px; transition: border-color 0.2s; }
+    .server-link:hover { border-color: rgba(147,51,234,0.5); text-decoration: none; }
+    .server-outcome { font-size: 0.8rem; color: var(--muted); margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
+    .server-outcome strong { color: var(--text); }
+
+    /* ─── Callout ────────────────────────────────────────────────── */
+    .callout { background: var(--surface2); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 10px; padding: 22px 24px; margin-top: 32px; }
+    .callout h4 { font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .callout p { font-size: 0.84rem; color: var(--muted); line-height: 1.7; margin: 0; }
+    .callout p + p { margin-top: 10px; }
+
+    /* ─── Site footer nav ────────────────────────────────────────── */
+    .site-nav-footer { border-top: 1px solid var(--border); background: var(--surface); padding: 44px 0; }
+    .site-nav-footer-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; display: block; }
+    .site-nav-footer-grid { display: flex; flex-wrap: wrap; gap: 10px 28px; }
+    .site-nav-footer-grid a { font-size: 0.86rem; font-weight: 600; color: var(--text); }
+    .site-nav-footer-grid a:hover { color: var(--accent2); text-decoration: none; }
+    .site-nav-footer-games { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); }
+
+    /* ─── Contact ────────────────────────────────────────────────── */
+    #contact { text-align: center; padding: 80px 0; }
+    #contact h2 { margin-bottom: 10px; }
+    #contact p  { color: var(--muted); margin-bottom: 28px; }
+    .contact-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* ─── Polish ─────────────────────────────────────────────────── */
+    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, var(--accent), var(--accent2)); z-index: 200; transition: width 0.08s linear; box-shadow: 0 0 8px rgba(147,51,234,0.5); }
+    #back-to-top { position: fixed; bottom: 28px; right: 28px; width: 44px; height: 44px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); color: var(--accent2); font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transform: translateY(12px); transition: opacity 0.25s, transform 0.25s, border-color 0.2s; z-index: 150; }
+    #back-to-top.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    #back-to-top:hover { border-color: var(--accent); box-shadow: 0 0 16px rgba(147,51,234,0.3); }
+    .nav-links a.nav-active { color: var(--accent2); position: relative; }
+    .nav-links a.nav-active::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 2px; }
+
+    body { animation: pageFadeIn 0.45s ease; }
+    @keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    body.fade-out { opacity: 0 !important; transition: opacity 0.22s ease; }
+
+    /* ─── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 820px) {
+      .game-section-layout { grid-template-columns: 1fr; gap: 32px; }
+      .pillars-grid        { grid-template-columns: 1fr; }
+      .server-cols         { grid-template-columns: 1fr; gap: 14px; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      section    { padding: 64px 0; }
+      #hero-mc   { padding-top: 96px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo" style="text-decoration:none;">Dekel Riess</a>
+    <ul class="nav-links">
+      <li><a href="../games.html">Games</a></li>
+      <li><a href="../prototypes.html">Experiments</a></li>
+      <li><a href="../experience.html">Experience</a></li>
+      <li><a href="../toolbox.html">Toolbox</a></li>
+      <li><a href="../roadmap.html">Roadmap</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section id="hero-mc">
+  <div class="container">
+    <div class="game-section-layout">
+
+      <!-- Meta column -->
+      <div class="game-meta-col">
+        <span class="badge badge-done">Live experience · 2014–2025</span>
+        <div style="display:flex; align-items:center; gap:12px; margin-top:12px;">
+          <img src="../minecraft.png" alt="Server network logo" style="width:40px; height:40px; object-fit:contain; border-radius:8px;">
+          <h2 style="margin:0;">Minecraft Level &amp; World Design</h2>
+        </div>
+        <p class="concept">
+          Before any of my other projects, this is where I taught myself design. For a decade I built Minecraft servers — shaping the worlds players move through, the economies that hold them, and the progression that pulls them forward. Six servers here, across RPG, PvP-adjacent, and even educational play. Several reached live betas; one peaked around 300 concurrent players; one original concept was acquired by a studio.
+        </p>
+        <div class="game-info-row">
+          <div class="game-info-item"><span class="game-info-key">Span</span><span class="game-info-val">2014 – 2025</span></div>
+          <div class="game-info-item"><span class="game-info-key">Platform</span><span class="game-info-val">Minecraft (Java) · multiplayer servers</span></div>
+          <div class="game-info-item"><span class="game-info-key">Role</span><span class="game-info-val">Level &amp; World Designer · Systems · Textures</span></div>
+          <div class="game-info-item"><span class="game-info-key">Scale</span><span class="game-info-val">Up to ~300 concurrent players</span></div>
+          <div class="game-info-item"><span class="game-info-key">Owned</span><span class="game-info-val">Zone/world layout, progression, economy, quests, custom textures</span></div>
+          <div class="game-info-item"><span class="game-info-key">Notable</span><span class="game-info-val">One original concept acquired by a studio</span></div>
+          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">Foundational self-taught work · full GDDs</span></div>
+        </div>
+        <a href="https://docs.google.com/document/d/1oqzfVGrg5s3YNIGHqwxjItKhmd3gzFKwkxDQOZa_nqc/edit" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top:20px; width:100%; justify-content:center;">Read a full RPG server GDD ↗</a>
+        <a href="https://youtu.be/1Ps4Xxkx8eI" target="_blank" rel="noopener" class="btn btn-secondary" style="margin-top:10px; width:100%; justify-content:center;">▶ Watch a server showcase ↗</a>
+      </div>
+
+      <!-- Content column -->
+      <div class="game-content-col">
+        <div class="at-glance reveal">
+          <span class="label">At a glance</span>
+          <p class="at-glance-hook">A decade of designing <strong>Minecraft servers</strong> — worlds, economies, and progression systems — several with real, live player bases. This is where I learned level design: shaping the spaces players move through, at a scale most of my other work never reached.</p>
+          <div class="highlight-chips">
+            <span class="highlight-chip">Designing servers since 2014</span>
+            <span class="highlight-chip">Peak ~300 concurrent players</span>
+            <span class="highlight-chip">A concept acquired by a studio</span>
+            <span class="highlight-chip">RPG · PvP · Educational</span>
+            <span class="highlight-chip">6 servers · full GDDs</span>
+          </div>
+          <a href="#servers" class="jump-to-detail">Jump to the servers ↓</a>
+        </div>
+
+        <div class="section-line">How I Approached It</div>
+        <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:24px;">
+          The 60-second version — the reasoning that ran through every server, from the core problem to what I'd change next. The servers themselves are below.
+        </p>
+        <div class="spine-grid">
+          <div class="spine-card">
+            <div class="spine-kicker">01 · Problem</div>
+            <h4>Design space for a live crowd</h4>
+            <p>A single-player level can be linear. A server has to hold <em>hundreds</em> of players wandering at once — each needing to know where they are, where to go, and why to keep going, with no loading screen to hide the seams.</p>
+          </div>
+          <div class="spine-card">
+            <div class="spine-kicker">02 · Approach</div>
+            <h4>Zone, gate, landmark</h4>
+            <p>I built worlds as themed regions with deliberate connections and level-gated access, each region a distinct silhouette so players self-orient. The <em>map</em> teaches the progression before any text does.</p>
+          </div>
+          <div class="spine-card">
+            <div class="spine-kicker">03 · Test</div>
+            <h4>Real players, live betas</h4>
+            <p>These weren't paper designs. They ran with real communities — closed betas of ~50, one peaking near <em>300 concurrent</em> — which is where a layout's flaws actually show up.</p>
+          </div>
+          <div class="spine-card">
+            <div class="spine-kicker">04 · Result</div>
+            <h4>Communities, and an acquisition</h4>
+            <p>Servers that held live player bases, textures I authored 100% of, and one original concept a studio thought was worth <em>buying</em>. Design validated by players, not just by me.</p>
+          </div>
+          <div class="spine-card">
+            <div class="spine-kicker">05 · What I'd Change</div>
+            <h4>Scope to the team I had</h4>
+            <p>Most of these closed for reasons outside design — lost programmer budget, teammates drafted into the army. I'd scope tighter to what a small volunteer team can actually ship, and prove the loop before building the whole world.</p>
+          </div>
+        </div>
+
+        <div class="section-line" style="margin-top:44px;">Level Design Principles</div>
+        <div class="pillars-grid">
+          <div class="pillar">
+            <div class="pillar-num">01</div>
+            <h4>Zone &amp; Gate</h4>
+            <p>Worlds split into contained regions with limited exits and level-gated access, so the map reveals itself in order instead of dumping the player into everything at once.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">02</div>
+            <h4>Landmarks &amp; Readability</h4>
+            <p>Every city and region gets its own theme, palette, and silhouette — a green farming valley, a trade port, a fog-choked crime district — so players always know where they are without a minimap.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">03</div>
+            <h4>Difficulty by Region</h4>
+            <p>Enemy level and reward scale with how deep or far a zone sits. Risk maps to reward spatially, so moving through the world <em>is</em> the difficulty curve.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">04</div>
+            <h4>Flow &amp; Encounter Placement</h4>
+            <p>Paths, hubs, and NPC/quest placement pull players forward and set the rhythm of tension and rest — the level guiding the player, not a quest marker.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ═══ The Servers ═══ -->
+    <div id="servers" style="margin-top:80px; scroll-margin-top:80px;">
+      <div class="section-line">The Servers</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:700px; margin-bottom:28px;">
+        Six servers, ordered roughly by how far they got. Some ran live; others are designed-but-unlaunched concepts backed by full design docs. I've framed each honestly — for the concepts, the <em>design thinking</em> is the artifact, not a shipped build.
+      </p>
+
+      <!-- Server: Solo RPG (has world image) -->
+      <div class="server">
+        <img class="server-media" src="../minecraft_rpg_world.jpg" alt="Custom RPG world — shader-lit overworld with custom trees, farmland and paths" onerror="this.style.display='none'">
+        <div class="server-body">
+          <div class="server-head">
+            <h3>Solo RPG — a world in enclosed zones</h3>
+            <span class="badge badge-shelf">Designed · Full GDD</span>
+          </div>
+          <div class="server-kind">Solo-designed MMORPG-scale server · level, world &amp; systems design</div>
+          <div class="server-cols">
+            <div>
+              <h5>What it is</h5>
+              <p>An RPG server I designed solo, built around branching progression — professions, collections, home setup — layered over a large explorable world.</p>
+            </div>
+            <div>
+              <h5>Level &amp; world design</h5>
+              <p>The world is split into enclosed <strong>~70×70 zones</strong>, each with up to <strong>four exits</strong> — deliberate connectivity and gating. Themed, level-ranged cities give it shape: a green-mountains starter valley (lv 1–30), a trade port where every ship in the world docks, a chalk-mountain warrior village, <strong>Arcanum</strong> the magic city you must earn entry to, a fog-and-crime district hiding an underground-rail villain, a graveyard city, and a forbidden Temple (lv 50–80). <strong>Midas' Tunnel</strong> descends three floors where danger and loot both climb.</p>
+            </div>
+          </div>
+          <div class="server-outcome"><strong>Systems on top:</strong> professions, collections that complete into stat-granting card sets, a prestige/rebirth loop, a rune-peeling inventory mini-game, and a parkour dimension for non-combat progression. <strong>Status:</strong> shelved for time — a concept I've noted I'll revisit.</div>
+          <div class="server-foot">
+            <a class="server-link" href="https://docs.google.com/document/d/1oqzfVGrg5s3YNIGHqwxjItKhmd3gzFKwkxDQOZa_nqc/edit" target="_blank" rel="noopener">Read the full GDD ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Server: PixelStory -->
+      <div class="server">
+        <div class="server-body">
+          <div class="server-head">
+            <h3>PixelStory — race-based RPG</h3>
+            <span class="badge badge-wip">Closed beta · ~50 players</span>
+          </div>
+          <div class="server-kind">RPG server · gimmick, balance &amp; economy design · 100% custom textures</div>
+          <div class="server-cols">
+            <div>
+              <h5>What it is</h5>
+              <p>A race-based RPG server — five playable races (Elves, Giants, Fairies, Dwarves, Angels), each a distinct combat identity: elves on the bow, giants slow but tanky, fairies as flying support, dwarves fast backstab assassins, angels the late-game unlock.</p>
+            </div>
+            <div>
+              <h5>Level &amp; world design</h5>
+              <p>A huge themed overworld — forests, sci-fi mountain ranges, abandoned cities, a hidden underground city, and a giant graveyard built around a single enormous tree. Each race gets its own home city, with the human capital designed as the standout landmark. Weapons and armor read at a glance: the stronger the gear, the more ornate the texture.</p>
+            </div>
+          </div>
+          <div class="server-outcome"><strong>My role:</strong> designed the core gimmick, balance and economy, and authored 100% of the custom textures (since lost). <strong>Outcome:</strong> ~50 players in closed beta; closed when we ran out of budget for a programmer.</div>
+          <div class="server-foot">
+            <a class="server-link" href="https://docs.google.com/document/d/1TAOHihi4RsB5LGpRu0Bj8BJHLbCApEnbnRPt8_K3ktc/edit" target="_blank" rel="noopener">Read the design doc ↗</a>
+            <span style="font-size:0.76rem; color:var(--muted);">Showcase video is currently private</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Server: Educational (whiteboard image) -->
+      <div class="server">
+        <div class="server-body">
+          <div class="server-head">
+            <h3>Adjectives — an English-learning server</h3>
+            <span class="badge badge-plan">Concept + lesson-guide GDD</span>
+          </div>
+          <div class="server-kind">Educational game design · guided spatial quest design</div>
+          <div style="display:grid; grid-template-columns: 1.4fr 1fr; gap:22px; align-items:start;">
+            <div>
+              <div class="server-cols" style="grid-template-columns:1fr;">
+                <div>
+                  <h5>What it is</h5>
+                  <p>A Minecraft server that teaches English <em>through play</em> — an interactive quest built to teach adjectives to students, with a full lesson guide written for the teacher running it.</p>
+                </div>
+                <div style="margin-top:14px;">
+                  <h5>The design move</h5>
+                  <p>The <strong>space itself is the lesson</strong>. Students talk to a cast of NPCs (ADJECTIVES, SHORTY, TALL, PROF DISCRIPTO, SMILEY), navigate to find colour-coded beds at set coordinates, and press labelled buttons — TALL / SHORT / HEAVY, then emotion buttons — earning a piece of gear at each step. Vocabulary is taught by moving through and acting on the world, not by reading a worksheet. Designing around a <em>learning</em> goal instead of just fun is a different discipline — and the one I'm most glad I tried.</p>
+                </div>
+              </div>
+            </div>
+            <img src="../minecraft_board.jpg" alt="Physical brainstorming whiteboard for the English-learning server" style="width:100%; border-radius:10px; border:1px solid var(--border);" onerror="this.style.display='none'">
+          </div>
+          <div class="server-outcome"><strong>Artifacts:</strong> a full teacher-facing lesson-guide GDD, plus the original brainstorming board (right) — the real, messy start of the idea.</div>
+          <div class="server-foot">
+            <a class="server-link" href="https://docs.google.com/document/d/1ww1lM0w22UF7-Rq2xIlynAa7iI6nvqrFJSHSx28AMqs/edit" target="_blank" rel="noopener">Read the lesson-guide GDD ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Server: 300-peak from scratch -->
+      <div class="server">
+        <div class="server-body">
+          <div class="server-head">
+            <h3>Built-from-scratch server — peak ~300 players</h3>
+            <span class="badge badge-done">Ran live · ~300 concurrent</span>
+          </div>
+          <div class="server-kind">Original server · gameplay-loop &amp; texture design</div>
+          <div class="server-cols">
+            <div>
+              <h5>What it is</h5>
+              <p>A server I designed from scratch alongside one other designer and a programmer. I owned roughly <strong>90% of the gameplay loop</strong> and authored the textures.</p>
+            </div>
+            <div>
+              <h5>Why it matters</h5>
+              <p>It's the one that reached the biggest live audience — a <strong>peak of ~300 concurrent players</strong>. That's a real, at-scale playtest of a loop I designed: the kind of feedback signal most solo designers never get to work against.</p>
+            </div>
+          </div>
+          <div class="server-foot">
+            <a class="server-link" href="https://youtu.be/1Ps4Xxkx8eI" target="_blank" rel="noopener">▶ Watch the showcase ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Server: Case/collection acquired -->
+      <div class="server">
+        <div class="server-body">
+          <div class="server-head">
+            <h3>Case &amp; Collection server — acquired concept</h3>
+            <span class="badge badge-done">Original concept · acquired by a studio</span>
+          </div>
+          <div class="server-kind">Collection/economy design · 100% custom textures</div>
+          <div class="server-cols">
+            <div>
+              <h5>What it is</h5>
+              <p>A collection-chase server built on a case-opening loop — open cases (CS-style), swap the cards you pull, and complete a full set for a real cash prize. I authored 100% of the textures.</p>
+            </div>
+            <div>
+              <h5>Why it matters</h5>
+              <p>This one was <strong>my original idea</strong>, and it was <strong>acquired by a studio (YourGame)</strong>. Having a concept validated commercially — bought, not just played — is a signal I'm proud of and rare to have this early.</p>
+            </div>
+          </div>
+          <div class="server-foot">
+            <a class="server-link" href="https://youtu.be/Mvjvj4BttgI" target="_blank" rel="noopener">▶ Watch the showcase ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Server: Dungeon Exploring -->
+      <div class="server">
+        <div class="server-body">
+          <div class="server-head">
+            <h3>Dungeon Exploring — RPG elements</h3>
+            <span class="badge badge-shelf">Concept · did not launch</span>
+          </div>
+          <div class="server-kind">Dungeon-crawl RPG concept</div>
+          <div class="server-cols">
+            <div>
+              <h5>What it is</h5>
+              <p>A dungeon-exploration server with RPG progression layered in — designed to send players deeper through connected combat spaces.</p>
+            </div>
+            <div>
+              <h5>Honest outcome</h5>
+              <p>It didn't make it to launch — a mix of budget and waning team interest. Included here because the earlier design work is real, and knowing which projects to let go is part of the job.</p>
+            </div>
+          </div>
+          <div class="server-foot">
+            <a class="server-link" href="https://youtu.be/UMOAslKeR2U" target="_blank" rel="noopener">▶ Watch the showcase ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <h4>About the unfinished work</h4>
+        <p>Several of these never reached a full public launch — and almost always for reasons outside the design. Programmer budget ran out; teammates were drafted into the army; a solo project ran out of my own free time. In volunteer Minecraft-server land, that's the normal shape of things.</p>
+        <p>I've kept them here, framed honestly as design concepts, because the layouts, economies, and progression thinking are real work — and the ones that <em>did</em> run (a ~50-player beta, a ~300-peak server, a concept a studio bought) are the proof that the thinking holds up in front of real players.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ Site Nav Footer ═══ -->
+<div class="site-nav-footer">
+  <div class="container">
+    <span class="site-nav-footer-label">Jump to</span>
+    <div class="site-nav-footer-grid">
+      <a href="../index.html">Home</a>
+      <a href="../games.html">Games</a>
+      <a href="../prototypes.html">Experiments</a>
+      <a href="../experience.html">Experience</a>
+      <a href="../toolbox.html">Toolbox</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </div>
+    <div class="site-nav-footer-games">
+      <span class="site-nav-footer-label">More Games</span>
+      <div class="site-nav-footer-grid">
+        <a href="tiltantale.html">TiltanTale</a>
+        <a href="balatro.html">Dekelatro</a>
+        <a href="trials.html">Trials of the Dungeon</a>
+        <a href="survival.html">Brave the Wilderness</a>
+        <a href="sidescroller.html">RunicRPG</a>
+        <a href="dicebound.html">Dice Bound</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="container">
+    <span class="label">Get in touch</span>
+    <h2>Let's talk.</h2>
+    <p>Open to level-design and game-design roles, internships, and collaborations.</p>
+    <div class="contact-links">
+      <a href="mailto:dekelriess@gmail.com" class="btn btn-primary">✉ dekelriess@gmail.com</a>
+      <a href="https://linkedin.com/in/dekel-riess-39172433b" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn ↗</a>
+      <a href="../Dekel_Riess_Resume.pdf" target="_blank" rel="noopener" class="btn btn-secondary">Resume ↓</a>
+      <a href="https://github.com/Dekeloni2" target="_blank" rel="noopener" class="btn btn-secondary">GitHub</a>
+    </div>
+    <p style="margin-top:40px; font-size:0.78rem; color:var(--muted);">© 2026 Dekel Riess · Game Designer Portfolio</p>
+  </div>
+</section>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  document.addEventListener('click', function (e) {
+    const a = e.target.closest('a');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto:') || a.target === '_blank') return;
+    e.preventDefault();
+    document.body.classList.add('fade-out');
+    setTimeout(() => { window.location.href = href; }, 200);
+  });
+
+  const pbar = document.createElement('div'); pbar.id = 'progress-bar'; document.body.appendChild(pbar);
+  const btt = document.createElement('button'); btt.id = 'back-to-top'; btt.innerHTML = '&#8593;'; btt.setAttribute('aria-label','Back to top'); document.body.appendChild(btt);
+  btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    pbar.style.width = pct + '%';
+    btt.classList.toggle('show', h.scrollTop > 600);
+  }, { passive: true });
+
+  (function() {
+    let page = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      const target = a.getAttribute('href').split('/').pop();
+      if (target === page) a.classList.add('nav-active');
+    });
+  })();
+</script>
+
+</body>
+</html>
