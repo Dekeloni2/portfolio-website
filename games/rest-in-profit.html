@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rest in Profit — Dekel Riess</title>
+  <meta name="description" content="Rest in Profit — a cozy-macabre mobile game where a necromancer digs up undead and runs an idle dungeon defense. Design breakdown: Disco-Zoo dig loop, role-based auto-battler, and deep relic/economy systems." />
+  <link rel="icon" type="image/png" href="../favicon.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Rest in Profit — Dekel Riess" />
+  <meta property="og:description" content="Rest in Profit — a cozy-macabre necromancer game fusing Disco Zoo's grave-digging with an idle dungeon defense. In development." />
+  <meta property="og:url" content="https://dekeloni2.github.io/portfolio-website/games/rest-in-profit.html" />
+  <meta property="og:image" content="https://dekeloni2.github.io/portfolio-website/dekel.png" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ─── Reset & Base ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #07070f;
+      --surface:  #0d0d1a;
+      --surface2: #131320;
+      --border:   #21213a;
+      --accent:   #9333ea;
+      --accent2:  #c084fc;
+      --glow:     rgba(147,51,234,0.25);
+      --text:     #ededf5;
+      --muted:    #7878a0;
+      --radius:   8px;
+      --max-w:    1100px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    /* Subtle film grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.028;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    a { color: var(--accent2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ─── Layout ─────────────────────────────────────────────────── */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+    section { padding: 96px 0; }
+    section + section { border-top: 1px solid transparent; background-image: linear-gradient(var(--bg), var(--bg)), linear-gradient(90deg, transparent, rgba(147,51,234,0.2) 30%, rgba(147,51,234,0.2) 70%, transparent); background-origin: border-box; background-clip: padding-box, border-box; border-top: 1px solid transparent; position: relative; }
+    section + section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(147,51,234,0.25) 30%, rgba(147,51,234,0.25) 70%, transparent); }
+
+    h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; line-height: 1.15; }
+    h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; margin-bottom: 12px; }
+    h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 6px; }
+
+    .label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .section-header { margin-bottom: 56px; }
+    .section-header p { color: var(--muted); max-width: 580px; margin-top: 8px; }
+
+    /* ─── Nav ────────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(7,7,15,0.85);
+      backdrop-filter: blur(20px) saturate(1.4);
+      border-bottom: 1px solid rgba(147,51,234,0.18);
+      box-shadow: 0 1px 40px rgba(0,0,0,0.5);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .nav-logo { font-weight: 700; font-size: 0.95rem; color: var(--text); }
+
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--muted); font-size: 0.85rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+    /* ─── Buttons ────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: var(--radius);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      border: none;
+    }
+    .btn:hover { opacity: 0.85; text-decoration: none; transform: translateY(-1px); }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), #7c3aed); color: #fff; box-shadow: 0 0 20px rgba(147,51,234,0.35); }
+    .btn-primary:hover { box-shadow: 0 0 32px rgba(147,51,234,0.55); }
+    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-ghost:hover { border-color: rgba(147,51,234,0.5); }
+    .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { border-color: rgba(147,51,234,0.5); }
+
+    /* ─── Badges ─────────────────────────────────────────────────── */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .badge-done { background: rgba(34,197,94,0.15);  color: #4ade80; }
+    .badge-wip  { background: rgba(251,146,60,0.15); color: #fb923c; }
+    .badge-plan { background: rgba(124,108,255,0.15); color: var(--accent2); }
+
+    /* ─── Tags ───────────────────────────────────────────────────── */
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .tag {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    /* ─── Cards ──────────────────────────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .card:hover { border-color: rgba(147,51,234,0.6); transform: translateY(-2px); box-shadow: 0 0 24px rgba(147,51,234,0.12); }
+
+    /* ─── Pillars ────────────────────────────────────────────────── */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .pillar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .pillar-num { font-size: 0.68rem; font-weight: 700; color: var(--accent2); letter-spacing: 0.08em; margin-bottom: 4px; }
+    .pillar h4  { font-size: 0.88rem; font-weight: 700; margin-bottom: 5px; }
+    .pillar p   { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+    /* ─── Mechanics grid ─────────────────────────────────────────── */
+    .mechanics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 14px;
+    }
+    .mechanic-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .mechanic-icon { font-size: 1.5rem; margin-bottom: 10px; display:flex; align-items:center; justify-content:center; width:32px; height:32px; }
+    .mechanic-icon img { width: 32px; height: 32px; object-fit: none; image-rendering: pixelated; image-rendering: crisp-edges; }
+    .mechanic-card h3 { font-size: 0.92rem; margin-bottom: 6px; }
+    .mechanic-card p  { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
+
+    /* ─── Progression row ────────────────────────────────────────── */
+    .prog-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+    .prog-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px;
+    }
+    .prog-block h3 { margin-bottom: 10px; font-size: 0.95rem; }
+    .prog-block ul { list-style: none; }
+    .prog-block ul li {
+      font-size: 0.8rem;
+      color: var(--muted);
+      padding: 4px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .prog-block ul li:last-child { border-bottom: none; }
+    .prog-block ul li::before { content: '→'; color: var(--accent); font-size: 0.7rem; flex-shrink: 0; }
+
+    /* ─── Loop chain ─────────────────────────────────────────────── */
+    .loop-chain { display: flex; flex-direction: column; gap: 0; margin: 20px 0; }
+    .loop-step { display: flex; align-items: center; gap: 12px; padding: 8px 0; }
+    .loop-dot {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 2px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 700; color: var(--accent2);
+      flex-shrink: 0;
+    }
+    .loop-step-text { font-size: 0.88rem; font-weight: 600; }
+    .loop-connector { width: 2px; height: 14px; background: var(--accent); opacity: 0.3; margin-left: 14px; }
+
+    /* ─── Game section layout ────────────────────────────────────── */
+    .game-section-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    .game-meta-col .badge { margin-bottom: 14px; }
+    .game-meta-col h2 { font-size: 1.6rem; margin-bottom: 10px; }
+    .game-meta-col .concept { color: var(--muted); font-size: 0.9rem; margin-bottom: 20px; }
+
+    .game-info-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .game-info-item { display: flex; gap: 10px; font-size: 0.8rem; }
+    .game-info-key { color: var(--muted); min-width: 82px; }
+    .game-info-val { color: var(--text); font-weight: 500; }
+
+    /* section accent lines */
+    .section-line {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+      margin-top: 40px;
+    }
+    .section-line:first-child { margin-top: 0; }
+
+    /* ─── Roles ──────────────────────────────────────────────────── */
+    .roles-grid { display: flex; gap: 10px; flex-wrap: wrap; }
+    .role-pill {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      flex: 1;
+      min-width: 160px;
+    }
+    .role-name { font-weight: 700; font-size: 0.88rem; margin-bottom: 3px; }
+    .role-desc { font-size: 0.76rem; color: var(--muted); line-height: 1.5; }
+    .role-tank .role-name { color: #60a5fa; }
+    .role-dps  .role-name { color: #f87171; }
+    .role-sup  .role-name { color: #4ade80; }
+
+    /* ─── Status effect pills ────────────────────────────────────── */
+    .effects-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .effect-pill {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .effect-pill strong { color: var(--accent2); }
+
+    /* ─── Relic cards ────────────────────────────────────────────── */
+    .relic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px;
+    }
+    .relic-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .relic-card .rc-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .relic-card h4 { font-size: 0.92rem; font-weight: 700; color: var(--text); margin: 0; }
+    .relic-card p { font-size: 0.8rem; color: var(--muted); line-height: 1.55; margin: 0; }
+    .rc-legendary { border-color: rgba(251,191,36,0.4); }
+    .rc-legendary::before { }
+    .rar { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 20px; }
+    .rar-common { background: rgba(148,163,184,0.15); color: #cbd5e1; }
+    .rar-rare   { background: rgba(59,130,246,0.15);  color: #60a5fa; }
+    .rar-epic   { background: rgba(168,85,247,0.15);  color: #c084fc; }
+    .rar-leg    { background: rgba(251,191,36,0.15);  color: #fbbf24; }
+
+    /* ─── Hero entrance / reveal ─────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── Contact ────────────────────────────────────────────────── */
+    #contact { text-align: center; padding: 80px 0; }
+    #contact h2 { margin-bottom: 10px; }
+    #contact p  { color: var(--muted); margin-bottom: 28px; }
+    .contact-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ─── At a glance band ───────────────────────────────────────── */
+    .at-glance {
+      background: linear-gradient(135deg, rgba(147,51,234,0.09), rgba(192,132,252,0.03));
+      border: 1px solid rgba(147,51,234,0.28);
+      border-radius: 14px;
+      padding: 24px 26px 22px;
+      margin-bottom: 44px;
+    }
+    .at-glance .label { margin-bottom: 8px; }
+    .at-glance-hook {
+      font-size: 1.02rem;
+      color: var(--text);
+      line-height: 1.6;
+      font-weight: 500;
+      margin: 0 0 18px;
+    }
+    .at-glance-hook strong { color: var(--accent2); font-weight: 600; }
+    .highlight-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .highlight-chip {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .highlight-chip::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .jump-to-detail {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent2);
+    }
+    .jump-to-detail:hover { text-decoration: none; opacity: 0.82; }
+    .section-line { scroll-margin-top: 80px; }
+
+    /* ─── Site footer nav ────────────────────────────────────────── */
+    .site-nav-footer {
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      padding: 44px 0;
+    }
+    .site-nav-footer-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+      display: block;
+    }
+    .site-nav-footer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 28px;
+    }
+    .site-nav-footer-grid a { font-size: 0.86rem; font-weight: 600; color: var(--text); }
+    .site-nav-footer-grid a:hover { color: var(--accent2); text-decoration: none; }
+    .site-nav-footer-games { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); }
+
+    /* ─── Page transitions ───────────────────────────────────────── */
+    body { animation: pageFadeIn 0.45s ease; }
+    @keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    body.fade-out { opacity: 0 !important; transition: opacity 0.22s ease; }
+
+    /* ─── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 820px) {
+      .game-section-layout { grid-template-columns: 1fr; gap: 32px; }
+      .pillars-grid        { grid-template-columns: 1fr; }
+      .prog-row            { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      section    { padding: 64px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo" style="text-decoration:none;">Dekel Riess</a>
+    <ul class="nav-links">
+      <li><a href="../games.html">Games</a></li>
+      <li><a href="../prototypes.html">Experiments</a></li>
+      <li><a href="../experience.html">Experience</a></li>
+      <li><a href="../toolbox.html">Toolbox</a></li>
+      <li><a href="../roadmap.html">Roadmap</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section id="rest-in-profit">
+  <div class="container">
+    <div class="game-section-layout">
+
+      <div class="game-meta-col">
+        <span class="badge badge-wip">In Development</span>
+        <div style="display:flex; align-items:center; gap:12px; margin-top:12px;">
+          <span style="font-size:1.8rem; line-height:1;">⚰️</span>
+          <h2 style="margin:0;">Rest in Profit</h2>
+        </div>
+        <p class="concept">
+          A cozy-macabre mobile game — a dark parody of Disco Zoo. You're an aspiring necromancer: dig up undead minions from graveyards, deploy them in a dungeon, and let them defend against looting "heroes" while they earn you coins. Equal parts collection game and idle dungeon-defense, welded together by one economy.
+        </p>
+        <div class="game-info-row">
+          <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">Unity · C#</span></div>
+          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">Idle · Collection · Auto-battler</span></div>
+          <div class="game-info-item"><span class="game-info-key">Platform</span><span class="game-info-val">Mobile (Android)</span></div>
+          <div class="game-info-item"><span class="game-info-key">Team</span><span class="game-info-val">Solo</span></div>
+          <div class="game-info-item"><span class="game-info-key">Role</span><span class="game-info-val">Solo Designer &amp; Developer</span></div>
+          <div class="game-info-item"><span class="game-info-key">Inspiration</span><span class="game-info-val">Disco Zoo (NimbleBit)</span></div>
+          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">In development · core loop playable</span></div>
+          <div class="game-info-item"><span class="game-info-key">Owned</span><span class="game-info-val">All design, code, systems &amp; pixel art</span></div>
+        </div>
+      </div>
+
+      <div class="game-content-col">
+        <!-- At a glance -->
+        <div class="at-glance reveal">
+          <span class="label">At a glance</span>
+          <p class="at-glance-hook">A <strong>cozy-macabre necromancer game</strong> that fuses <strong>Disco Zoo's grave-digging</strong> with an <strong>idle dungeon defense</strong> — dig up undead, build a dungeon, and earn while your minions fend off looting heroes.</p>
+          <div class="highlight-chips">
+            <span class="highlight-chip">Solo — design + code + art</span>
+            <span class="highlight-chip">Disco-Zoo dig loop</span>
+            <span class="highlight-chip">Role-based idle auto-battler</span>
+            <span class="highlight-chip">Deep relic &amp; economy systems</span>
+          </div>
+          <a href="#breakdown" class="jump-to-detail">Jump to the full breakdown ↓</a>
+        </div>
+
+        <div class="section-line" id="breakdown">Design Pillars</div>
+        <div class="pillars-grid">
+          <div class="pillar">
+            <div class="pillar-num">01</div>
+            <h4>Cozy-Macabre</h4>
+            <p>Warm and charming <em style="color:var(--text);">about</em> death — a friendly-Grim-Reaper tone, not grim horror and not a joke. The mood drives the art, the tutorial voice, and every bit of copy.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">02</div>
+            <h4>An Underused Hook</h4>
+            <p>Disco Zoo's tap-to-reveal dig loop is one of mobile's most addictive mechanics — and strangely underexplored. The whole game is built to give that hook a world worth digging in.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">03</div>
+            <h4>Two Loops, One Economy</h4>
+            <p>A collection loop (dig) and a combat loop (defend) feed each other through a single currency — coins. Defend to earn, spend to dig and upgrade, dig to grow stronger. Neither loop goes vestigial.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">04</div>
+            <h4>Systems as the Star</h4>
+            <p>Monster roles, a trade-off relic loadout, two-lane progression, and a tuned idle economy. It's designed to be a systems-design showcase as much as a game.</p>
+          </div>
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">The Core Loop</div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px;">
+          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; margin-bottom:4px;">
+            The whole game is one self-feeding loop. Every currency earned in one half is spent to grow the other.
+          </p>
+          <div class="loop-chain">
+            <div class="loop-step"><div class="loop-dot">1</div><div class="loop-step-text">Dig a graveyard — reveal undead by uncovering their pattern</div></div>
+            <div class="loop-connector"></div>
+            <div class="loop-step"><div class="loop-dot">2</div><div class="loop-step-text">Uncover &amp; collect — duplicates level a monster up</div></div>
+            <div class="loop-connector"></div>
+            <div class="loop-step"><div class="loop-dot">3</div><div class="loop-step-text">Deploy into the dungeon by role</div></div>
+            <div class="loop-connector"></div>
+            <div class="loop-step"><div class="loop-dot">4</div><div class="loop-step-text">Defend against looting heroes — earn coins</div></div>
+            <div class="loop-connector"></div>
+            <div class="loop-step"><div class="loop-dot">5</div><div class="loop-step-text">Upgrade &amp; dig deeper — repeat</div></div>
+          </div>
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">Core Systems</div>
+        <div class="mechanics-grid">
+          <div class="mechanic-card">
+            <h3>⛏️ Grave Digging</h3>
+            <p>Enter a 5×5 site with a mana budget and reveal connected patterns to unearth undead. Rarer monsters use fewer tiles — so they're harder to find, and running one tile short creates the "spend to close the gap" tension.</p>
+          </div>
+          <div class="mechanic-card">
+            <h3>💀 Collection &amp; Leveling</h3>
+            <p>Find duplicates to level a monster: each level raises its income, a milestone unlocks its signature ability, and maxing it out is its own reward. Set-collection, not merge.</p>
+          </div>
+          <div class="mechanic-card">
+            <h3>⚔️ Idle Dungeon Defense</h3>
+            <p>A moving-unit auto-battler. Monsters self-organize into a formation by role and fight waves of invading heroes while you're away. No lose screen — a soft wall, not a fail state.</p>
+          </div>
+          <div class="mechanic-card">
+            <h3>🪙 Two-Currency Economy</h3>
+            <p>Coins (from defense) drive power and access; mana is the per-dig budget; Soul Gems are premium time-and-convenience. The loops interlock through coins without collapsing into one grind.</p>
+          </div>
+          <div class="mechanic-card">
+            <h3>📿 Relics &amp; the Reliquary</h3>
+            <p>Equip a capped loadout from a pool of trade-off relics. Rarity means downside severity, not just power — and a one-legendary cap forces a real build decision.</p>
+          </div>
+          <div class="mechanic-card">
+            <h3>🌙 Idle Earner</h3>
+            <p>Monsters keep earning while you're offline, capped to a fair window, with income that scales with how deep a wave you can hold. Come back to a meaningful pile, not an exploit.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ═══ Design Story (skim-first spine) ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">How I Designed It</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
+        The 60-second version — the reasoning behind Rest in Profit, from the core problem to what's next. The full breakdown is below; this is the map.
+      </p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px;">
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">01 · Problem</div>
+          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Make an idle game with real depth</h4>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Disco Zoo's dig loop is brilliant but underused, and idle collection games go <em style="color:var(--text);">flat</em> the moment you've collected everything. Could I fuse that dig hook to an idle dungeon-defense so the two loops feed each other and the game stays deep past "collection complete"?</p>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">02 · Design Decision</div>
+          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">One economy, layered systems</h4>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">One currency — coins — ties collection to combat: defend to earn, spend to dig and upgrade, dig to grow stronger. On top sits a systems layer (monster roles, a trade-off relic loadout, two-lane progression) that turns "collect monsters" into "<em style="color:var(--text);">build and tune a dungeon</em>."</p>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">03 · Prototype / Test</div>
+          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Prove the hook before building on it</h4>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">I built the dig loop first and validated it in isolation — ~25 real dig runs confirmed the near-miss tension was firing (I missed the rarest finds most, exactly as intended) before I let combat depend on it.</p>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">04 · Result</div>
+          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">A working loop — and a real diagnosis</h4>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">The loop closes end-to-end. When combat felt broken — a maxed unit folding at wave 4 — I diagnosed it as a <em style="color:var(--text);">positioning-AI gap, not a balance problem</em>, and the same team held ~10 waves further. <a href="#playtest" style="color:var(--accent2); font-weight:600;">See the diagnosis ↓</a></p>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">05 · What's Next</div>
+          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Content breadth &amp; an endgame</h4>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Wire the designed relic pool into combat; build biomes (each area its own monsters, relics and challenge); and add prestige — Timeless monsters, Disco-Zoo style — so digging stays meaningful past completion.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ Playtesting & Iteration ═══ -->
+    <div id="playtest" style="margin-top:72px; scroll-margin-top:90px;">
+      <div class="section-line">Playtesting &amp; Iteration</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:660px; margin-bottom:28px;">
+        The most useful design work on this project came from reading a result correctly instead of reacting to it. Two examples — one a diagnosis, one a guardrail.
+      </p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+
+        <!-- Positioning diagnosis (with footage placeholder) -->
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden;">
+          <figure class="gif-slot" style="margin:0; border:none; border-radius:0;">
+            <video src="../rip_combat.mp4" aria-label="Rest in Profit — role-based combat formation" style="display:block; width:100%; aspect-ratio:16/9; object-fit:cover; background:#05050c;" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+            <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>rip_combat.mp4</code> here</span></div>
+          </figure>
+          <div style="padding:18px 20px;">
+            <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">A "balance" failure that was really a positioning gap</h4>
+            <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
+              <span style="font-size:0.68rem; font-weight:700; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:3px 8px;">BEFORE · folds at wave 4</span>
+              <span style="font-size:0.68rem; font-weight:700; color:var(--accent2); border:1px solid var(--accent); border-radius:6px; padding:3px 8px;">AFTER · holds to ~wave 14</span>
+            </div>
+            <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">A fully-leveled squad was collapsing at wave 4, which looked like a numbers problem. It wasn't — my ranged damage-dealer was standing in the melee getting deleted. The fix was a <strong style="color:var(--text);">role-based positioning AI</strong> (Frontline / Damage / Support, each with a standoff distance derived from its attack range), not a stat change. Same stats, same monsters — it held about ten waves further. The lesson: diagnose the root cause before you touch the numbers.</p>
+          </div>
+        </div>
+
+        <!-- Offline economy guardrail -->
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 20px;">
+          <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">Keeping the idle economy honest</h4>
+          <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
+            <span style="font-size:0.68rem; font-weight:700; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:3px 8px;">RISK · uncapped AFK farming</span>
+            <span style="font-size:0.68rem; font-weight:700; color:var(--accent2); border:1px solid var(--accent); border-radius:6px; padding:3px 8px;">FIX · two guardrails</span>
+          </div>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">An idle earner where monsters never die can print money forever. I keep it honest with two levers: offline income is <strong style="color:var(--text);">time-capped</strong> (8 hours), and income <strong style="color:var(--text);">scales with wave depth</strong> — so farming easy content is low-value and there's no "park and get rich." The raw payout number was never the question; the caps are.</p>
+          <p style="font-size:0.78rem; color:var(--muted); line-height:1.6; margin:14px 0 0; padding-top:12px; border-top:1px solid var(--border);">Both cases came from the same instinct: a surprising number is a question, not a verdict. Find out <em>why</em> before you change anything.</p>
+        </div>
+      </div>
+
+      <!-- Currency split principle -->
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 22px; margin-bottom:16px;">
+        <h4 style="margin:0 0 6px; font-size:0.95rem; color:var(--text);">Gate access gently, gate power steeply</h4>
+        <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0 0 14px;">A guiding rule for the economy that keeps the game cozy while still having a grind:</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:10px;">
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Digging = linear cost</strong><br>Expedition entry rises gently (Disco-Zoo style), so collecting never walls you.</div>
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Upgrades = exponential cost</strong><br>Raw combat power is the real grind and the central coin sink.</div>
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Premium = time, not power</strong><br>Soul Gems buy convenience and cosmetics — never stats — so it stays fair.</div>
+        </div>
+      </div>
+
+      <!-- Scoped out -->
+      <div style="border-left:2px solid var(--border); padding:4px 0 4px 16px;">
+        <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;"><strong style="color:var(--text);">Honest about scope:</strong> the full relic pool, prestige, and additional biomes are designed but not yet built — the loop above is what's playable today. Knowing what to build <em>now</em> versus what to leave on paper is part of the job.</p>
+      </div>
+    </div>
+
+
+    <!-- ═══ Deep Dive divider ═══ -->
+    <div style="margin-top:80px;">
+      <div class="section-line">Deep Dive</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px;">
+        Everything below is the full breakdown — the dig loop, the role-based defense, the economy, and the relic system that ties the build layer together. The summary above is the whole argument in short; go as deep as you want from here.
+      </p>
+    </div>
+
+    <!-- ═══ The Dig Loop ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">The Dig Loop — In Motion</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:14px;">
+        The dig site is the piece I built and tuned first. You enter a 5×5 graveyard with a limited mana budget and tap tiles to uncover the <strong style="color:var(--text);">connected pattern</strong> of a buried monster — Disco Zoo's shape-reveal, reframed as grave-robbing.
+      </p>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
+        Everything present in a dig is <strong style="color:var(--accent2);">telegraphed</strong>, rarer monsters occupy fewer tiles (so they're harder to pin down), and the whole thing is tuned so you often come up <em>one tile short</em> — the exact moment the game offers a premium nudge. That near-miss tension is the loop's engine, and I validated it with real play before building anything on top of it.</p>
+
+      <div class="gif-showcase" style="margin-bottom:28px;">
+        <figure class="gif-slot">
+          <video src="../rip_dig_reveal.mp4" aria-label="Rest in Profit dig reveal" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>rip_dig_reveal.mp4</code> here</span></div>
+          <figcaption>The reveal — <span>uncovering a monster's pattern tile by tile</span></figcaption>
+        </figure>
+        <figure class="gif-slot">
+          <video src="../rip_dig_nearmiss.mp4" aria-label="Rest in Profit near-miss" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>rip_dig_nearmiss.mp4</code> here</span></div>
+          <figcaption>The near-miss — <span>one tile short, out of mana: spend to close the gap?</span></figcaption>
+        </figure>
+        <figure class="gif-slot">
+          <video src="../rip_dig_summary.mp4" aria-label="Rest in Profit dig summary" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>rip_dig_summary.mp4</code> here</span></div>
+          <figcaption>The payoff — <span>what you uncovered this expedition</span></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- ═══ The Dungeon Defense ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">The Dungeon Defense — Role-Based Auto-Battler</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:14px;">
+        Placed monsters aren't static — they <strong style="color:var(--text);">move and fight in real time</strong>, and they organize themselves. Each monster carries a role that drives a self-forming formation, so the tactical decision is <em>which roles you bring</em>, not micromanaging positions on a phone screen.
+      </p>
+      <div class="roles-grid" style="margin-bottom:20px;">
+        <div class="role-pill role-tank">
+          <div class="role-name">Frontline</div>
+          <div class="role-desc">Wants the front and soaks damage. If it's ever behind the pack, it speeds up until it's back on the wall.</div>
+        </div>
+        <div class="role-pill role-dps">
+          <div class="role-name">Damage</div>
+          <div class="role-desc">Hangs back and only advances when its target leaves range — so a ranged unit holds deep, and a melee unit kites just behind the wall.</div>
+        </div>
+        <div class="role-pill role-sup">
+          <div class="role-name">Support</div>
+          <div class="role-desc">Holds the middle, between the wall and the damage line.</div>
+        </div>
+      </div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
+        Heroes raid the dungeon rather than racing an exit, peeling off to smash graves and chests along the way. There's <strong style="color:var(--accent2);">no lose screen</strong> — a downed monster can always be revived to keep grinding, so failure is a soft wall that nudges you back to digging and upgrading, not a punishment.
+      </p>
+      <div class="gif-showcase" style="margin-bottom:8px;">
+        <figure class="gif-slot">
+          <video src="../rip_defense.mp4" aria-label="Rest in Profit dungeon defense" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>rip_defense.mp4</code> here</span></div>
+          <figcaption>The formation — <span>monsters self-sort by role and hold the line</span></figcaption>
+        </figure>
+        <figure class="gif-slot">
+          <video src="../rip_ability.mp4" aria-label="Rest in Profit monster ability" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>rip_ability.mp4</code> here</span></div>
+          <figcaption>A signature ability — <span>each monster's kit unlocks as it levels</span></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- ═══ Progression & Economy ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">Progression &amp; Economy</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
+        Two power axes, kept in separate lanes so each stays legible — and an economy tuned so the two coin sinks never starve each other.
+      </p>
+      <div class="prog-row">
+        <div class="prog-block">
+          <h3 style="color:var(--accent2);">Duplicate leveling</h3>
+          <ul>
+            <li>Find dupes to level a monster</li>
+            <li>Each level raises its income</li>
+            <li>A milestone unlocks its ability</li>
+            <li>Maxing it is a capstone moment</li>
+          </ul>
+        </div>
+        <div class="prog-block">
+          <h3 style="color:var(--accent2);">Coin upgrades</h3>
+          <ul>
+            <li>Spend coins on Attack &amp; Health</li>
+            <li>Separate tracks, per monster</li>
+            <li>Linear stat gain, exponential cost</li>
+            <li>Capped — a known power ceiling</li>
+          </ul>
+        </div>
+        <div class="prog-block">
+          <h3 style="color:var(--accent2);">The currencies</h3>
+          <ul>
+            <li>Coins — power &amp; access</li>
+            <li>Mana — the per-dig budget</li>
+            <li>Soul Gems — premium, time only</li>
+            <li>Offline income, capped &amp; fair</li>
+          </ul>
+        </div>
+      </div>
+      <p style="font-size:0.8rem; color:var(--muted); line-height:1.65; max-width:680px; margin-top:20px;">
+        Dupes deepen <em style="color:var(--text);">what a monster does</em> (income + identity); coins raise <em style="color:var(--text);">its numbers</em> (combat power). Keeping those lanes apart means a player always knows what each currency is <em>for</em> — and why the next dig or the next upgrade matters.
+      </p>
+    </div>
+
+    <!-- ═══ Relics & the Reliquary (full compendium) ═══ -->
+    <style>
+      .wk-filters { display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 20px; }
+      .wk-fbtn { background:var(--surface2); border:1px solid var(--border); color:var(--muted); border-radius:999px; padding:7px 16px; font-size:0.8rem; font-weight:600; cursor:pointer; transition:all 0.18s; font-family:inherit; }
+      .wk-fbtn:hover { color:var(--text); border-color:rgba(147,51,234,0.5); }
+      .wk-fbtn.active { color:#fff; background:linear-gradient(135deg,var(--accent),#7c3aed); border-color:transparent; box-shadow:0 0 16px rgba(147,51,234,0.32); }
+      .wk-fbtn .cnt { opacity:0.7; font-weight:400; margin-left:4px; }
+      .wk-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:14px; }
+      .wk-card { display:flex; gap:14px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px; transition:border-color 0.2s, transform 0.2s, box-shadow 0.2s; }
+      .wk-card:hover { transform:translateY(-2px); box-shadow:0 0 22px rgba(147,51,234,0.12); }
+      .wk-card.wk-b-legendary { border-color:rgba(251,191,36,0.28); }
+      .wk-card.wk-b-legendary:hover { border-color:rgba(251,191,36,0.7); box-shadow:0 0 26px rgba(251,191,36,0.12); }
+      .wk-card.wk-hidden { display:none; }
+      .wk-icon { width:64px; height:64px; flex-shrink:0; border-radius:10px; background:linear-gradient(135deg,var(--surface2),#0a0a14); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; }
+      .wk-icon img { width:50px; height:50px; object-fit:contain; image-rendering:pixelated; image-rendering:crisp-edges; }
+      .wk-empty span { font-size:1.5rem; font-weight:800; color:var(--muted); opacity:0.5; }
+      .wk-empty.wk-e-legendary span { color:#fbbf24; opacity:0.55; }
+      .wk-body { flex:1; min-width:0; }
+      .wk-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+      .wk-head h4 { font-size:0.95rem; font-weight:700; color:var(--text); margin:0; }
+      .wk-body p { font-size:0.8rem; color:var(--muted); line-height:1.55; margin:8px 0 0; }
+      .rar { font-size:0.58rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:3px 8px; border-radius:20px; white-space:nowrap; flex-shrink:0; }
+      .rar-common { background:rgba(148,163,184,0.15); color:#cbd5e1; }
+      .rar-rare { background:rgba(59,130,246,0.15); color:#60a5fa; }
+      .rar-epic { background:rgba(168,85,247,0.15); color:#c084fc; }
+      .rar-legendary { background:rgba(251,191,36,0.15); color:#fbbf24; }
+      .side-tag { display:inline-block; margin-top:8px; font-size:0.62rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--muted); border:1px solid var(--border); border-radius:5px; padding:2px 7px; }
+      .side-dig { color:#a3e635; border-color:rgba(163,230,53,0.3); }
+      .side-combat { color:#fb7185; border-color:rgba(251,113,133,0.3); }
+      .side-economy { color:#fbbf24; border-color:rgba(251,191,36,0.3); }
+    </style>
+    <div style="margin-top:72px;">
+      <div class="section-line">Relics &amp; the Reliquary</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:14px;">
+        The build layer — and the deepest systems-design work on the project. You collect relics and equip a <strong style="color:var(--text);">capped loadout</strong> from the pool, so every relic on is a relic you chose over another. Two rules keep the choices meaningful:
+      </p>
+      <div class="pillars-grid" style="margin-bottom:28px;">
+        <div class="pillar">
+          <div class="pillar-num">Rule 01</div>
+          <h4>Rarity = downside severity</h4>
+          <p>Commons carry a small cost, Rares a sharper trade-off, Epics are clean power, and Legendaries redefine a build. Rarity tells you how spicy the trade is, not just how strong.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">Rule 02</div>
+          <h4>Every relic stands alone</h4>
+          <p>A relic has to justify its slot on its own — synergy is a bonus between two independently-good relics, never a prerequisite. And you can equip only one Legendary, so it anchors the build.</p>
+        </div>
+      </div>
+
+      <p style="font-size:0.82rem; color:var(--muted); line-height:1.6; max-width:680px; margin-bottom:4px;">
+        The full pool — <strong style="color:var(--text);">25 relics</strong> designed across four rarities. Icons are hand-drawn 32×32 pixel art (13 done so far); the rest are illustrated as the pool is finished. Filter by rarity:
+      </p>
+      <div class="wk-filters" id="relicFilters">
+        <button class="wk-fbtn active" data-f="all">All <span class="cnt">25</span></button>
+        <button class="wk-fbtn" data-f="common">Common <span class="cnt">9</span></button>
+        <button class="wk-fbtn" data-f="rare">Rare <span class="cnt">7</span></button>
+        <button class="wk-fbtn" data-f="epic">Epic <span class="cnt">6</span></button>
+        <button class="wk-fbtn" data-f="legendary">Legendary <span class="cnt">3</span></button>
+      </div>
+      <div class="wk-grid" id="relicGrid">
+        <article class="wk-card wk-b-common" data-rar="common">
+          <div class="wk-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABLUExURQAAAON/F6FEOII1EPCUEE0kMxAGCGgsLstZGi0XJ2A/TW5wfS5GXGNih1hSnC5Gc9WtemSCszOhsoLi+qPUwPrtk7Wgq6hrgAAAAOt/toYAAAAZdFJOU////////////////////////////////wABNAq3AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQBQYWludC5ORVQgNS4xLjEyEwFHdAAAALhlWElmSUkqAAgAAAAFABoBBQABAAAASgAAABsBBQABAAAAUgAAACgBAwABAAAAAwAAADEBAgARAAAAWgAAAGmHBAABAAAAbAAAAAAAAACjkwAA6AMAAKOTAADoAwAAUGFpbnQuTkVUIDUuMS4xMgAAAwAAkAcABAAAADAyMzABoAMAAQAAAAEAAAAFoAQAAQAAAJYAAAAAAAAAAgABAAIABAAAAFI5OAACAAcABAAAADAxMDAAAAAAB3d+nrbM2hQAAAEoSURBVDhPhZMJcoMwDEWFZGIpYalr03L/k/abMcGmMPlMou1FkRHQ+kEngKDiFrUhdcxyShW7iZwQ9S3RBrm2fR1qAwzw8P09AJF+AB7e2tQpIjNrD1oHRJ2y9H3To/JJnaCBN6unOFwSp+pVTKyec/dwg1QVHynEu1BMj+4oiIiH7XHtlWJQyQz+HxIPtcCK8zGzqsMgzPmwe6HYlbw9cwcIlo98sSu9TIfXOM3PmW34ugXCNM9q4zXgvscQ4zyohXQJdHGKMU6Ds3QN6BDighbOxjsgLssSJ8zwcwnwBqQM/F4AI4BXB40Y8gZIKYSQElv6DxDuPuNRyGJsc1/FAWCZWEVeBLMHeQYyURpszpEvNhOCzvnH2HuVLhbKL+6ukoIq90rr+geSzEX9ssPgAwAAAABJRU5ErkJggg==" alt="Gravekeeper&#x27;s Lantern"></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Gravekeeper&#x27;s Lantern</h4><span class="rar rar-common">Common</span></div>
+            <span class="side-tag side-combat">Combat</span>
+            <p>Revive time −20%.</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-common" data-rar="common">
+          <div class="wk-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACiUExURQAAAOmPGfK2L8piGeKRJDgNA8JZGN6FJ9FrHdNxHqM5D2obDt2BJOyaH7NGEQUGB/GyLbpRFVkVCsZdGe2VHLEyDJ82DvjeeKhbF7QxC958H5YwDPGpKc5iF89mGqg9DmUZDUURBeKIIy8WHQoKDEEQA+imbDYuJumrdIImC7ZOFkoSB4wrDAYAACcIAhQEATYHEnMgDrJgGF8RHBsGAgAAAK8ud34AAAA2dFJOU///////////////////////////////////////////////////////////////////////AKGPTjEAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAFBhaW50Lk5FVCA1LjEuMTITAUd0AAAAuGVYSWZJSSoACAAAAAUAGgEFAAEAAABKAAAAGwEFAAEAAABSAAAAKAEDAAEAAAADAAAAMQECABEAAABaAAAAaYcEAAEAAABsAAAAAAAAAKOTAADoAwAAo5MAAOgDAABQYWludC5ORVQgNS4xLjEyAAADAACQBwAEAAAAMDIzMAGgAwABAAAAAQAAAAWgBAABAAAAlgAAAAAAAAACAAEAAgAEAAAAUjk4AAIABwAEAAAAMDEwMAAAAAAHd36etszaFAAAAYFJREFUOE+9kNtSgzAQQNdgSCFpE0gbpJRLa61atV75/19zl4Spo8P44IznIQzsmZAT6H/h/wUIhFfkq4CDC4QhZ+csAESXjAcicvznYaVxLHAwm80gSZJUcq68EgSI51wuFgloYxjT2qhM5kzgNOxjlysXxwnMTYGoK22Y4I6MUShzFEDhsGBrxhbAhMirUQBreeXcGjZ4+k2NSw1CiIYL4Y8KNuapcxFQHrvAZY5CHY0CwHKGQqTLNSvRWZYmK3UUtZ0XIIYVCVbrrZY7s15IuN7vbYtCiwIVQNNsnbX2Bg63d3e3B7jP4jTN1XBIKoDO1Nxhh8P/I8fMpemDUhzHQwF01YZx6dxxIMuc6/jc5l6gAnhUO4OXmHeS6PA6m0rmdMJQAOXOFMM1IoyJ9rGpOp8YCp54XRhW0DZKCRTk6Xm4o34seHqB1zcSjFLt9gSnE81JOBe8f/gIAF8wCpMFXuinC4LQTxYQw3OqgPDiRAEx7tSfC8KHwLfXn/xV6PtPq3d6cfb4CdcAAAAASUVORK5CYII=" alt="Ferryman&#x27;s Toll"></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Ferryman&#x27;s Toll</h4><span class="rar rar-common">Common</span></div>
+            <span class="side-tag side-dig">Dig</span>
+            <p>Coins found while digging +25%, but coins from heroes −5%.</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-common" data-rar="common">
+          <div class="wk-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACcUExURQAAAFAtIoM0INSNDrFgE3wvIrdrEm4wIPv778XGvDkcGAoTG5qiohgbICMmK6WnqaChph4hJq6xsAUNFc/Ow09aYCUoLNPGs6OpqC0wNQgICj5ESBMYHkFHTIKQjTk9QkdRVxMVGfjx5uDRvWd0d11rcXeEg3ZPNIiWkvPq4Lq6tr2ukung15WcnYVjP45vSotrRJyBYT4jIgAAAK4w0yMAAAA0dFJOU////////////////////////////////////////////////////////////////////wBLVyJlAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQBQYWludC5ORVQgNS4xLjEyEwFHdAAAALhlWElmSUkqAAgAAAAFABoBBQABAAAASgAAABsBBQABAAAAUgAAACgBAwABAAAAAgAAADEBAgARAAAAWgAAAGmHBAABAAAAbAAAAAAAAABgAAAAAQAAAGAAAAABAAAAUGFpbnQuTkVUIDUuMS4xMgAAAwAAkAcABAAAADAyMzABoAMAAQAAAAEAAAAFoAQAAQAAAJYAAAAAAAAAAgABAAIABAAAAFI5OAACAAcABAAAADAxMDAAAAAA2aealcm3C18AAAGpSURBVDhPhdNte5owFAbgJ2JthnCoXQmZMZWJAWnozMb//2+7EkBkV9udD3zguXPyBuj/U/j3xVwI2ecA7Gsw5p8CrKIvpgCwjh428OQjgEf+DY+bOI5j3AOEEX2PLd8mHIjjZYeUsqedf4Pn7y9JniPkMyBRCJHtgDTbvsg8/5EuF7mnQghSXhz2+jUXEIttYlcIOh6PxwzRaoNUCNA9wKEgKj1A9LCJY/wUYz4AHE6ky9ILRH570MMCbqAirc9lWZZYr30+bngCOJFWRr4GsPL5edzCBCqlzFkmdQms/QJIiGwS/mQqUo2R8lLXAAuAKBzJBFqlmuZNygCAVJMgoqehCXqkrTLWdlK+42IArZUmUtMs6MF+6aYL4Pnic6NCZWIGV2stczaR+VnW2hhPCkE3wB0fQSalrI0XhRgaeOC4486G6t6kTJKkNtP4oQPjnDnGnf1tZQBtQ1M+AhcQ8z265L0VNB7CCCrmc8751bqua50Q+8Vd/GGsCjlnV1ed6Db9BMAYY36ljHWcsXn6CXjhPOL+Md/jDHqEJkO6jEcw/BP3n8lcfwFfz364hHcH5gAAAABJRU5ErkJggg==" alt="Worn Shovelhead"></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Worn Shovelhead</h4><span class="rar rar-common">Common</span></div>
+            <span class="side-tag side-dig">Dig</span>
+            <p>Begin each dig with 1 extra mana (11 instead of 10).</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-common" data-rar="common">
+          <div class="wk-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABvUExURQAAAOvr6+vr7Ovs65CQruvt7ezt7evs7EpqjUxskI+Pq+3t7jk5SpeXtDo6TDw8TZKRsUtqjOvs7Tc3SUtqi42Mqurr6upFLuE1JeUzJfGOXcEOIuZBKulILr4OIPORYroNIPGIWf6/id8vIQAAAJg79/kAAAAldFJOU////////////////////////////////////////////////wA/z0JPAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQBQYWludC5ORVQgNS4xLjEyEwFHdAAAALhlWElmSUkqAAgAAAAFABoBBQABAAAASgAAABsBBQABAAAAUgAAACgBAwABAAAAAgAAADEBAgARAAAAWgAAAGmHBAABAAAAbAAAAAAAAABgAAAAAQAAAGAAAAABAAAAUGFpbnQuTkVUIDUuMS4xMgAAAwAAkAcABAAAADAyMzABoAMAAQAAAAEAAAAFoAQAAQAAAJYAAAAAAAAAAgABAAIABAAAAFI5OAACAAcABAAAADAxMDAAAAAA2aealcm3C18AAAGQSURBVDhPjZOBctsgEERZjtvDEUUGKTht2iRt9f/f2MGyPZLSmXYlDg083S0MuOUfcseBo/4bcM5dwy26pX9tAAfAOe8lOKfXDrJOPQARURqtv97TPgExnlbdennaAg6IRg4DqcMwqDLeEqxAdxAtMX3JTBzPkqQcAJPCnLPmUfOYc9XI866EIprVSrIqlVVixQ4ILMhk1qR5HDkxGlbiXolRUs7DZBOzTuwZVhd3QIrpMKwFVKtE7kt4FEmcaEmnYdKJkWED9GUWUZJaPWtVL+UISNSUNZFeq1o9ZFicSt9JJu3p+zNzZ9KdJUoyDt0jK70U2S3TBSn9V50026QTUAzPWwCIgFYPeNSBwFwPJluRlNXgYXp5IQt2QEOb0ZATkly+fnu9fN8Di+sAFNWAy4/Xt/e3WVYLD5MoLWVJI4CPn78+2txa25hcXJvFAPMA+PuFMuMIlHjX6XQqp4J1/gF4D68VvqeAoTXsDu3iQpfJU2ithRBaC3vgep3C89qcC0/XO7YFVmht9/gJ+Kv+ADDTTo/sEnkXAAAAAElFTkSuQmCC" alt="Pauper&#x27;s Insurance"></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Pauper&#x27;s Insurance</h4><span class="rar rar-common">Common</span></div>
+            <span class="side-tag side-dig">Dig</span>
+            <p>If your expedition found no coins or monsters, refund 20% of the expedition cost.</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-common" data-rar="common">
+          <div class="wk-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAB7UExURQAAAPr7+f7//paJil5gZMbGw09OTamgn5WGiZKDhbmzrq6mosLCvpWFhrm4tpeMj+Hh4c/T0e3s6cnKxkFFS1pdYZ+UlldZXmVobTw+Rot9gCUrJSYiHXtwbPTz8XNoar+/vIV8eXltbpOFgXpua93Iv9nCuR4VEQAAAGAb8OIAAAApdFJOU/////////////////////////////////////////////////////8AUvQghwAAAAlwSFlzAAAOwwAADsMBx2+oZAAAABl0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS4xMhMBR3QAAAC4ZVhJZklJKgAIAAAABQAaAQUAAQAAAEoAAAAbAQUAAQAAAFIAAAAoAQMAAQAAAAIAAAAxAQIAEQAAAFoAAABphwQAAQAAAGwAAAAAAAAAYAAAAAEAAABgAAAAAQAAAFBhaW50Lk5FVCA1LjEuMTIAAAMAAJAHAAQAAAAwMjMwAaADAAEAAAABAAAABaAEAAEAAACWAAAAAAAAAAIAAQACAAQAAABSOTgAAgAHAAQAAAAwMTAwAAAAANmnmpXJtwtfAAABVUlEQVQ4T3WT6VbDIBCFLwPUoSXGhibWpZq2VvP+T+hhsg09Oj9gwv1yWQYw6IBEOVR8GENkXTmmczM6FITK4bGRKAidPmADImzA/wAhwG93EVX4GxgA3hGxK/Zxt6eKWfvfAwAs3x2Eng3+EfUT2GpkTeH3+8YYY1Laq2mWDJ6IwHkNKaWVmBNEMgfOC4C1h+QXYupBRC0DXdfVQNWuHmMHb+iZUXdERF0NdkdbTdJs8BIgsiDgtnpVAAzeAuysE1nweziNmjQwnjUQwa4AjPGuBNpqVwAfvlVAjHAl8NH4Vk5qBcJWA02THGJc9OxQrKFpUkL0QsQcYD593gO9SDHGPvaozhoY0CRmzIAYnC+TNAHXXMa+F5c+F7UEBjgptJgAzPZr0tdyCyHlzv1l1hdgJLIYcDwu/ytggIOzt9vt+9pi1RUwIL8c/EirRtd0fv3ltf8FdWpc+XsMBaoAAAAASUVORK5CYII=" alt="Prospector&#x27;s Trinket"></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Prospector&#x27;s Trinket</h4><span class="rar rar-common">Common</span></div>
+            <span class="side-tag side-dig">Dig</span>
+            <p>Upon finding coins during an expedition, gain an additional +25% coins.</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-common" data-rar="common">
+          <div class="wk-icon wk-empty wk-e-common"><span>?</span></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Divining Splinter</h4><span class="rar rar-common">Common</span></div>
+            <span class="side-tag side-dig">Dig</span>
+            <p>Every 3rd expedition, mark one random tile of the highest-rarity target at the start.</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-common" data-rar="common">
+          <div class="wk-icon wk-empty wk-e-common"><span>?</span></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Rusted Edge</h4><span class="rar rar-common">Common</span></div>
+            <span class="side-tag side-combat">Combat</span>
+            <p>+10% monster damage, −5% attack speed.</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-common" data-rar="common">
+          <div class="wk-icon wk-empty wk-e-common"><span>?</span></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Ambusher&#x27;s Mark</h4><span class="rar rar-common">Common</span></div>
+            <span class="side-tag side-combat">Combat</span>
+            <p>Marks the toughest hero; it takes +20% damage from all monsters. The mark passes to the next-toughest on death.</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-common" data-rar="common">
+          <div class="wk-icon wk-empty wk-e-common"><span>?</span></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Wooden Shield</h4><span class="rar rar-common">Common</span></div>
+            <span class="side-tag side-combat">Combat</span>
+            <p>Your Damage-role monsters gain a shield equal to 10% of their max HP, refreshed each wave.</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-rare" data-rar="rare">
+          <div class="wk-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAByUExURRMJCSMVEAsCBAkBA65kMvuZRMJgLr9yOHc5Imo+VyARFjUSGp5CNZBIJopISkwpTHamwFeKrMrl6anR3AAAAP7//1xPcwYAAUtUgfPOgvfr1d6OPv/4avrFTlQjCCdbmlQdJ/GsTNBpLz4dDUR1jQAAAIQ1aREAAAAmdFJOU/////////////////////////////////////////////////8Ap3qBvAAAAAlwSFlzAAAOwwAADsMBx2+oZAAAABl0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS4xMhMBR3QAAAC4ZVhJZklJKgAIAAAABQAaAQUAAQAAAEoAAAAbAQUAAQAAAFIAAAAoAQMAAQAAAAMAAAAxAQIAEQAAAFoAAABphwQAAQAAAGwAAAAAAAAAo5MAAOgDAACjkwAA6AMAAFBhaW50Lk5FVCA1LjEuMTIAAAMAAJAHAAQAAAAwMjMwAaADAAEAAAABAAAABaAEAAEAAACWAAAAAAAAAAIAAQACAAQAAABSOTgAAgAHAAQAAAAwMTAwAAAAAAd3fp62zNoUAAABsUlEQVQ4T4WTjXIiIRCEcUADiGYRDGcIidm7ef9XvB4W6/y5JF2llvTHAD2g+AcBUEqtCNLydScBtDFraAM9icyQhRwJQORX/50ukiWYt8H2OjJxBzmIrPFjDwuAEn0nQ/oGYNo/0xQPh5RySjHGKdGz090ax9QOwPEIIA9g+APQxtHLAlwqOFO69Q/4FU6vtaSUQghT0bs7wG5LrG/tXUsU4aOcb4FivOdca2ul1RCi4rPfXAF6Q541l1o/W4Ff8IdoRtALoGZLljEho/zvEDOmsCXTgwCADWhrMQYiwpdhABIuxjqgnVkAzu8yvwPGwRgAuTWy7oBZLUCxawC93axnpNL3wIiJ+hKlV5BtdsCNPcCvU8YhBbDaDaDsZjQXYyodUktRCADw7QIIod0WvjQDwB8JyurZiikfBLlXRGjWERUSgCmTR/ridYDLbLUASLKGSBHNMvNtsxzFeKztrdWc4wvavZcQoCvg6XRqrdZcw8cDwCTAZ12E+wCgt+oCkJV7v7q+tdTPcAGU9O7+2l8AvDyc8eHhKO/lB8D5m6dnz7IEOCyOEo/PD+6y0Jdi/gv5YkuWyHYMcAAAAABJRU5ErkJggg==" alt="Cracked Hourglass"></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Cracked Hourglass</h4><span class="rar rar-rare">Rare</span></div>
+            <span class="side-tag side-combat">Combat</span>
+            <p>Coins from heroes +30%, but revive timer +25%.</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-rare" data-rar="rare">
+          <div class="wk-icon wk-empty wk-e-rare"><span>?</span></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Petrified Hand</h4><span class="rar rar-rare">Rare</span></div>
+            <span class="side-tag side-combat">Combat</span>
+            <p>Resurrection timer −1.0s, but monster damage −10%.</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-rare" data-rar="rare">
+          <div class="wk-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAB+UExURQAAAI+dpo2apT9CTmRzhIuZo/39/Tw+SoqXov7//qarqbCzrzo8SKyvq2Z2hZmhpY6bo19ugDEzPmp6ibW3szc5RkJIV09dcHaDkU1bcHeGknqHk1ZleJGepj0/S29+jNHSzamsqGV0g2JwgE1YaSUnMCssOMXFw0NLXAAAAEodZTMAAAAqdFJOU///////////////////////////////////////////////////////ADKo8FwAAAAJcEhZcwAADsIAAA7CARUoSoAAAAAZdEVYdFNvZnR3YXJlAFBhaW50Lk5FVCA1LjEuMTITAUd0AAAAuGVYSWZJSSoACAAAAAUAGgEFAAEAAABKAAAAGwEFAAEAAABSAAAAKAEDAAEAAAACAAAAMQECABEAAABaAAAAaYcEAAEAAABsAAAAAAAAAPJ2AQDoAwAA8nYBAOgDAABQYWludC5ORVQgNS4xLjEyAAADAACQBwAEAAAAMDIzMAGgAwABAAAAAQAAAAWgBAABAAAAlgAAAAAAAAACAAEAAgAEAAAAUjk4AAIABwAEAAAAMDEwMAAAAACDfy8cctDT3wAAAWNJREFUOE+FkolygyAQhn+RXSSh1ER7pZW09grv/4IdDomkmcnOOAj/txcL/A1DvQtWnawBAE0jhKiR8watFIKYqUbKL6A6TSRIa72RK7+sYgsyhll3nRB8Z0uQsAL3ut/tYO1+GLgj0lJqnQl4j4HHoXkQPfAIgPdPz3dS2jMQEgwvgpAAsDm8mreljFwDE6EFmgBM5sBkliLiArY9AOemeFOjOWqqgJDEOSglOfaD40B9FUGNUK4F0PHwboxFANfAGAqIpuCMtPjAtO6CjXN5TEGXc4u555w9fNugZwd8fn3Pcv4h3qTo3uNXBf8ExIKNlD11KUQCVDViwEnTE8dGIlASFAJqP8+xzgA0l0C6F9kUoM6QkkDJEmG6CjhVAHsJhAxAASLxX4daavAwZXZn3cMVwIdohci6RwqbzmHSS0iWusZpBXjAbhY56y77rgI3wU55LNV7KEye+UpfA9ftJvAHIBJkAL00Ok4AAAAASUVORK5CYII=" alt="Vulture Aid"></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Vulture Aid</h4><span class="rar rar-rare">Rare</span></div>
+            <span class="side-tag side-dig">Dig</span>
+            <p>When a dig begins, reveal up to 2 tiles of each monster — but never a monster&#x27;s final tile. −2 starting mana. (Monsters only.)</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-rare" data-rar="rare">
+          <div class="wk-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABdUExURTxGfTtFfen6/Z/D2KLF1z1GernX5f///7XT4oOpxDtEerXV44Gnw0BJfQAAAJO5z1huubPS4VVvuzlCeanK24qwyI2zy1hyuYasyDlCdoCnxX+jvoSownqduQAAALeZ/PkAAAAfdFJOU////////////////////////////////////////wDNGXYQAAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAGXRFWHRTb2Z0d2FyZQBQYWludC5ORVQgNS4xLjEyEwFHdAAAALhlWElmSUkqAAgAAAAFABoBBQABAAAASgAAABsBBQABAAAAUgAAACgBAwABAAAAAgAAADEBAgARAAAAWgAAAGmHBAABAAAAbAAAAAAAAADydgEA6AMAAPJ2AQDoAwAAUGFpbnQuTkVUIDUuMS4xMgAAAwAAkAcABAAAADAyMzABoAMAAQAAAAEAAAAFoAQAAQAAAJYAAAAAAAAAAgABAAIABAAAAFI5OAACAAcABAAAADAxMDAAAAAAg38vHHLQ098AAAEWSURBVDhPhdNtc4MgDABgTJeZkgxnbTenzv//M3sJU150Vz6gR55LhKBbXwxXL9SjBK5pnKuW8ncHAHB5QzwH7r1VAEBXfwY8t+2fYPk4Ak8xGIHsVRJIcQW72ABmceAsxQY8QNCYTecgRKAzc1cD/AzBttCGAHwG+uITuNtrbMA2ebv9C+wUhsYNMX4AqCWcNmoA4OEE5OeopgIoGdA4dz4HKHJPwAPz46sEzN9ZhnEcR793wwDATwI0NI2TAqyI8Rwi4Gm6KogiOyiKiIi03TXoC5CJDSAAiTWEpomJrEgGVgQiEQMik+ZAtNudQC8R6HMm6stmrciPGVE0wYL4uyzVfbCt6mZ4tmf6d3aQsWJU4DhegidUbkqbhM+xmAAAAABJRU5ErkJggg==" alt="Anxious Ghost"></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Anxious Ghost</h4><span class="rar rar-rare">Rare</span></div>
+            <span class="side-tag side-combat">Combat</span>
+            <p>While a monster is below 40% HP it becomes frantic: +50% attack &amp; move speed, but takes +25% more damage.</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-rare" data-rar="rare">
+          <div class="wk-icon wk-empty wk-e-rare"><span>?</span></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Forbidden Potion</h4><span class="rar rar-rare">Rare</span></div>
+            <span class="side-tag side-combat">Combat</span>
+            <p>+50% army damage, but monsters have −30% max HP. A glass-cannon gamble.</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-rare" data-rar="rare">
+          <div class="wk-icon wk-empty wk-e-rare"><span>?</span></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Banner of Wailing Souls</h4><span class="rar rar-rare">Rare</span></div>
+            <span class="side-tag side-combat">Combat</span>
+            <p>Gain 1 free resurrect every 10 waves, but monsters take +20% damage.</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-rare" data-rar="rare">
+          <div class="wk-icon wk-empty wk-e-rare"><span>?</span></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>All Out</h4><span class="rar rar-rare">Rare</span></div>
+            <span class="side-tag side-combat">Combat</span>
+            <p>On its first enemy contact each wave, a Frontline monster trades 30% of its max HP to gain +50% damage and 30% lifesteal for 10 seconds.</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-epic" data-rar="epic">
+          <div class="wk-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACoUExURQAAAC9BvFmK/om2/5fB/3ml/idE2PT//DJV9abO/3gsMvjrbPC0PmgoMueVLlpWMGliN9p8K1JSUkVFRWRkZKurq39/f9JoKFBQUFtbW0hISHR0dF9fXy4uLmBgYIKCgrZJLvnPTWxsbLu7u2xraoGAgKhAMXJycsfHx4qKivvtfH19fXl5efzuk50zK5ExLxgIEO+qMU0eKCAgI/nWimcdI2lLSQAAACahKFUAAAA4dFJOU/////////////////////////////////////////////////////////////////////////8AO1wRygAAAAlwSFlzAAAOwwAADsMBx2+oZAAAABl0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS4xMhMBR3QAAAC4ZVhJZklJKgAIAAAABQAaAQUAAQAAAEoAAAAbAQUAAQAAAFIAAAAoAQMAAQAAAAMAAAAxAQIAEQAAAFoAAABphwQAAQAAAGwAAAAAAAAAo5MAAOgDAACjkwAA6AMAAFBhaW50Lk5FVCA1LjEuMTIAAAMAAJAHAAQAAAAwMjMwAaADAAEAAAABAAAABaAEAAEAAACWAAAAAAAAAAIAAQACAAQAAABSOTgAAgAHAAQAAAAwMTAwAAAAAAd3fp62zNoUAAABXUlEQVQ4T7WQ21rCQAyEx3JSMNUCWgWFelq0SgsI7vu/mZlsoXxwwY2m23Qz82fTFv5E/D1w1HAEnOrA2YHC0qRKR1QDO92ODTqixk6udesKw9Fs7XmWdLUUQLsCwgh6phvQaSoQmYNzAxHpQehcVAA9k7zv9i6FAL3QY0BbU8Oq+Oo62fb4dgDQHww139yyU9JUVDUPd/cjzar2R8D4YUwDYj4GjxNQ5wkeU6YJK52R2WNkXp9JlwFMHtlTGIFnahOmysML0ytHvHHHgYHSNdXfQgA9dJ0TxLpVABWA2ftsCHxAjQR5Cl4K4JM6TxBA8MVqXkiWSZEjnacFuqqHEaUhutKFaGBpHqgb4BcrfRZUIE6BsvJWNHmv5t+ssN5InMexlO4H2uPzLQCX5NkGyPRgjsAaS3G9xG0B/SB92zLVffjVWJf8yuAxWYS6dPXeot6F2LNCHNZH8e+A97+MMJXUq1BqqwAAAABJRU5ErkJggg==" alt="Choir of Bones"></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Choir of Bones</h4><span class="rar rar-epic">Epic</span></div>
+            <span class="side-tag side-combat">Combat</span>
+            <p>+2% army damage for every duplicate you own. Rewards grinding depth.</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-epic" data-rar="epic">
+          <div class="wk-icon wk-empty wk-e-epic"><span>?</span></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Brainstalks</h4><span class="rar rar-epic">Epic</span></div>
+            <span class="side-tag side-combat">Combat</span>
+            <p>+10% monster damage per wave (stacking), but +1.5s resurrection timer.</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-epic" data-rar="epic">
+          <div class="wk-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACZUExURQAAAK9zHue+V+S5Ue/OaMuWMOCxSuO1TfLYcqpuGciRLvHRa/z5yQkFA9aiPPv3yM2ZMqZpFpJRFLd9IezGX4JFFH05FblsJfCuObNpJaVnFsR3K51ZG3k1FXYxFcFyKptTGnkzFbBkIc18KqJaHdWCLe3KZLuBIqJhFp1dFaNlFcZ6LMSMKumnNnc7ElknDWoyD04hDAAAAKjNUF8AAAAzdFJOU///////////////////////////////////////////////////////////////////AHGevY4AAAAJcEhZcwAADsIAAA7CARUoSoAAAAAZdEVYdFNvZnR3YXJlAFBhaW50Lk5FVCA1LjEuMTITAUd0AAAAuGVYSWZJSSoACAAAAAUAGgEFAAEAAABKAAAAGwEFAAEAAABSAAAAKAEDAAEAAAACAAAAMQECABEAAABaAAAAaYcEAAEAAABsAAAAAAAAAPJ2AQDoAwAA8nYBAOgDAABQYWludC5ORVQgNS4xLjEyAAADAACQBwAEAAAAMDIzMAGgAwABAAAAAQAAAAWgBAABAAAAlgAAAAAAAAACAAEAAgAEAAAAUjk4AAIABwAEAAAAMDEwMAAAAACDfy8cctDT3wAAAY5JREFUOE99kmtbo0AMhU9xUoFhnYlUWmGZXbxUetGq///H7ZNw1Qc3X4A5b5KTMPhcDACf6N6+SxpYRREE+hG4iiIYEmIRwPo6jo2h5AcA6dpmWRzRr9HJVx03NnPORoRkGUht5jJjvSe+VaPf9HzjXGaM6AsAkFzH2aBzN+pcBiAD9DrfTYBqKLa7e8QbIqJSCwz7BKrqdx2KP8DfCkSarvUVQLPbFoVU2O4eEALSqb2uu3nsGqQEPFUIDSZ3CjxrrXyzN/QiBcLMvAIhBODGOBdf5WX3Nei9BwB765wzhsoWzQKQbpzq3vNBO8xbABxJurOiK9CEajKJY7KC5lvvcx0PQH3qCQEYe2NhrffnvJ8PwGncIZIEWEMNMA+um3oA2tSWREiN92c+6EbC6/04CXDQrimIPPOb6HWlNnqTQAlxRiB5ytFjb2Mw2V5QHkGMlt9VKcbqHcCMY5vgjFauuQD1102C+YMTMNohM5wmpNskXwDGcTwMVZgBgvT3awj5HXOgv5CjPo4wAv+Jf+EBc6BMsNY0AAAAAElFTkSuQmCC" alt="Knowledge Scroll"></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Knowledge Scroll</h4><span class="rar rar-epic">Epic</span></div>
+            <span class="side-tag side-economy">Economy</span>
+            <p>+4% coin income for every unique monster species you&#x27;ve discovered. Rewards collection breadth.</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-epic" data-rar="epic">
+          <div class="wk-icon wk-empty wk-e-epic"><span>?</span></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Grimoire of the Unbroken Horde</h4><span class="rar rar-epic">Epic</span></div>
+            <span class="side-tag side-combat">Combat</span>
+            <p>When your frontline dies, all monsters gain +50% damage for 5 seconds.</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-epic" data-rar="epic">
+          <div class="wk-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACcUExURRNSbxlceQ9GYz6XtBFMaor6+gs5V3HV6cn+/Mf9+4X6+kyuyRtifz2Trg1BX1e600WivWfL4Euowix9mVGzzX3k8oX8+0KfuwQjQW7Q5Iz1+AQdOjeOqwkyUAAHGQImSTOBnUGAjoX1+QAPJgYvT8P673vf7RdYdDSKpjV8lwcrSS93kiJrhwERKQw+XCBohF3B2SRviwIVLgAAAN2ExsUAAAA0dFJOU////////////////////////////////////////////////////////////////////wBLVyJlAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQBQYWludC5ORVQgNS4xLjEyEwFHdAAAALhlWElmSUkqAAgAAAAFABoBBQABAAAASgAAABsBBQABAAAAUgAAACgBAwABAAAAAgAAADEBAgARAAAAWgAAAGmHBAABAAAAbAAAAAAAAABgAAAAAQAAAGAAAAABAAAAUGFpbnQuTkVUIDUuMS4xMgAAAwAAkAcABAAAADAyMzABoAMAAQAAAAEAAAAFoAQAAQAAAJYAAAAAAAAAAgABAAIABAAAAFI5OAACAAcABAAAADAxMDAAAAAA2aealcm3C18AAAGZSURBVDhPpdLrcqpADADgFVjIRgorcq106wGOqKCF5v3f7UzsqHjptDMnP7PfbDabCPohxH3iPn4LxMyyOR79V8aRrgcKUM59x355BJYMQlBKIUq9AIiCO+DIZZwAn2Oa5QUobyIE0exVr5IE+ThFLN9AqeQqBJFfWKvEyBQxfUdZulzMsybAWgcrA5gimj9Glm4FCm4ABfWqMVzB/GWg+a03gKjetACQGuPIrauzLNMB0Xp3BZZUxgCXkVs/z7Isq4l2wOIMQMEJzLd7qpumJqIOqvUFRIkxxsg47g/n4kS7191lFsdAF55XNk3zUTuO8wiIDnme53vbXthVhVtuYrnR3XTcAb9+GBAR0mTp+/ON9m/2QVRVGFb8HYgQBmVZtqf0BfQKqgFPI7VBdsfg66+uwJoDMlDD6CDa5/RkhWaubfNajJ+OlJetmYD2Jc9FrFT/KaJvwLinVqn+QCLcnAZxB6LxjVopPw78B98D5O7jZ0Az6IpiRrReQPcAOtBHEoXiBq3hfD69obeIonHsrxmOCXge/w/+AaSzlwswNJNjAAAAAElFTkSuQmCC" alt="Soul Sniffer"></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Soul Sniffer</h4><span class="rar rar-epic">Epic</span></div>
+            <span class="side-tag side-dig">Dig</span>
+            <p>Soul Gems now rarely appear on all dig sites.</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-epic" data-rar="epic">
+          <div class="wk-icon wk-empty wk-e-epic"><span>?</span></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Grim Redemption</h4><span class="rar rar-epic">Epic</span></div>
+            <span class="side-tag side-combat">Combat</span>
+            <p>When all of your monsters are down for the first time in a wave, all resurrect for 3 seconds at 2× damage, then die.</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-legendary" data-rar="legendary">
+          <div class="wk-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAD5UExURQMEBAAAAAQEA//eelw/EeXf0/SzGuGGCx0WC6pmA/O6HV1BEvWxE86lZ6ZlBKJlBezn3SIaDPK2Gs+kYfr7+QUGBPWWCysfDkQwEg4MCKloBf3+/Vo+EaiESq5pBAgHBCwiEbJrA9+DBsqfXLhuBEw2FI5uPfa9HoVRB+aKB8l0A4psPM15BFY8Ee+RCXFTJf/heWFCEL5xBKFiBEAuFPm1GmFfVFA3D/f181Y6D/a1GZpfBfe5G5ByQOuNCFI6EpZeBxkUDJ1hBTImEhQSColVB5JcB39PCNJ9BDcoFHFKDtqBBW9EAZdaA2lLHmlFDgsJBdW3iQAAAI4TEWcAAABTdFJOU/////////////////////////////////////////////////////////////////////////////////////////////////////////////8AZol+WQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABl0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS4xMhMBR3QAAAC4ZVhJZklJKgAIAAAABQAaAQUAAQAAAEoAAAAbAQUAAQAAAFIAAAAoAQMAAQAAAAIAAAAxAQIAEQAAAFoAAABphwQAAQAAAGwAAAAAAAAA8nYBAOgDAADydgEA6AMAAFBhaW50Lk5FVCA1LjEuMTIAAAMAAJAHAAQAAAAwMjMwAaADAAEAAAABAAAABaAEAAEAAACWAAAAAAAAAAIAAQACAAQAAABSOTgAAgAHAAQAAAAwMTAwAAAAAIN/Lxxy0NPfAAACSklEQVQ4T4WT61IaQRCFz9npGHdXFwVRgckKhoBEISAhBhcIWQMhmpv9/g+TmuWayo9M1Ux11Xxzunu6G/qfheUJLA1nk/8CnhFZEXixt/fS2/8bgMIPZCUChAfGbAXdPgSiKMejY1VPFSKSN9FaUT09LsB5PjncV6+oylOhwOytBBVnJ+clv8yKPXyF+EIVpwhRpVnGCkUZteDy3JRe06u7VzzlG4YhlxJQRcMEzSiIeNUiqMqacyEhD7IAVfnWBNcmuGl38M5lkgGMtkDUzDe73R5yjEjSKwuqIpSLWuRyUsVt13YJ2+9T4vedjs9QROiHHCwBfrgjP541oyFqtZoVUqwIY4uBy8mFbe6HzWYpoY2DfM0ylJh+O/YvbpcARiPm7mgTjocmPylbSMzyJ98XDpABk2kCfk5hx8ORmTyI5ZeZl7NRtAKUZA4Reg0me50ETKukUiJ/DSjLxQau5vM5BwPfMkncd+0CSo6+zt0aDRYpbdKGUuoxNoAqUziAg8V0mkkwxDfvdgeoW8wtOVogAXuhazzs170tMOk/8PERjSeMS3FEKBX9tLgFTN/yO2i69joInnJnrk5Zd2yANOFNj2Y6pQnaYUoHFHeA+8RLU9YdECQlplD1YveNq/vLUUJKyUzmrlYJxlANvc1cKM0PR9dNiwQlQdv14haA+dmcKRfdicA1TbUK6Ow4u3KHzf/qzsgWR+2IjNmSEPq7vAHgP+OZrPConzWdYV2o60FzGxWpuPEtsOLKVGBhndzKBbDkqdmwUHcG/A9fxqR47HkqKQAAAABJRU5ErkJggg==" alt="Overseeing Gargoyle"></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Overseeing Gargoyle</h4><span class="rar rar-legendary">Legendary</span></div>
+            <span class="side-tag side-combat">Combat</span>
+            <p>Marks an execute zone; any hero inside it below 30% HP is instantly slain. Overseen monsters are drawn to fight there. Build-defining: control.</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-legendary" data-rar="legendary">
+          <div class="wk-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACNUExURQAAAAEBBjAcb1lAnW5ivlE2krH15kMshhUIP/H78ExAqhAGMZa1+mBLpyMRW3l0zOL57TkkfVU5l4CA0ykWZJGy+jMfdwMBDhwNUcdL2bVG0AwFJ/n1+H150J3L/2NSrpJt2RgKR6Rx4ncuvvZk/4XF0vp1//iW+uli/99i8l5RtKtAxpKm8YqR4wAAAIIDbJAAAAAvdFJOU/////////////////////////////////////////////////////////////8AWqU49wAAAAlwSFlzAAAOwwAADsMBx2+oZAAAABl0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS4xMhMBR3QAAAC4ZVhJZklJKgAIAAAABQAaAQUAAQAAAEoAAAAbAQUAAQAAAFIAAAAoAQMAAQAAAAIAAAAxAQIAEQAAAFoAAABphwQAAQAAAGwAAAAAAAAAYAAAAAEAAABgAAAAAQAAAFBhaW50Lk5FVCA1LjEuMTIAAAMAAJAHAAQAAAAwMjMwAaADAAEAAAABAAAABaAEAAEAAACWAAAAAAAAAAIAAQACAAQAAABSOTgAAgAHAAQAAAAwMTAwAAAAANmnmpXJtwtfAAABuUlEQVQ4T3WTgZKbIBCGf4FFvGykEqXWHLW2l/Pucsf7P16HaNQk7c64sOw3K/wsiHeG/8dZCoVMw8ZWAIgRisQFwIItQCYRoRUJIAL5sr5OtIEu1NPOGMO8fwRK3qlCKbGzzN8qegQyd1BaqbppGktrfvMLwQngQpPzacP3QITkXDHn2XfXto8AagCkRPZD+KpCiu8ACe5MdTw+N6EGfHC3ANiCmI8hUChLyJ+NmokVkKjJWqproOdCBzcRV+AXyxbeew8M6Br9m4abChHd4Ajewzm36zonar8FgNzgz4uGPb28UguUFc1iTG4EYNxbYXXxKvO2BQDhxpScgHciA+9O1p6U9y0iBncqNoBlKgH3URHJy0XAh2I8L4CpbVnigB1wbAGHCBF0twAZMTMgP5Nc4JCUZq66qbfSRyw4ya+eu/xLGQCHmmm6jcnxZdvw4xk1iAZU4LknJkAcSlQkIAVQEZkMbOfrnD2QjUjnj5mHHlPfTplF6ojxfFkE9sW4NvUG6HuipD/2+/5pfT1XAB/8RSQSID/7/qFCxiEQiQlgVu7+ZaVjJkvTIWe1du1aa7ErOUc3uX/YX9aybhIzbeW5AAAAAElFTkSuQmCC" alt="Entropy of Assimilation"></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Entropy of Assimilation</h4><span class="rar rar-legendary">Legendary</span></div>
+            <span class="side-tag side-combat">Combat</span>
+            <p>On combat start, create 2 copies of your lowest-attack monster (−25% HP, can&#x27;t be revived, not collection units). Build-defining: go-wide swarm.</p>
+          </div>
+        </article>
+        <article class="wk-card wk-b-legendary" data-rar="legendary">
+          <div class="wk-icon wk-empty wk-e-legendary"><span>?</span></div>
+          <div class="wk-body">
+            <div class="wk-head"><h4>Reaper&#x27;s Attrition</h4><span class="rar rar-legendary">Legendary</span></div>
+            <span class="side-tag side-combat">Combat</span>
+            <p>30% of the damage soaked by your Frontline heals all other units; the Frontline takes +20% damage and doesn&#x27;t heal itself. Build-defining: sustain.</p>
+          </div>
+        </article>
+      </div>
+      <p style="font-size:0.78rem; color:var(--muted); line-height:1.6; max-width:680px; margin-top:16px;">
+        Each relic is sourced to fit — dig relics unearthed from graves, combat relics looted from fallen heroes. Wiring the full set into the live build is the next milestone.
+      </p>
+    </div>
+    <script>
+      (function(){
+        var btns=document.querySelectorAll('#relicFilters .wk-fbtn');
+        var cards=document.querySelectorAll('#relicGrid .wk-card');
+        btns.forEach(function(b){ b.addEventListener('click',function(){
+          btns.forEach(function(x){x.classList.remove('active');});
+          b.classList.add('active');
+          var f=b.dataset.f;
+          cards.forEach(function(c){ c.classList.toggle('wk-hidden', f!=='all' && c.dataset.rar!==f); });
+        }); });
+      })();
+    </script>
+
+    <!-- ═══ Built from scratch ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">Built From Scratch — Solo</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:20px;">
+        Everything here is mine: the design, the C# systems, the pixel art, and the tooling around it. To make a systems-heavy game maintainable solo, I built my own <strong style="color:var(--text);">Unity editor tools</strong> — custom inspectors and windows for authoring dungeons, defining monsters and their level curves, cropping sprite sheets, resetting player progress, and simulating offline time to test idle income. The tooling is why one person can keep this many interlocking systems balanced.
+      </p>
+      <div class="effects-wrap">
+        <span class="effect-pill">Custom dungeon &amp; monster editors</span>
+        <span class="effect-pill">Monster level / curve windows</span>
+        <span class="effect-pill">Offline-time simulator</span>
+        <span class="effect-pill">Sprite-sheet cropper</span>
+        <span class="effect-pill">Own pixel art (32×32)</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .gif-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+  }
+  .gif-slot {
+    margin: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .gif-slot:hover { border-color: rgba(147,51,234,0.6); transform: translateY(-3px); box-shadow: 0 0 28px rgba(147,51,234,0.12); }
+  .gif-slot img, .gif-slot video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    background: #000;
+    image-rendering: pixelated;
+  }
+  .gif-slot .gif-placeholder { display: none; }
+  .gif-slot.gif-missing img, .gif-slot.gif-missing video { display: none; }
+  .gif-slot.gif-missing .gif-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    aspect-ratio: 4 / 3;
+    background: repeating-linear-gradient(45deg, rgba(147,51,234,0.04), rgba(147,51,234,0.04) 10px, transparent 10px, transparent 20px);
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 20px;
+  }
+  .gif-placeholder-icon { font-size: 1.4rem; color: var(--accent2); opacity: 0.7; }
+  .gif-placeholder code { color: var(--accent2); font-size: 0.78rem; }
+  .gif-slot figcaption {
+    padding: 12px 16px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .gif-slot figcaption span { color: var(--muted); font-weight: 400; }
+
+    /* ─── Polish: progress bar, back-to-top, copy toast, active nav ── */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      z-index: 200; transition: width 0.08s linear;
+      box-shadow: 0 0 8px rgba(147,51,234,0.5);
+    }
+    #back-to-top {
+      position: fixed; bottom: 28px; right: 28px;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--accent2); font-size: 1.1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transform: translateY(12px);
+      transition: opacity 0.25s, transform 0.25s, border-color 0.2s;
+      z-index: 150;
+    }
+    #back-to-top.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    #back-to-top:hover { border-color: var(--accent); box-shadow: 0 0 16px rgba(147,51,234,0.3); }
+    #copy-toast {
+      position: fixed; bottom: 88px; right: 28px;
+      background: var(--surface); border: 1px solid var(--accent);
+      color: var(--accent2); font-size: 0.8rem; font-weight: 600;
+      padding: 8px 16px; border-radius: 8px;
+      opacity: 0; transform: translateY(8px);
+      transition: opacity 0.25s, transform 0.25s;
+      pointer-events: none; z-index: 150;
+    }
+    #copy-toast.show { opacity: 1; transform: translateY(0); }
+    .nav-links a.nav-active { color: var(--accent2); position: relative; }
+    .nav-links a.nav-active::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: -6px;
+      height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 2px;
+    }
+</style>
+
+<!-- ═══════════════════════════════════════ Site Nav Footer ═══════════════════════════════════════ -->
+<div class="site-nav-footer">
+  <div class="container">
+    <span class="site-nav-footer-label">Jump to</span>
+    <div class="site-nav-footer-grid">
+      <a href="../index.html">Home</a>
+      <a href="../games.html">Games</a>
+      <a href="../prototypes.html">Experiments</a>
+      <a href="../experience.html">Experience</a>
+      <a href="../toolbox.html">Toolbox</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </div>
+    <div class="site-nav-footer-games">
+      <span class="site-nav-footer-label">More Games</span>
+      <div class="site-nav-footer-grid">
+        <a href="tiltantale.html" style="display:inline-flex; align-items:center; gap:6px;"><img src="../monogame.png" alt="" style="width:14px;height:14px;object-fit:contain;flex-shrink:0;">TiltanTale</a>
+        <a href="survival.html" style="display:inline-flex; align-items:center; gap:6px;"><img src="../unity.png" alt="" style="width:14px;height:14px;object-fit:contain;flex-shrink:0;">Brave the Wilderness</a>
+        <a href="dicebound.html" style="display:inline-flex; align-items:center; gap:6px;"><img src="../unity.png" alt="" style="width:14px;height:14px;object-fit:contain;flex-shrink:0;">Dice Bound</a>
+        <a href="trials.html" style="display:inline-flex; align-items:center; gap:6px;"><span style="flex-shrink:0;">🌐</span>Trials of the Dungeon</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="container">
+    <span class="label">Get in touch</span>
+    <h2>Let's talk.</h2>
+    <p>Open to internships, collaborations, and feedback on work in progress.</p>
+    <div class="contact-links">
+      <a href="mailto:dekelriess@gmail.com" class="btn btn-primary">✉ dekelriess@gmail.com</a>
+      <a href="https://linkedin.com/in/dekel-riess-39172433b" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn ↗</a>
+      <a href="../Dekel_Riess_Resume.pdf" target="_blank" rel="noopener" class="btn btn-secondary">Resume ↓</a>
+      <a href="https://github.com/Dekeloni2" target="_blank" rel="noopener" class="btn btn-secondary">GitHub</a>
+      <span class="btn btn-secondary" style="cursor:default;"><img src="../discord.png" alt="" style="width:16px;height:16px;object-fit:contain;margin-right:6px;vertical-align:-3px;">Discord: Dekeloni2</span>
+    </div>
+    <p style="margin-top:40px; font-size:0.78rem; color:var(--muted);">© 2026 Dekel Riess · Game Designer Portfolio</p>
+  </div>
+</section>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  document.addEventListener('click', function (e) {
+    const a = e.target.closest('a');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto:') || a.target === '_blank') return;
+    e.preventDefault();
+    document.body.classList.add('fade-out');
+    setTimeout(() => { window.location.href = href; }, 200);
+  });
+</script>
+
+<script>
+  // Progress bar
+  const pbar = document.createElement('div'); pbar.id = 'progress-bar'; document.body.appendChild(pbar);
+  // Back to top
+  const btt = document.createElement('button'); btt.id = 'back-to-top'; btt.innerHTML = '&#8593;'; btt.setAttribute('aria-label','Back to top'); document.body.appendChild(btt);
+  btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  // Copy toast
+  const toast = document.createElement('div'); toast.id = 'copy-toast'; toast.textContent = 'Email copied!'; document.body.appendChild(toast);
+
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    pbar.style.width = pct + '%';
+    btt.classList.toggle('show', h.scrollTop > 600);
+  }, { passive: true });
+
+  // Email copy
+  document.querySelectorAll('a[href^="mailto:"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const email = a.getAttribute('href').replace('mailto:', '');
+      navigator.clipboard.writeText(email).then(() => {
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 1800);
+      });
+    });
+  });
+
+  // Active nav state
+  (function() {
+    let page = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      const target = a.getAttribute('href').split('/').pop();
+      if (target === page) a.classList.add('nav-active');
+    });
+  })();
+</script>
+
+<script>window.addEventListener('pageshow',function(){document.body.classList.remove('fade-out');});</script>
+</body>
+</html>

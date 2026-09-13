@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rest in Profit — Relic Wiki</title>
+  <meta name="description" content="Rest in Profit — the full relic pool. Every relic, its rarity, and its effect, with pixel art." />
+  <link rel="icon" type="image/png" href="../favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:#07070f; --surface:#0d0d1a; --surface2:#131320; --border:#21213a;
+      --accent:#9333ea; --accent2:#c084fc; --text:#ededf5; --muted:#7878a0; --radius:8px; --max-w:1100px;
+    }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); color:var(--text); font-family:'Inter','Segoe UI',system-ui,sans-serif; font-size:16px; line-height:1.65; animation:pageFadeIn 0.45s ease; }
+    @keyframes pageFadeIn { from {opacity:0} to {opacity:1} }
+    body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity:0.028; pointer-events:none; z-index:9999; }
+    a { color:var(--accent2); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    .container { max-width:var(--max-w); margin:0 auto; padding:0 24px; }
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(7,7,15,0.85); backdrop-filter:blur(20px) saturate(1.4); border-bottom:1px solid rgba(147,51,234,0.18); box-shadow:0 1px 40px rgba(0,0,0,0.5); }
+    .nav-inner { display:flex; align-items:center; justify-content:space-between; height:60px; max-width:var(--max-w); margin:0 auto; padding:0 24px; }
+    .nav-logo { font-weight:700; font-size:0.95rem; color:var(--text); }
+    .nav-links { display:flex; gap:28px; list-style:none; }
+    .nav-links a { color:var(--muted); font-size:0.85rem; transition:color 0.2s; }
+    .nav-links a:hover { color:var(--text); text-decoration:none; }
+    @media (max-width:640px) { .nav-links { display:none; } }
+
+    .wiki-hero { padding:120px 0 40px; position:relative; overflow:hidden; }
+    .wiki-hero::before { content:''; position:absolute; width:600px; height:600px; border-radius:50%; background:radial-gradient(circle, rgba(147,51,234,0.14) 0%, transparent 70%); top:-260px; left:-120px; pointer-events:none; }
+    .kicker { font-size:0.72rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent2); margin-bottom:12px; display:block; }
+    .wiki-hero h1 { font-family:'Playfair Display',Georgia,serif; font-size:clamp(2.2rem,6vw,3.6rem); font-weight:800; line-height:1.05; margin-bottom:16px; }
+    .wiki-hero h1 .em { font-style:italic; background:linear-gradient(135deg,var(--accent),var(--accent2) 60%,#e879f9); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .wiki-hero p { color:var(--muted); max-width:640px; font-size:0.95rem; line-height:1.75; }
+    .wiki-hero .note { margin-top:14px; font-size:0.8rem; color:var(--muted); }
+    .wiki-hero .note strong { color:var(--accent2); }
+
+    /* Filters */
+    .filters { display:flex; flex-wrap:wrap; gap:10px; margin:32px 0 8px; position:sticky; top:60px; z-index:50; background:rgba(7,7,15,0.9); backdrop-filter:blur(12px); padding:14px 0; }
+    .filter-btn { background:var(--surface2); border:1px solid var(--border); color:var(--muted); border-radius:999px; padding:8px 18px; font-size:0.82rem; font-weight:600; cursor:pointer; transition:all 0.18s; font-family:inherit; }
+    .filter-btn:hover { color:var(--text); border-color:rgba(147,51,234,0.5); }
+    .filter-btn.active { color:#fff; background:linear-gradient(135deg,var(--accent),#7c3aed); border-color:transparent; box-shadow:0 0 18px rgba(147,51,234,0.35); }
+    .filter-btn .cnt { opacity:0.7; font-weight:400; margin-left:5px; }
+
+    /* Grid */
+    .wiki-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:16px; padding:24px 0 100px; }
+    .wiki-card { display:flex; gap:16px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px; transition:border-color 0.2s, transform 0.2s, box-shadow 0.2s; }
+    .wiki-card:hover { transform:translateY(-2px); box-shadow:0 0 24px rgba(147,51,234,0.12); }
+    .wiki-card.rar-b-common:hover { border-color:rgba(203,213,225,0.5); }
+    .wiki-card.rar-b-rare:hover { border-color:rgba(96,165,250,0.6); }
+    .wiki-card.rar-b-epic:hover { border-color:rgba(192,132,252,0.6); }
+    .wiki-card.rar-b-legendary { border-color:rgba(251,191,36,0.28); }
+    .wiki-card.rar-b-legendary:hover { border-color:rgba(251,191,36,0.7); box-shadow:0 0 28px rgba(251,191,36,0.12); }
+    .wiki-card.hidden { display:none; }
+
+    .relic-icon { width:72px; height:72px; flex-shrink:0; border-radius:10px; background:linear-gradient(135deg,var(--surface2),#0a0a14); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; }
+    .relic-icon img { width:56px; height:56px; object-fit:contain; image-rendering:pixelated; image-rendering:crisp-edges; }
+    .relic-icon-empty span { font-size:1.6rem; font-weight:800; color:var(--muted); opacity:0.5; }
+    .relic-icon-empty.rar-legendary span { color:#fbbf24; opacity:0.55; }
+
+    .wiki-body { flex:1; min-width:0; }
+    .wiki-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+    .wiki-head h3 { font-size:1rem; font-weight:700; color:var(--text); margin:0; }
+    .wiki-body p { font-size:0.82rem; color:var(--muted); line-height:1.6; margin:8px 0 0; }
+
+    .rar { font-size:0.6rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:3px 9px; border-radius:20px; white-space:nowrap; flex-shrink:0; }
+    .rar-common { background:rgba(148,163,184,0.15); color:#cbd5e1; }
+    .rar-rare { background:rgba(59,130,246,0.15); color:#60a5fa; }
+    .rar-epic { background:rgba(168,85,247,0.15); color:#c084fc; }
+    .rar-legendary { background:rgba(251,191,36,0.15); color:#fbbf24; }
+
+    .side-tag { display:inline-block; margin-top:8px; font-size:0.64rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--muted); border:1px solid var(--border); border-radius:5px; padding:2px 7px; }
+    .side-dig { color:#a3e635; border-color:rgba(163,230,53,0.3); }
+    .side-combat { color:#fb7185; border-color:rgba(251,113,133,0.3); }
+    .side-economy { color:#fbbf24; border-color:rgba(251,191,36,0.3); }
+
+    footer { text-align:center; padding:28px; font-size:0.78rem; color:var(--muted); border-top:1px solid var(--border); }
+    footer a { color:var(--accent2); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo" style="text-decoration:none;">Dekel Riess</a>
+    <ul class="nav-links">
+      <li><a href="../games.html">Games</a></li>
+      <li><a href="rest-in-profit.html">Rest in Profit</a></li>
+      <li><a href="../experience.html">Experience</a></li>
+      <li><a href="../toolbox.html">Toolbox</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="wiki-hero">
+  <div class="container">
+    <span class="kicker">Rest in Profit · Relic Compendium</span>
+    <h1>The <span class="em">Relic</span> Wiki</h1>
+    <p>Every relic in the pool — permanent, equipped passives you collect and load into a capped Reliquary. Rarity isn't just power; it's how sharp the trade-off is. Commons carry a small cost, Rares a real one, Epics are clean power, and Legendaries redefine a whole build (equip only one).</p>
+    <p class="note"><strong>25 relics designed</strong> · 9 Common · 7 Rare · 6 Epic · 3 Legendary. Icons shown are hand-drawn 32×32 pixel art; the rest are illustrated as the pool is finished.</p>
+    <div class="filters" id="filters">
+      <button class="filter-btn active" data-f="all">All <span class="cnt">25</span></button>
+      <button class="filter-btn" data-f="common">Common <span class="cnt">9</span></button>
+      <button class="filter-btn" data-f="rare">Rare <span class="cnt">7</span></button>
+      <button class="filter-btn" data-f="epic">Epic <span class="cnt">6</span></button>
+      <button class="filter-btn" data-f="legendary">Legendary <span class="cnt">3</span></button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="wiki-grid" id="grid">
+    
+      <article class="wiki-card rar-b-common" data-rar="common">
+        <div class="relic-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABLUExURQAAAON/F6FEOII1EPCUEE0kMxAGCGgsLstZGi0XJ2A/TW5wfS5GXGNih1hSnC5Gc9WtemSCszOhsoLi+qPUwPrtk7Wgq6hrgAAAAOt/toYAAAAZdFJOU////////////////////////////////wABNAq3AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQBQYWludC5ORVQgNS4xLjEyEwFHdAAAALhlWElmSUkqAAgAAAAFABoBBQABAAAASgAAABsBBQABAAAAUgAAACgBAwABAAAAAwAAADEBAgARAAAAWgAAAGmHBAABAAAAbAAAAAAAAACjkwAA6AMAAKOTAADoAwAAUGFpbnQuTkVUIDUuMS4xMgAAAwAAkAcABAAAADAyMzABoAMAAQAAAAEAAAAFoAQAAQAAAJYAAAAAAAAAAgABAAIABAAAAFI5OAACAAcABAAAADAxMDAAAAAAB3d+nrbM2hQAAAEoSURBVDhPhZMJcoMwDEWFZGIpYalr03L/k/abMcGmMPlMou1FkRHQ+kEngKDiFrUhdcxyShW7iZwQ9S3RBrm2fR1qAwzw8P09AJF+AB7e2tQpIjNrD1oHRJ2y9H3To/JJnaCBN6unOFwSp+pVTKyec/dwg1QVHynEu1BMj+4oiIiH7XHtlWJQyQz+HxIPtcCK8zGzqsMgzPmwe6HYlbw9cwcIlo98sSu9TIfXOM3PmW34ugXCNM9q4zXgvscQ4zyohXQJdHGKMU6Ds3QN6BDighbOxjsgLssSJ8zwcwnwBqQM/F4AI4BXB40Y8gZIKYSQElv6DxDuPuNRyGJsc1/FAWCZWEVeBLMHeQYyURpszpEvNhOCzvnH2HuVLhbKL+6ukoIq90rr+geSzEX9ssPgAwAAAABJRU5ErkJggg==" alt="Gravekeeper&#x27;s Lantern"></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Gravekeeper&#x27;s Lantern</h3>
+            <span class="rar rar-common">Common</span>
+          </div>
+          <span class="side-tag side-combat">Combat</span>
+          <p>Revive time −20%.</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-common" data-rar="common">
+        <div class="relic-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACiUExURQAAAOmPGfK2L8piGeKRJDgNA8JZGN6FJ9FrHdNxHqM5D2obDt2BJOyaH7NGEQUGB/GyLbpRFVkVCsZdGe2VHLEyDJ82DvjeeKhbF7QxC958H5YwDPGpKc5iF89mGqg9DmUZDUURBeKIIy8WHQoKDEEQA+imbDYuJumrdIImC7ZOFkoSB4wrDAYAACcIAhQEATYHEnMgDrJgGF8RHBsGAgAAAK8ud34AAAA2dFJOU///////////////////////////////////////////////////////////////////////AKGPTjEAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAFBhaW50Lk5FVCA1LjEuMTITAUd0AAAAuGVYSWZJSSoACAAAAAUAGgEFAAEAAABKAAAAGwEFAAEAAABSAAAAKAEDAAEAAAADAAAAMQECABEAAABaAAAAaYcEAAEAAABsAAAAAAAAAKOTAADoAwAAo5MAAOgDAABQYWludC5ORVQgNS4xLjEyAAADAACQBwAEAAAAMDIzMAGgAwABAAAAAQAAAAWgBAABAAAAlgAAAAAAAAACAAEAAgAEAAAAUjk4AAIABwAEAAAAMDEwMAAAAAAHd36etszaFAAAAYFJREFUOE+9kNtSgzAQQNdgSCFpE0gbpJRLa61atV75/19zl4Spo8P44IznIQzsmZAT6H/h/wUIhFfkq4CDC4QhZ+csAESXjAcicvznYaVxLHAwm80gSZJUcq68EgSI51wuFgloYxjT2qhM5kzgNOxjlysXxwnMTYGoK22Y4I6MUShzFEDhsGBrxhbAhMirUQBreeXcGjZ4+k2NSw1CiIYL4Y8KNuapcxFQHrvAZY5CHY0CwHKGQqTLNSvRWZYmK3UUtZ0XIIYVCVbrrZY7s15IuN7vbYtCiwIVQNNsnbX2Bg63d3e3B7jP4jTN1XBIKoDO1Nxhh8P/I8fMpemDUhzHQwF01YZx6dxxIMuc6/jc5l6gAnhUO4OXmHeS6PA6m0rmdMJQAOXOFMM1IoyJ9rGpOp8YCp54XRhW0DZKCRTk6Xm4o34seHqB1zcSjFLt9gSnE81JOBe8f/gIAF8wCpMFXuinC4LQTxYQw3OqgPDiRAEx7tSfC8KHwLfXn/xV6PtPq3d6cfb4CdcAAAAASUVORK5CYII=" alt="Ferryman&#x27;s Toll"></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Ferryman&#x27;s Toll</h3>
+            <span class="rar rar-common">Common</span>
+          </div>
+          <span class="side-tag side-dig">Dig</span>
+          <p>Coins found while digging +25%, but coins from heroes −5%.</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-common" data-rar="common">
+        <div class="relic-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACcUExURQAAAFAtIoM0INSNDrFgE3wvIrdrEm4wIPv778XGvDkcGAoTG5qiohgbICMmK6WnqaChph4hJq6xsAUNFc/Ow09aYCUoLNPGs6OpqC0wNQgICj5ESBMYHkFHTIKQjTk9QkdRVxMVGfjx5uDRvWd0d11rcXeEg3ZPNIiWkvPq4Lq6tr2ukung15WcnYVjP45vSotrRJyBYT4jIgAAAK4w0yMAAAA0dFJOU////////////////////////////////////////////////////////////////////wBLVyJlAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQBQYWludC5ORVQgNS4xLjEyEwFHdAAAALhlWElmSUkqAAgAAAAFABoBBQABAAAASgAAABsBBQABAAAAUgAAACgBAwABAAAAAgAAADEBAgARAAAAWgAAAGmHBAABAAAAbAAAAAAAAABgAAAAAQAAAGAAAAABAAAAUGFpbnQuTkVUIDUuMS4xMgAAAwAAkAcABAAAADAyMzABoAMAAQAAAAEAAAAFoAQAAQAAAJYAAAAAAAAAAgABAAIABAAAAFI5OAACAAcABAAAADAxMDAAAAAA2aealcm3C18AAAGpSURBVDhPhdNte5owFAbgJ2JthnCoXQmZMZWJAWnozMb//2+7EkBkV9udD3zguXPyBuj/U/j3xVwI2ecA7Gsw5p8CrKIvpgCwjh428OQjgEf+DY+bOI5j3AOEEX2PLd8mHIjjZYeUsqedf4Pn7y9JniPkMyBRCJHtgDTbvsg8/5EuF7mnQghSXhz2+jUXEIttYlcIOh6PxwzRaoNUCNA9wKEgKj1A9LCJY/wUYz4AHE6ky9ILRH570MMCbqAirc9lWZZYr30+bngCOJFWRr4GsPL5edzCBCqlzFkmdQms/QJIiGwS/mQqUo2R8lLXAAuAKBzJBFqlmuZNygCAVJMgoqehCXqkrTLWdlK+42IArZUmUtMs6MF+6aYL4Pnic6NCZWIGV2stczaR+VnW2hhPCkE3wB0fQSalrI0XhRgaeOC4486G6t6kTJKkNtP4oQPjnDnGnf1tZQBtQ1M+AhcQ8z265L0VNB7CCCrmc8751bqua50Q+8Vd/GGsCjlnV1ed6Db9BMAYY36ljHWcsXn6CXjhPOL+Md/jDHqEJkO6jEcw/BP3n8lcfwFfz364hHcH5gAAAABJRU5ErkJggg==" alt="Worn Shovelhead"></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Worn Shovelhead</h3>
+            <span class="rar rar-common">Common</span>
+          </div>
+          <span class="side-tag side-dig">Dig</span>
+          <p>Begin each dig with 1 extra mana (11 instead of 10).</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-common" data-rar="common">
+        <div class="relic-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABvUExURQAAAOvr6+vr7Ovs65CQruvt7ezt7evs7EpqjUxskI+Pq+3t7jk5SpeXtDo6TDw8TZKRsUtqjOvs7Tc3SUtqi42Mqurr6upFLuE1JeUzJfGOXcEOIuZBKulILr4OIPORYroNIPGIWf6/id8vIQAAAJg79/kAAAAldFJOU////////////////////////////////////////////////wA/z0JPAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQBQYWludC5ORVQgNS4xLjEyEwFHdAAAALhlWElmSUkqAAgAAAAFABoBBQABAAAASgAAABsBBQABAAAAUgAAACgBAwABAAAAAgAAADEBAgARAAAAWgAAAGmHBAABAAAAbAAAAAAAAABgAAAAAQAAAGAAAAABAAAAUGFpbnQuTkVUIDUuMS4xMgAAAwAAkAcABAAAADAyMzABoAMAAQAAAAEAAAAFoAQAAQAAAJYAAAAAAAAAAgABAAIABAAAAFI5OAACAAcABAAAADAxMDAAAAAA2aealcm3C18AAAGQSURBVDhPjZOBctsgEERZjtvDEUUGKTht2iRt9f/f2MGyPZLSmXYlDg083S0MuOUfcseBo/4bcM5dwy26pX9tAAfAOe8lOKfXDrJOPQARURqtv97TPgExnlbdennaAg6IRg4DqcMwqDLeEqxAdxAtMX3JTBzPkqQcAJPCnLPmUfOYc9XI866EIprVSrIqlVVixQ4ILMhk1qR5HDkxGlbiXolRUs7DZBOzTuwZVhd3QIrpMKwFVKtE7kt4FEmcaEmnYdKJkWED9GUWUZJaPWtVL+UISNSUNZFeq1o9ZFicSt9JJu3p+zNzZ9KdJUoyDt0jK70U2S3TBSn9V50026QTUAzPWwCIgFYPeNSBwFwPJluRlNXgYXp5IQt2QEOb0ZATkly+fnu9fN8Di+sAFNWAy4/Xt/e3WVYLD5MoLWVJI4CPn78+2txa25hcXJvFAPMA+PuFMuMIlHjX6XQqp4J1/gF4D68VvqeAoTXsDu3iQpfJU2ithRBaC3vgep3C89qcC0/XO7YFVmht9/gJ+Kv+ADDTTo/sEnkXAAAAAElFTkSuQmCC" alt="Pauper&#x27;s Insurance"></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Pauper&#x27;s Insurance</h3>
+            <span class="rar rar-common">Common</span>
+          </div>
+          <span class="side-tag side-dig">Dig</span>
+          <p>If your expedition found no coins or monsters, refund 20% of the expedition cost.</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-common" data-rar="common">
+        <div class="relic-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAB7UExURQAAAPr7+f7//paJil5gZMbGw09OTamgn5WGiZKDhbmzrq6mosLCvpWFhrm4tpeMj+Hh4c/T0e3s6cnKxkFFS1pdYZ+UlldZXmVobTw+Rot9gCUrJSYiHXtwbPTz8XNoar+/vIV8eXltbpOFgXpua93Iv9nCuR4VEQAAAGAb8OIAAAApdFJOU/////////////////////////////////////////////////////8AUvQghwAAAAlwSFlzAAAOwwAADsMBx2+oZAAAABl0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS4xMhMBR3QAAAC4ZVhJZklJKgAIAAAABQAaAQUAAQAAAEoAAAAbAQUAAQAAAFIAAAAoAQMAAQAAAAIAAAAxAQIAEQAAAFoAAABphwQAAQAAAGwAAAAAAAAAYAAAAAEAAABgAAAAAQAAAFBhaW50Lk5FVCA1LjEuMTIAAAMAAJAHAAQAAAAwMjMwAaADAAEAAAABAAAABaAEAAEAAACWAAAAAAAAAAIAAQACAAQAAABSOTgAAgAHAAQAAAAwMTAwAAAAANmnmpXJtwtfAAABVUlEQVQ4T3WT6VbDIBCFLwPUoSXGhibWpZq2VvP+T+hhsg09Oj9gwv1yWQYw6IBEOVR8GENkXTmmczM6FITK4bGRKAidPmADImzA/wAhwG93EVX4GxgA3hGxK/Zxt6eKWfvfAwAs3x2Eng3+EfUT2GpkTeH3+8YYY1Laq2mWDJ6IwHkNKaWVmBNEMgfOC4C1h+QXYupBRC0DXdfVQNWuHmMHb+iZUXdERF0NdkdbTdJs8BIgsiDgtnpVAAzeAuysE1nweziNmjQwnjUQwa4AjPGuBNpqVwAfvlVAjHAl8NH4Vk5qBcJWA02THGJc9OxQrKFpUkL0QsQcYD593gO9SDHGPvaozhoY0CRmzIAYnC+TNAHXXMa+F5c+F7UEBjgptJgAzPZr0tdyCyHlzv1l1hdgJLIYcDwu/ytggIOzt9vt+9pi1RUwIL8c/EirRtd0fv3ltf8FdWpc+XsMBaoAAAAASUVORK5CYII=" alt="Prospector&#x27;s Trinket"></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Prospector&#x27;s Trinket</h3>
+            <span class="rar rar-common">Common</span>
+          </div>
+          <span class="side-tag side-dig">Dig</span>
+          <p>Upon finding coins during an expedition, gain an additional +25% coins.</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-common" data-rar="common">
+        <div class="relic-icon relic-icon-empty rar-common"><span>?</span></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Divining Splinter</h3>
+            <span class="rar rar-common">Common</span>
+          </div>
+          <span class="side-tag side-dig">Dig</span>
+          <p>Every 3rd expedition, mark one random tile of the highest-rarity target at the start.</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-common" data-rar="common">
+        <div class="relic-icon relic-icon-empty rar-common"><span>?</span></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Rusted Edge</h3>
+            <span class="rar rar-common">Common</span>
+          </div>
+          <span class="side-tag side-combat">Combat</span>
+          <p>+10% monster damage, −5% attack speed.</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-common" data-rar="common">
+        <div class="relic-icon relic-icon-empty rar-common"><span>?</span></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Ambusher&#x27;s Mark</h3>
+            <span class="rar rar-common">Common</span>
+          </div>
+          <span class="side-tag side-combat">Combat</span>
+          <p>Marks the toughest hero; it takes +20% damage from all monsters. The mark passes to the next-toughest on death.</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-common" data-rar="common">
+        <div class="relic-icon relic-icon-empty rar-common"><span>?</span></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Wooden Shield</h3>
+            <span class="rar rar-common">Common</span>
+          </div>
+          <span class="side-tag side-combat">Combat</span>
+          <p>Your Damage-role monsters gain a shield equal to 10% of their max HP, refreshed each wave.</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-rare" data-rar="rare">
+        <div class="relic-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAByUExURRMJCSMVEAsCBAkBA65kMvuZRMJgLr9yOHc5Imo+VyARFjUSGp5CNZBIJopISkwpTHamwFeKrMrl6anR3AAAAP7//1xPcwYAAUtUgfPOgvfr1d6OPv/4avrFTlQjCCdbmlQdJ/GsTNBpLz4dDUR1jQAAAIQ1aREAAAAmdFJOU/////////////////////////////////////////////////8Ap3qBvAAAAAlwSFlzAAAOwwAADsMBx2+oZAAAABl0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS4xMhMBR3QAAAC4ZVhJZklJKgAIAAAABQAaAQUAAQAAAEoAAAAbAQUAAQAAAFIAAAAoAQMAAQAAAAMAAAAxAQIAEQAAAFoAAABphwQAAQAAAGwAAAAAAAAAo5MAAOgDAACjkwAA6AMAAFBhaW50Lk5FVCA1LjEuMTIAAAMAAJAHAAQAAAAwMjMwAaADAAEAAAABAAAABaAEAAEAAACWAAAAAAAAAAIAAQACAAQAAABSOTgAAgAHAAQAAAAwMTAwAAAAAAd3fp62zNoUAAABsUlEQVQ4T4WTjXIiIRCEcUADiGYRDGcIidm7ef9XvB4W6/y5JF2llvTHAD2g+AcBUEqtCNLydScBtDFraAM9icyQhRwJQORX/50ukiWYt8H2OjJxBzmIrPFjDwuAEn0nQ/oGYNo/0xQPh5RySjHGKdGz090ax9QOwPEIIA9g+APQxtHLAlwqOFO69Q/4FU6vtaSUQghT0bs7wG5LrG/tXUsU4aOcb4FivOdca2ul1RCi4rPfXAF6Q541l1o/W4Ff8IdoRtALoGZLljEho/zvEDOmsCXTgwCADWhrMQYiwpdhABIuxjqgnVkAzu8yvwPGwRgAuTWy7oBZLUCxawC93axnpNL3wIiJ+hKlV5BtdsCNPcCvU8YhBbDaDaDsZjQXYyodUktRCADw7QIIod0WvjQDwB8JyurZiikfBLlXRGjWERUSgCmTR/ridYDLbLUASLKGSBHNMvNtsxzFeKztrdWc4wvavZcQoCvg6XRqrdZcw8cDwCTAZ12E+wCgt+oCkJV7v7q+tdTPcAGU9O7+2l8AvDyc8eHhKO/lB8D5m6dnz7IEOCyOEo/PD+6y0Jdi/gv5YkuWyHYMcAAAAABJRU5ErkJggg==" alt="Cracked Hourglass"></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Cracked Hourglass</h3>
+            <span class="rar rar-rare">Rare</span>
+          </div>
+          <span class="side-tag side-combat">Combat</span>
+          <p>Coins from heroes +30%, but revive timer +25%.</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-rare" data-rar="rare">
+        <div class="relic-icon relic-icon-empty rar-rare"><span>?</span></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Petrified Hand</h3>
+            <span class="rar rar-rare">Rare</span>
+          </div>
+          <span class="side-tag side-combat">Combat</span>
+          <p>Resurrection timer −1.0s, but monster damage −10%.</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-rare" data-rar="rare">
+        <div class="relic-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAB+UExURQAAAI+dpo2apT9CTmRzhIuZo/39/Tw+SoqXov7//qarqbCzrzo8SKyvq2Z2hZmhpY6bo19ugDEzPmp6ibW3szc5RkJIV09dcHaDkU1bcHeGknqHk1ZleJGepj0/S29+jNHSzamsqGV0g2JwgE1YaSUnMCssOMXFw0NLXAAAAEodZTMAAAAqdFJOU///////////////////////////////////////////////////////ADKo8FwAAAAJcEhZcwAADsIAAA7CARUoSoAAAAAZdEVYdFNvZnR3YXJlAFBhaW50Lk5FVCA1LjEuMTITAUd0AAAAuGVYSWZJSSoACAAAAAUAGgEFAAEAAABKAAAAGwEFAAEAAABSAAAAKAEDAAEAAAACAAAAMQECABEAAABaAAAAaYcEAAEAAABsAAAAAAAAAPJ2AQDoAwAA8nYBAOgDAABQYWludC5ORVQgNS4xLjEyAAADAACQBwAEAAAAMDIzMAGgAwABAAAAAQAAAAWgBAABAAAAlgAAAAAAAAACAAEAAgAEAAAAUjk4AAIABwAEAAAAMDEwMAAAAACDfy8cctDT3wAAAWNJREFUOE+FkolygyAQhn+RXSSh1ER7pZW09grv/4IdDomkmcnOOAj/txcL/A1DvQtWnawBAE0jhKiR8watFIKYqUbKL6A6TSRIa72RK7+sYgsyhll3nRB8Z0uQsAL3ut/tYO1+GLgj0lJqnQl4j4HHoXkQPfAIgPdPz3dS2jMQEgwvgpAAsDm8mreljFwDE6EFmgBM5sBkliLiArY9AOemeFOjOWqqgJDEOSglOfaD40B9FUGNUK4F0PHwboxFANfAGAqIpuCMtPjAtO6CjXN5TEGXc4u555w9fNugZwd8fn3Pcv4h3qTo3uNXBf8ExIKNlD11KUQCVDViwEnTE8dGIlASFAJqP8+xzgA0l0C6F9kUoM6QkkDJEmG6CjhVAHsJhAxAASLxX4daavAwZXZn3cMVwIdohci6RwqbzmHSS0iWusZpBXjAbhY56y77rgI3wU55LNV7KEye+UpfA9ftJvAHIBJkAL00Ok4AAAAASUVORK5CYII=" alt="Vulture Aid"></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Vulture Aid</h3>
+            <span class="rar rar-rare">Rare</span>
+          </div>
+          <span class="side-tag side-dig">Dig</span>
+          <p>When a dig begins, reveal up to 2 tiles of each monster — but never a monster&#x27;s final tile. −2 starting mana. (Monsters only.)</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-rare" data-rar="rare">
+        <div class="relic-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABdUExURTxGfTtFfen6/Z/D2KLF1z1GernX5f///7XT4oOpxDtEerXV44Gnw0BJfQAAAJO5z1huubPS4VVvuzlCeanK24qwyI2zy1hyuYasyDlCdoCnxX+jvoSownqduQAAALeZ/PkAAAAfdFJOU////////////////////////////////////////wDNGXYQAAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAGXRFWHRTb2Z0d2FyZQBQYWludC5ORVQgNS4xLjEyEwFHdAAAALhlWElmSUkqAAgAAAAFABoBBQABAAAASgAAABsBBQABAAAAUgAAACgBAwABAAAAAgAAADEBAgARAAAAWgAAAGmHBAABAAAAbAAAAAAAAADydgEA6AMAAPJ2AQDoAwAAUGFpbnQuTkVUIDUuMS4xMgAAAwAAkAcABAAAADAyMzABoAMAAQAAAAEAAAAFoAQAAQAAAJYAAAAAAAAAAgABAAIABAAAAFI5OAACAAcABAAAADAxMDAAAAAAg38vHHLQ098AAAEWSURBVDhPhdNtc4MgDABgTJeZkgxnbTenzv//M3sJU150Vz6gR55LhKBbXwxXL9SjBK5pnKuW8ncHAHB5QzwH7r1VAEBXfwY8t+2fYPk4Ak8xGIHsVRJIcQW72ABmceAsxQY8QNCYTecgRKAzc1cD/AzBttCGAHwG+uITuNtrbMA2ebv9C+wUhsYNMX4AqCWcNmoA4OEE5OeopgIoGdA4dz4HKHJPwAPz46sEzN9ZhnEcR793wwDATwI0NI2TAqyI8Rwi4Gm6KogiOyiKiIi03TXoC5CJDSAAiTWEpomJrEgGVgQiEQMik+ZAtNudQC8R6HMm6stmrciPGVE0wYL4uyzVfbCt6mZ4tmf6d3aQsWJU4DhegidUbkqbhM+xmAAAAABJRU5ErkJggg==" alt="Anxious Ghost"></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Anxious Ghost</h3>
+            <span class="rar rar-rare">Rare</span>
+          </div>
+          <span class="side-tag side-combat">Combat</span>
+          <p>While a monster is below 40% HP it becomes frantic: +50% attack &amp; move speed, but takes +25% more damage.</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-rare" data-rar="rare">
+        <div class="relic-icon relic-icon-empty rar-rare"><span>?</span></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Forbidden Potion</h3>
+            <span class="rar rar-rare">Rare</span>
+          </div>
+          <span class="side-tag side-combat">Combat</span>
+          <p>+50% army damage, but monsters have −30% max HP. A glass-cannon gamble.</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-rare" data-rar="rare">
+        <div class="relic-icon relic-icon-empty rar-rare"><span>?</span></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Banner of Wailing Souls</h3>
+            <span class="rar rar-rare">Rare</span>
+          </div>
+          <span class="side-tag side-combat">Combat</span>
+          <p>Gain 1 free resurrect every 10 waves, but monsters take +20% damage.</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-rare" data-rar="rare">
+        <div class="relic-icon relic-icon-empty rar-rare"><span>?</span></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>All Out</h3>
+            <span class="rar rar-rare">Rare</span>
+          </div>
+          <span class="side-tag side-combat">Combat</span>
+          <p>On its first enemy contact each wave, a Frontline monster trades 30% of its max HP to gain +50% damage and 30% lifesteal for 10 seconds.</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-epic" data-rar="epic">
+        <div class="relic-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACoUExURQAAAC9BvFmK/om2/5fB/3ml/idE2PT//DJV9abO/3gsMvjrbPC0PmgoMueVLlpWMGliN9p8K1JSUkVFRWRkZKurq39/f9JoKFBQUFtbW0hISHR0dF9fXy4uLmBgYIKCgrZJLvnPTWxsbLu7u2xraoGAgKhAMXJycsfHx4qKivvtfH19fXl5efzuk50zK5ExLxgIEO+qMU0eKCAgI/nWimcdI2lLSQAAACahKFUAAAA4dFJOU/////////////////////////////////////////////////////////////////////////8AO1wRygAAAAlwSFlzAAAOwwAADsMBx2+oZAAAABl0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS4xMhMBR3QAAAC4ZVhJZklJKgAIAAAABQAaAQUAAQAAAEoAAAAbAQUAAQAAAFIAAAAoAQMAAQAAAAMAAAAxAQIAEQAAAFoAAABphwQAAQAAAGwAAAAAAAAAo5MAAOgDAACjkwAA6AMAAFBhaW50Lk5FVCA1LjEuMTIAAAMAAJAHAAQAAAAwMjMwAaADAAEAAAABAAAABaAEAAEAAACWAAAAAAAAAAIAAQACAAQAAABSOTgAAgAHAAQAAAAwMTAwAAAAAAd3fp62zNoUAAABXUlEQVQ4T7WQ21rCQAyEx3JSMNUCWgWFelq0SgsI7vu/mZlsoXxwwY2m23Qz82fTFv5E/D1w1HAEnOrA2YHC0qRKR1QDO92ODTqixk6udesKw9Fs7XmWdLUUQLsCwgh6phvQaSoQmYNzAxHpQehcVAA9k7zv9i6FAL3QY0BbU8Oq+Oo62fb4dgDQHww139yyU9JUVDUPd/cjzar2R8D4YUwDYj4GjxNQ5wkeU6YJK52R2WNkXp9JlwFMHtlTGIFnahOmysML0ytHvHHHgYHSNdXfQgA9dJ0TxLpVABWA2ftsCHxAjQR5Cl4K4JM6TxBA8MVqXkiWSZEjnacFuqqHEaUhutKFaGBpHqgb4BcrfRZUIE6BsvJWNHmv5t+ssN5InMexlO4H2uPzLQCX5NkGyPRgjsAaS3G9xG0B/SB92zLVffjVWJf8yuAxWYS6dPXeot6F2LNCHNZH8e+A97+MMJXUq1BqqwAAAABJRU5ErkJggg==" alt="Choir of Bones"></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Choir of Bones</h3>
+            <span class="rar rar-epic">Epic</span>
+          </div>
+          <span class="side-tag side-combat">Combat</span>
+          <p>+2% army damage for every duplicate you own. Rewards grinding depth.</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-epic" data-rar="epic">
+        <div class="relic-icon relic-icon-empty rar-epic"><span>?</span></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Brainstalks</h3>
+            <span class="rar rar-epic">Epic</span>
+          </div>
+          <span class="side-tag side-combat">Combat</span>
+          <p>+10% monster damage per wave (stacking), but +1.5s resurrection timer.</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-epic" data-rar="epic">
+        <div class="relic-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACZUExURQAAAK9zHue+V+S5Ue/OaMuWMOCxSuO1TfLYcqpuGciRLvHRa/z5yQkFA9aiPPv3yM2ZMqZpFpJRFLd9IezGX4JFFH05FblsJfCuObNpJaVnFsR3K51ZG3k1FXYxFcFyKptTGnkzFbBkIc18KqJaHdWCLe3KZLuBIqJhFp1dFaNlFcZ6LMSMKumnNnc7ElknDWoyD04hDAAAAKjNUF8AAAAzdFJOU///////////////////////////////////////////////////////////////////AHGevY4AAAAJcEhZcwAADsIAAA7CARUoSoAAAAAZdEVYdFNvZnR3YXJlAFBhaW50Lk5FVCA1LjEuMTITAUd0AAAAuGVYSWZJSSoACAAAAAUAGgEFAAEAAABKAAAAGwEFAAEAAABSAAAAKAEDAAEAAAACAAAAMQECABEAAABaAAAAaYcEAAEAAABsAAAAAAAAAPJ2AQDoAwAA8nYBAOgDAABQYWludC5ORVQgNS4xLjEyAAADAACQBwAEAAAAMDIzMAGgAwABAAAAAQAAAAWgBAABAAAAlgAAAAAAAAACAAEAAgAEAAAAUjk4AAIABwAEAAAAMDEwMAAAAACDfy8cctDT3wAAAY5JREFUOE99kmtbo0AMhU9xUoFhnYlUWmGZXbxUetGq///H7ZNw1Qc3X4A5b5KTMPhcDACf6N6+SxpYRREE+hG4iiIYEmIRwPo6jo2h5AcA6dpmWRzRr9HJVx03NnPORoRkGUht5jJjvSe+VaPf9HzjXGaM6AsAkFzH2aBzN+pcBiAD9DrfTYBqKLa7e8QbIqJSCwz7BKrqdx2KP8DfCkSarvUVQLPbFoVU2O4eEALSqb2uu3nsGqQEPFUIDSZ3CjxrrXyzN/QiBcLMvAIhBODGOBdf5WX3Nei9BwB765wzhsoWzQKQbpzq3vNBO8xbABxJurOiK9CEajKJY7KC5lvvcx0PQH3qCQEYe2NhrffnvJ8PwGncIZIEWEMNMA+um3oA2tSWREiN92c+6EbC6/04CXDQrimIPPOb6HWlNnqTQAlxRiB5ytFjb2Mw2V5QHkGMlt9VKcbqHcCMY5vgjFauuQD1102C+YMTMNohM5wmpNskXwDGcTwMVZgBgvT3awj5HXOgv5CjPo4wAv+Jf+EBc6BMsNY0AAAAAElFTkSuQmCC" alt="Knowledge Scroll"></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Knowledge Scroll</h3>
+            <span class="rar rar-epic">Epic</span>
+          </div>
+          <span class="side-tag side-economy">Economy</span>
+          <p>+4% coin income for every unique monster species you&#x27;ve discovered. Rewards collection breadth.</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-epic" data-rar="epic">
+        <div class="relic-icon relic-icon-empty rar-epic"><span>?</span></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Grimoire of the Unbroken Horde</h3>
+            <span class="rar rar-epic">Epic</span>
+          </div>
+          <span class="side-tag side-combat">Combat</span>
+          <p>When your frontline dies, all monsters gain +50% damage for 5 seconds.</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-epic" data-rar="epic">
+        <div class="relic-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACcUExURRNSbxlceQ9GYz6XtBFMaor6+gs5V3HV6cn+/Mf9+4X6+kyuyRtifz2Trg1BX1e600WivWfL4Euowix9mVGzzX3k8oX8+0KfuwQjQW7Q5Iz1+AQdOjeOqwkyUAAHGQImSTOBnUGAjoX1+QAPJgYvT8P673vf7RdYdDSKpjV8lwcrSS93kiJrhwERKQw+XCBohF3B2SRviwIVLgAAAN2ExsUAAAA0dFJOU////////////////////////////////////////////////////////////////////wBLVyJlAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQBQYWludC5ORVQgNS4xLjEyEwFHdAAAALhlWElmSUkqAAgAAAAFABoBBQABAAAASgAAABsBBQABAAAAUgAAACgBAwABAAAAAgAAADEBAgARAAAAWgAAAGmHBAABAAAAbAAAAAAAAABgAAAAAQAAAGAAAAABAAAAUGFpbnQuTkVUIDUuMS4xMgAAAwAAkAcABAAAADAyMzABoAMAAQAAAAEAAAAFoAQAAQAAAJYAAAAAAAAAAgABAAIABAAAAFI5OAACAAcABAAAADAxMDAAAAAA2aealcm3C18AAAGZSURBVDhPpdLrcqpADADgFVjIRgorcq106wGOqKCF5v3f7UzsqHjptDMnP7PfbDabCPohxH3iPn4LxMyyOR79V8aRrgcKUM59x355BJYMQlBKIUq9AIiCO+DIZZwAn2Oa5QUobyIE0exVr5IE+ThFLN9AqeQqBJFfWKvEyBQxfUdZulzMsybAWgcrA5gimj9Glm4FCm4ABfWqMVzB/GWg+a03gKjetACQGuPIrauzLNMB0Xp3BZZUxgCXkVs/z7Isq4l2wOIMQMEJzLd7qpumJqIOqvUFRIkxxsg47g/n4kS7191lFsdAF55XNk3zUTuO8wiIDnme53vbXthVhVtuYrnR3XTcAb9+GBAR0mTp+/ON9m/2QVRVGFb8HYgQBmVZtqf0BfQKqgFPI7VBdsfg66+uwJoDMlDD6CDa5/RkhWaubfNajJ+OlJetmYD2Jc9FrFT/KaJvwLinVqn+QCLcnAZxB6LxjVopPw78B98D5O7jZ0Az6IpiRrReQPcAOtBHEoXiBq3hfD69obeIonHsrxmOCXge/w/+AaSzlwswNJNjAAAAAElFTkSuQmCC" alt="Soul Sniffer"></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Soul Sniffer</h3>
+            <span class="rar rar-epic">Epic</span>
+          </div>
+          <span class="side-tag side-dig">Dig</span>
+          <p>Soul Gems now rarely appear on all dig sites.</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-epic" data-rar="epic">
+        <div class="relic-icon relic-icon-empty rar-epic"><span>?</span></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Grim Redemption</h3>
+            <span class="rar rar-epic">Epic</span>
+          </div>
+          <span class="side-tag side-combat">Combat</span>
+          <p>When all of your monsters are down for the first time in a wave, all resurrect for 3 seconds at 2× damage, then die.</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-legendary" data-rar="legendary">
+        <div class="relic-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAD5UExURQMEBAAAAAQEA//eelw/EeXf0/SzGuGGCx0WC6pmA/O6HV1BEvWxE86lZ6ZlBKJlBezn3SIaDPK2Gs+kYfr7+QUGBPWWCysfDkQwEg4MCKloBf3+/Vo+EaiESq5pBAgHBCwiEbJrA9+DBsqfXLhuBEw2FI5uPfa9HoVRB+aKB8l0A4psPM15BFY8Ee+RCXFTJf/heWFCEL5xBKFiBEAuFPm1GmFfVFA3D/f181Y6D/a1GZpfBfe5G5ByQOuNCFI6EpZeBxkUDJ1hBTImEhQSColVB5JcB39PCNJ9BDcoFHFKDtqBBW9EAZdaA2lLHmlFDgsJBdW3iQAAAI4TEWcAAABTdFJOU/////////////////////////////////////////////////////////////////////////////////////////////////////////////8AZol+WQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABl0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS4xMhMBR3QAAAC4ZVhJZklJKgAIAAAABQAaAQUAAQAAAEoAAAAbAQUAAQAAAFIAAAAoAQMAAQAAAAIAAAAxAQIAEQAAAFoAAABphwQAAQAAAGwAAAAAAAAA8nYBAOgDAADydgEA6AMAAFBhaW50Lk5FVCA1LjEuMTIAAAMAAJAHAAQAAAAwMjMwAaADAAEAAAABAAAABaAEAAEAAACWAAAAAAAAAAIAAQACAAQAAABSOTgAAgAHAAQAAAAwMTAwAAAAAIN/Lxxy0NPfAAACSklEQVQ4T4WT61IaQRCFz9npGHdXFwVRgckKhoBEISAhBhcIWQMhmpv9/g+TmuWayo9M1Ux11Xxzunu6G/qfheUJLA1nk/8CnhFZEXixt/fS2/8bgMIPZCUChAfGbAXdPgSiKMejY1VPFSKSN9FaUT09LsB5PjncV6+oylOhwOytBBVnJ+clv8yKPXyF+EIVpwhRpVnGCkUZteDy3JRe06u7VzzlG4YhlxJQRcMEzSiIeNUiqMqacyEhD7IAVfnWBNcmuGl38M5lkgGMtkDUzDe73R5yjEjSKwuqIpSLWuRyUsVt13YJ2+9T4vedjs9QROiHHCwBfrgjP541oyFqtZoVUqwIY4uBy8mFbe6HzWYpoY2DfM0ylJh+O/YvbpcARiPm7mgTjocmPylbSMzyJ98XDpABk2kCfk5hx8ORmTyI5ZeZl7NRtAKUZA4Reg0me50ETKukUiJ/DSjLxQau5vM5BwPfMkncd+0CSo6+zt0aDRYpbdKGUuoxNoAqUziAg8V0mkkwxDfvdgeoW8wtOVogAXuhazzs170tMOk/8PERjSeMS3FEKBX9tLgFTN/yO2i69joInnJnrk5Zd2yANOFNj2Y6pQnaYUoHFHeA+8RLU9YdECQlplD1YveNq/vLUUJKyUzmrlYJxlANvc1cKM0PR9dNiwQlQdv14haA+dmcKRfdicA1TbUK6Ow4u3KHzf/qzsgWR+2IjNmSEPq7vAHgP+OZrPConzWdYV2o60FzGxWpuPEtsOLKVGBhndzKBbDkqdmwUHcG/A9fxqR47HkqKQAAAABJRU5ErkJggg==" alt="Overseeing Gargoyle"></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Overseeing Gargoyle</h3>
+            <span class="rar rar-legendary">Legendary</span>
+          </div>
+          <span class="side-tag side-combat">Combat</span>
+          <p>The Gargoyle&#x27;s gaze marks an execute zone; any hero inside it below 30% HP is instantly slain. Overseen monsters are drawn to fight within the zone. Build-defining: control.</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-legendary" data-rar="legendary">
+        <div class="relic-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACNUExURQAAAAEBBjAcb1lAnW5ivlE2krH15kMshhUIP/H78ExAqhAGMZa1+mBLpyMRW3l0zOL57TkkfVU5l4CA0ykWZJGy+jMfdwMBDhwNUcdL2bVG0AwFJ/n1+H150J3L/2NSrpJt2RgKR6Rx4ncuvvZk/4XF0vp1//iW+uli/99i8l5RtKtAxpKm8YqR4wAAAIIDbJAAAAAvdFJOU/////////////////////////////////////////////////////////////8AWqU49wAAAAlwSFlzAAAOwwAADsMBx2+oZAAAABl0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS4xMhMBR3QAAAC4ZVhJZklJKgAIAAAABQAaAQUAAQAAAEoAAAAbAQUAAQAAAFIAAAAoAQMAAQAAAAIAAAAxAQIAEQAAAFoAAABphwQAAQAAAGwAAAAAAAAAYAAAAAEAAABgAAAAAQAAAFBhaW50Lk5FVCA1LjEuMTIAAAMAAJAHAAQAAAAwMjMwAaADAAEAAAABAAAABaAEAAEAAACWAAAAAAAAAAIAAQACAAQAAABSOTgAAgAHAAQAAAAwMTAwAAAAANmnmpXJtwtfAAABuUlEQVQ4T3WTgZKbIBCGf4FFvGykEqXWHLW2l/Pucsf7P16HaNQk7c64sOw3K/wsiHeG/8dZCoVMw8ZWAIgRisQFwIItQCYRoRUJIAL5sr5OtIEu1NPOGMO8fwRK3qlCKbGzzN8qegQyd1BaqbppGktrfvMLwQngQpPzacP3QITkXDHn2XfXto8AagCkRPZD+KpCiu8ACe5MdTw+N6EGfHC3ANiCmI8hUChLyJ+NmokVkKjJWqproOdCBzcRV+AXyxbeew8M6Br9m4abChHd4Ajewzm36zonar8FgNzgz4uGPb28UguUFc1iTG4EYNxbYXXxKvO2BQDhxpScgHciA+9O1p6U9y0iBncqNoBlKgH3URHJy0XAh2I8L4CpbVnigB1wbAGHCBF0twAZMTMgP5Nc4JCUZq66qbfSRyw4ya+eu/xLGQCHmmm6jcnxZdvw4xk1iAZU4LknJkAcSlQkIAVQEZkMbOfrnD2QjUjnj5mHHlPfTplF6ojxfFkE9sW4NvUG6HuipD/2+/5pfT1XAB/8RSQSID/7/qFCxiEQiQlgVu7+ZaVjJkvTIWe1du1aa7ErOUc3uX/YX9aybhIzbeW5AAAAAElFTkSuQmCC" alt="Entropy of Assimilation"></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Entropy of Assimilation</h3>
+            <span class="rar rar-legendary">Legendary</span>
+          </div>
+          <span class="side-tag side-combat">Combat</span>
+          <p>On combat start, create 2 copies of your lowest-attack monster. Copies have −25% HP, cannot be revived, and are not collection units. Build-defining: go-wide swarm.</p>
+        </div>
+      </article>
+
+      <article class="wiki-card rar-b-legendary" data-rar="legendary">
+        <div class="relic-icon relic-icon-empty rar-legendary"><span>?</span></div>
+        <div class="wiki-body">
+          <div class="wiki-head">
+            <h3>Reaper&#x27;s Attrition</h3>
+            <span class="rar rar-legendary">Legendary</span>
+          </div>
+          <span class="side-tag side-combat">Combat</span>
+          <p>30% of the damage soaked by your Frontline is converted to healing for all other units. The Frontline takes +20% damage and does not heal itself. Build-defining: sustain.</p>
+        </div>
+      </article>
+  </div>
+</main>
+
+<footer>
+  Rest in Profit — relic compendium · in development · <a href="rest-in-profit.html">← back to the game page</a>
+</footer>
+
+<script>
+  const btns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.wiki-card');
+  btns.forEach(b => b.addEventListener('click', () => {
+    btns.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    const f = b.dataset.f;
+    cards.forEach(c => {
+      c.classList.toggle('hidden', f !== 'all' && c.dataset.rar !== f);
+    });
+  }));
+</script>
+</body>
+</html>
