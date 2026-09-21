@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rest in Profit — Dekel Riess</title>
-  <meta name="description" content="Rest in Profit — a cozy-macabre mobile game where a necromancer digs up undead and runs an idle dungeon defense. Design breakdown: Disco-Zoo dig loop, role-based auto-battler, and deep relic/economy systems." />
+  <meta name="description" content="Rest in Profit — a cozy-macabre mobile game where a necromancer digs up undead and keeps them alive in a dungeon that defends itself. Design breakdown: Disco-Zoo dig loop, role-based auto-battler, and deep relic/economy systems." />
   <link rel="icon" type="image/png" href="../favicon.png" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Rest in Profit — Dekel Riess" />
-  <meta property="og:description" content="Rest in Profit — a cozy-macabre necromancer game fusing Disco Zoo's grave-digging with an idle dungeon defense. In development." />
+  <meta property="og:description" content="Rest in Profit — a cozy-macabre necromancer game fusing Disco Zoo's grave-digging with a real-time dungeon defense. In development." />
   <meta property="og:url" content="https://dekeloni2.github.io/portfolio-website/games/rest-in-profit.html" />
   <meta property="og:image" content="https://dekeloni2.github.io/portfolio-website/dekel.png" />
   <meta name="twitter:card" content="summary" />
@@ -467,16 +467,16 @@
           <h2 style="margin:0;">Rest in Profit</h2>
         </div>
         <p class="concept">
-          A cozy-macabre mobile game — a dark parody of Disco Zoo. You're an aspiring necromancer: dig up undead minions from graveyards, deploy them in a dungeon, and let them defend against looting "heroes" while they earn you coins. Equal parts collection game and idle dungeon-defense, welded together by one economy.
+          A cozy-macabre mobile game — a dark parody of Disco Zoo. You're an aspiring necromancer: dig up undead minions from graveyards, deploy them in a dungeon, and let them defend against looting "heroes" while they earn you coins. A collection-and-management game in the Disco Zoo mold, with a dungeon defense welded on through one shared economy.
         </p>
         <div class="game-info-row">
           <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">Unity · C#</span></div>
-          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">Idle · Collection · Auto-battler</span></div>
+          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">Collection · Management · Auto-battler</span></div>
           <div class="game-info-item"><span class="game-info-key">Platform</span><span class="game-info-val">Mobile (Android)</span></div>
           <div class="game-info-item"><span class="game-info-key">Team</span><span class="game-info-val">Solo</span></div>
           <div class="game-info-item"><span class="game-info-key">Role</span><span class="game-info-val">Solo Designer &amp; Developer</span></div>
           <div class="game-info-item"><span class="game-info-key">Inspiration</span><span class="game-info-val">Disco Zoo (NimbleBit)</span></div>
-          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">In development · core loop playable</span></div>
+          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">In development · full loop playable end-to-end</span></div>
           <div class="game-info-item"><span class="game-info-key">Owned</span><span class="game-info-val">All design, code, systems &amp; pixel art</span></div>
         </div>
       </div>
@@ -485,11 +485,12 @@
         <!-- At a glance -->
         <div class="at-glance reveal">
           <span class="label">At a glance</span>
-          <p class="at-glance-hook">A <strong>cozy-macabre necromancer game</strong> that fuses <strong>Disco Zoo's grave-digging</strong> with an <strong>idle dungeon defense</strong> — dig up undead, build a dungeon, and earn while your minions fend off looting heroes.</p>
+          <p class="at-glance-hook">A <strong>cozy-macabre necromancer game</strong> that fuses <strong>Disco Zoo's grave-digging</strong> with a <strong>real-time dungeon defense</strong>: dig up undead, build an army, and keep it standing while it fends off looting heroes.</p>
           <div class="highlight-chips">
             <span class="highlight-chip">Solo — design + code + art</span>
             <span class="highlight-chip">Disco-Zoo dig loop</span>
-            <span class="highlight-chip">Role-based idle auto-battler</span>
+            <span class="highlight-chip">Role-based auto-battler</span>
+            <span class="highlight-chip">Own Unity editor tooling</span>
             <span class="highlight-chip">Deep relic &amp; economy systems</span>
           </div>
           <a href="#breakdown" class="jump-to-detail">Jump to the full breakdown ↓</a>
@@ -515,7 +516,7 @@
           <div class="pillar">
             <div class="pillar-num">04</div>
             <h4>Systems as the Star</h4>
-            <p>Monster roles, a trade-off relic loadout, two-lane progression, and a tuned idle economy. It's designed to be a systems-design showcase as much as a game.</p>
+            <p>Monster roles, a trade-off relic loadout, two-lane progression, and an economy tuned to reward showing up, not just waiting. It's designed to be a systems-design showcase as much as a game.</p>
           </div>
         </div>
 
@@ -541,15 +542,15 @@
         <div class="mechanics-grid">
           <div class="mechanic-card">
             <h3>⛏️ Grave Digging</h3>
-            <p>Enter a 5×5 site with a mana budget and reveal connected patterns to unearth undead. Rarer monsters use fewer tiles — so they're harder to find, and running one tile short creates the "spend to close the gap" tension.</p>
+            <p>Pay to enter an area, each with its own grid, buried table and mana budget, then reveal connected patterns to unearth undead. Rarer monsters use fewer tiles, so they're harder to find, and running one tile short creates the "spend to close the gap" tension.</p>
           </div>
           <div class="mechanic-card">
             <h3>💀 Collection &amp; Leveling</h3>
-            <p>Find duplicates to level a monster: each level raises its income, a milestone unlocks its signature ability, and maxing it out is its own reward. Set-collection, not merge.</p>
+            <p>Duplicates level a monster from 1 to 5 instead of giving you a second copy: 18 copies to max a Common, 8 to max an Epic. Its signature ability comes online at level 3. Set-collection, not merge.</p>
           </div>
           <div class="mechanic-card">
-            <h3>⚔️ Idle Dungeon Defense</h3>
-            <p>A moving-unit auto-battler. Monsters self-organize into a formation by role and fight waves of invading heroes while you're away. No lose screen — a soft wall, not a fail state.</p>
+            <h3>⚔️ Dungeon Defense</h3>
+            <p>A moving-unit auto-battler that keeps running while you dig. Up to four monsters self-organize by role and hold the line against waves of heroes; tap a fallen monster to revive it. No lose screen: a soft wall, not a fail state.</p>
           </div>
           <div class="mechanic-card">
             <h3>🪙 Two-Currency Economy</h3>
@@ -557,11 +558,11 @@
           </div>
           <div class="mechanic-card">
             <h3>📿 Relics &amp; the Reliquary</h3>
-            <p>Equip a capped loadout from a pool of trade-off relics. Rarity means downside severity, not just power — and a one-legendary cap forces a real build decision.</p>
+            <p>Relics are dug up (a per-area bag with pity, so dry streaks end) and equipped into a capped loadout. The Reliquary gains sockets as your collection grows. Rarity means downside severity, not just power, and a one-legendary cap forces a real build decision.</p>
           </div>
           <div class="mechanic-card">
-            <h3>🌙 Idle Earner</h3>
-            <p>Monsters keep earning while you're offline, capped to a fair window, with income that scales with how deep a wave you can hold. Come back to a meaningful pile, not an exploit.</p>
+            <h3>🌙 Offline Raids</h3>
+            <p>Close the app and the raid goes on: waves are simulated at your army's real stats, and nobody revives the fallen while you're away. A strong army comes back to a pile of coins; a weak one comes back to a problem to solve.</p>
           </div>
         </div>
 
@@ -579,8 +580,8 @@
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px;">
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
           <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">01 · Problem</div>
-          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Make an idle game with real depth</h4>
-          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Disco Zoo's dig loop is brilliant but underused, and idle collection games go <em style="color:var(--text);">flat</em> the moment you've collected everything. Could I fuse that dig hook to an idle dungeon-defense so the two loops feed each other and the game stays deep past "collection complete"?</p>
+          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Give a collection game real depth</h4>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Disco Zoo's dig loop is brilliant but underused, and collection games go <em style="color:var(--text);">flat</em> the moment you've collected everything. Could I fuse that dig hook to a dungeon defense so the two loops feed each other and the game stays deep past "collection complete"?</p>
         </div>
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
           <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">02 · Design Decision</div>
@@ -600,7 +601,7 @@
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
           <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">05 · What's Next</div>
           <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Content breadth &amp; an endgame</h4>
-          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Wire the designed relic pool into combat; build biomes (each area its own monsters, relics and challenge); and add prestige — Timeless monsters, Disco-Zoo style — so digging stays meaningful past completion.</p>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Wire in the combat relics (the ten live relic effects are all on the dig and economy side), give free players real Soul Gem sources, retest the new tutorial with fresh players, then add prestige (Timeless monsters, Disco-Zoo style) so digging stays meaningful past completion.</p>
         </div>
       </div>
     </div>
@@ -609,10 +610,10 @@
     <div id="playtest" style="margin-top:72px; scroll-margin-top:90px;">
       <div class="section-line">Playtesting &amp; Iteration</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:660px; margin-bottom:28px;">
-        The most useful design work on this project came from reading a result correctly instead of reacting to it. Two examples — one a diagnosis, one a guardrail.
+        The most useful design work on this project came from reading a result correctly instead of reacting to it. Three examples: a diagnosis, a guardrail, and a playtest I read as a communication problem.
       </p>
 
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; align-items:start;">
 
         <!-- Positioning diagnosis (with footage placeholder) -->
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden;">
@@ -632,15 +633,28 @@
 
         <!-- Offline economy guardrail -->
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 20px;">
-          <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">Keeping the idle economy honest</h4>
+          <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">Offline is simulated, not multiplied</h4>
           <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
-            <span style="font-size:0.68rem; font-weight:700; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:3px 8px;">RISK · uncapped AFK farming</span>
-            <span style="font-size:0.68rem; font-weight:700; color:var(--accent2); border:1px solid var(--accent); border-radius:6px; padding:3px 8px;">FIX · two guardrails</span>
+            <span style="font-size:0.68rem; font-weight:700; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:3px 8px;">RISK · drifting into an idle game</span>
+            <span style="font-size:0.68rem; font-weight:700; color:var(--accent2); border:1px solid var(--accent); border-radius:6px; padding:3px 8px;">FIX · play the raid out</span>
           </div>
-          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">An idle earner where monsters never die can print money forever. I keep it honest with two levers: offline income is <strong style="color:var(--text);">time-capped</strong> (8 hours), and income <strong style="color:var(--text);">scales with wave depth</strong> — so farming easy content is low-value and there's no "park and get rich." The raw payout number was never the question; the caps are.</p>
-          <p style="font-size:0.78rem; color:var(--muted); line-height:1.6; margin:14px 0 0; padding-top:12px; border-top:1px solid var(--border);">Both cases came from the same instinct: a surprising number is a question, not a verdict. Find out <em>why</em> before you change anything.</p>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0 0 10px;">The easy version of offline income is <em>time away × a rate</em>. That would quietly have turned Rest in Profit into an idle game, and it isn't one: it's collection and management, where showing up is what moves you forward.</p>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">So closed-app waves are <strong style="color:var(--text);">played out as numbers</strong> at the army's real attack rates, damage, defence and healing, with abilities like Undeath honoured, and one rule kept exactly: <strong style="color:var(--text);">nobody taps a corpse while you're away</strong>. A strong army comes back to a pile of coins; a weak one earns until it falls. A summary card on return shows what happened.</p>
         </div>
       </div>
+
+      <!-- Tutorial diagnosis -->
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 22px; margin-bottom:16px;">
+        <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">Three feature requests, one root cause</h4>
+        <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
+          <span style="font-size:0.68rem; font-weight:700; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:3px 8px;">PLAYTEST · "add tap damage", "offline should pay", "raids need consequences"</span>
+          <span style="font-size:0.68rem; font-weight:700; color:var(--accent2); border:1px solid var(--accent); border-radius:6px; padding:3px 8px;">FIX · teach the loop, change no systems</span>
+        </div>
+        <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0 0 10px;">Playtesters asked for tap damage, said earning 0 coins offline felt bad, and wanted raids to have a real consequence. Taken one at a time, that's three new features. Read together, it's one problem: nobody had told them the loop. Default mobile-game habits filled the gaps (tap to fight, earn while idle), and none of them knew a fallen monster could be revived.</p>
+        <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">So I left the systems alone and built the <strong style="color:var(--text);">Necroguide</strong>: a persistent tutorial director that runs across both scenes, dims the screen, and advances only on real gameplay events (starting an expedition, digging, finding a monster, killing a hero, equipping a monster or relic), resuming wherever the player left off. The next step is the same test with fresh players, to confirm the requests go away rather than assume they will.</p>
+      </div>
+
+      <p style="font-size:0.78rem; color:var(--muted); line-height:1.6; max-width:680px; margin:0 0 16px;">All three came from the same instinct: a surprising result is a question, not a verdict. Find out <em>why</em> before you change anything.</p>
 
       <!-- Currency split principle -->
       <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 22px; margin-bottom:16px;">
@@ -655,7 +669,7 @@
 
       <!-- Scoped out -->
       <div style="border-left:2px solid var(--border); padding:4px 0 4px 16px;">
-        <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;"><strong style="color:var(--text);">Honest about scope:</strong> the full relic pool, prestige, and additional biomes are designed but not yet built — the loop above is what's playable today. Knowing what to build <em>now</em> versus what to leave on paper is part of the job.</p>
+        <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;"><strong style="color:var(--text);">Honest about scope:</strong> the combat half of the relic pool, prestige, and later biomes are designed but not yet built. What's playable today is the full loop: expeditions across multiple areas, six signature abilities, ten live relic effects, offline raids and a guided tutorial. Knowing what to build <em>now</em> versus what to leave on paper is part of the job.</p>
       </div>
     </div>
 
@@ -672,10 +686,12 @@
     <div style="margin-top:72px;">
       <div class="section-line">The Dig Loop — In Motion</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:14px;">
-        The dig site is the piece I built and tuned first. You enter a 5×5 graveyard with a limited mana budget and tap tiles to uncover the <strong style="color:var(--text);">connected pattern</strong> of a buried monster — Disco Zoo's shape-reveal, reframed as grave-robbing.
+        The dig site is the piece I built and tuned first. You pay to enter an area (each has its own grid size, buried table and mana budget, and a per-trip price that rises gently) and tap tiles to uncover the <strong style="color:var(--text);">connected pattern</strong> of a buried monster — Disco Zoo's shape-reveal, reframed as grave-robbing.
       </p>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
         Everything present in a dig is <strong style="color:var(--accent2);">telegraphed</strong>, rarer monsters occupy fewer tiles (so they're harder to pin down), and the whole thing is tuned so you often come up <em>one tile short</em> — the exact moment the game offers a premium nudge. That near-miss tension is the loop's engine, and I validated it with real play before building anything on top of it.</p>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
+        Running dry is an offer, not an ending: 5 more digs for a Soul Gem, 5 free for an ad, or walk away and see the cells you missed, which makes the near-miss visible. Finds are celebrated in proportion. A captured monster's pieces merge into one creature on a book page, coin caches fly to the counter while the number climbs as they land, and each trip ends on a haul sheet that sends you straight into the next expedition or back to the dungeon.</p>
 
       <div class="gif-showcase" style="margin-bottom:28px;">
         <figure class="gif-slot">
@@ -700,7 +716,7 @@
     <div style="margin-top:72px;">
       <div class="section-line">The Dungeon Defense — Role-Based Auto-Battler</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:14px;">
-        Placed monsters aren't static — they <strong style="color:var(--text);">move and fight in real time</strong>, and they organize themselves. Each monster carries a role that drives a self-forming formation, so the tactical decision is <em>which roles you bring</em>, not micromanaging positions on a phone screen.
+        Placed monsters aren't static — they <strong style="color:var(--text);">move and fight in real time</strong>, and they organize themselves. Each monster carries a role that drives a self-forming formation, so the tactical decision is <em>which roles you bring</em>, not micromanaging positions on a phone screen. Up to four monsters take the field, and the fight runs for the whole session: it keeps going, and earning, while you're off digging.
       </p>
       <div class="roles-grid" style="margin-bottom:20px;">
         <div class="role-pill role-tank">
@@ -717,7 +733,10 @@
         </div>
       </div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
-        Heroes raid the dungeon rather than racing an exit, peeling off to smash graves and chests along the way. There's <strong style="color:var(--accent2);">no lose screen</strong> — a downed monster can always be revived to keep grinding, so failure is a soft wall that nudges you back to digging and upgrading, not a punishment.
+        Heroes walk in from the edge and hold a front line, paying a bounty per kill and a bonus per cleared wave. Once there's nothing left to fight, they turn on the dungeon itself, pushing over gravestones and smashing chests. There's <strong style="color:var(--accent2);">no lose screen</strong>: tap a fallen monster to revive it on a timer, or spend a Soul Gem to revive everyone. If the whole army goes down the dungeon is overrun, a soft wall that nudges you back to digging and upgrading rather than a punishment. Checkpoints every five waves can be returned to and farmed, with arrows beside the wave number to step between them and the frontier.
+      </p>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
+        Hits land with sparks, damage numbers, screen shake and hit-stop. Under the fight, a deck shows each monster's health, coins per minute, DPS, wave progress and the relics you have socketed. Six signature abilities are authored as data with per-level tiers: an Undeath resurrection, a dash-slash, a Hellbeam, a summon on first revive, a max-health-cutting beam, and a frenzy.
       </p>
       <div class="gif-showcase" style="margin-bottom:8px;">
         <figure class="gif-slot">
@@ -743,10 +762,10 @@
         <div class="prog-block">
           <h3 style="color:var(--accent2);">Duplicate leveling</h3>
           <ul>
-            <li>Find dupes to level a monster</li>
+            <li>Dupes level a monster, 1 to 5</li>
             <li>Each level raises its income</li>
-            <li>A milestone unlocks its ability</li>
-            <li>Maxing it is a capstone moment</li>
+            <li>Its ability comes online at level 3</li>
+            <li>18 copies to max a Common, 8 an Epic</li>
           </ul>
         </div>
         <div class="prog-block">
@@ -764,7 +783,7 @@
             <li>Coins — power &amp; access</li>
             <li>Mana — the per-dig budget</li>
             <li>Soul Gems — premium, time only</li>
-            <li>Offline income, capped &amp; fair</li>
+            <li>Offline earnings, simulated</li>
           </ul>
         </div>
       </div>
@@ -1035,7 +1054,7 @@
         </article>
       </div>
       <p style="font-size:0.78rem; color:var(--muted); line-height:1.6; max-width:680px; margin-top:16px;">
-        Each relic is sourced to fit — dig relics unearthed from graves, combat relics looted from fallen heroes. Wiring the full set into the live build is the next milestone.
+        Every relic is found by digging, drawn from a per-area bag with pity so dry streaks end. The Reliquary levels up with how many you've found, opening more sockets, and relics drag and drop between the shelf and sockets. Ten effects are live today, all on the dig and economy side (revive time, hero and cache coins, expedition cost, starting mana, divining and more); wiring in the combat relics is the next milestone.
       </p>
     </div>
     <script>
@@ -1055,13 +1074,19 @@
     <div style="margin-top:72px;">
       <div class="section-line">Built From Scratch — Solo</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:20px;">
-        Everything here is mine: the design, the C# systems, the pixel art, and the tooling around it. To make a systems-heavy game maintainable solo, I built my own <strong style="color:var(--text);">Unity editor tools</strong> — custom inspectors and windows for authoring dungeons, defining monsters and their level curves, cropping sprite sheets, resetting player progress, and simulating offline time to test idle income. The tooling is why one person can keep this many interlocking systems balanced.
+        Everything here is mine: the design, the C# systems, the pixel art, and the tooling around it. To make a systems-heavy game maintainable solo, I built my own <strong style="color:var(--text);">Unity editor tools</strong>: menu items that generate both scenes and the arena tilemap, a monster art importer and cropper, a level-curve window, an offline-time window for testing what a player comes back to, Reset All Progress, and a Fresh Start build flag that wipes a phone's save once per build for clean playtests. The tooling is why one person can keep this many interlocking systems balanced.
+      </p>
+      <p style="font-size:0.8rem; color:var(--muted); line-height:1.65; max-width:680px; margin-bottom:20px;">
+        Under the hood, all UI is built in code on a hand-rolled 5×7 bitmap font (no font asset, no Unity text component), with custom press feedback on every button, one player bar that survives both scenes, and drag and drop for monsters and relics.
       </p>
       <div class="effects-wrap">
         <span class="effect-pill">Custom dungeon &amp; monster editors</span>
         <span class="effect-pill">Monster level / curve windows</span>
+        <span class="effect-pill">Scene &amp; tilemap generators</span>
         <span class="effect-pill">Offline-time simulator</span>
-        <span class="effect-pill">Sprite-sheet cropper</span>
+        <span class="effect-pill">Fresh-Start playtest builds</span>
+        <span class="effect-pill">Code-built UI + bitmap font</span>
+        <span class="effect-pill">Monster art importer &amp; cropper</span>
         <span class="effect-pill">Own pixel art (32×32)</span>
       </div>
     </div>
