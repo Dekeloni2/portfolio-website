@@ -1295,21 +1295,44 @@
     <div style="margin-top:72px;">
       <div class="section-line">Built From Scratch — Solo</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:20px;">
-        Everything here is mine: the design, the C# systems, the pixel art, and the tooling around it. To make a systems-heavy game maintainable solo, I built my own <strong style="color:var(--text);">Unity editor tools</strong>: menu items that generate both scenes and the arena tilemap, a monster art importer and cropper, a level-curve window, an offline-time window for testing what a player comes back to, Reset All Progress, and a Fresh Start build flag that wipes a phone's save once per build for clean playtests. The tooling is why one person can keep this many interlocking systems balanced.
+        Everything here is mine: the design, the C# systems, the pixel art, and the tooling around it. To keep a systems-heavy game maintainable solo, I built <strong style="color:var(--text);">22 Unity editor tools</strong> behind a custom menu &mdash; scene and tilemap generators, a monster art importer and cropper, custom inspectors for monsters, relics, dig areas and the tutorial, a level-curve window, and an offline-time window for testing what a returning player comes back to. The content generators are written to be re-runnable: regenerating an area keeps whatever has already been tuned on it and only adds what is missing, so I can extend content without losing balance work.
+      </p>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:20px;">
+        The tooling also enforces a rule I set early: <strong style="color:var(--text);">the editor gets the shortcuts, the shipped build stays clean.</strong> Jumping to a wave, firing the Shadow Merchant or the Ritual Idol on demand, and wiping progress all live behind the editor menu rather than in a debug UI that could leak into a release. Two build hooks back that up &mdash; one exports my current editor save into a phone build so I can device-test the mid-game without grinding to it, and one <em style="color:var(--text);">fails the build outright</em> if a release Android build still has AdMob&rsquo;s test ad-unit ID in it. That second one exists because shipping a live build wired to test ads is a quiet, expensive mistake, and I&rsquo;d rather the build catch it than me.
       </p>
       <p style="font-size:0.8rem; color:var(--muted); line-height:1.65; max-width:680px; margin-bottom:20px;">
-        Under the hood, all UI is built in code on a hand-rolled 5×7 bitmap font (no font asset, no Unity text component), with custom press feedback on every button, one player bar that survives both scenes, and drag and drop for monsters and relics.
+        Under the hood, all UI is built in code on a hand-rolled 5×7 bitmap font (no font asset, no Unity text component), with custom press feedback on every button, one player bar that survives both scenes, and drag and drop for monsters and relics. Because the font is hand-rolled, the relic and tutorial inspectors validate authored text against it and warn on any character it cannot draw &mdash; so copy that would render blank gets caught while I am writing it, not in play.
       </p>
       <div class="effects-wrap">
-        <span class="effect-pill">Custom dungeon &amp; monster editors</span>
-        <span class="effect-pill">Monster level / curve windows</span>
-        <span class="effect-pill">Scene &amp; tilemap generators</span>
-        <span class="effect-pill">Offline-time simulator</span>
+        <span class="effect-pill">Release-build AdMob gate</span>
+        <span class="effect-pill">Save-snapshot device builds</span>
         <span class="effect-pill">Fresh-Start playtest builds</span>
-        <span class="effect-pill">Code-built UI + bitmap font</span>
+        <span class="effect-pill">Offline-time simulator</span>
+        <span class="effect-pill">Wave &amp; event jump tools</span>
+        <span class="effect-pill">Monster, relic &amp; dig-area inspectors</span>
+        <span class="effect-pill">Re-runnable content generators</span>
+        <span class="effect-pill">Pixel-font text validation</span>
+        <span class="effect-pill">Scene &amp; tilemap generators</span>
+        <span class="effect-pill">Monster level / curve windows</span>
         <span class="effect-pill">Monster art importer &amp; cropper</span>
+        <span class="effect-pill">Aseprite-safe prefab pipeline</span>
+        <span class="effect-pill">Code-built UI + bitmap font</span>
         <span class="effect-pill">Own pixel art (32×32)</span>
       </div>
+    </div>
+
+    <!-- ═══ Audio scope call ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">Audio: A Scope Call, Not a Craft Goal</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:16px;">
+        One thing here isn't mine, on purpose. I started by trying to author the game's sounds myself and it didn't work &mdash; not in a "needs more practice" way, but in a "this is a different discipline and I'm burning days to land where a library lands in an hour" way. Sound design isn't a craft I'm developing; systems and economy design is, and the time was coming straight out of it.
+      </p>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:16px;">
+        So I stopped authoring and started <strong style="color:var(--text);">matching</strong>. I wrote a short brief off the loop &mdash; what the dig tap, the reveal, the hit, the death and the revive each need to communicate &mdash; then sourced against that list instead of browsing for sounds I liked. Defining the brief was the part that actually mattered; once it existed, the sourcing was fast.
+      </p>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px;">
+        Audio is now settled and off the worry list, which was the whole goal. It's the call I'd make again on any solo project: decide early which crafts you're genuinely developing and which ones you just need <em style="color:var(--text);">solved</em>, then solve the second group as fast as you can and put the hours back into the first.
+      </p>
     </div>
 
   </div>
