@@ -282,6 +282,18 @@
     .game-cta-ghost:hover { border-color: rgba(147,51,234,0.5); }
     .game-cta[href=""], .game-cta:not([href]) { display: none; }
 
+    /* Status note: visible ONLY while both CTAs above are still empty.
+       Fill either href and this hides itself automatically. */
+    .cta-pending { display: none; }
+    .game-cta[href=""] + .game-cta[href=""] + .cta-pending { display: block; }
+    .cta-pending {
+      margin-top: 20px; padding: 12px 16px;
+      border: 1px dashed var(--border); border-radius: 8px;
+      font-size: 0.8rem; line-height: 1.6; color: var(--muted);
+      text-align: center;
+    }
+    .cta-pending strong { color: var(--accent2); font-weight: 700; display: block; margin-bottom: 3px; }
+
     .game-info-item { display: flex; gap: 10px; font-size: 0.8rem; }
     .game-info-key { color: var(--muted); min-width: 82px; }
     .game-info-val { color: var(--text); font-weight: 500; }
@@ -532,6 +544,10 @@
         ════════════════════════════════════════════════════════════════ -->
         <a class="game-cta game-cta-primary" href="" target="_blank" rel="noopener">▶ Join the closed test</a>
         <a class="game-cta game-cta-ghost" href="" target="_blank" rel="noopener">Get it on Google Play ↗</a>
+        <div class="cta-pending">
+          <strong>Coming to Google Play</strong>
+          Closed testing opens first &mdash; a join link will appear here the moment it does.
+        </div>
       </div>
 
       <div class="game-content-col">
