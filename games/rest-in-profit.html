@@ -498,7 +498,7 @@
           <h2 style="margin:0;">Rest in Profit</h2>
         </div>
         <p class="concept">
-          A cozy-macabre mobile game — a dark parody of Disco Zoo. You're an aspiring necromancer: dig up undead minions from graveyards, deploy them in a dungeon, and let them defend against looting "heroes" while they earn you coins. A collection-and-management game in the Disco Zoo mold, with a dungeon defense welded on through one shared economy.
+          A cozy-macabre mobile game inspired by Disco Zoo's digging loop. You're an aspiring necromancer: dig up undead minions from graveyards, deploy them in a dungeon, and let them defend against looting "heroes" while they earn you coins. A collection-and-management game with a dungeon-defense layer, connected through one shared economy.
         </p>
         <div class="game-info-row">
           <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">Unity · C#</span></div>
@@ -604,7 +604,7 @@
           </div>
           <div class="mechanic-card">
             <h3>⚔️ Dungeon Defense</h3>
-            <p>A moving-unit auto-battler that keeps running while you dig. Up to four monsters self-organize by role and hold the line against waves of heroes; tap a fallen monster to revive it. No lose screen: a soft wall, not a fail state.</p>
+            <p>A moving-unit auto-battler that keeps running while you dig. Start with four deployment slots, then unlock up to six through collection; monsters self-organize by role and hold the line against waves of heroes. No lose screen: a soft wall, not a fail state.</p>
           </div>
           <div class="mechanic-card">
             <h3>🪙 Two-Currency Economy</h3>
@@ -655,7 +655,7 @@
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
           <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">05 · What's Next</div>
           <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Content breadth &amp; an endgame</h4>
-          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Wire in the combat relics (the ten live relic effects are all on the dig and economy side), give free players real Soul Gem sources, retest the new tutorial with fresh players, then add prestige (Timeless monsters, Disco-Zoo style) so digging stays meaningful past completion.</p>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Continue tuning the 25-relic pool, give free players real Soul Gem sources, retest the new tutorial with fresh players, then add prestige (Timeless monsters, Disco-Zoo style) so digging stays meaningful past completion.</p>
         </div>
       </div>
     </div>
@@ -717,13 +717,13 @@
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:10px;">
           <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Digging = linear cost</strong><br>Expedition entry rises gently (Disco-Zoo style), so collecting never walls you.</div>
           <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Upgrades = exponential cost</strong><br>Raw combat power is the real grind and the central coin sink.</div>
-          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Premium = time, not power</strong><br>Soul Gems buy convenience and cosmetics — never stats — so it stays fair.</div>
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Premium = time, not power</strong><br>Soul Gems buy convenience only — never stats — so it stays fair.</div>
         </div>
       </div>
 
       <!-- Scoped out -->
       <div style="border-left:2px solid var(--border); padding:4px 0 4px 16px;">
-        <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;"><strong style="color:var(--text);">Honest about scope:</strong> the combat half of the relic pool, prestige, and later biomes are designed but not yet built. What's playable today is the full loop: expeditions across multiple areas, six signature abilities, ten live relic effects, offline raids and a guided tutorial. Knowing what to build <em>now</em> versus what to leave on paper is part of the job.</p>
+        <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;"><strong style="color:var(--text);">Honest about scope:</strong> prestige and later biomes are designed or in progress rather than complete. What's playable today is the full loop: expeditions across multiple areas, nine signature abilities, 25 live relic effects, between-wave events, offline raids and a guided tutorial. Knowing what to build <em>now</em> versus what to leave on paper is part of the job.</p>
       </div>
     </div>
 
@@ -761,12 +761,12 @@
       </div>
 
       <div style="background:linear-gradient(135deg, rgba(147,51,234,0.10), rgba(192,132,252,0.03)); border:1px solid rgba(147,51,234,0.3); border-radius:12px; padding:22px 24px;">
-        <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase; margin-bottom:8px;">Next iteration · between-wave events</div>
+        <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase; margin-bottom:8px;">Live system · between-wave events</div>
         <h4 style="font-size:1rem; color:var(--text); margin:0 0 10px;">Make the dungeon feel like a place, not a conveyor belt</h4>
-        <p style="font-size:0.82rem; color:var(--muted); line-height:1.7; max-width:760px; margin:0 0 14px;">I am expanding this principle with occasional events between waves: short interruptions that ask for a real decision before the next raid starts. They give the player a reason to re-engage at natural pauses, while leaving ordinary waves fast and readable.</p>
+        <p style="font-size:0.82rem; color:var(--muted); line-height:1.7; max-width:760px; margin:0 0 14px;">Occasional events interrupt the space between waves with a real decision before the next raid begins. They give the player a reason to re-engage at natural pauses, while leaving ordinary waves fast and readable.</p>
         <div class="effects-wrap" style="margin-top:0;">
-          <span class="effect-pill"><strong>In progress:</strong> The Shadow Merchant — buy one temporary contract for a few waves, or banish him and continue.</span>
-          <span class="effect-pill"><strong>Planned:</strong> Ritual Idol — an optional formation DPS challenge with tiered rewards.</span>
+          <span class="effect-pill"><strong>Live:</strong> The Shadow Merchant — buy one temporary contract for a few waves, or banish him and continue.</span>
+          <span class="effect-pill"><strong>Live:</strong> Ritual Idol — an optional formation DPS challenge with tiered rewards.</span>
           <span class="effect-pill"><strong>Guardrail:</strong> rare, skippable, short-lived and never permanent power.</span>
         </div>
       </div>
@@ -828,7 +828,7 @@
     <div style="margin-top:72px;">
       <div class="section-line">The Dungeon Defense — Role-Based Auto-Battler</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:14px;">
-        Placed monsters aren't static — they <strong style="color:var(--text);">move and fight in real time</strong>, and they organize themselves. Each monster carries a role that drives a self-forming formation, so the tactical decision is <em>which roles you bring</em>, not micromanaging positions on a phone screen. Up to four monsters take the field, and the fight runs for the whole session: it keeps going, and earning, while you're off digging.
+        Placed monsters aren't static — they <strong style="color:var(--text);">move and fight in real time</strong>, and they organize themselves. Each monster carries a role that drives a self-forming formation, so the tactical decision is <em>which roles you bring</em>, not micromanaging positions on a phone screen. Players begin with four deployment slots; collecting more monsters unlocks two additional slots, reaching a six-monster roster. The fight runs for the whole session: it keeps going, and earning, while you're off digging.
       </p>
       <div class="roles-grid" style="margin-bottom:20px;">
         <div class="role-pill role-tank">
@@ -848,7 +848,7 @@
         Heroes walk in from the edge and hold a front line, paying a bounty per kill and a bonus per cleared wave. Once there's nothing left to fight, they turn on the dungeon itself, pushing over gravestones and smashing chests. There's <strong style="color:var(--accent2);">no lose screen</strong>: tap a fallen monster to revive it on a timer, or spend a Soul Gem to revive everyone. If the whole army goes down the dungeon is overrun, a soft wall that nudges you back to digging and upgrading rather than a punishment. Checkpoints every five waves can be returned to and farmed, with arrows beside the wave number to step between them and the frontier.
       </p>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
-        Hits land with sparks, damage numbers, screen shake and hit-stop. Under the fight, a deck shows each monster's health, coins per minute, DPS, wave progress and the relics you have socketed. Six signature abilities are authored as data with per-level tiers: an Undeath resurrection, a dash-slash, a Hellbeam, a summon on first revive, a max-health-cutting beam, and a frenzy.
+        Hits land with sparks, damage numbers, screen shake and hit-stop. Under the fight, a deck shows each monster's health, coins per minute, DPS, wave progress and the relics you have socketed. Nine signature abilities are authored as data with per-level tiers: Undeath, Devastating Strike, Hellbeam, Horde, Decay Beam, Frenzy, Hell Pounce, Lava Slam and Hell Pillar.
       </p>
       <div class="gif-showcase" style="margin-bottom:8px;">
         <figure class="gif-slot">
@@ -1166,7 +1166,7 @@
         </article>
       </div>
       <p style="font-size:0.78rem; color:var(--muted); line-height:1.6; max-width:680px; margin-top:16px;">
-        Every relic is found by digging, drawn from a per-area bag with pity so dry streaks end. The Reliquary levels up with how many you've found, opening more sockets, and relics drag and drop between the shelf and sockets. Ten effects are live today, all on the dig and economy side (revive time, hero and cache coins, expedition cost, starting mana, divining and more); wiring in the combat relics is the next milestone.
+        Every relic is found by digging, drawn from a per-area bag with pity so dry streaks end. The Reliquary levels up with how many you've found, opening more sockets, and relics drag and drop between the shelf and sockets. All 25 effects are live across digging, economy and combat, giving the Reliquary meaningful trade-offs across both halves of the game.
       </p>
     </div>
     <script>
