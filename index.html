@@ -744,6 +744,63 @@
       width: 100%; max-width: 180px; height: auto; object-fit: contain;
       filter: drop-shadow(0 0 24px rgba(147,51,234,0.35));
     }
+    /* Pixel-art featured logo: integer scaling only, or the pixel grid breaks up.
+       Source is 128x128, so the only crisp sizes are 128 and 256. */
+    .featured-media--pixel { padding: 22px; }
+    .featured-logo--pixel {
+      width: 256px; max-width: 256px; height: auto;
+      image-rendering: pixelated;
+    }
+    /* Hover preview: the logo cross-fades into a muted gameplay clip.
+       The clip only downloads on first hover (preload="none"). */
+    .featured-media { position: relative; overflow: hidden; }
+    .featured-media .featured-logo,
+    .featured-media .featured-logo--pixel { transition: opacity 0.35s ease; }
+    .featured-preview {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+    }
+    .featured-card:hover .featured-preview,
+    .featured-card:focus-visible .featured-preview { opacity: 1; }
+    .featured-card:hover .featured-logo,
+    .featured-card:focus-visible .featured-logo { opacity: 0; }
+    /* Touch has no hover, so JS plays the clip when the card scrolls into view
+       and adds .is-playing to the media panel. */
+    .featured-media.is-playing .featured-preview { opacity: 1; }
+    .featured-media.is-playing .featured-logo { opacity: 0; }
+
+    /* Affordance: a small play badge so people know the card does something.
+       It fades out once the clip is running. */
+    .featured-hint {
+      position: absolute;
+      right: 12px; bottom: 12px;
+      display: flex; align-items: center; gap: 6px;
+      padding: 5px 11px 5px 9px;
+      border-radius: 999px;
+      background: rgba(7,7,15,0.72);
+      border: 1px solid rgba(147,51,234,0.45);
+      backdrop-filter: blur(6px);
+      color: var(--text);
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      opacity: 0.9;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .featured-hint::before { content: '\25B6'; font-size: 0.62rem; color: var(--accent2); }
+    .featured-card:hover .featured-hint,
+    .featured-media.is-playing .featured-hint { opacity: 0; }
+    /* On touch the clip plays by itself, so the hover wording would be a lie. */
+    @media (hover: none) { .featured-hint { display: none; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .featured-preview { display: none; }
+      .featured-hint { display: none; }
+    }
     .featured-body { padding: 32px 34px; }
     .featured-top { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
     .featured-top h3 { font-size: 1.5rem; margin: 0; }
@@ -754,6 +811,8 @@
       .featured-card { grid-template-columns: 1fr; }
       .featured-media { border-right: none; border-bottom: 1px solid var(--border); padding: 32px; }
       .featured-logo { max-width: 140px; }
+      .featured-media--pixel { padding: 32px; }
+      .featured-logo--pixel { width: 128px; max-width: 128px; }
     }
 
     /* ─── Skills columns ─────────────────────────────────────────── */
@@ -964,6 +1023,8 @@
     <a href="games/tiltantale.html" class="featured-card">
       <div class="featured-media">
         <img src="tiltan_tale.png" alt="TiltanTale" class="featured-logo">
+        <video class="featured-preview" src="tt_preview.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+        <span class="featured-hint" aria-hidden="true">Hover to preview</span>
       </div>
       <div class="featured-body">
         <div class="featured-top">
@@ -982,8 +1043,10 @@
     </a>
 
     <a href="games/rest-in-profit.html" class="featured-card" style="margin-top:22px;">
-      <div class="featured-media">
-        <span style="font-size:4.5rem; line-height:1; filter: drop-shadow(0 0 24px rgba(147,51,234,0.35));">⚰️</span>
+      <div class="featured-media featured-media--pixel">
+        <img src="rip_logo.png" alt="Rest in Profit" class="featured-logo featured-logo--pixel">
+        <video class="featured-preview" src="rip_preview.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+        <span class="featured-hint" aria-hidden="true">Hover to preview</span>
       </div>
       <div class="featured-body">
         <div class="featured-top">
@@ -1127,5 +1190,51 @@
 </script>
 
 <script>window.addEventListener('pageshow',function(){document.body.classList.remove('fade-out');});</script>
+<script>
+/* Featured-card gameplay previews.
+   Pointer devices: play on hover/focus.
+   Touch devices: no hover exists, so play when the card scrolls into view.
+   Either way the clip has preload="none" and is only fetched when it plays. */
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var canHover = window.matchMedia('(hover: hover)').matches;
+  var cards = document.querySelectorAll('.featured-card');
+
+  function play(media, video) {
+    media.classList.add('is-playing');
+    var p = video.play();
+    if (p && p.catch) p.catch(function () { media.classList.remove('is-playing'); });
+  }
+  function stop(media, video) {
+    media.classList.remove('is-playing');
+    video.pause();
+    try { video.currentTime = 0; } catch (e) {}
+  }
+
+  cards.forEach(function (card) {
+    var video = card.querySelector('.featured-preview');
+    var media = card.querySelector('.featured-media');
+    if (!video || !media) return;
+
+    if (canHover) {
+      card.addEventListener('mouseenter', function () { play(media, video); });
+      card.addEventListener('mouseleave', function () { stop(media, video); });
+      card.addEventListener('focus', function () { play(media, video); });
+      card.addEventListener('blur', function () { stop(media, video); });
+      return;
+    }
+
+    if (!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) play(media, video);
+        else stop(media, video);
+      });
+    }, { threshold: 0.5 });
+    io.observe(card);
+  });
+})();
+</script>
 </body>
 </html>
