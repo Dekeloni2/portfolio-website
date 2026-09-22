@@ -259,6 +259,29 @@
       padding-top: 20px;
       border-top: 1px solid var(--border);
     }
+    /* ─── Hero CTAs ──────────────────────────────────────────────
+       A .game-cta with an EMPTY href hides itself. Paste a URL in and
+       the button appears — no other edit needed.                      */
+    .game-cta {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      margin-top: 10px; padding: 12px 22px;
+      border-radius: 8px; font-size: 0.9rem; font-weight: 700;
+      text-decoration: none; transition: opacity .2s, transform .15s, box-shadow .2s;
+    }
+    .game-cta:hover { text-decoration: none; transform: translateY(-1px); }
+    .game-cta-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent), #7c3aed);
+      box-shadow: 0 0 20px rgba(147,51,234,0.35);
+      margin-top: 20px;
+    }
+    .game-cta-primary:hover { box-shadow: 0 0 32px rgba(147,51,234,0.55); }
+    .game-cta-ghost {
+      color: var(--text); background: transparent; border: 1px solid var(--border);
+    }
+    .game-cta-ghost:hover { border-color: rgba(147,51,234,0.5); }
+    .game-cta[href=""], .game-cta:not([href]) { display: none; }
+
     .game-info-item { display: flex; gap: 10px; font-size: 0.8rem; }
     .game-info-key { color: var(--muted); min-width: 82px; }
     .game-info-val { color: var(--text); font-weight: 500; }
@@ -304,6 +327,13 @@
       color: var(--muted);
     }
     .effect-pill strong { color: var(--accent2); }
+
+    .active-moments-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
 
     /* ─── Relic cards ────────────────────────────────────────────── */
     .relic-grid {
@@ -434,6 +464,7 @@
       .game-section-layout { grid-template-columns: 1fr; gap: 32px; }
       .pillars-grid        { grid-template-columns: 1fr; }
       .prog-row            { grid-template-columns: 1fr; }
+      .active-moments-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
       .nav-links { display: none; }
@@ -479,6 +510,28 @@
           <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">In development · full loop playable end-to-end</span></div>
           <div class="game-info-item"><span class="game-info-key">Owned</span><span class="game-info-val">All design, code, systems &amp; pixel art</span></div>
         </div>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             PLAY CTAs — dormant until you paste a link in.
+
+             Each button below stays INVISIBLE while its href="" is empty.
+             Paste a URL between the quotes and it appears. Nothing else
+             to change.
+
+             1. CLOSED TEST  — Play Console › Testing › Closed testing ›
+                               your track › "Copy link" (the web opt-in URL,
+                               looks like play.google.com/apps/testing/<pkg>).
+                               Available as soon as the 12-tester test starts,
+                               weeks before production access.
+             2. GOOGLE PLAY  — the store listing, once production is approved.
+
+             When the closed test goes live, also update Status above to:
+               "In closed testing · full loop playable end-to-end"
+             and on release:
+               "Released on Google Play · in active development"
+        ════════════════════════════════════════════════════════════════ -->
+        <a class="game-cta game-cta-primary" href="" target="_blank" rel="noopener">▶ Join the closed test</a>
+        <a class="game-cta game-cta-ghost" href="" target="_blank" rel="noopener">Get it on Google Play ↗</a>
       </div>
 
       <div class="game-content-col">
@@ -491,6 +544,7 @@
             <span class="highlight-chip">Disco-Zoo dig loop</span>
             <span class="highlight-chip">Role-based auto-battler</span>
             <span class="highlight-chip">Own Unity editor tooling</span>
+            <span class="highlight-chip">Rewarded-only monetization</span>
             <span class="highlight-chip">Deep relic &amp; economy systems</span>
           </div>
           <a href="#breakdown" class="jump-to-detail">Jump to the full breakdown ↓</a>
@@ -618,7 +672,7 @@
         <!-- Positioning diagnosis (with footage placeholder) -->
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden;">
           <figure class="gif-slot" style="margin:0; border:none; border-radius:0;">
-            <video src="../rip_combat.mp4" aria-label="Rest in Profit — role-based combat formation" style="display:block; width:100%; aspect-ratio:16/9; object-fit:cover; background:#05050c;" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+            <video src="../rip_combat.mp4" aria-label="Rest in Profit — role-based combat formation" style="display:block; width:100%; max-width:300px; margin:0 auto; aspect-ratio:9/16; object-fit:contain; background:#05050c;" autoplay loop muted playsinline preload="metadata" onerror="this.style.display='none'; this.closest('.gif-slot').classList.add('gif-missing')"></video>
             <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>rip_combat.mp4</code> here</span></div>
           </figure>
           <div style="padding:18px 20px;">
@@ -670,6 +724,64 @@
       <!-- Scoped out -->
       <div style="border-left:2px solid var(--border); padding:4px 0 4px 16px;">
         <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;"><strong style="color:var(--text);">Honest about scope:</strong> the combat half of the relic pool, prestige, and later biomes are designed but not yet built. What's playable today is the full loop: expeditions across multiple areas, six signature abilities, ten live relic effects, offline raids and a guided tutorial. Knowing what to build <em>now</em> versus what to leave on paper is part of the job.</p>
+      </div>
+    </div>
+
+    <!-- ═══ Active moments case study ═══ -->
+    <div id="active-moments" style="margin-top:72px; scroll-margin-top:90px;">
+      <div class="section-line">Case Study — Making Auto-Combat Active</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:700px; margin-bottom:28px;">
+        Auto-combat is valuable because it lets the formation, monster roles and long-term upgrades do the work. But it created a design question: <strong style="color:var(--text);">what should a player do when they are present and watching a healthy fight?</strong> I did not want the answer to be tap damage. That would undermine the army-building game by making player reflexes more important than the formation they designed.
+      </p>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px; margin-bottom:16px;">
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent);">
+          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase; margin-bottom:8px;">01 · Problem</div>
+          <h4 style="font-size:0.9rem; color:var(--text); margin:0 0 8px;">Watching is not the same as playing</h4>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">If every wave resolves without a decision, a dungeon can become a dashboard. The player needs occasional reasons to look up, assess the state of their army and act—without being required to micromanage every attack.</p>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent);">
+          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase; margin-bottom:8px;">02 · Principle</div>
+          <h4 style="font-size:0.9rem; color:var(--text); margin:0 0 8px;">Short bursts of meaningful attention</h4>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Active moments should be optional, readable and quick. They reward being present with a tactical choice; they never turn the game into a tapper or punish a player for letting the army run.</p>
+        </div>
+      </div>
+
+      <div class="active-moments-grid">
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px;">
+          <span style="display:inline-block; font-size:0.66rem; font-weight:700; letter-spacing:0.08em; color:#4ade80; border:1px solid rgba(74,222,128,0.35); border-radius:999px; padding:3px 8px; margin-bottom:10px;">LIVE · GREEN GRAVES</span>
+          <h4 style="font-size:0.95rem; color:var(--text); margin:0 0 8px;">A timing decision inside the fight</h4>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.65; margin:0;">Green graves rise during waves. Tapping one raises a temporary undead ally, so the player decides <em style="color:var(--text);">when</em> extra help matters: stabilise a losing frontline, answer a dangerous raid, or hold it for the next threat. The formation remains the source of power; the player chooses the moment to spend an opportunity.</p>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px;">
+          <span style="display:inline-block; font-size:0.66rem; font-weight:700; letter-spacing:0.08em; color:#fbbf24; border:1px solid rgba(251,191,36,0.35); border-radius:999px; padding:3px 8px; margin-bottom:10px;">LIVE · TREASURE CHESTS</span>
+          <h4 style="font-size:0.95rem; color:var(--text); margin:0 0 8px;">A reward that creates attention, not chores</h4>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.65; margin:0;">Treasure chests create a visible opportunity during a raid. A player who is watching can claim the reward in the moment, while a player who ignores it is not punished—the chest pays out at the wave break. That makes attention feel good without making absence feel bad.</p>
+        </div>
+      </div>
+
+      <div style="background:linear-gradient(135deg, rgba(147,51,234,0.10), rgba(192,132,252,0.03)); border:1px solid rgba(147,51,234,0.3); border-radius:12px; padding:22px 24px;">
+        <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase; margin-bottom:8px;">Next iteration · between-wave events</div>
+        <h4 style="font-size:1rem; color:var(--text); margin:0 0 10px;">Make the dungeon feel like a place, not a conveyor belt</h4>
+        <p style="font-size:0.82rem; color:var(--muted); line-height:1.7; max-width:760px; margin:0 0 14px;">I am expanding this principle with occasional events between waves: short interruptions that ask for a real decision before the next raid starts. They give the player a reason to re-engage at natural pauses, while leaving ordinary waves fast and readable.</p>
+        <div class="effects-wrap" style="margin-top:0;">
+          <span class="effect-pill"><strong>In progress:</strong> The Shadow Merchant — buy one temporary contract for a few waves, or banish him and continue.</span>
+          <span class="effect-pill"><strong>Planned:</strong> Ritual Idol — an optional formation DPS challenge with tiered rewards.</span>
+          <span class="effect-pill"><strong>Guardrail:</strong> rare, skippable, short-lived and never permanent power.</span>
+        </div>
+      </div>
+
+      <div class="gif-showcase" style="margin-top:20px;">
+        <figure class="gif-slot gif-slot--event">
+          <video src="../rip_shadow_merchant.mp4" aria-label="Rest in Profit — Shadow Merchant event" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>rip_shadow_merchant.mp4</code> here</span></div>
+          <figcaption>The Shadow Merchant — <span>a temporary bargain or a quick banishment between waves</span></figcaption>
+        </figure>
+        <figure class="gif-slot gif-slot--event">
+          <video src="../rip_ritual_idol.mp4" aria-label="Rest in Profit — Ritual Idol event" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>rip_ritual_idol.mp4</code> here</span></div>
+          <figcaption>Ritual Idol — <span>an optional formation DPS challenge with tiered rewards</span></figcaption>
+        </figure>
       </div>
     </div>
 
@@ -740,9 +852,9 @@
       </p>
       <div class="gif-showcase" style="margin-bottom:8px;">
         <figure class="gif-slot">
-          <video src="../rip_defense.mp4" aria-label="Rest in Profit dungeon defense" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <video src="../rip_defense.mp4" aria-label="Rest in Profit — a grave-robber racing for a gravestone" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>rip_defense.mp4</code> here</span></div>
-          <figcaption>The formation — <span>monsters self-sort by role and hold the line</span></figcaption>
+          <figcaption>The race for a grave — <span>a grave-robber goes for it; raise a skeleton before it lands</span></figcaption>
         </figure>
         <figure class="gif-slot">
           <video src="../rip_ability.mp4" aria-label="Rest in Profit monster ability" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
@@ -1070,6 +1182,115 @@
       })();
     </script>
 
+    <!-- ═══ Monetization ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">Monetization &amp; Ads</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:14px;">
+        A free-to-play game has to pay for itself, and how it does that is a design decision like any other. I set one rule first and derived the rest from it: <strong style="color:var(--text);">premium buys time and convenience, never power</strong>. Everything below follows from that line, and the line is also what I refuse to cross.
+      </p>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
+        The clearest test came from a pattern I kept meeting in other games: forced interstitials, then a purchase to remove them. I chose not to ship it. That model sells relief from a problem the designer created on purpose, and it would have made the game worse in order to make it earn. Every ad here is one the player chooses to watch for a reward, and the game is never worse for saying no.
+      </p>
+
+      <div class="mechanics-grid" style="margin-bottom:28px;">
+        <div class="mechanic-card">
+          <h3>Rewarded only</h3>
+          <p>No interstitials, no ad the player didn't tap. Each placement either follows a reward (double an expedition haul or an offline raid) or offers a way out of a bad moment (skip a revive timer, refill a dig). Capped per placement and per day.</p>
+        </div>
+        <div class="mechanic-card">
+          <h3>Ad buffs</h3>
+          <p>Timed boosts — coins, revive speed, an extra grave per wave, starting mana — earned with an ad, not bought. Ad-only on purpose: sell them for premium currency and I'd be selling power through the side door.</p>
+        </div>
+        <div class="mechanic-card">
+          <h3>Soul Gems buy time</h3>
+          <p>Extra digs, instant revives, collecting a raid's income early, a coin boost. Priced so the cheapest pack is a few dozen small conveniences rather than one big advantage.</p>
+        </div>
+        <div class="mechanic-card">
+          <h3>Free players earn them</h3>
+          <p>Daily login, collection milestones, first clears, rare finds while digging, and a daily ad. A currency a free player never touches teaches nobody what it's for.</p>
+        </div>
+        <div class="mechanic-card">
+          <h3>What I won't sell</h3>
+          <p>Stat upgrades, relics, monsters, duplicate levels, Reliquary sockets, formation slots. Those are the game. Selling any of them would collapse the coin economy the whole design rests on.</p>
+        </div>
+        <div class="mechanic-card">
+          <h3>Balanced at zero</h3>
+          <p>Waves are tuned for a player with no buffs, no gems and no ads watched. Spending moves the ceiling, never the floor — otherwise the free game is quietly broken and the paid one is the real one.</p>
+        </div>
+      </div>
+
+      <style>
+        .shot-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:18px; margin-bottom:28px; align-items:start; }
+        .shot { margin:0; background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:border-color 0.2s, transform 0.2s; }
+        .shot:hover { border-color:rgba(147,51,234,0.6); transform:translateY(-3px); box-shadow:0 0 28px rgba(147,51,234,0.12); }
+        .shot img { display:block; width:100%; height:auto; max-height:520px; object-fit:contain; background:#05050c; image-rendering:pixelated; }
+        .shot figcaption { padding:12px 16px; font-size:0.82rem; font-weight:600; color:var(--text); }
+        .shot figcaption span { color:var(--muted); font-weight:400; }
+        .shot .shot-missing { display:none; }
+        .shot.is-missing img { display:none; }
+        .shot.is-missing .shot-missing { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; aspect-ratio:4/5;
+          background:repeating-linear-gradient(45deg, rgba(147,51,234,0.04), rgba(147,51,234,0.04) 10px, transparent 10px, transparent 20px);
+          border-bottom:1px solid var(--border); color:var(--muted); font-size:0.8rem; text-align:center; padding:20px; }
+        .shot .shot-missing code { color:var(--accent2); font-size:0.78rem; }
+      </style>
+      <div class="shot-grid">
+        <figure class="shot">
+          <img src="../soul_gem_shop.png" alt="Rest in Profit — Soul Gem store" onerror="this.closest('.shot').classList.add('is-missing')">
+          <div class="shot-missing"><span style="font-size:1.4rem; color:var(--accent2); opacity:0.7;">◆</span><span>Drop <code>soul_gem_shop.png</code> here</span></div>
+          <figcaption>The store — <span>five tiers, plain prices, no pressure tactics</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="../watch_an_ad_1.png" alt="Rest in Profit — rewarded ad offer" onerror="this.closest('.shot').classList.add('is-missing')">
+          <div class="shot-missing"><span style="font-size:1.4rem; color:var(--accent2); opacity:0.7;">◆</span><span>Drop <code>watch_an_ad_1.png</code> here</span></div>
+          <figcaption>An offer, not an interruption — <span>shown at the moment it's useful</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="../watch_an_ad_2.png" alt="Rest in Profit — ad buff" onerror="this.closest('.shot').classList.add('is-missing')">
+          <div class="shot-missing"><span style="font-size:1.4rem; color:var(--accent2); opacity:0.7;">◆</span><span>Drop <code>watch_an_ad_2.png</code> here</span></div>
+          <figcaption>A buff earned — <span>timed, ad-only, never sold for gems</span></figcaption>
+        </figure>
+      </div>
+
+      <div style="border-left:2px solid var(--border); padding:4px 0 4px 16px;">
+        <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;"><strong style="color:var(--text);">Honest about scope:</strong> the currency, its sinks and the store are built; the ad network isn't wired up yet, so rewarded placements grant their reward directly while the design is tested. The economics here are reasoned, not measured — I have no live data, and I'd want retention and conversion numbers before claiming any of it works.</p>
+      </div>
+    </div>
+
+    <!-- ═══ What I cut ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">What I Cut</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
+        Two features I designed and then didn't build. Deciding what not to make is most of finishing anything, so both are here with the reasoning rather than quietly missing.
+      </p>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:16px; align-items:start;">
+
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden;">
+          <figure class="gif-slot" style="margin:0; border:none; border-radius:0;">
+            <img src="../rip_concept_parts_01.png" alt="Parts and assembly concept art" style="display:block; width:100%; aspect-ratio:4/3; object-fit:contain; background:#05050c; image-rendering:pixelated;" onerror="this.style.display='none'; this.closest('.gif-slot').classList.add('gif-missing')">
+            <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>rip_concept_parts_01.png</code> here</span></div>
+          </figure>
+          <div style="padding:18px 20px;">
+            <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">Parts &amp; assembly</h4>
+            <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0 0 10px;">Originally you dug up <em style="color:var(--text);">pieces</em> — a hand, a skull, a ribcage — and built monsters from them. It fit the necromancer fantasy perfectly, and it fought the dig loop: a grid reveal is satisfying because you uncover one whole shape, and parts turned every find into an inventory entry waiting on three more finds.</p>
+            <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">Cut in favour of whole monsters. The concept art didn't go to waste — the severed hand and the brain became relic icons.</p>
+          </div>
+        </div>
+
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 20px;">
+          <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">Parallel farming areas</h4>
+          <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
+            <span style="font-size:0.68rem; font-weight:700; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:3px 8px;">TEMPTING · more to manage, more income</span>
+            <span style="font-size:0.68rem; font-weight:700; color:var(--accent2); border:1px solid var(--accent); border-radius:6px; padding:3px 8px;">CUT · doubles the economy, splits the fantasy</span>
+          </div>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0 0 10px;">Several dungeons running at once, each with its own squad earning in parallel — the Sushi Bar Idle shape. It's a proven structure and it would have given monsters past the fourth slot somewhere to go.</p>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0 0 10px;">I cut it for three reasons. It multiplies the economy: every extra zone is another income curve to balance against one upgrade curve, and keeping a single curve honest was already the hardest work on the project. It splits the fantasy: the fight is about one line holding under pressure and choosing when to revive, and spreading that across screens turns it into allocation — a different genre, and closer to the idle game I decided this isn't. And "area" already means something here, on the digging side; a second meaning would only muddy it.</p>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">The art cost — a second arena and its props, hand-drawn — made the trade obvious, but the design reasons are why it isn't on the roadmap either.</p>
+        </div>
+
+      </div>
+    </div>
+
     <!-- ═══ Built from scratch ═══ -->
     <div style="margin-top:72px;">
       <div class="section-line">Built From Scratch — Solo</div>
@@ -1114,8 +1335,15 @@
     width: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
+    object-position: center 30%;
     background: #000;
     image-rendering: pixelated;
+  }
+  /* Desktop-captured event clips: near-square source, shown at true aspect */
+  .gif-slot--event img, .gif-slot--event video {
+    aspect-ratio: 658 / 724;
+    object-fit: contain;
+    object-position: center center;
   }
   .gif-slot .gif-placeholder { display: none; }
   .gif-slot.gif-missing img, .gif-slot.gif-missing video { display: none; }
