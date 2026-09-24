@@ -80,7 +80,7 @@
 
     .tl-track { position:relative; display:flex; align-items:stretch; gap:0; min-width:max-content; padding:0 12px; }
     /* central line */
-    .tl-track::before { content:''; position:absolute; left:12px; right:12px; top:70px; height:2px; background:linear-gradient(90deg,var(--done) 0%,var(--done) 34%,var(--wip) 42%,var(--wip) 65%,var(--plan) 73%,var(--plan) 80%,var(--backlog) 88%,var(--backlog) 100%); opacity:0.45; border-radius:2px; }
+    .tl-track::before { content:''; position:absolute; left:12px; right:12px; top:70px; height:2px; background:linear-gradient(90deg,var(--done) 0%,var(--done) 38%,var(--wip) 42%,var(--wip) 61%,var(--plan) 65%,var(--plan) 69%,var(--backlog) 73%,var(--backlog) 100%); opacity:0.45; border-radius:2px; }
 
     .tl-node { position:relative; width:186px; flex-shrink:0; padding:0 12px; display:flex; flex-direction:column; align-items:center; cursor:default; }
     .tl-node.clickable { cursor:pointer; }
@@ -142,7 +142,7 @@
       section { padding:64px 0; }
       .tl-scroll { overflow-x:visible; }
       .tl-track { flex-direction:column; min-width:0; gap:14px; padding-left:26px; }
-      .tl-track::before { left:9px; right:auto; top:8px; bottom:8px; width:2px; height:auto; background:linear-gradient(180deg,var(--done),var(--wip) 45%,var(--plan) 78%,var(--backlog)); }
+      .tl-track::before { left:9px; right:auto; top:8px; bottom:8px; width:2px; height:auto; background:linear-gradient(180deg,var(--done),var(--wip) 38%,var(--plan) 65%,var(--backlog) 69%); }
       .tl-node { width:100%; flex-direction:row; align-items:flex-start; gap:14px; padding:0; text-align:left; }
       .tl-num { display:none; }
       .tl-marker { margin:6px 0 0; position:absolute; left:-26px; }
@@ -255,23 +255,10 @@
         </div>
 
         <!-- IN DEVELOPMENT -->
-        <div class="tl-node clickable" data-status="wip" data-href="prototypes.html"
-             data-hook="A 2.5D action RPG in Unity — six interlocking systems (runes, crafting, scrolls, NPCs, classes, armor) designed around coherence over feature count. In active development and playable."
-             data-proves="Interlocking systems design + directing an implementation">
-          <div class="tl-num">06</div><div class="tl-marker"></div>
-          <div class="tl-card">
-            <div class="tl-status-tag">In Development</div>
-            <div class="tl-title">RunicRPG</div>
-            <div class="tl-genre">Action RPG · Unity</div>
-            <div class="tl-hook">2.5D action RPG — six interlocking systems built for coherence.</div>
-            <div class="tl-open">View concept →</div>
-          </div>
-        </div>
-
         <div class="tl-node" data-status="wip"
              data-hook="A Vampire Survivors-style incremental — equip a party of servants that act as your skills, upgrade them and your character through separate skill trees, and fight bosses across levels. A team project in my extracurricular program where I'm the lead game designer. In active development since August 2026, targeting a Steam release in mid-2027."
              data-proves="Leading design on a team + Steam shipping">
-          <div class="tl-num">07</div><div class="tl-marker"></div>
+          <div class="tl-num">06</div><div class="tl-marker"></div>
           <div class="tl-card">
             <div class="tl-status-tag">In Development</div>
             <div class="tl-title">Vampiro</div>
@@ -283,7 +270,7 @@
         <div class="tl-node clickable" data-status="wip" data-href="games/rest-in-profit.html"
              data-hook="A cozy-macabre mobile necromancer game — dig up undead monsters in a Disco Zoo-style grid reveal, then place them in a dungeon that fends off invading heroes for coins. Heading into a closed test ahead of a public Google Play launch."
              data-proves="Mobile economy design + a real public launch">
-          <div class="tl-num">08</div><div class="tl-marker"></div>
+          <div class="tl-num">07</div><div class="tl-marker"></div>
           <div class="tl-card">
             <div class="tl-status-tag">In Development</div>
             <div class="tl-title">Rest in Profit</div>
@@ -296,7 +283,7 @@
         <div class="tl-node" data-status="wip"
              data-hook="A vertical hybrid-casual dogfighter — steer while your plane auto-fires on locked targets. Start in a biplane and upgrade your way to fighter jets that clear the whole screen, with fuel-limited flights that feed an upgrade meta."
              data-proves="Hybrid-casual design + market-aware UX">
-          <div class="tl-num">09</div><div class="tl-marker"></div>
+          <div class="tl-num">08</div><div class="tl-marker"></div>
           <div class="tl-card">
             <div class="tl-status-tag">In Development</div>
             <div class="tl-title">Dogfight Evolution</div>
@@ -307,21 +294,9 @@
 
         <!-- NEXT / PLANNED -->
         <div class="tl-node" data-status="plan"
-             data-hook="Send submarines to the ocean floor for scrap — deeper zones mean richer hauls and higher risk. An idle/incremental game, shipping on Steam."
-             data-proves="Live Steam shipping + long-term economy tuning">
-          <div class="tl-num">10</div><div class="tl-marker"></div>
-          <div class="tl-card">
-            <div class="tl-status-tag">Planned</div>
-            <div class="tl-title">Deep Haul</div>
-            <div class="tl-genre">Idle / Incremental · Steam</div>
-            <div class="tl-hook">Dive submarines deeper for richer, riskier hauls. Shipping on Steam.</div>
-          </div>
-        </div>
-
-        <div class="tl-node" data-status="plan"
              data-hook="A hex-exploration game with deck-building combat — you author the map yourself, and the deck you build across a run decides every duel. Evolved from the Trials of the Dungeon concept."
              data-proves="Spatial + deckbuilder systems (3D step-up)">
-          <div class="tl-num">11</div><div class="tl-marker"></div>
+          <div class="tl-num">09</div><div class="tl-marker"></div>
           <div class="tl-card">
             <div class="tl-status-tag">Planned</div>
             <div class="tl-title">Hexbound</div>
@@ -331,6 +306,31 @@
         </div>
 
         <!-- BACKLOG -->
+        <div class="tl-node clickable" data-status="backlog" data-href="prototypes.html"
+             data-hook="A 2.5D action RPG in Unity — six interlocking systems (runes, crafting, scrolls, NPCs, classes, armor) designed around coherence over feature count. Paused since August 2026 while other projects took priority; not abandoned."
+             data-proves="Interlocking systems design + directing an implementation">
+          <div class="tl-num">10</div><div class="tl-marker"></div>
+          <div class="tl-card">
+            <div class="tl-status-tag">Paused</div>
+            <div class="tl-title">RunicRPG</div>
+            <div class="tl-genre">Action RPG · Unity</div>
+            <div class="tl-hook">2.5D action RPG — six interlocking systems built for coherence. On hold since Aug 2026.</div>
+            <div class="tl-open">View concept →</div>
+          </div>
+        </div>
+
+        <div class="tl-node" data-status="backlog"
+             data-hook="Send submarines to the ocean floor for scrap — deeper zones mean richer hauls and higher risk. An idle/incremental concept, not yet in development."
+             data-proves="Live Steam shipping + long-term economy tuning">
+          <div class="tl-num">11</div><div class="tl-marker"></div>
+          <div class="tl-card">
+            <div class="tl-status-tag">Backlog</div>
+            <div class="tl-title">Deep Haul</div>
+            <div class="tl-genre">Idle / Incremental · Steam</div>
+            <div class="tl-hook">Dive submarines deeper for richer, riskier hauls. Idea stage.</div>
+          </div>
+        </div>
+
         <div class="tl-node" data-status="backlog"
              data-hook="An engine-free C++ sword-customization RPG, written from scratch to understand what happens under the hood. Built around a setup phase, card collection, questing, and deep sword customization."
              data-proves="Engineering depth">
@@ -360,9 +360,9 @@
       <!-- phase bands (desktop) -->
       <div class="tl-phases">
         <div class="tl-phase ph-done" style="width:930px;">Finished<small>Shipped across engines, platforms &amp; a physical medium</small></div>
-        <div class="tl-phase ph-wip" style="width:744px;">In Development<small>Team lead, mobile launches &amp; hybrid-casual design</small></div>
-        <div class="tl-phase ph-plan" style="width:372px;">Next<small>Live Steam shipping &amp; deckbuilding</small></div>
-        <div class="tl-phase ph-backlog" style="width:372px;">Backlog<small>Someday, not a priority</small></div>
+        <div class="tl-phase ph-wip" style="width:558px;">In Development<small>Team lead, mobile launches &amp; hybrid-casual design</small></div>
+        <div class="tl-phase ph-plan" style="width:186px;">Next<small>Deckbuilding, evolved from Trials of the Dungeon</small></div>
+        <div class="tl-phase ph-backlog" style="width:744px;">Backlog<small>Paused or someday — not a current priority</small></div>
       </div>
     </div>
 
