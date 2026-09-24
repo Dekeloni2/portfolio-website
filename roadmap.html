@@ -80,7 +80,7 @@
 
     .tl-track { position:relative; display:flex; align-items:stretch; gap:0; min-width:max-content; padding:0 12px; }
     /* central line */
-    .tl-track::before { content:''; position:absolute; left:12px; right:12px; top:70px; height:2px; background:linear-gradient(90deg,var(--done) 0%,var(--done) 18%,var(--wip) 27%,var(--wip) 42%,var(--plan) 50%,var(--plan) 73%,var(--backlog) 82%,var(--backlog) 100%); opacity:0.45; border-radius:2px; }
+    .tl-track::before { content:''; position:absolute; left:12px; right:12px; top:70px; height:2px; background:linear-gradient(90deg,var(--done) 0%,var(--done) 34%,var(--wip) 42%,var(--wip) 65%,var(--plan) 73%,var(--plan) 80%,var(--backlog) 88%,var(--backlog) 100%); opacity:0.45; border-radius:2px; }
 
     .tl-node { position:relative; width:186px; flex-shrink:0; padding:0 12px; display:flex; flex-direction:column; align-items:center; cursor:default; }
     .tl-node.clickable { cursor:pointer; }
@@ -188,7 +188,7 @@
     <div class="tl-scroll">
       <div class="tl-track">
 
-        <!-- FOUNDATIONS -->
+        <!-- FINISHED -->
         <div class="tl-node clickable" data-status="done" data-href="games/balatro.html"
              data-hook="A poker-roguelike built solo in C# — scoring mechanics, run pacing, and a risk/reward economy."
              data-proves="Solo full-pipeline execution">
@@ -228,7 +228,6 @@
           </div>
         </div>
 
-        <!-- IN DEVELOPMENT -->
         <div class="tl-node clickable" data-status="done" data-href="games/survival.html"
              data-hook="Mobile survival with full meta progression — session design, offline rewards, and a layered economy. Course deadline: end of July 2026."
              data-proves="Meta-progression & economy design">
@@ -255,6 +254,7 @@
           </div>
         </div>
 
+        <!-- IN DEVELOPMENT -->
         <div class="tl-node clickable" data-status="wip" data-href="prototypes.html"
              data-hook="A 2.5D action RPG in Unity — six interlocking systems (runes, crafting, scrolls, NPCs, classes, armor) designed around coherence over feature count. In active development and playable."
              data-proves="Interlocking systems design + directing an implementation">
@@ -280,11 +280,36 @@
           </div>
         </div>
 
+        <div class="tl-node clickable" data-status="wip" data-href="games/rest-in-profit.html"
+             data-hook="A cozy-macabre mobile necromancer game — dig up undead monsters in a Disco Zoo-style grid reveal, then place them in a dungeon that fends off invading heroes for coins. Heading into a closed test ahead of a public Google Play launch."
+             data-proves="Mobile economy design + a real public launch">
+          <div class="tl-num">08</div><div class="tl-marker"></div>
+          <div class="tl-card">
+            <div class="tl-status-tag">In Development</div>
+            <div class="tl-title">Rest in Profit</div>
+            <div class="tl-genre">Collection / Management · Unity · Mobile</div>
+            <div class="tl-hook">Dig up undead monsters, defend your dungeon from heroes. Heading to Google Play.</div>
+            <div class="tl-open">View breakdown →</div>
+          </div>
+        </div>
+
+        <div class="tl-node" data-status="wip"
+             data-hook="A vertical hybrid-casual dogfighter — steer while your plane auto-fires on locked targets. Start in a biplane and upgrade your way to fighter jets that clear the whole screen, with fuel-limited flights that feed an upgrade meta."
+             data-proves="Hybrid-casual design + market-aware UX">
+          <div class="tl-num">09</div><div class="tl-marker"></div>
+          <div class="tl-card">
+            <div class="tl-status-tag">In Development</div>
+            <div class="tl-title">Dogfight Evolution</div>
+            <div class="tl-genre">Hybrid Casual · Unity · Mobile</div>
+            <div class="tl-hook">Steer, auto-fire, and upgrade from biplanes to screen-clearing jets.</div>
+          </div>
+        </div>
+
         <!-- NEXT / PLANNED -->
         <div class="tl-node" data-status="plan"
              data-hook="Send submarines to the ocean floor for scrap — deeper zones mean richer hauls and higher risk. An idle/incremental game, shipping on Steam."
              data-proves="Live Steam shipping + long-term economy tuning">
-          <div class="tl-num">08</div><div class="tl-marker"></div>
+          <div class="tl-num">10</div><div class="tl-marker"></div>
           <div class="tl-card">
             <div class="tl-status-tag">Planned</div>
             <div class="tl-title">Deep Haul</div>
@@ -294,21 +319,9 @@
         </div>
 
         <div class="tl-node" data-status="plan"
-             data-hook="Before each fight you arrange your units on a puzzle board — placement and adjacency create the synergies that decide the automatic battle. Your skill lives in how well you solved the puzzle first."
-             data-proves="Original mechanic design — the differentiator">
-          <div class="tl-num">09</div><div class="tl-marker"></div>
-          <div class="tl-card">
-            <div class="tl-status-tag">Planned</div>
-            <div class="tl-title">Setpiece</div>
-            <div class="tl-genre">Auto Battler · Pixel · Mobile</div>
-            <div class="tl-hook">Solve a pre-fight placement puzzle; adjacency drives auto-combat.</div>
-          </div>
-        </div>
-
-        <div class="tl-node" data-status="plan"
              data-hook="A hex-exploration game with deck-building combat — you author the map yourself, and the deck you build across a run decides every duel. Evolved from the Trials of the Dungeon concept."
              data-proves="Spatial + deckbuilder systems (3D step-up)">
-          <div class="tl-num">10</div><div class="tl-marker"></div>
+          <div class="tl-num">11</div><div class="tl-marker"></div>
           <div class="tl-card">
             <div class="tl-status-tag">Planned</div>
             <div class="tl-title">Hexbound</div>
@@ -321,24 +334,12 @@
         <div class="tl-node" data-status="backlog"
              data-hook="An engine-free C++ sword-customization RPG, written from scratch to understand what happens under the hood. Built around a setup phase, card collection, questing, and deep sword customization."
              data-proves="Engineering depth">
-          <div class="tl-num">11</div><div class="tl-marker"></div>
+          <div class="tl-num">12</div><div class="tl-marker"></div>
           <div class="tl-card">
             <div class="tl-status-tag">Backlog</div>
             <div class="tl-title">C++ Sword RPG</div>
             <div class="tl-genre">Sword-customization RPG · C++</div>
             <div class="tl-hook">Engine-free C++ RPG — setup, card collection, questing &amp; sword customization.</div>
-          </div>
-        </div>
-
-        <div class="tl-node" data-status="backlog"
-             data-hook="A single-mechanic archery trick-shot game — draw, release, and let arrows pierce, ricochet, and split through puzzle levels. A two-stage hyper- to hybrid-casual study."
-             data-proves="Market-aware casual design">
-          <div class="tl-num">12</div><div class="tl-marker"></div>
-          <div class="tl-card">
-            <div class="tl-status-tag">Backlog</div>
-            <div class="tl-title">Ricochet</div>
-            <div class="tl-genre">Hyper/Hybrid Casual · Mobile</div>
-            <div class="tl-hook">One-mechanic archery trick-shot; hyper- to hybrid-casual.</div>
           </div>
         </div>
 
@@ -358,10 +359,10 @@
 
       <!-- phase bands (desktop) -->
       <div class="tl-phases">
-        <div class="tl-phase ph-done" style="width:558px;">Foundations<small>Solo shipping &amp; systems basics</small></div>
-        <div class="tl-phase ph-wip" style="width:558px;">In Development<small>Systems, narrative &amp; economy design</small></div>
-        <div class="tl-phase ph-plan" style="width:744px;">Next<small>Team lead, live shipping &amp; original mechanics</small></div>
-        <div class="tl-phase ph-backlog" style="width:558px;">Backlog<small>Someday, not a priority</small></div>
+        <div class="tl-phase ph-done" style="width:930px;">Finished<small>Shipped across engines, platforms &amp; a physical medium</small></div>
+        <div class="tl-phase ph-wip" style="width:744px;">In Development<small>Team lead, mobile launches &amp; hybrid-casual design</small></div>
+        <div class="tl-phase ph-plan" style="width:372px;">Next<small>Live Steam shipping &amp; deckbuilding</small></div>
+        <div class="tl-phase ph-backlog" style="width:372px;">Backlog<small>Someday, not a priority</small></div>
       </div>
     </div>
 
@@ -395,7 +396,7 @@
       <a href="https://github.com/Dekeloni2" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
       <span class="btn btn-ghost" style="cursor:default;"><img src="discord.png" alt="" style="width:16px;height:16px;object-fit:contain;margin-right:6px;vertical-align:-3px;">Discord: Dekeloni2</span>
     </div>
-    <p style="margin-top:40px; font-size:0.78rem; color:var(--muted);">© 2026 Dekel Riess · Game Designer Portfolio · Updated July 2026</p>
+    <p style="margin-top:40px; font-size:0.78rem; color:var(--muted);">© 2026 Dekel Riess · Game Designer Portfolio · Updated September 2026</p>
   </div>
 </section>
 
