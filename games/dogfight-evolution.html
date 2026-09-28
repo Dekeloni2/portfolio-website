@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dogfight Evolution — Dekel Riess</title>
+  <meta name="description" content="Dogfight Evolution — a hybrid-casual vertical dogfighting shooter built in Unity. Design breakdown: fuel-as-timer, ramming, capped shop progression, and adaptive enemy scaling." />
+  <link rel="icon" type="image/png" href="../favicon.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Dogfight Evolution — Dekel Riess" />
+  <meta property="og:description" content="Dogfight Evolution — a hybrid-casual vertical dogfighting shooter built in Unity. Design breakdown: fuel-as-timer, ramming, capped shop progression, and adaptive enemy scaling." />
+  <meta property="og:url" content="https://dekeloni2.github.io/portfolio-website/games/dogfight-evolution.html" />
+  <meta property="og:image" content="https://dekeloni2.github.io/portfolio-website/dekel.png" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ─── Reset & Base ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #07070f;
+      --surface:  #0d0d1a;
+      --surface2: #131320;
+      --border:   #21213a;
+      --accent:   #9333ea;
+      --accent2:  #c084fc;
+      --glow:     rgba(147,51,234,0.25);
+      --text:     #ededf5;
+      --muted:    #7878a0;
+      --radius:   8px;
+      --max-w:    1100px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    /* Subtle film grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.028;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    a { color: var(--accent2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ─── Layout ─────────────────────────────────────────────────── */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+    section { padding: 96px 0; }
+    section + section { border-top: 1px solid transparent; background-image: linear-gradient(var(--bg), var(--bg)), linear-gradient(90deg, transparent, rgba(147,51,234,0.2) 30%, rgba(147,51,234,0.2) 70%, transparent); background-origin: border-box; background-clip: padding-box, border-box; border-top: 1px solid transparent; position: relative; }
+    section + section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(147,51,234,0.25) 30%, rgba(147,51,234,0.25) 70%, transparent); }
+
+    h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; line-height: 1.15; }
+    h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; margin-bottom: 12px; }
+    h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 6px; }
+
+    .label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .section-header { margin-bottom: 56px; }
+    .section-header p { color: var(--muted); max-width: 580px; margin-top: 8px; }
+
+    /* ─── Nav ────────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(7,7,15,0.85);
+      backdrop-filter: blur(20px) saturate(1.4);
+      border-bottom: 1px solid rgba(147,51,234,0.18);
+      box-shadow: 0 1px 40px rgba(0,0,0,0.5);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .nav-logo { font-weight: 700; font-size: 0.95rem; color: var(--text); }
+
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--muted); font-size: 0.85rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+    /* ─── Buttons ────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: var(--radius);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      border: none;
+    }
+    .btn:hover { opacity: 0.85; text-decoration: none; transform: translateY(-1px); }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), #7c3aed); color: #fff; box-shadow: 0 0 20px rgba(147,51,234,0.35); }
+    .btn-primary:hover { box-shadow: 0 0 32px rgba(147,51,234,0.55); }
+    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-ghost:hover { border-color: rgba(147,51,234,0.5); }
+
+    /* ─── Badges ─────────────────────────────────────────────────── */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .badge-done { background: rgba(34,197,94,0.15);  color: #4ade80; }
+    .badge-wip  { background: rgba(251,146,60,0.15); color: #fb923c; }
+    .badge-plan { background: rgba(124,108,255,0.15); color: var(--accent2); }
+
+    /* ─── Tags ───────────────────────────────────────────────────── */
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .tag {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    /* ─── Cards ──────────────────────────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .card:hover { border-color: rgba(147,51,234,0.6); transform: translateY(-2px); box-shadow: 0 0 24px rgba(147,51,234,0.12); }
+
+    /* ─── Pillars ────────────────────────────────────────────────── */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .pillar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .pillar-num { font-size: 0.68rem; font-weight: 700; color: var(--accent2); letter-spacing: 0.08em; margin-bottom: 4px; }
+    .pillar h4  { font-size: 0.88rem; font-weight: 700; margin-bottom: 5px; }
+    .pillar p   { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+    /* ─── Mechanics grid ─────────────────────────────────────────── */
+    .mechanics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 14px;
+    }
+    .mechanic-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .mechanic-icon { font-size: 1.5rem; margin-bottom: 10px; display:flex; align-items:center; justify-content:center; width:32px; height:32px; }
+    .mechanic-icon img { width: 32px; height: 32px; object-fit: none; image-rendering: pixelated; image-rendering: crisp-edges; }
+    .mechanic-card h3 { font-size: 0.92rem; margin-bottom: 6px; }
+    .mechanic-card p  { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
+
+    /* ─── Progression row ────────────────────────────────────────── */
+    .prog-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+    .prog-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px;
+    }
+    .prog-block h3 { margin-bottom: 10px; font-size: 0.95rem; }
+    .prog-block ul { list-style: none; }
+    .prog-block ul li {
+      font-size: 0.8rem;
+      color: var(--muted);
+      padding: 4px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .prog-block ul li:last-child { border-bottom: none; }
+    .prog-block ul li::before { content: '→'; color: var(--accent); font-size: 0.7rem; flex-shrink: 0; }
+
+    /* ─── Loop chain ─────────────────────────────────────────────── */
+    .loop-chain { display: flex; flex-direction: column; gap: 0; margin: 20px 0; }
+    .loop-step { display: flex; align-items: center; gap: 12px; padding: 8px 0; }
+    .loop-dot {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 2px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 700; color: var(--accent2);
+      flex-shrink: 0;
+    }
+    .loop-step-text { font-size: 0.88rem; font-weight: 600; }
+    .loop-connector { width: 2px; height: 14px; background: var(--accent); opacity: 0.3; margin-left: 14px; }
+
+    /* ─── Game section layout ────────────────────────────────────── */
+    .game-section-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    .game-meta-col {}
+
+    .game-meta-col .badge { margin-bottom: 14px; }
+    .game-meta-col h2 { font-size: 1.6rem; margin-bottom: 10px; }
+    .game-meta-col .concept { color: var(--muted); font-size: 0.9rem; margin-bottom: 20px; }
+
+    .game-info-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .game-info-item { display: flex; gap: 10px; font-size: 0.8rem; }
+    .game-info-key { color: var(--muted); min-width: 72px; }
+    .game-info-val { color: var(--text); font-weight: 500; }
+
+    .game-content-col {}
+
+    /* section accent lines */
+    .section-line {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+      margin-top: 40px;
+    }
+    .section-line:first-child { margin-top: 0; }
+
+    /* ─── Post mortem ────────────────────────────────────────────── */
+    .postmortem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .pm-card {
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid;
+    }
+    .pm-good  { background: rgba(34,197,94,0.06);  border-color: rgba(34,197,94,0.2);  }
+    .pm-bad   { background: rgba(239,68,68,0.06);  border-color: rgba(239,68,68,0.2);  }
+    .pm-card h4 { font-size: 0.88rem; font-weight: 700; margin-bottom: 10px; }
+    .pm-good h4 { color: #4ade80; }
+    .pm-bad  h4 { color: #f87171; }
+    .pm-card ul { list-style: none; }
+    .pm-card ul li { font-size: 0.8rem; color: var(--muted); padding: 3px 0; display: flex; gap: 8px; align-items: flex-start; }
+    .pm-good ul li::before { content: '✓'; color: #4ade80; flex-shrink: 0; }
+    .pm-bad  ul li::before { content: '✗'; color: #f87171; flex-shrink: 0; }
+
+    .pm-lesson {
+      background: rgba(124,108,255,0.07);
+      border: 1px solid rgba(124,108,255,0.2);
+      border-radius: 10px;
+      padding: 20px 24px;
+      grid-column: 1 / -1;
+    }
+    .pm-lesson h4 { font-size: 0.88rem; font-weight: 700; color: var(--accent2); margin-bottom: 10px; }
+    .pm-lesson p  { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+
+    /* ─── Hero ───────────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* ─── Scroll animations ──────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+    .reveal-delay-4 { transition-delay: 0.32s; }
+
+    /* ─── Contact ────────────────────────────────────────────────── */
+    #contact { text-align: center; padding: 80px 0; }
+    #contact h2 { margin-bottom: 10px; }
+    #contact p  { color: var(--muted); margin-bottom: 28px; }
+    .contact-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ─── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 820px) {
+      .game-section-layout { grid-template-columns: 1fr; gap: 32px; }
+      .pillars-grid         { grid-template-columns: 1fr; }
+      .prog-row             { grid-template-columns: 1fr; }
+      .postmortem-grid      { grid-template-columns: 1fr; }
+      .about-layout         { grid-template-columns: 1fr; gap: 40px; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      section    { padding: 64px 0; }
+    }
+
+    /* ─── Page transitions ───────────────────────────────────────── */
+    body { animation: pageFadeIn 0.45s ease; }
+    @keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    body.fade-out { opacity: 0 !important; transition: opacity 0.22s ease; }
+    a, .hub-card, .toolbox-card, .card, .experience-card { transition: opacity 0.2s, transform 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s; }
+
+    /* ─── Site footer nav ────────────────────────────────────────── */
+    .site-nav-footer {
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      padding: 44px 0;
+    }
+    .site-nav-footer-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+      display: block;
+    }
+    .site-nav-footer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 28px;
+    }
+    .site-nav-footer-grid a {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .site-nav-footer-grid a:hover { color: var(--accent2); text-decoration: none; }
+    .site-nav-footer-games {
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ─── At a glance band ───────────────────────────────────────── */
+    .at-glance {
+      background: linear-gradient(135deg, rgba(147,51,234,0.09), rgba(192,132,252,0.03));
+      border: 1px solid rgba(147,51,234,0.28);
+      border-radius: 14px;
+      padding: 24px 26px 22px;
+      margin-bottom: 44px;
+    }
+    .at-glance .label { margin-bottom: 8px; }
+    .at-glance-hook {
+      font-size: 1.02rem;
+      color: var(--text);
+      line-height: 1.6;
+      font-weight: 500;
+      margin: 0 0 18px;
+    }
+    .at-glance-hook strong { color: var(--accent2); font-weight: 600; }
+    .highlight-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .highlight-chip {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .highlight-chip::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .jump-to-detail {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent2);
+    }
+    .jump-to-detail:hover { text-decoration: none; opacity: 0.82; }
+    .section-line { scroll-margin-top: 80px; }
+
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo" style="text-decoration:none;">Dekel Riess</a>
+    <ul class="nav-links">
+      <li><a href="../games.html">Games</a></li>
+      <li><a href="../prototypes.html">Experiments</a></li>
+      <li><a href="../experience.html">Experience</a></li>
+      <li><a href="../toolbox.html">Toolbox</a></li>
+      <li><a href="../roadmap.html">Roadmap</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section id="dogfight-evolution">
+  <div class="container">
+    <div class="game-section-layout">
+
+      <div class="game-meta-col">
+        <span class="badge badge-wip">In Development</span>
+        <div style="display:flex; align-items:center; gap:12px; margin-top:12px;">
+          <img src="../dogfight_evolution.png" alt="Dogfight Evolution logo" style="width:40px; height:40px; object-fit:contain; flex-shrink:0;" onerror="this.style.display='none'">
+          <h2 style="margin:0;">Dogfight Evolution</h2>
+        </div>
+        <p class="concept">
+          A hybrid-casual vertical dogfighting shooter — climb from lumbering biplanes to supersonic jets. Auto-lock onto enemy planes and unload, or close the distance and ram them out of the sky. Fuel is your run timer: burn it fighting, or save enough to make it back to the carrier and cash in. Every kill funds the next upgrade; every upgrade earns a stronger plane.
+        </p>
+        <div class="game-info-row">
+          <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">Unity</span></div>
+          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">Hybrid-Casual · Vertical Shooter</span></div>
+          <div class="game-info-item"><span class="game-info-key">Platform</span><span class="game-info-val">Android · iOS</span></div>
+          <div class="game-info-item"><span class="game-info-key">Play Time</span><span class="game-info-val">~2–3 min per run</span></div>
+          <div class="game-info-item"><span class="game-info-key">Team</span><span class="game-info-val">Solo</span></div>
+          <div class="game-info-item"><span class="game-info-key">Role</span><span class="game-info-val">Designer · Developer</span></div>
+          <div class="game-info-item"><span class="game-info-key">Owned</span><span class="game-info-val">Full design, economy, code</span></div>
+          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">Core loop playable · shop &amp; progression in build</span></div>
+        </div>
+      </div>
+
+      <div class="game-content-col">
+        <!-- At a glance -->
+        <div class="at-glance reveal">
+          <span class="label">At a glance</span>
+          <p class="at-glance-hook">A <strong>hybrid-casual vertical dogfighting shooter</strong> in Unity — fuel is the timer, ramming is a risk you choose to take, and every upgrade is capped so the shop stays a real decision instead of a straight line to "win."</p>
+          <div class="highlight-chips">
+            <span class="highlight-chip">Solo design + dev</span>
+            <span class="highlight-chip">Fuel-as-timer, not HP</span>
+            <span class="highlight-chip">Capped upgrade economy</span>
+            <span class="highlight-chip">Passed the 10-second clarity test</span>
+          </div>
+          <a href="#breakdown" class="jump-to-detail">Jump to the full breakdown ↓</a>
+        </div>
+
+        <div class="section-line" id="breakdown">Design Pillars</div>
+        <div class="pillars-grid">
+          <div class="pillar">
+            <div class="pillar-num">01</div>
+            <h4>Fuel Is the Player's Clock</h4>
+            <p>No player HP, no death screen. Every run is bounded by a draining fuel bar instead — you decide how much of it to spend fighting versus saving to get home. The tension is entirely self-imposed.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">02</div>
+            <h4>Ramming Rewards Aggression, at a Cost</h4>
+            <p>Closing the gap and ramming an enemy hits hard, but it isn't a free instant-kill and it isn't free fuel either. It's a deliberate trade a player opts into, not a system that trivializes tougher enemies.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">03</div>
+            <h4>New Planes Are Power Spikes, Not Skins</h4>
+            <p>A fighter jet has to feel meaningfully stronger than a biplane. Plane unlocks change the stat line, not just the sprite — progression is felt, not just seen.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">04</div>
+            <h4>Difficulty Tracks Combat Power, Not Utility</h4>
+            <p>Enemies scale off Damage, Fire Rate, Lock-On, and Ram Efficiency only. Fuel and CPK — the pacing and reward stats — never make the game harder, so grinding economy never accidentally punishes the player.</p>
+          </div>
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">Core Loop</div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px; margin-bottom:8px;">
+          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; margin-bottom:16px;">
+            One run, one clock. The whole meta-loop hangs off a single resource: fuel goes down, coins go up, and everything you buy comes back around to change how long you can stay in the fight.
+          </p>
+          <div class="loop-chain">
+            <div class="loop-step"><div class="loop-dot">1</div><div class="loop-step-text">Launch from the carrier with a full fuel tank</div></div>
+            <div class="loop-connector"></div>
+            <div class="loop-step"><div class="loop-dot">2</div><div class="loop-step-text">Auto-lock and fire on enemies in range — or close in and ram for a bigger, riskier hit</div></div>
+            <div class="loop-connector"></div>
+            <div class="loop-step"><div class="loop-dot">3</div><div class="loop-step-text">Fuel burns as your run clock — a flashing warning hits once you're in the red zone</div></div>
+            <div class="loop-connector"></div>
+            <div class="loop-step"><div class="loop-dot">4</div><div class="loop-step-text">Return to the carrier before it hits zero and bank every coin from kills you chained</div></div>
+            <div class="loop-connector"></div>
+            <div class="loop-step"><div class="loop-dot">5</div><div class="loop-step-text">Spend at the shop — then launch again in a stronger plane</div></div>
+          </div>
+        </div>
+
+        <div class="section-line" style="margin-top:36px;">Core Actions</div>
+        <div class="mechanics-grid">
+          <div class="mechanic-card">
+            <div class="mechanic-icon">🎯</div>
+            <h3>Auto-Lock &amp; Fire</h3>
+            <p>Lock onto enemy planes in range and fire automatically. The core damage dealer, scaled entirely by shop upgrades — Damage, Fire Rate, and how many locks you can hold at once.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">💥</div>
+            <h3>Ram</h3>
+            <p>Fly straight into an enemy for roughly 60–75% of its max HP in one hit, at a fuel cost of about 5–8% of your tank. Strong, but never a guaranteed kill — boss-tier enemies stay dangerous.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">⛽</div>
+            <h3>Fuel Management</h3>
+            <p>The bar drains green → yellow → red at a constant rate and doubles as your run timer. Upgrades raise the tank's max duration in seconds — later planes simply carry more fuel.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">🔥</div>
+            <h3>Combo Chain</h3>
+            <p>Chaining kills within a short window builds a currency multiplier; let the chain lapse and it resets. Rewards staying aggressive instead of picking off planes one at a time.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ═══ Gameplay — In Motion (top-of-page proof) ═══ -->
+    <div id="gameplay-footage" style="margin-top:64px; scroll-margin-top:90px;">
+      <div class="section-line">Gameplay — In Motion</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:18px;">
+        What starting a run actually looks like: the takeoff sequence that doubles as the game's loading screen, then straight into the dogfight — auto-lock, fire, fuel draining, ramming when it's worth the risk.
+      </p>
+      <div class="gif-showcase">
+        <figure class="gif-slot">
+          <video src="../dogfight_takeoff.mp4" aria-label="Dogfight Evolution plane takeoff sequence" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop dogfight_takeoff.gif here</span></div>
+          <figcaption>Plane Takeoff — <span>the launch sequence that runs while the level loads in</span></figcaption>
+        </figure>
+        <figure class="gif-slot">
+          <video src="../dogfight_combat.mp4" aria-label="Dogfight Evolution combat gameplay" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop dogfight_combat.gif here</span></div>
+          <figcaption>Combat — <span>auto-lock, fire, fuel draining, and a ram on a closing target</span></figcaption>
+        </figure>
+      </div>
+    </div>
+
+
+    <!-- ═══ Design Story (skim-first spine) ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">How I Designed It</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
+        The 60-second version — the reasoning behind Dogfight Evolution, from the core problem to what I'd change next. The full breakdown is below; this is the map.
+      </p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px;">
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">01 · Problem</div>
+          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">A run needs a clock, not a death</h4>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Hybrid-casual sessions need to end on their own, but a death screen punishes a mobile player for a short session game. How do you close a run without HP, without a fail state, and without it feeling like nothing was at stake?</p>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">02 · Design Decision</div>
+          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Fuel replaces HP entirely</h4>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">The plane never dies — it just runs out of gas and heads home. Every later system hangs off that single clock: ramming costs fuel instead of adding a damage system, upgrades extend the clock instead of granting more health, and the low-fuel warning is the game's only urgency cue.</p>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">03 · Prototype / Test</div>
+          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Built the loop, then handed it to testers</h4>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Once the carrier → dogfight → summary → shop loop was playable end to end, I put it in front of testers. Feedback flagged a missing low-fuel warning, a wish for ramming instead of a new HP system, and — once a few stats were maxed — the game just got too easy.</p>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">04 · Result</div>
+          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Cap the shop, split what scales difficulty</h4>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Gave every stat a hard rank ceiling instead of open-ended scaling, and split the six shop stats into "combat" (Damage, Fire Rate, Lock-On, Ram Efficiency) and "economy" (Fuel, CPK) — only combat stats now scale enemy difficulty. <a href="#playtest" style="color:var(--accent2); font-weight:600;">See the full iteration ↓</a></p>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">05 · What I'd Change Next</div>
+          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Give a maxed-out economy somewhere to go</h4>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Capping the shop solved the balance problem but created a new one: a player who maxes everything has nowhere left to spend currency. Boss-gated stage tiers — tougher enemies that pay more — are the planned endgame sink, still unbuilt.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ Playtesting & Iteration ═══ -->
+    <div id="playtest" style="margin-top:72px; scroll-margin-top:90px;">
+      <div class="section-line">Playtesting &amp; Iteration</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:660px; margin-bottom:28px;">
+        My testers are largely miluim (reserve duty) peers — a built-in, opinionated group who'll actually tell me when something's wrong. Between sessions I triage: build what serves the loop, defer what doesn't.
+      </p>
+
+      <!-- 10-second clarity test -->
+      <div style="background:rgba(34,197,94,0.06); border:1px solid rgba(34,197,94,0.2); border-radius:12px; padding:20px 24px; margin-bottom:16px; display:flex; align-items:flex-start; gap:16px;">
+        <div style="font-size:1.6rem; color:#4ade80; flex-shrink:0; line-height:1;">✓</div>
+        <div>
+          <h4 style="font-size:0.95rem; font-weight:700; color:#4ade80; margin-bottom:8px;">Passed the 10-second clarity test</h4>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">Before touching balance or systems, I checked the thing hybrid-casual lives or dies on: can a player tell what's going on in the first 10 seconds? I handed the phone to people who'd never seen the game, cold, no explanation — every single one instantly understood the gameplay, the controls, and how to fight. If that read takes longer than a few seconds, nothing else about the design matters; this is the result everything else in this breakdown was built on top of.</p>
+        </div>
+      </div>
+
+      <!-- Tier 1 — design judgment -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 20px;">
+          <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">Ramming replaced a separate HP system</h4>
+          <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
+            <span style="font-size:0.68rem; font-weight:700; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:3px 8px;">CONSIDERED · player HP + collision damage</span>
+            <span style="font-size:0.68rem; font-weight:700; color:var(--accent2); border:1px solid var(--accent); border-radius:6px; padding:3px 8px;">SHIPPED · fuel-cost ram, no new stat</span>
+          </div>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">I'd considered carrying a plane-damage/maintenance idea over from a separate technician-sim project of mine. It didn't fit — Dogfight Evolution already has one resource doing the job of a health bar. Ramming instead costs fuel (~5–8% of max) and deals 60–75% of the target's max HP, so it's a trade against the same clock the whole game already runs on, not a second system to track.</p>
+        </div>
+
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 20px;">
+          <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">Added a low-fuel flash warning</h4>
+          <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
+            <span style="font-size:0.68rem; font-weight:700; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:3px 8px;">BEFORE · bar just drained, no cue</span>
+            <span style="font-size:0.68rem; font-weight:700; color:var(--accent2); border:1px solid var(--accent); border-radius:6px; padding:3px 8px;">AFTER · flashes at the red zone</span>
+          </div>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">A tester asked for a clearer signal before running dry mid-fight. Rather than pick an arbitrary second count, the flash triggers at the same threshold as the bar's red zone — roughly the last 10–15% of that flight's max fuel — so the warning always means the same thing regardless of how upgraded the tank is.</p>
+          <p style="font-size:0.78rem; color:var(--muted); line-height:1.6; margin:14px 0 0; padding-top:12px; border-top:1px solid var(--border);">Both changes came from the same instinct: fuel is the only resource in the game, so every new system should spend or protect it — never compete with it.</p>
+        </div>
+      </div>
+
+      <!-- Tier 2 — UX & QoL pass -->
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 22px; margin-bottom:16px;">
+        <h4 style="margin:0 0 6px; font-size:0.95rem; color:var(--text);">Same build cycle — UX &amp; economy pass</h4>
+        <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0 0 14px;">Smaller decisions cleared alongside the bigger ones:</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:10px;">
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Post-dogfight summary screen</strong><br>Coins earned + a Done button before returning to the shop — a clear beat between "fighting" and "spending."</div>
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Coins shown at the top of screen</strong><br>Kept currency in the conventional mobile HUD position players already expect.</div>
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Automatic weapons progression-gated</strong><br>Turrets and heat-seeking missiles unlock with plane tier, not pure shop currency — keeps early purchases meaningful.</div>
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Granular ranks over raised caps</strong><br>When a stat's cap felt reachable too fast, I added more, cheaper ranks with a steeper cost curve instead of raising the ceiling.</div>
+        </div>
+      </div>
+
+      <!-- Scoped out -->
+      <div style="border-left:2px solid var(--border); padding:4px 0 4px 16px;">
+        <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;"><strong style="color:var(--text);">Scoped out:</strong> a plane-maintenance/damage-inspection mini-game, carried over from a separate technician-sim concept of mine. It's a good mechanic for that game, not this one — Dogfight Evolution's identity is "launch, fight, upgrade, repeat," and a maintenance layer would compete with fuel for the player's attention instead of feeding the same loop.</p>
+      </div>
+    </div>
+
+
+    <!-- ═══ Deep Dive divider ═══ -->
+    <div style="margin-top:80px;">
+      <div class="section-line">Deep Dive</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px;">
+        Everything below is the full breakdown — the fuel clock in motion, ramming and the combo chain, the capped shop economy, plane milestones, and how enemy difficulty scales. The summary above is the whole argument in short; go as deep as you want from here.
+      </p>
+    </div>
+
+    <div class="coming-soon" style="margin-top:32px;">
+      <div class="coming-soon-icon">🎬</div>
+      <div>
+        <div class="coming-soon-title">Footage coming as the build stabilizes</div>
+        <div class="coming-soon-sub">The core loop is playable end to end; the clips below will fill in as it goes from prototype to polish.</div>
+      </div>
+    </div>
+
+    <!-- ═══ Fuel — In Motion ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">Fuel — The Player's Clock</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:14px;">
+        A single meter does the job HP, a timer, and a difficulty curve would normally split across three systems. It's a bar, not a dial — I'd wanted something closer to a speedometer, but a straightforward bar reads faster and fits the hybrid-casual pace better.
+      </p>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:0;">
+        The fill gradients <strong style="color:var(--text);">green → yellow → red</strong> as it drains at a constant rate. Upgrades don't change the drain — they extend the tank's total seconds, so a fully-upgraded plane simply gets a longer run, not a slower clock. <a href="#gameplay-footage" style="color:var(--accent2); font-weight:600;">See it draining in the Combat clip ↑</a>
+      </p>
+    </div>
+
+    <!-- ═══ Combat — Ramming & Combo ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">Combat — Ramming and the Combo Chain</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:14px;">
+        Auto-lock and fire is the baseline — the player steers, the plane shoots. Ramming is the layer on top: close the distance and fly into an enemy for <strong style="color:var(--text);">60–75% of its max HP</strong> in one hit, at a cost of roughly <strong style="color:var(--text);">5–8% of max fuel</strong>. Deliberately short of an instant kill, so boss-tier enemies stay a real threat instead of becoming a one-touch trivializer.
+      </p>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:0;">
+        A decaying kill-combo multiplier is next in the build queue: chain kills within a short window to boost the coins earned, and let the chain lapse and it resets. It's meant to reward staying aggressive rather than picking planes off one at a time — the same aggression-vs-fuel trade-off ramming already sets up. <a href="#gameplay-footage" style="color:var(--accent2); font-weight:600;">See a ram land in the Combat clip ↑</a>
+      </p>
+    </div>
+
+    <!-- ═══ Shop & Progression ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">Shop &amp; Progression — Capped Stats, Milestone Planes</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
+        A finite shop with six stats and no reset would run out of things to sell almost immediately. Instead of raising caps when that happened in testing, every stat got more, cheaper ranks and a steeper cost curve — the ceiling stays low, the climb to it stays interesting.
+      </p>
+      <div class="prog-row">
+        <div class="prog-block">
+          <h3>Stat Caps</h3>
+          <ul>
+            <li>Fuel — 8 ranks, up to 2.5× tank capacity</li>
+            <li>Damage — 4 ranks, up to 3× base damage</li>
+            <li>Fire Rate — 7 ranks, up to 2× attack speed</li>
+            <li>CPK — 2 ranks, up to 3× base payout</li>
+            <li>Lock-On — 5 ranks, up to 2× range, 4 simultaneous locks</li>
+            <li>Ram Efficiency — 5 ranks, fuel cost floor 50%, damage ceiling 95% of enemy HP</li>
+          </ul>
+        </div>
+        <div class="prog-block">
+          <h3>Plane Milestones</h3>
+          <ul>
+            <li>Milestone bar fills from total upgrades purchased, weighted equally</li>
+            <li>Not tied to missions flown — pure shop investment</li>
+            <li>New plane bought with currency once the bar fills</li>
+            <li>Reward and stat reset shown together, before purchase</li>
+            <li>Ranks reset, but the new plane's base stats always beat the old plane's maxed ranks</li>
+          </ul>
+        </div>
+        <div class="prog-block">
+          <h3>Unlocks Tied to Planes</h3>
+          <ul>
+            <li>New planes change the stat line — power, not a reskin</li>
+            <li>Turrets and heat-seeking missiles unlock progressively by plane tier</li>
+            <li>Jet-era planes introduce smart enemies that return fire, pulling down your fuel</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="gif-showcase" style="margin-top:24px;">
+        <figure class="gif-slot">
+          <video src="../dogfight_upgrade.mp4" aria-label="Dogfight Evolution buying a shop upgrade" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop dogfight_upgrade.gif here</span></div>
+          <figcaption>Upgrade Purchase — <span>spending coins on a stat rank in the capped shop</span></figcaption>
+        </figure>
+        <figure class="gif-slot">
+          <video src="../dogfight_planepurchase.mp4" aria-label="Dogfight Evolution buying a new plane" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop dogfight_planepurchase.gif here</span></div>
+          <figcaption>Plane Purchase (Prestige) — <span>the milestone reward and rank reset, revealed together</span></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- ═══ Enemy Scaling ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">Enemy Scaling — Difficulty Tracks Combat, Not Economy</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
+        The first version scaled enemies off total upgrades, full stop — and it broke fast. Once Fuel, Damage, CPK, and Fire Rate were all a few ranks in, small planes died in one hit and the boss went down almost as fast. The fix was to scale difficulty only off the stats that actually make the player stronger in a fight.
+      </p>
+      <div class="pillars-grid" style="margin-bottom:28px;">
+        <div class="pillar">
+          <div class="pillar-num">Counts</div>
+          <h4>Scales Enemy Difficulty</h4>
+          <p>Damage, Fire Rate, Lock-On, Ram Efficiency — the four stats that raise combat power.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">Doesn't</div>
+          <h4>Never Scales Difficulty</h4>
+          <p>Fuel and CPK — pacing and reward stats. Upgrading them changes how long or how lucrative a run is, never how hard it is.</p>
+        </div>
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px;">
+        <p style="font-size:0.8rem; font-weight:700; color:var(--text); margin-bottom:12px;">Scaling curve, per combat upgrade level:</p>
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:8px;">
+          <li style="font-size:0.82rem; color:var(--muted); display:flex; gap:8px;"><span style="color:var(--accent); flex-shrink:0;">→</span>Enemy HP: additive +12% per level, capped at 4× base HP</li>
+          <li style="font-size:0.82rem; color:var(--muted); display:flex; gap:8px;"><span style="color:var(--accent); flex-shrink:0;">→</span>Bosses receive that same scaling on top of their 5× base HP</li>
+          <li style="font-size:0.82rem; color:var(--muted); display:flex; gap:8px;"><span style="color:var(--accent); flex-shrink:0;">→</span>Concurrent enemies: +1 every 4 upgrade levels, capped at 12</li>
+          <li style="font-size:0.82rem; color:var(--muted); display:flex; gap:8px;"><span style="color:var(--accent); flex-shrink:0;">→</span>Enemy speed: +3% per level, capped at +45%</li>
+          <li style="font-size:0.82rem; color:var(--muted); display:flex; gap:8px;"><span style="color:var(--accent); flex-shrink:0;">→</span>Reinforcement delay: −4% per level, capped at 55% of the original interval</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ═══ Where This Stands ═══ -->
+    <div style="margin-top:72px;">
+      <div class="section-line">Where This Stands</div>
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:660px; margin-bottom:28px;">
+        Still in development, so this is a working postmortem rather than a finished one — an honest read on what's solved and what's still an open problem.
+      </p>
+      <div class="postmortem-grid">
+        <div class="pm-card pm-good">
+          <h4>Solved</h4>
+          <ul>
+            <li>Fuel-as-timer resource loop, replacing HP and a prestige system entirely</li>
+            <li>Capped, granular upgrade economy tied to a cost curve instead of a rising ceiling</li>
+            <li>Ramming as a fuel-costed risk/reward tool, not a free instant-kill or a second HP system</li>
+            <li>Milestone-gated plane unlocks that change the stat line, not just the sprite</li>
+            <li>Enemy difficulty scaling split so only combat stats — not economy stats — make the game harder</li>
+          </ul>
+        </div>
+        <div class="pm-card pm-bad">
+          <h4>Still Open</h4>
+          <ul>
+            <li>Boss-gated stage tiers (tougher enemies, better payout) — the planned endgame sink, not yet built</li>
+            <li>Whether a skill-tree layer adds anything the capped shop doesn't already cover</li>
+            <li>"Golden Plane" bonus-currency enemies — concept only, unlock condition undecided</li>
+            <li>Smart enemy AI and return fire for the jet era — planned, not started</li>
+          </ul>
+        </div>
+        <div class="pm-lesson">
+          <h4>The lesson so far</h4>
+          <p>Capping the shop before designing an endgame sink was the wrong order — I fixed a balance problem and immediately created a "nothing left to buy" problem. Next pass: build the boss-gated stage tiers first, so a maxed-out economy always has somewhere to go.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .gif-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+  }
+  .gif-slot {
+    margin: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .gif-slot:hover { border-color: rgba(147,51,234,0.6); transform: translateY(-3px); box-shadow: 0 0 28px rgba(147,51,234,0.12); }
+  .gif-slot img, .gif-slot video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    background: #000;
+    image-rendering: pixelated;
+  }
+  .gif-slot .gif-placeholder { display: none; }
+  .gif-slot.gif-missing img, .gif-slot.gif-missing video { display: none; }
+  .gif-slot.gif-missing .gif-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    aspect-ratio: 4 / 3;
+    background: repeating-linear-gradient(45deg, rgba(147,51,234,0.04), rgba(147,51,234,0.04) 10px, transparent 10px, transparent 20px);
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 20px;
+  }
+  .gif-placeholder-icon { font-size: 1.4rem; color: var(--accent2); opacity: 0.7; }
+  .gif-placeholder code { color: var(--accent2); font-size: 0.78rem; }
+  .gif-slot figcaption {
+    padding: 12px 16px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .gif-slot figcaption span { color: var(--muted); font-weight: 400; }
+
+  /* Coming-soon panel (footage placeholder for live page) */
+  .coming-soon {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    padding: 26px 30px;
+  }
+  .coming-soon-icon { font-size: 1.6rem; color: var(--accent2); opacity: 0.75; flex-shrink: 0; }
+  .coming-soon-title { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .coming-soon-sub { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+  /* Map slots — show full map, don't crop */
+  .map-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 18px;
+  }
+  .map-slot {
+    margin: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .map-slot:hover { border-color: rgba(147,51,234,0.6); transform: translateY(-3px); box-shadow: 0 0 28px rgba(147,51,234,0.12); }
+  .map-slot img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    background: #05050c;
+    image-rendering: pixelated;
+  }
+  .map-slot .gif-placeholder { display: none; }
+  .map-slot.gif-missing img { display: none; }
+  .map-slot.gif-missing .gif-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    aspect-ratio: 1 / 1;
+    background: repeating-linear-gradient(45deg, rgba(147,51,234,0.04), rgba(147,51,234,0.04) 10px, transparent 10px, transparent 20px);
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 20px;
+  }
+  .map-slot figcaption {
+    padding: 12px 16px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .map-slot figcaption span { color: var(--muted); font-weight: 400; }
+
+    /* ─── Polish: progress bar, back-to-top, copy toast, active nav ── */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      z-index: 200; transition: width 0.08s linear;
+      box-shadow: 0 0 8px rgba(147,51,234,0.5);
+    }
+    #back-to-top {
+      position: fixed; bottom: 28px; right: 28px;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--accent2); font-size: 1.1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transform: translateY(12px);
+      transition: opacity 0.25s, transform 0.25s, border-color 0.2s;
+      z-index: 150;
+    }
+    #back-to-top.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    #back-to-top:hover { border-color: var(--accent); box-shadow: 0 0 16px rgba(147,51,234,0.3); }
+    #copy-toast {
+      position: fixed; bottom: 88px; right: 28px;
+      background: var(--surface); border: 1px solid var(--accent);
+      color: var(--accent2); font-size: 0.8rem; font-weight: 600;
+      padding: 8px 16px; border-radius: 8px;
+      opacity: 0; transform: translateY(8px);
+      transition: opacity 0.25s, transform 0.25s;
+      pointer-events: none; z-index: 150;
+    }
+    #copy-toast.show { opacity: 1; transform: translateY(0); }
+    .nav-links a.nav-active { color: var(--accent2); position: relative; }
+    .nav-links a.nav-active::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: -6px;
+      height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 2px;
+    }
+</style>
+
+<!-- ═══════════════════════════════════════ Site Nav Footer ═══════════════════════════════════════ -->
+<div class="site-nav-footer">
+  <div class="container">
+    <span class="site-nav-footer-label">Jump to</span>
+    <div class="site-nav-footer-grid">
+      <a href="../index.html">Home</a>
+      <a href="../games.html">Games</a>
+      <a href="../prototypes.html">Experiments</a>
+      <a href="../experience.html">Experience</a>
+      <a href="../toolbox.html">Toolbox</a>
+      <a href="../roadmap.html">Roadmap</a>
+    </div>
+    <div class="site-nav-footer-games">
+      <span class="site-nav-footer-label">More Games</span>
+      <div class="site-nav-footer-grid">
+        <a href="rest-in-profit.html" style="display:inline-flex; align-items:center; gap:6px;"><img src="../unity.png" alt="" style="width:14px;height:14px;object-fit:contain;flex-shrink:0;">Rest in Profit</a>
+        <a href="tiltantale.html" style="display:inline-flex; align-items:center; gap:6px;"><img src="../csharp.png" alt="" style="width:14px;height:14px;object-fit:contain;flex-shrink:0;">TiltanTale</a>
+        <a href="balatro.html" style="display:inline-flex; align-items:center; gap:6px;"><img src="../csharp.png" alt="" style="width:14px;height:14px;object-fit:contain;flex-shrink:0;">Dekelatro</a>
+        <a href="trials.html" style="display:inline-flex; align-items:center; gap:6px;"><span style="flex-shrink:0;">🌐</span>Trials of the Dungeon</a>
+        <a href="survival.html" style="display:inline-flex; align-items:center; gap:6px;"><img src="../unity.png" alt="" style="width:14px;height:14px;object-fit:contain;flex-shrink:0;">Brave the Wilderness</a>
+        <a href="dicebound.html" style="display:inline-flex; align-items:center; gap:6px;"><img src="../unity.png" alt="" style="width:14px;height:14px;object-fit:contain;flex-shrink:0;">Dice Bound</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="container">
+    <span class="label">Get in touch</span>
+    <h2>Let's talk.</h2>
+    <p>Open to internships, collaborations, and feedback on work in progress.</p>
+    <div class="contact-links">
+      <a href="mailto:dekelriess@gmail.com" class="btn btn-primary">✉ dekelriess@gmail.com</a>
+      <a href="https://linkedin.com/in/dekel-riess-39172433b" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn ↗</a>
+      <a href="../Dekel_Riess_Resume.pdf" target="_blank" rel="noopener" class="btn btn-secondary">Resume ↓</a>
+      <a href="https://github.com/Dekeloni2" target="_blank" rel="noopener" class="btn btn-secondary">GitHub</a>
+      <span class="btn btn-secondary" style="cursor:default;"><img src="../discord.png" alt="" style="width:16px;height:16px;object-fit:contain;margin-right:6px;vertical-align:-3px;">Discord: Dekeloni2</span>
+    </div>
+    <p style="margin-top:40px; font-size:0.78rem; color:var(--muted);">© 2026 Dekel Riess · Game Designer Portfolio · Updated September 2026</p>
+  </div>
+</section>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  document.addEventListener('click', function (e) {
+    const a = e.target.closest('a');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto:') || a.target === '_blank') return;
+    e.preventDefault();
+    document.body.classList.add('fade-out');
+    setTimeout(() => { window.location.href = href; }, 200);
+  });
+</script>
+
+<script>
+  // Progress bar
+  const pbar = document.createElement('div'); pbar.id = 'progress-bar'; document.body.appendChild(pbar);
+  // Back to top
+  const btt = document.createElement('button'); btt.id = 'back-to-top'; btt.innerHTML = '&#8593;'; btt.setAttribute('aria-label','Back to top'); document.body.appendChild(btt);
+  btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  // Copy toast
+  const toast = document.createElement('div'); toast.id = 'copy-toast'; toast.textContent = 'Email copied!'; document.body.appendChild(toast);
+
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    pbar.style.width = pct + '%';
+    btt.classList.toggle('show', h.scrollTop > 600);
+  }, { passive: true });
+
+  // Email copy
+  document.querySelectorAll('a[href^="mailto:"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const email = a.getAttribute('href').replace('mailto:', '');
+      navigator.clipboard.writeText(email).then(() => {
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 1800);
+      });
+    });
+  });
+
+  // Active nav state
+  (function() {
+    let page = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      const target = a.getAttribute('href').split('/').pop();
+      if (target === page) a.classList.add('nav-active');
+    });
+  })();
+</script>
+
+<script>window.addEventListener('pageshow',function(){document.body.classList.remove('fade-out');});</script>
+</body>
+</html>
