@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rest in Profit — Dekel Riess</title>
-  <meta name="description" content="Rest in Profit — a cozy-macabre mobile game where a necromancer digs up undead and keeps them alive in a dungeon that defends itself. Design breakdown: Disco-Zoo dig loop, role-based auto-battler, and deep relic/economy systems." />
+  <title>Rest in Profit | Dekel Riess</title>
+  <meta name="description" content="Rest in Profit, a cozy mobile necromancer game: Disco Zoo-style digging plus a role-based dungeon defense. Design breakdown." />
   <link rel="icon" type="image/png" href="../favicon.png" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Rest in Profit — Dekel Riess" />
-  <meta property="og:description" content="Rest in Profit — a cozy-macabre necromancer game fusing Disco Zoo's grave-digging with a real-time dungeon defense. In development." />
+  <meta property="og:title" content="Rest in Profit | Dekel Riess" />
+  <meta property="og:description" content="Rest in Profit, a cozy mobile necromancer game: Disco Zoo-style digging plus a role-based dungeon defense. Design breakdown." />
   <meta property="og:url" content="https://dekeloni2.github.io/portfolio-website/games/rest-in-profit.html" />
   <meta property="og:image" content="https://dekeloni2.github.io/portfolio-website/dekel.png" />
   <meta name="twitter:card" content="summary" />
@@ -482,7 +482,27 @@
       .nav-links { display: none; }
       section    { padding: 64px 0; }
     }
-  </style>
+  
+    /* ─── Plain text blocks ──────────────────────────────────────── */
+    .body-text { font-size: 0.88rem; color: var(--muted); line-height: 1.7; max-width: 680px; margin-bottom: 18px; }
+    .body-text strong { color: var(--text); }
+    .note-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; }
+    .note-card h4 { margin: 0 0 6px; font-size: 0.92rem; color: var(--accent2); }
+    .note-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.65; margin: 0; }
+    .note-card p + p { margin-top: 8px; }
+
+    /* ─── Key decisions + before/after tags ──────────────────────── */
+    .key-decisions { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 10px; padding: 16px 20px; margin-bottom: 36px; }
+    .key-decisions h3 { font-size: 0.95rem; margin: 0 0 10px; color: var(--text); }
+    .key-decisions ol { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 7px; }
+    .key-decisions li { font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+    .key-decisions li strong { color: var(--text); }
+    .key-decisions li a { color: var(--accent2); font-size: 0.8rem; white-space: nowrap; }
+    .ba-tags { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .ba-tags span { font-size: 0.68rem; font-weight: 700; color: var(--muted); border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; }
+    .ba-tags span.after { color: var(--accent2); border-color: var(--accent); }
+    [id] { scroll-margin-top: 90px; }
+</style>
 </head>
 <body>
 
@@ -491,7 +511,6 @@
     <a href="../index.html" class="nav-logo" style="text-decoration:none;">Dekel Riess</a>
     <ul class="nav-links">
       <li><a href="../games.html">Games</a></li>
-      <li><a href="../prototypes.html">Experiments</a></li>
       <li><a href="../experience.html">Experience</a></li>
       <li><a href="../toolbox.html">Toolbox</a></li>
       <li><a href="../roadmap.html">Roadmap</a></li>
@@ -510,17 +529,15 @@
           <h2 style="margin:0;">Rest in Profit</h2>
         </div>
         <p class="concept">
-          A cozy-macabre mobile game inspired by Disco Zoo's digging loop. You're an aspiring necromancer: dig up undead minions from graveyards, deploy them in a dungeon, and let them defend against looting "heroes" while they earn you coins. A collection-and-management game with a dungeon-defense layer, connected through one shared economy.
+          A cozy, slightly macabre mobile game built on Disco Zoo's digging loop. You're a necromancer in training: you dig undead minions out of graveyards, put them in your dungeon, and they fight off looting "heroes" while earning you coins. Digging and defending share one economy.
         </p>
         <div class="game-info-row">
-          <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">Unity · C#</span></div>
-          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">Collection · Management · Auto-battler</span></div>
+          <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">Unity, C#</span></div>
+          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">Collection, management, auto-battler</span></div>
           <div class="game-info-item"><span class="game-info-key">Platform</span><span class="game-info-val">Mobile (Android)</span></div>
-          <div class="game-info-item"><span class="game-info-key">Team</span><span class="game-info-val">Solo</span></div>
-          <div class="game-info-item"><span class="game-info-key">Role</span><span class="game-info-val">Game Designer (solo: design, code &amp; art)</span></div>
+          <div class="game-info-item"><span class="game-info-key">Team</span><span class="game-info-val">Solo: design, code and pixel art</span></div>
           <div class="game-info-item"><span class="game-info-key">Inspiration</span><span class="game-info-val">Disco Zoo (NimbleBit)</span></div>
-          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">In development · full loop playable end-to-end</span></div>
-          <div class="game-info-item"><span class="game-info-key">Owned</span><span class="game-info-val">All design, code, systems &amp; pixel art</span></div>
+          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">In development, full loop playable</span></div>
         </div>
 
         <!-- ═══════════════════════════════════════════════════════════════
@@ -546,122 +563,88 @@
         <a class="game-cta game-cta-ghost" href="" target="_blank" rel="noopener">Get it on Google Play ↗</a>
         <div class="cta-pending">
           <strong>Coming to Google Play</strong>
-          Closed testing opens first &mdash; a join link will appear here the moment it does.
+          Closed testing opens first. The join link will go here when it does.
         </div>
       </div>
 
       <div class="game-content-col">
+        <div class="key-decisions">
+          <h3>Key decisions</h3>
+          <ol>
+            <li><strong>Built and tested the dig loop alone first,</strong> before letting combat depend on it. <a href="#problem">More ↓</a></li>
+            <li><strong>Fixed a "balance" problem with positioning, not stats,</strong> and the same squad lasted ten waves longer. <a href="#playtest">More ↓</a></li>
+            <li><strong>Simulated offline raids instead of paying time × rate,</strong> so it doesn't turn into an idle game. <a href="#playtest">More ↓</a></li>
+            <li><strong>Answered three feature requests with a tutorial,</strong> because they all came from players not understanding the loop. <a href="#playtest">More ↓</a></li>
+            <li><strong>Premium buys time, never power,</strong> and every ad is one the player chooses to watch. <a href="#monetization">More ↓</a></li>
+          </ol>
+        </div>
+
         <!-- Gameplay first: the game in motion before any text -->
         <div class="at-glance reveal">
-          <span class="label">See it play</span>
+
           <div class="hero-clips">
             <figure class="gif-slot">
               <video src="../rip_dig_reveal.mp4" aria-label="Rest in Profit: digging up a monster" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
               <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>rip_dig_reveal.mp4</code> here</span></div>
-              <figcaption>Dig — <span>uncover a monster's pattern tile by tile</span></figcaption>
+              <figcaption>Dig: <span>uncover a monster's shape tile by tile</span></figcaption>
             </figure>
             <figure class="gif-slot">
               <video src="../rip_defense.mp4" aria-label="Rest in Profit: the undead army defending the dungeon" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
               <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>rip_defense.mp4</code> here</span></div>
-              <figcaption>Defend — <span>your army holds the line and earns coins</span></figcaption>
+              <figcaption>Defend: <span>your army holds the line and earns coins</span></figcaption>
             </figure>
           </div>
-          <div class="highlight-chips">
-            <span class="highlight-chip">Solo — design, code &amp; art</span>
-            <span class="highlight-chip">Disco-Zoo dig loop</span>
-            <span class="highlight-chip">Role-based auto-battler</span>
-            <span class="highlight-chip">Playtested &amp; iterated</span>
-            <span class="highlight-chip">Deep relic &amp; economy systems</span>
-            <span class="highlight-chip">Rewarded-only monetization</span>
-          </div>
-          <a href="#playtest" class="jump-to-detail">See what playtesting changed ↓</a>
         </div>
 
-        <div class="section-line" id="breakdown">Design Pillars</div>
+        <div class="section-line" id="breakdown">What the design is built on</div>
         <div class="pillars-grid">
           <div class="pillar">
-            <div class="pillar-num">01</div>
-            <h4>Cozy-Macabre</h4>
-            <p>Warm and charming <em style="color:var(--text);">about</em> death — a friendly-Grim-Reaper tone, not grim horror and not a joke. The mood drives the art, the tutorial voice, and every bit of copy.</p>
+            <h4>Cozy about death</h4>
+            <p>Warm and charming about death, like a friendly Grim Reaper. Not horror, and not a joke. That tone decides the art, the tutorial voice and every line of text.</p>
           </div>
           <div class="pillar">
-            <div class="pillar-num">02</div>
-            <h4>An Underused Hook</h4>
-            <p>Disco Zoo's tap-to-reveal dig loop is one of mobile's most addictive mechanics — and strangely underexplored. The whole game is built to give that hook a world worth digging in.</p>
+            <h4>An underused hook</h4>
+            <p>Disco Zoo's tap-to-reveal digging is one of the most addictive mechanics on mobile, and hardly anyone else uses it. I wanted to give it a world worth digging in.</p>
           </div>
           <div class="pillar">
-            <div class="pillar-num">03</div>
-            <h4>Two Loops, One Economy</h4>
-            <p>Digging and defending must each stay worth doing for the whole game. If either one turns into a chore that only feeds the other, the design has failed.</p>
+            <h4>Two loops, one economy</h4>
+            <p>Digging and defending both have to stay worth doing for the whole game. If either one becomes a chore that only feeds the other, the design has failed.</p>
           </div>
           <div class="pillar">
-            <div class="pillar-num">04</div>
-            <h4>Systems as the Star</h4>
-            <p>Monster roles, a trade-off relic loadout, two-lane progression, and an economy tuned to reward showing up, not just waiting. It's designed to be a systems-design showcase as much as a game.</p>
+            <h4>Reward showing up</h4>
+            <p>Monster roles, relics with trade-offs, two separate progression tracks, and an economy that rewards playing, not just waiting.</p>
           </div>
         </div>
 
-        <div class="section-line" style="margin-top:36px;">The Core Loop</div>
+        <div class="section-line" style="margin-top:36px;">The core loop</div>
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px;">
           <div class="loop-chain">
-            <div class="loop-step"><div class="loop-dot">1</div><div class="loop-step-text">Dig a graveyard — reveal undead by uncovering their pattern</div></div>
+            <div class="loop-step"><div class="loop-dot">1</div><div class="loop-step-text">Dig a graveyard and uncover the undead buried in it</div></div>
             <div class="loop-connector"></div>
-            <div class="loop-step"><div class="loop-dot">2</div><div class="loop-step-text">Uncover &amp; collect — duplicates level a monster up</div></div>
+            <div class="loop-step"><div class="loop-dot">2</div><div class="loop-step-text">Collect them; duplicates level a monster up</div></div>
             <div class="loop-connector"></div>
             <div class="loop-step"><div class="loop-dot">3</div><div class="loop-step-text">Deploy into the dungeon by role</div></div>
             <div class="loop-connector"></div>
-            <div class="loop-step"><div class="loop-dot">4</div><div class="loop-step-text">Defend against looting heroes — earn coins</div></div>
+            <div class="loop-step"><div class="loop-dot">4</div><div class="loop-step-text">Fight off looting heroes and earn coins</div></div>
             <div class="loop-connector"></div>
-            <div class="loop-step"><div class="loop-dot">5</div><div class="loop-step-text">Upgrade &amp; dig deeper — repeat</div></div>
+            <div class="loop-step"><div class="loop-dot">5</div><div class="loop-step-text">Upgrade, dig deeper, repeat</div></div>
           </div>
         </div>
 
 
       </div>
 
-    </div>
-
-
-    <!-- ═══ Design Story (skim-first spine) ═══ -->
-    <div style="margin-top:72px;">
-      <div class="section-line">How I Designed It</div>
-      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
-        The 60-second version — the reasoning behind Rest in Profit, from the core problem to what's next. The full breakdown is below; this is the map.
-      </p>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px;">
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">01 · Problem</div>
-          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Give a collection game real depth</h4>
-          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Disco Zoo's dig loop is brilliant but underused, and collection games go <em style="color:var(--text);">flat</em> the moment you've collected everything. Could I fuse that dig hook to a dungeon defense so the two loops feed each other and the game stays deep past "collection complete"?</p>
-        </div>
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">02 · Design Decision</div>
-          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">One economy, layered systems</h4>
-          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Coins tie the two loops together. The bigger decision was what sits on top: monster roles, a trade-off relic loadout and two-lane progression, which turn "collect monsters" into "<em style="color:var(--text);">build and tune a dungeon</em>."</p>
-        </div>
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">03 · Prototype / Test</div>
-          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Prove the hook before building on it</h4>
-          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">I built the dig loop first and validated it in isolation — ~25 of my own dig runs confirmed the near-miss tension was firing before I let combat depend on it. Fresh playtesters later confirmed it independently: they could see exactly how close they'd come, and the frustration kept them digging.</p>
-        </div>
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">04 · Result</div>
-          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">A working loop — and a real diagnosis</h4>
-          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">The loop closes end-to-end. When combat felt broken — a maxed unit folding at wave 4 — I diagnosed it as a <em style="color:var(--text);">positioning-AI gap, not a balance problem</em>, and the same team held ~10 waves further. <a href="#playtest" style="color:var(--accent2); font-weight:600;">See the diagnosis ↓</a></p>
-        </div>
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">05 · What's Next</div>
-          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Content breadth &amp; an endgame</h4>
-          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Retest the Werewolf and event-economy fixes, continue tuning the 25-relic pool, give free players real Soul Gem sources, then add prestige (Timeless monsters, Disco-Zoo style) so digging stays meaningful past completion.</p>
-        </div>
-      </div>
+    </div>    <div style="margin-top:72px;">
+      <div class="section-line" id="problem">The problem</div>
+      <p class="body-text">Collection games go flat once you've collected everything. I wanted to join Disco Zoo's dig loop to a dungeon defense so each loop feeds the other and the game still has depth after the collection is complete. Coins connect the two. What turns "collect monsters" into "build and tune a dungeon" is what sits on top: monster roles, relics with trade-offs, and two progression tracks.</p>
+      <p class="body-text">I built the dig loop first and tested it alone. About 25 of my own runs showed the near-miss tension was working before I let combat depend on it, and new playtesters later confirmed it on their own: they could see exactly how close they'd come, and the frustration kept them digging.</p>
     </div>
 
     <!-- ═══ Playtesting & Iteration ═══ -->
     <div id="playtest" style="margin-top:72px; scroll-margin-top:90px;">
-      <div class="section-line">Playtesting &amp; Iteration</div>
+      <div class="section-line">What playtesting changed</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:660px; margin-bottom:28px;">
-        The most useful design work on this project came from reading a result correctly instead of reacting to it: a diagnosis, a guardrail, a playtest I read as a communication problem, and what the next round of playtesting broke and confirmed.
+        The most useful work on this project came from figuring out why a result happened before reacting to it.
       </p>
 
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; align-items:start;">
@@ -669,70 +652,54 @@
         <!-- Positioning diagnosis (with footage placeholder) -->
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden;">
           <figure class="gif-slot" style="margin:0; border:none; border-radius:0;">
-            <video src="../rip_combat.mp4" aria-label="Rest in Profit — role-based combat formation" style="display:block; width:100%; max-width:300px; margin:0 auto; aspect-ratio:9/16; object-fit:contain; background:#05050c;" autoplay loop muted playsinline preload="metadata" onerror="this.style.display='none'; this.closest('.gif-slot').classList.add('gif-missing')"></video>
+            <video src="../rip_combat.mp4" aria-label="Rest in Profit: role-based combat formation" style="display:block; width:100%; max-width:300px; margin:0 auto; aspect-ratio:9/16; object-fit:contain; background:#05050c;" autoplay loop muted playsinline preload="metadata" onerror="this.style.display='none'; this.closest('.gif-slot').classList.add('gif-missing')"></video>
             <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>rip_combat.mp4</code> here</span></div>
           </figure>
           <div style="padding:18px 20px;">
-            <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">A "balance" failure that was really a positioning gap</h4>
-            <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
-              <span style="font-size:0.68rem; font-weight:700; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:3px 8px;">BEFORE · folds at wave 4</span>
-              <span style="font-size:0.68rem; font-weight:700; color:var(--accent2); border:1px solid var(--accent); border-radius:6px; padding:3px 8px;">AFTER · holds to ~wave 14</span>
-            </div>
-            <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">A fully-leveled squad was collapsing at wave 4, which looked like a numbers problem. It wasn't — my ranged damage-dealer was standing in the melee getting deleted. The fix was a <strong style="color:var(--text);">role-based positioning AI</strong> (Frontline / Damage / Support, each with a standoff distance derived from its attack range), not a stat change. Same stats, same monsters — it held about ten waves further. The lesson: diagnose the root cause before you touch the numbers.</p>
+            <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">A balance problem that wasn't one</h4>
+            <div class="ba-tags"><span>BEFORE · dies at wave 4</span><span class="after">AFTER · lasts to ~wave 14</span></div>
+            <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">A fully leveled squad was dying at wave 4, which looked like a numbers problem. It wasn't. My ranged damage dealer was standing in the melee and getting killed. The fix was <strong style="color:var(--text);">positioning by role</strong> (Frontline, Damage, Support, each keeping a distance based on its attack range), not a stat change. Same stats and same monsters, and the squad lasted about ten waves longer. Now I check whether the numbers are really the problem before I change them.</p>
           </div>
         </div>
 
         <!-- Offline economy guardrail -->
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 20px;">
-          <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">Offline is simulated, not multiplied</h4>
-          <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
-            <span style="font-size:0.68rem; font-weight:700; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:3px 8px;">RISK · drifting into an idle game</span>
-            <span style="font-size:0.68rem; font-weight:700; color:var(--accent2); border:1px solid var(--accent); border-radius:6px; padding:3px 8px;">FIX · play the raid out</span>
-          </div>
-          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0 0 10px;">The easy version of offline income is <em>time away × a rate</em>. That would quietly have turned Rest in Profit into an idle game, and it isn't one: it's collection and management, where showing up is what moves you forward.</p>
-          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">So closed-app waves are <strong style="color:var(--text);">played out as numbers</strong> at the army's real attack rates, damage, defence and healing, with abilities like Undeath honoured, and one rule kept exactly: <strong style="color:var(--text);">nobody taps a corpse while you're away</strong>. A strong army comes back to a pile of coins; a weak one earns until it falls. A summary card on return shows what happened.</p>
+          <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">Offline raids are simulated</h4>
+          <div class="ba-tags"><span>RISK · turning into an idle game</span><span class="after">FIX · play the raid out</span></div>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0 0 10px;">The easy way to pay for time away is <em>time × a rate</em>. That would have quietly turned this into an idle game, and it isn't one; showing up is what moves you forward.</p>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">So waves you miss are <strong style="color:var(--text);">played out as numbers</strong> using your army's real attack rates, damage, defense and healing, abilities like Undeath included, with one rule: <strong style="color:var(--text);">nobody revives a fallen monster while you're away</strong>. A strong army comes back to a pile of coins; a weak one earns until it falls. A summary card shows what happened.</p>
         </div>
       </div>
 
       <!-- Tutorial diagnosis -->
       <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 22px; margin-bottom:16px;">
-        <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">Three feature requests, one root cause</h4>
-        <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
-          <span style="font-size:0.68rem; font-weight:700; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:3px 8px;">PLAYTEST · "add tap damage", "offline should pay", "raids need consequences"</span>
-          <span style="font-size:0.68rem; font-weight:700; color:var(--accent2); border:1px solid var(--accent); border-radius:6px; padding:3px 8px;">FIX · teach the loop, change no systems</span>
-          <span style="font-size:0.68rem; font-weight:700; color:var(--accent2); border:1px solid var(--accent); border-radius:6px; padding:3px 8px;">RETEST · easier to understand, more fun</span>
-        </div>
-        <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0 0 10px;">Playtesters asked for tap damage, said earning 0 coins offline felt bad, and wanted raids to have a real consequence. Taken one at a time, that's three new features. Read together, it's one problem: nobody had told them the loop. Default mobile-game habits filled the gaps (tap to fight, earn while idle), and none of them knew a fallen monster could be revived.</p>
-        <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0 0 10px;">So I left the systems alone and built the <strong style="color:var(--text);">Necroguide</strong>: a persistent tutorial director that runs across both scenes, dims the screen, and advances only on real gameplay events (starting an expedition, digging, finding a monster, killing a hero, equipping a monster or relic), resuming wherever the player left off. Then I ran the same test with fresh players rather than assume it worked. They said the Necroguide made the game easy to understand, and that understanding it made the game more fun.</p>
-        <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:10px 0 0;">Tap damage was never added. The need underneath the request, something to do while watching a fight, is answered by optional active moments instead. <a href="#active-moments" style="color:var(--accent2); font-weight:600;">See the case study ↓</a></p>
+        <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">Three feature requests, one cause</h4>
+        <div class="ba-tags"><span>PLAYTEST · tap damage, offline pay, raid consequences</span><span class="after">FIX · teach the loop, no new systems</span><span class="after">RETEST · easier to understand, more fun</span></div>
+        <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0 0 10px;">Playtesters asked for tap damage, said earning nothing offline felt bad, and wanted raids to have real consequences. One at a time, that's three new features. Together, it's one problem: nobody had explained the loop to them. Habits from other mobile games filled the gaps (tap to fight, earn while idle), and none of them knew a fallen monster could be revived.</p>
+        <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0 0 10px;">So I didn't change the systems. I built the <strong style="color:var(--text);">Necroguide</strong>, a tutorial that runs across both scenes, dims the screen, moves forward only on real gameplay events (starting an expedition, digging, finding a monster, killing a hero, equipping a monster or relic) and picks up where the player left off. Then I ran the same test with new players. They said the Necroguide made the game easy to understand, and that understanding it made it more fun.</p>
+        <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:10px 0 0;">I never added tap damage. What players actually wanted was something to do while watching a fight, and optional active moments answer that instead. <a href="#active-moments" style="color:var(--accent2); font-weight:600;">More below ↓</a></p>
       </div>
 
-      <p style="font-size:0.78rem; color:var(--muted); line-height:1.6; max-width:680px; margin:0 0 16px;">All three came from the same instinct: a surprising result is a question, not a verdict. Find out <em>why</em> before you change anything.</p>
+
 
       <!-- ═══ Playtest round two ═══ -->
       <div class="playtest-pair" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; align-items:start;">
 
         <!-- Event economy leak -->
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 20px;">
-          <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">Events are part of the economy, too</h4>
-          <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
-            <span style="font-size:0.68rem; font-weight:700; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:3px 8px;">PLAYTEST · testers skipped most of the game</span>
-            <span style="font-size:0.68rem; font-weight:700; color:var(--accent2); border:1px solid var(--accent); border-radius:6px; padding:3px 8px;">FIX · one bug, two economy rules</span>
-          </div>
-          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0 0 10px;">Two leaks surfaced in one session. Looping back to a 5-wave checkpoint re-triggered between-wave events almost every wave, so collections completed far faster than intended. That was a wave-registration bug. I fixed it, and also spaced events to every 5–6 waves so they stay a moment, not a machine.</p>
-          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0 0 10px;">Separately, testers cleared the Ritual Idol so fast that Soul Gems piled up and they unlocked the Hell Pits, skipping everything before it. The Hell Pits now require owning the Crypt first, and their Soul Gem price rose to 200, dropping the more coins the player has.</p>
-          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">The lesson: <strong style="color:var(--text);">any reward that repeats is part of the economy</strong>, even when it looks like an event.</p>
+          <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">Events are part of the economy too</h4>
+          <div class="ba-tags"><span>PLAYTEST · testers skipped most of the game</span><span class="after">FIX · one bug, two economy rules</span></div>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0 0 10px;">Two leaks showed up in one session, and testers skipped most of the game. Going back to a 5-wave checkpoint re-triggered between-wave events almost every wave, so collections filled far too fast. That was a bug in how waves were counted. I fixed it and also spaced events out to every 5–6 waves, so they stay special.</p>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0 0 10px;">Separately, testers cleared the Ritual Idol so fast that Soul Gems piled up and they bought the Hell Pits, skipping everything before them. Now the Hell Pits require the Crypt first, and their Soul Gem price went up to 200, coming down the more coins you have.</p>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">What I learned: <strong style="color:var(--text);">any reward that repeats is part of the economy</strong>, even if it looks like an event.</p>
         </div>
 
         <!-- Werewolf role fix -->
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 20px;">
           <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">A frontline that couldn't hold the front</h4>
-          <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
-            <span style="font-size:0.68rem; font-weight:700; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:3px 8px;">PLAYTEST · strong design, folds too fast</span>
-            <span style="font-size:0.68rem; font-weight:700; color:var(--accent2); border:1px solid var(--accent); border-radius:6px; padding:3px 8px;">FIX · bug fix, HP buff, a level-4 identity</span>
-          </div>
-          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0 0 10px;">Testers liked the Werewolf's design, but as a Frontline he died almost immediately. Part of that was a bug: Devastating Strike fired backwards, so in practice he had no ability at all.</p>
-          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0 0 10px;">After fixing it, I raised his HP and gave the ability a level-4 upgrade: <strong style="color:var(--text);">casting Devastating Strike grants 100% damage reduction for 5 seconds</strong>. That finally sells the fantasy of a frontline assassin, who lands one huge hit and becomes a wall for a moment.</p>
+          <div class="ba-tags"><span>PLAYTEST · liked, but died too fast</span><span class="after">FIX · bug fix, more HP, level-4 upgrade</span></div>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0 0 10px;">Testers liked the Werewolf's design, but as a Frontline he died almost immediately. Part of that was a bug: Devastating Strike fired backwards, so he effectively had no ability.</p>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0 0 10px;">After the fix I raised his HP and gave the ability a level-4 upgrade: <strong style="color:var(--text);">Devastating Strike now grants 100% damage reduction for 5 seconds</strong>. He finally plays like a frontline assassin who lands one huge hit and becomes a wall for a moment.</p>
           <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;"><em>Retest pending: five seconds of full immunity may prove too strong.</em></p>
         </div>
       </div>
@@ -741,140 +708,113 @@
       <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 22px; margin-bottom:16px;">
         <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">What held up</h4>
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:14px;">
-          <div style="font-size:0.8rem; color:var(--muted); line-height:1.55;"><strong style="color:var(--text);">The near-miss reads.</strong><br>Testers could see exactly how close they'd come to a find. It frustrated them in the intended way, and they kept digging.</div>
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.55;"><strong style="color:var(--text);">The near-miss works.</strong><br>Testers could see exactly how close they'd come to a find. It frustrated them the way I wanted, and they kept digging.</div>
           <div style="font-size:0.8rem; color:var(--muted); line-height:1.55;"><strong style="color:var(--text);">Relics drive decisions.</strong><br>Testers re-planned their loadout before choosing whether to go on an expedition or farm coins.</div>
-          <div style="font-size:0.8rem; color:var(--muted); line-height:1.55;"><strong style="color:var(--text);">Two players, two strategies.</strong><br>One built a stat wall and barely dug; the other min-maxed monsters and relics. Two testers is a small sample, but both paths working is the signal I wanted.</div>
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.55;"><strong style="color:var(--text);">Two players, two strategies.</strong><br>One built a stat wall and barely dug; the other min-maxed monsters and relics. Two testers is a small sample, but both strategies worked, which is what I wanted to see.</div>
         </div>
       </div>
 
       <!-- Currency split principle -->
       <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 22px; margin-bottom:16px;">
-        <h4 style="margin:0 0 6px; font-size:0.95rem; color:var(--text);">Gate access gently, gate power steeply</h4>
-        <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0 0 14px;">A guiding rule for the economy that keeps the game cozy while still having a grind:</p>
+        <h4 style="margin:0 0 6px; font-size:0.95rem; color:var(--text);">Cheap to explore, expensive to power up</h4>
+        <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0 0 14px;">The rule that keeps the economy cozy while still giving it a grind:</p>
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:10px;">
-          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Digging = linear cost</strong><br>Expedition entry rises gently (Disco-Zoo style), so collecting never walls you.</div>
-          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Upgrades = exponential cost</strong><br>Raw combat power is the real grind and the central coin sink.</div>
-          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Premium = time, not power</strong><br>Soul Gems buy convenience only — never stats — so it stays fair.</div>
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Digging: linear cost</strong><br>Expeditions get a little pricier each time, like Disco Zoo, so collecting never blocks you.</div>
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Upgrades: exponential cost</strong><br>Combat power is the real grind and where most coins go.</div>
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Premium: time, not power</strong><br>Soul Gems only buy convenience, never stats.</div>
         </div>
       </div>
 
       <!-- Scoped out -->
       <div style="border-left:2px solid var(--border); padding:4px 0 4px 16px;">
-        <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;"><strong style="color:var(--text);">Honest about scope:</strong> prestige and later biomes are designed or in progress rather than complete. What's playable today is the full loop: expeditions across multiple areas, nine signature abilities, 25 live relic effects, between-wave events, offline raids and a guided tutorial. Knowing what to build <em>now</em> versus what to leave on paper is part of the job.</p>
+        <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;"><strong style="color:var(--text);">What's built:</strong> the full loop, with expeditions across several areas, nine signature abilities, 25 working relic effects, between-wave events, offline raids and the tutorial. Prestige and later biomes are designed or in progress, not finished. Part of the work is deciding what to build now and what to leave on paper. Next: retest the Werewolf and event fixes, keep tuning the relics, give free players real Soul Gem sources, then add prestige (Timeless monsters, like Disco Zoo) so digging still matters after the collection is complete.</p>
       </div>
     </div>
 
     <!-- ═══ Active moments case study ═══ -->
     <div id="active-moments" style="margin-top:72px; scroll-margin-top:90px;">
-      <div class="section-line">Case Study — Making Auto-Combat Active</div>
+      <div class="section-line">Giving auto-combat something to do</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:700px; margin-bottom:28px;">
-        Auto-combat is valuable because it lets the formation, monster roles and long-term upgrades do the work. But it created a design question: <strong style="color:var(--text);">what should a player do when they are present and watching a healthy fight?</strong> I did not want the answer to be tap damage. That would undermine the army-building game by making player reflexes more important than the formation they designed.
-      </p>
-
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px; margin-bottom:16px;">
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent);">
-          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase; margin-bottom:8px;">01 · Problem</div>
-          <h4 style="font-size:0.9rem; color:var(--text); margin:0 0 8px;">Watching is not the same as playing</h4>
-          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">If every wave resolves without a decision, a dungeon can become a dashboard. The player needs occasional reasons to look up, assess the state of their army and act—without being required to micromanage every attack.</p>
-        </div>
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent);">
-          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase; margin-bottom:8px;">02 · Principle</div>
-          <h4 style="font-size:0.9rem; color:var(--text); margin:0 0 8px;">Short bursts of meaningful attention</h4>
-          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Active moments should be optional, readable and quick. They reward being present with a tactical choice; they never turn the game into a tapper or punish a player for letting the army run.</p>
-        </div>
-      </div>
-
-      <div class="active-moments-grid">
+        Auto-combat lets the formation, roles and upgrades do the work. That raised a question: <strong style="color:var(--text);">what does a player do while watching a fight that's going fine?</strong> I didn't want the answer to be tap damage, because then reflexes would matter more than the army you built.
+      </p>      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:700px; margin-bottom:20px;">If every wave resolves without a decision, the dungeon turns into a dashboard. Active moments should be optional, quick and easy to read. They reward paying attention with a tactical choice, and they never punish you for letting the army run.</p>
+
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px;">
-          <span style="display:inline-block; font-size:0.66rem; font-weight:700; letter-spacing:0.08em; color:#4ade80; border:1px solid rgba(74,222,128,0.35); border-radius:999px; padding:3px 8px; margin-bottom:10px;">LIVE · GREEN GRAVES</span>
-          <h4 style="font-size:0.95rem; color:var(--text); margin:0 0 8px;">A timing decision inside the fight</h4>
-          <p style="font-size:0.8rem; color:var(--muted); line-height:1.65; margin:0;">Green graves rise during waves. Tapping one raises a temporary undead ally, so the player decides <em style="color:var(--text);">when</em> extra help matters: stabilise a losing frontline, answer a dangerous raid, or hold it for the next threat. The formation remains the source of power; the player chooses the moment to spend an opportunity.</p>
+          <h4 style="font-size:0.95rem; color:var(--text); margin:0 0 8px;">Green graves</h4>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.65; margin:0;">Green graves rise during waves. Tapping one raises a temporary undead ally, so you decide <em style="color:var(--text);">when</em> extra help matters: to save a losing frontline, to answer a dangerous raid, or to hold it for the next threat. Your formation is still where the power comes from.</p>
         </div>
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px;">
-          <span style="display:inline-block; font-size:0.66rem; font-weight:700; letter-spacing:0.08em; color:#fbbf24; border:1px solid rgba(251,191,36,0.35); border-radius:999px; padding:3px 8px; margin-bottom:10px;">LIVE · TREASURE CHESTS</span>
-          <h4 style="font-size:0.95rem; color:var(--text); margin:0 0 8px;">A reward that creates attention, not chores</h4>
-          <p style="font-size:0.8rem; color:var(--muted); line-height:1.65; margin:0;">Treasure chests create a visible opportunity during a raid. A player who is watching can claim the reward in the moment, while a player who ignores it is not punished—the chest pays out at the wave break. That makes attention feel good without making absence feel bad.</p>
+          <h4 style="font-size:0.95rem; color:var(--text); margin:0 0 8px;">Treasure chests</h4>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.65; margin:0;">Chests appear during a raid. If you're watching, you can grab one right away; if you're not, it pays out at the wave break anyway. Paying attention feels good, and being away doesn't feel bad.</p>
         </div>
       </div>
 
       <div style="background:linear-gradient(135deg, rgba(147,51,234,0.10), rgba(192,132,252,0.03)); border:1px solid rgba(147,51,234,0.3); border-radius:12px; padding:22px 24px;">
-        <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase; margin-bottom:8px;">Live system · between-wave events</div>
-        <h4 style="font-size:1rem; color:var(--text); margin:0 0 10px;">Make the dungeon feel like a place, not a conveyor belt</h4>
-        <p style="font-size:0.82rem; color:var(--muted); line-height:1.7; max-width:760px; margin:0 0 14px;">Occasional events interrupt the space between waves with a real decision before the next raid begins. They give the player a reason to re-engage at natural pauses, while leaving ordinary waves fast and readable.</p>
+        <h4 style="font-size:1rem; color:var(--text); margin:0 0 10px;">Between-wave events</h4>
+        <p style="font-size:0.82rem; color:var(--muted); line-height:1.7; max-width:760px; margin:0 0 14px;">Now and then an event fills the gap between waves with a real decision, so there's a reason to look up at natural pauses while normal waves stay quick. Events are rare, skippable and short, and they never give permanent power.</p>
         <div class="effects-wrap" style="margin-top:0;">
-          <span class="effect-pill"><strong>Live:</strong> The Shadow Merchant — buy one temporary contract for a few waves, or banish him and continue.</span>
-          <span class="effect-pill"><strong>Live:</strong> Ritual Idol — an optional formation DPS challenge with tiered rewards.</span>
-          <span class="effect-pill"><strong>Guardrail:</strong> rare, skippable, short-lived and never permanent power.</span>
+          <span class="effect-pill"><strong>The Shadow Merchant:</strong> buy a temporary contract for a few waves, or banish him.</span>
+          <span class="effect-pill"><strong>Ritual Idol:</strong> an optional DPS challenge for your formation, with tiered rewards.</span>
         </div>
       </div>
 
       <div class="gif-showcase" style="margin-top:20px;">
         <figure class="gif-slot gif-slot--event">
-          <video src="../rip_shadow_merchant.mp4" aria-label="Rest in Profit — Shadow Merchant event" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <video src="../rip_shadow_merchant.mp4" aria-label="Rest in Profit: Shadow Merchant event" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>rip_shadow_merchant.mp4</code> here</span></div>
-          <figcaption>The Shadow Merchant — <span>a temporary bargain or a quick banishment between waves</span></figcaption>
+          <figcaption>The Shadow Merchant: <span>a short-term deal, or banish him</span></figcaption>
         </figure>
         <figure class="gif-slot gif-slot--event">
-          <video src="../rip_ritual_idol.mp4" aria-label="Rest in Profit — Ritual Idol event" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <video src="../rip_ritual_idol.mp4" aria-label="Rest in Profit: Ritual Idol event" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>rip_ritual_idol.mp4</code> here</span></div>
-          <figcaption>Ritual Idol — <span>an optional formation DPS challenge with tiered rewards</span></figcaption>
+          <figcaption>Ritual Idol: <span>an optional DPS challenge with tiered rewards</span></figcaption>
         </figure>
       </div>
     </div>
 
-
-    <!-- ═══ Deep Dive divider ═══ -->
-    <div style="margin-top:80px;">
-      <div class="section-line">Deep Dive</div>
-      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px;">
-        Everything below is the full breakdown — the dig loop, the role-based defense, the economy, and the relic system that ties the build layer together. The summary above is the whole argument in short; go as deep as you want from here.
-      </p>
-    </div>
-
     <!-- ═══ The Dig Loop ═══ -->
     <div style="margin-top:72px;">
-      <div class="section-line">The Dig Loop — In Motion</div>
+      <div class="section-line">Digging</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:14px;">
-        The dig site is the piece I built and tuned first. You pay to enter an area (each has its own grid size, buried table and mana budget, and a per-trip price that rises gently) and tap tiles to uncover the <strong style="color:var(--text);">connected pattern</strong> of a buried monster — Disco Zoo's shape-reveal, reframed as grave-robbing.
+        I built and tuned this part first. You pay to enter an area (each has its own grid size, buried monsters, mana budget, and a price that rises a little each trip) and tap tiles to uncover the <strong style="color:var(--text);">shape</strong> of a buried monster. It's Disco Zoo's shape reveal, as grave robbing.
       </p>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
-        Everything present in a dig is <strong style="color:var(--accent2);">telegraphed</strong>, rarer monsters occupy fewer tiles (so they're harder to pin down), and the whole thing is tuned so you often come up <em>one tile short</em> — the exact moment the game offers a premium nudge. That near-miss tension is the loop's engine, and I validated it with real play before building anything on top of it.</p>
+        You're shown everything buried in a dig up front. Rarer monsters take up fewer tiles, so they're harder to find, and the dig is tuned so you often end up <em>one tile short</em>, which is exactly when the game offers you more digs. That near miss is what drives the loop.</p>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
-        Running dry is an offer, not an ending: 5 more digs for a Soul Gem, 5 free for an ad, or walk away and see the cells you missed, which makes the near-miss visible. Finds are celebrated in proportion. A captured monster's pieces merge into one creature on a book page, coin caches fly to the counter while the number climbs as they land, and each trip ends on a haul sheet that sends you straight into the next expedition or back to the dungeon.</p>
+        Running out isn't the end of the trip: you get 5 more digs for a Soul Gem, 5 free for an ad, or you walk away and see the tiles you missed, so you know how close you were. Bigger finds get bigger celebrations. A captured monster's pieces merge into one creature on a book page, coins fly to the counter, and each trip ends on a summary that sends you to the next expedition or back to the dungeon.</p>
 
       <div class="gif-showcase" style="margin-bottom:28px;">
         <figure class="gif-slot">
           <video src="../rip_dig_reveal.mp4" aria-label="Rest in Profit dig reveal" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>rip_dig_reveal.mp4</code> here</span></div>
-          <figcaption>The reveal — <span>uncovering a monster's pattern tile by tile</span></figcaption>
+          <figcaption>The reveal: <span>uncovering a monster tile by tile</span></figcaption>
         </figure>
         <figure class="gif-slot">
           <video src="../rip_dig_nearmiss.mp4" aria-label="Rest in Profit near-miss" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>rip_dig_nearmiss.mp4</code> here</span></div>
-          <figcaption>The near-miss — <span>one tile short, out of mana: spend to close the gap?</span></figcaption>
+          <figcaption>The near miss: <span>one tile short and out of mana</span></figcaption>
         </figure>
         <figure class="gif-slot">
           <video src="../rip_dig_summary.mp4" aria-label="Rest in Profit dig summary" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>rip_dig_summary.mp4</code> here</span></div>
-          <figcaption>The payoff — <span>what you uncovered this expedition</span></figcaption>
+          <figcaption>The summary: <span>what you found this trip</span></figcaption>
         </figure>
       </div>
     </div>
 
     <!-- ═══ The Dungeon Defense ═══ -->
     <div style="margin-top:72px;">
-      <div class="section-line">The Dungeon Defense — Role-Based Auto-Battler</div>
+      <div class="section-line">The dungeon</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:14px;">
-        Placed monsters aren't static — they <strong style="color:var(--text);">move and fight in real time</strong>, and they organize themselves. Each monster carries a role that drives a self-forming formation, so the tactical decision is <em>which roles you bring</em>, not micromanaging positions on a phone screen. Players begin with four deployment slots; collecting more monsters unlocks two additional slots, reaching a six-monster roster. The fight runs for the whole session: it keeps going, and earning, while you're off digging.
+        Your monsters <strong style="color:var(--text);">move and fight in real time</strong> and arrange themselves by role, so your decision is <em>which roles to bring</em>, not where to drag each unit on a small screen. You start with four slots and unlock two more by collecting monsters, up to six. The fight keeps going, and earning, while you're off digging.
       </p>
       <div class="roles-grid" style="margin-bottom:20px;">
         <div class="role-pill role-tank">
           <div class="role-name">Frontline</div>
-          <div class="role-desc">Wants the front and soaks damage. If it's ever behind the pack, it speeds up until it's back on the wall.</div>
+          <div class="role-desc">Goes to the front and takes the hits. If it falls behind, it speeds up until it's back in front.</div>
         </div>
         <div class="role-pill role-dps">
           <div class="role-name">Damage</div>
-          <div class="role-desc">Hangs back and only advances when its target leaves range — so a ranged unit holds deep, and a melee unit kites just behind the wall.</div>
+          <div class="role-desc">Stays back and only moves up when its target leaves range, so ranged units hold deep and melee units stay just behind the front.</div>
         </div>
         <div class="role-pill role-sup">
           <div class="role-name">Support</div>
@@ -882,30 +822,30 @@
         </div>
       </div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
-        Heroes walk in from the edge and hold a front line, paying a bounty per kill and a bonus per cleared wave. Once there's nothing left to fight, they turn on the dungeon itself, pushing over gravestones and smashing chests. There's <strong style="color:var(--accent2);">no lose screen</strong>: tap a fallen monster to revive it on a timer, or spend a Soul Gem to revive everyone. If the whole army goes down the dungeon is overrun, a soft wall that nudges you back to digging and upgrading rather than a punishment. Checkpoints every five waves can be returned to and farmed.
+        Heroes walk in from the edge and form their own front line. Each kill pays a bounty and each cleared wave pays a bonus. When there's nothing left to fight, heroes start wrecking the dungeon, knocking over gravestones and smashing chests. There's <strong style="color:var(--accent2);">no lose screen</strong>: tap a fallen monster to revive it on a timer, or spend a Soul Gem to revive everyone. If the whole army falls, the dungeon is overrun, which pushes you back to digging and upgrading instead of punishing you. You can return to checkpoints every five waves and farm them.
       </p>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
-        Hits land with sparks, damage numbers, screen shake and hit-stop, and a deck under the fight shows each monster's health, income and DPS. Nine signature abilities are authored as data with per-level tiers.
+        Hits have sparks, damage numbers, screen shake and hit-stop, and a panel under the fight shows each monster's health, income and DPS. The nine signature abilities are defined as data, with tiers per level.
       </p>
       <div class="gif-showcase" style="margin-bottom:8px;">
         <figure class="gif-slot">
-          <video src="../rip_defense.mp4" aria-label="Rest in Profit — a grave-robber racing for a gravestone" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <video src="../rip_defense.mp4" aria-label="Rest in Profit: a grave-robber racing for a gravestone" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>rip_defense.mp4</code> here</span></div>
-          <figcaption>The race for a grave — <span>a grave-robber goes for it; raise a skeleton before it lands</span></figcaption>
+          <figcaption>Race for a grave: <span>a grave robber goes for it; raise a skeleton first</span></figcaption>
         </figure>
         <figure class="gif-slot">
           <video src="../rip_ability.mp4" aria-label="Rest in Profit monster ability" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>rip_ability.mp4</code> here</span></div>
-          <figcaption>A signature ability — <span>each monster's kit unlocks as it levels</span></figcaption>
+          <figcaption>A signature ability: <span>unlocks as the monster levels up</span></figcaption>
         </figure>
       </div>
     </div>
 
     <!-- ═══ Progression & Economy ═══ -->
     <div style="margin-top:72px;">
-      <div class="section-line">Progression &amp; Economy</div>
+      <div class="section-line">Progression and economy</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
-        Two power axes, kept in separate lanes so each stays legible — and an economy tuned so the two coin sinks never starve each other.
+        Two kinds of power, kept separate so each is easy to understand, and tuned so the two things you spend coins on never starve each other.
       </p>
       <div class="prog-row">
         <div class="prog-block">
@@ -923,21 +863,21 @@
             <li>Spend coins on Attack &amp; Health</li>
             <li>Separate tracks, per monster</li>
             <li>Linear stat gain, exponential cost</li>
-            <li>Capped — a known power ceiling</li>
+            <li>Capped, so there's a known ceiling</li>
           </ul>
         </div>
         <div class="prog-block">
           <h3 style="color:var(--accent2);">The currencies</h3>
           <ul>
-            <li>Coins — power &amp; access</li>
-            <li>Mana — the per-dig budget</li>
-            <li>Soul Gems — premium, time only</li>
+            <li>Coins: power and access</li>
+            <li>Mana: your budget per dig</li>
+            <li>Soul Gems: premium, buys time only</li>
             <li>Offline earnings, simulated</li>
           </ul>
         </div>
       </div>
       <p style="font-size:0.8rem; color:var(--muted); line-height:1.65; max-width:680px; margin-top:20px;">
-        Dupes deepen <em style="color:var(--text);">what a monster does</em> (income + identity); coins raise <em style="color:var(--text);">its numbers</em> (combat power). Keeping those lanes apart means a player always knows what each currency is <em>for</em> — and why the next dig or the next upgrade matters.
+        Duplicates change <em style="color:var(--text);">what a monster does</em> (income and abilities); coins raise <em style="color:var(--text);">its numbers</em> (combat power). Keeping them apart means you always know what each currency is for, and why the next dig or upgrade matters.
       </p>
     </div>
 
@@ -973,25 +913,23 @@
       .side-economy { color:#fbbf24; border-color:rgba(251,191,36,0.3); }
     </style>
     <div style="margin-top:72px;">
-      <div class="section-line">Relics &amp; the Reliquary</div>
+      <div class="section-line">Relics</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:14px;">
-        The build layer — and the deepest systems-design work on the project. You collect relics and equip a <strong style="color:var(--text);">capped loadout</strong> from the pool, so every relic on is a relic you chose over another. Two rules keep the choices meaningful:
+        This is where you build your strategy, and it's the deepest systems work on the project. You collect relics but can only equip a <strong style="color:var(--text);">limited number</strong>, so every relic you use is one you picked over another. Two rules keep the choices interesting:
       </p>
       <div class="pillars-grid" style="margin-bottom:28px;">
         <div class="pillar">
-          <div class="pillar-num">Rule 01</div>
-          <h4>Rarity = downside severity</h4>
-          <p>Commons carry a small cost, Rares a sharper trade-off, Epics are clean power, and Legendaries redefine a build. Rarity tells you how spicy the trade is, not just how strong.</p>
+          <h4>Rarity sets the trade-off</h4>
+          <p>Commons have a small cost, Rares a sharper trade-off, Epics are pure power, and Legendaries change how a build works. Rarity tells you what kind of trade you're making, not only how strong it is.</p>
         </div>
         <div class="pillar">
-          <div class="pillar-num">Rule 02</div>
-          <h4>Every relic stands alone</h4>
-          <p>A relic has to justify its slot on its own — synergy is a bonus between two independently-good relics, never a prerequisite. And you can equip only one Legendary, so it anchors the build.</p>
+          <h4>Every relic works alone</h4>
+          <p>A relic has to earn its slot by itself. Synergy is a bonus between two relics that are already good, never a requirement. You can only equip one Legendary, so it becomes the center of the build.</p>
         </div>
       </div>
 
       <p style="font-size:0.82rem; color:var(--muted); line-height:1.6; max-width:680px; margin-bottom:4px;">
-        Six of the <strong style="color:var(--text);">25 relics</strong>, one step up the rarity ladder at a time: a Common with a small cost, a Rare gamble, a clean Epic, and the three build-defining Legendaries. Icons are hand-drawn 32×32 pixel art.
+        Six of the <strong style="color:var(--text);">25 relics</strong>: a Common with a small cost, a Rare gamble, an Epic, and the three Legendaries. I drew the icons as 32×32 pixel art.
       </p>
       <div class="wk-grid" id="relicGrid">
         <article class="wk-card wk-b-common" data-rar="common">
@@ -1015,7 +953,7 @@
           <div class="wk-body">
             <div class="wk-head"><h4>Choir of Bones</h4><span class="rar rar-epic">Epic</span></div>
             <span class="side-tag side-combat">Combat</span>
-            <p>+2% army damage for every duplicate you own. Rewards grinding depth.</p>
+            <p>+2% army damage for every duplicate you own. Rewards grinding.</p>
           </div>
         </article>
         <article class="wk-card wk-b-legendary" data-rar="legendary">
@@ -1023,7 +961,7 @@
           <div class="wk-body">
             <div class="wk-head"><h4>Overseeing Gargoyle</h4><span class="rar rar-legendary">Legendary</span></div>
             <span class="side-tag side-combat">Combat</span>
-            <p>Marks an execute zone; any hero inside it below 30% HP is instantly slain. Overseen monsters are drawn to fight there. Build-defining: control.</p>
+            <p>Marks a zone where any hero below 30% HP dies instantly, and pulls your monsters to fight there. Builds around control.</p>
           </div>
         </article>
         <article class="wk-card wk-b-legendary" data-rar="legendary">
@@ -1031,7 +969,7 @@
           <div class="wk-body">
             <div class="wk-head"><h4>Entropy of Assimilation</h4><span class="rar rar-legendary">Legendary</span></div>
             <span class="side-tag side-combat">Combat</span>
-            <p>On combat start, create 2 copies of your lowest-attack monster (−25% HP, can&#x27;t be revived, not collection units). Build-defining: go-wide swarm.</p>
+            <p>When combat starts, makes 2 copies of your lowest-attack monster (−25% HP, can&#x27;t be revived, don&#x27;t count for the collection). Builds around swarming.</p>
           </div>
         </article>
         <article class="wk-card wk-b-legendary" data-rar="legendary">
@@ -1039,33 +977,33 @@
           <div class="wk-body">
             <div class="wk-head"><h4>Reaper&#x27;s Attrition</h4><span class="rar rar-legendary">Legendary</span></div>
             <span class="side-tag side-combat">Combat</span>
-            <p>30% of the damage soaked by your Frontline heals all other units; the Frontline takes +20% damage and doesn&#x27;t heal itself. Build-defining: sustain.</p>
+            <p>30% of the damage your Frontline takes heals everyone else; the Frontline takes +20% damage and can&#x27;t heal itself. Builds around sustain.</p>
           </div>
         </article>
       </div>
       <p style="font-size:0.78rem; color:var(--muted); line-height:1.6; max-width:680px; margin-top:16px;">
-        Every relic is found by digging, drawn from a per-area bag with pity so dry streaks end. The Reliquary levels up with how many you've found, opening more sockets, and relics drag and drop between the shelf and sockets. All 25 effects are live across digging, economy and combat, giving the Reliquary meaningful trade-offs across both halves of the game.
+        You find relics by digging. Each area has its own pool, with a pity timer so dry streaks end. The Reliquary gets more sockets as you find more relics, and you drag relics between the shelf and the sockets. All 25 effects work, across digging, the economy and combat.
       </p>
     </div>
 
     <!-- ═══ Monetization ═══ -->
     <div style="margin-top:72px;">
-      <div class="section-line">Monetization &amp; Ads</div>
+      <div class="section-line" id="monetization">Monetization</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:14px;">
-        A free-to-play game has to pay for itself, and how it does that is a design decision like any other. I set one rule first and derived the rest from it: <strong style="color:var(--text);">premium buys time and convenience, never power</strong>. Everything below follows from that line, and the line is also what I refuse to cross.
+        A free-to-play game has to pay for itself, and how it does that is a design decision like any other. I set one rule first: <strong style="color:var(--text);">premium buys time and convenience, never power</strong>. Everything below follows from it.
       </p>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
-        The clearest test was interstitial ads. Forced interstitials with a paid removal are a common, proven model, but they fight a cozy game built around choosing when to engage. So every ad here is one the player chooses to watch for a reward, and the game is never worse for saying no.
+        The clearest test was interstitial ads. Forced ads with a paid "remove ads" option are a common, proven model, but they clash with a cozy game where you choose when to engage. So every ad here is one you choose to watch for a reward, and saying no never makes the game worse.
       </p>
 
       <div class="mechanics-grid" style="margin-bottom:28px;">
         <div class="mechanic-card">
           <h3>Rewarded only</h3>
-          <p>No interstitials, no ad the player didn't tap. Each placement either follows a reward (double an expedition haul or an offline raid) or offers a way out of a bad moment (skip a revive timer, refill a dig). Capped per placement and per day.</p>
+          <p>No interstitials, and no ad you didn't tap. Each one either doubles a reward (an expedition haul or an offline raid) or gets you out of a bad moment (skip a revive timer, refill a dig). Capped per placement and per day.</p>
         </div>
         <div class="mechanic-card">
           <h3>Ad buffs</h3>
-          <p>Timed boosts — coins, revive speed, an extra grave per wave, starting mana — earned with an ad, not bought. Ad-only on purpose: sell them for premium currency and I'd be selling power through the side door.</p>
+          <p>Timed boosts (coins, revive speed, an extra grave per wave, starting mana) that you earn by watching an ad. They're ad-only on purpose. Selling them for premium currency would be selling power through the back door.</p>
         </div>
         <div class="mechanic-card">
           <h3>Soul Gems buy time</h3>
@@ -1081,7 +1019,7 @@
         </div>
         <div class="mechanic-card">
           <h3>Balanced at zero</h3>
-          <p>Waves are tuned for a player with no buffs, no gems and no ads watched. Spending moves the ceiling, never the floor — otherwise the free game is quietly broken and the paid one is the real one.</p>
+          <p>Waves are tuned for a player with no buffs, no gems and no ads watched. Spending raises the ceiling, never the floor. Otherwise the free game is quietly broken and the paid one is the real one.</p>
         </div>
       </div>
 
@@ -1101,32 +1039,32 @@
       </style>
       <div class="shot-grid">
         <figure class="shot">
-          <img src="../soul_gem_shop.png" alt="Rest in Profit — Soul Gem store" onerror="this.closest('.shot').classList.add('is-missing')">
+          <img src="../soul_gem_shop.png" alt="Rest in Profit: Soul Gem store" onerror="this.closest('.shot').classList.add('is-missing')">
           <div class="shot-missing"><span style="font-size:1.4rem; color:var(--accent2); opacity:0.7;">◆</span><span>Drop <code>soul_gem_shop.png</code> here</span></div>
-          <figcaption>The store — <span>five tiers, plain prices, no pressure tactics</span></figcaption>
+          <figcaption>The store: <span>five tiers, plain prices, no pressure tactics</span></figcaption>
         </figure>
         <figure class="shot">
-          <img src="../watch_an_ad_1.png" alt="Rest in Profit — rewarded ad offer" onerror="this.closest('.shot').classList.add('is-missing')">
+          <img src="../watch_an_ad_1.png" alt="Rest in Profit: rewarded ad offer" onerror="this.closest('.shot').classList.add('is-missing')">
           <div class="shot-missing"><span style="font-size:1.4rem; color:var(--accent2); opacity:0.7;">◆</span><span>Drop <code>watch_an_ad_1.png</code> here</span></div>
-          <figcaption>An offer, not an interruption — <span>shown at the moment it's useful</span></figcaption>
+          <figcaption>An ad offer: <span>shown when it's useful</span></figcaption>
         </figure>
         <figure class="shot">
-          <img src="../watch_an_ad_2.png" alt="Rest in Profit — ad buff" onerror="this.closest('.shot').classList.add('is-missing')">
+          <img src="../watch_an_ad_2.png" alt="Rest in Profit: ad buff" onerror="this.closest('.shot').classList.add('is-missing')">
           <div class="shot-missing"><span style="font-size:1.4rem; color:var(--accent2); opacity:0.7;">◆</span><span>Drop <code>watch_an_ad_2.png</code> here</span></div>
-          <figcaption>A buff earned — <span>timed, ad-only, never sold for gems</span></figcaption>
+          <figcaption>An ad buff: <span>timed, never sold for gems</span></figcaption>
         </figure>
       </div>
 
       <div style="border-left:2px solid var(--border); padding:4px 0 4px 16px;">
-        <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;"><strong style="color:var(--text);">Honest about scope:</strong> the currency, its sinks and the store are built; the ad network isn't wired up yet, so rewarded placements grant their reward directly while the design is tested. The economics here are reasoned, not measured — I have no live data, and I'd want retention and conversion numbers before claiming any of it works.</p>
+        <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;"><strong style="color:var(--text);">Status:</strong> the currency, what it buys and the store are built. The ad network isn't connected yet, so ad placements give their reward directly while I test the design. This is all reasoning, not data. I'd want retention and conversion numbers before claiming any of it works.</p>
       </div>
     </div>
 
     <!-- ═══ What I cut ═══ -->
     <div style="margin-top:72px;">
-      <div class="section-line">What I Cut</div>
+      <div class="section-line">What I cut</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
-        Two features I designed and then didn't build. Deciding what not to make is most of finishing anything, so both are here with the reasoning rather than quietly missing.
+        Two features I designed and then decided not to build.
       </p>
 
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:16px; align-items:start;">
@@ -1138,19 +1076,16 @@
           </figure>
           <div style="padding:18px 20px;">
             <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">Parts &amp; assembly</h4>
-            <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0 0 10px;">Originally you dug up <em style="color:var(--text);">pieces</em> — a hand, a skull, a ribcage — and built monsters from them. It fit the necromancer fantasy perfectly, and it fought the dig loop: a grid reveal is satisfying because you uncover one whole shape, and parts turned every find into an inventory entry waiting on three more finds.</p>
-            <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">Cut in favour of whole monsters. The concept art didn't go to waste — the severed hand and the brain became relic icons.</p>
+            <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0 0 10px;">At first you dug up <em style="color:var(--text);">pieces</em> (a hand, a skull, a ribcage) and built monsters from them. It fit the necromancer fantasy perfectly and worked against the dig loop. A grid reveal is satisfying because you uncover one whole shape, and parts turned every find into an inventory item waiting for three more finds.</p>
+            <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">I switched to whole monsters. The severed hand and the brain from the concept art became relic icons.</p>
           </div>
         </div>
 
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 20px;">
           <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">Parallel farming areas</h4>
-          <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
-            <span style="font-size:0.68rem; font-weight:700; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:3px 8px;">TEMPTING · more to manage, more income</span>
-            <span style="font-size:0.68rem; font-weight:700; color:var(--accent2); border:1px solid var(--accent); border-radius:6px; padding:3px 8px;">CUT · doubles the economy, splits the fantasy</span>
-          </div>
-          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0 0 10px;">Several dungeons running at once, each with its own squad earning in parallel — the Sushi Bar Idle shape. It's a proven structure and it would have given monsters past the fourth slot somewhere to go.</p>
-          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">I cut it for two reasons. It multiplies the economy: every extra zone is another income curve to balance against one upgrade curve, which was already the hardest work on the project. And it splits the fantasy: the fight is about one line holding under pressure, and spreading that across screens turns it into allocation, closer to the idle game I decided this isn't.</p>
+          <div class="ba-tags"><span>TEMPTING · more to manage, more income</span><span class="after">CUT · two economies, split focus</span></div>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0 0 10px;">Several dungeons running at once, each with its own squad earning coins, like Sushi Bar Idle. It's a proven structure, and it would have given extra monsters somewhere to go.</p>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">I cut it for two reasons. Every extra dungeon is another income curve to balance against the one upgrade curve, which was already the hardest part of the project. And the fight is about one line holding under pressure; spreading it across screens turns it into resource allocation, which is closer to the idle game I decided this isn't.</p>
         </div>
 
       </div>
@@ -1158,25 +1093,20 @@
 
     <!-- ═══ Built from scratch ═══ -->
     <div style="margin-top:72px;">
-      <div class="section-line">Tools I Built to Iterate Faster</div>
+      <div class="section-line">Tools I built</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:20px;">
-        Everything here is mine: the design, the C# systems, the pixel art and the tooling. To iterate on a systems-heavy game alone, I built <strong style="color:var(--text);">22 Unity editor tools</strong>: inspectors for monsters, relics and dig areas, content generators that keep existing tuning when re-run, level-curve and offline-time windows, and jump tools to test any wave or event on demand. A build hook also fails any release build still wired to test ads.
+        To work faster on a systems-heavy game alone, I built <strong style="color:var(--text);">22 Unity editor tools</strong>: inspectors for monsters, relics and dig areas, content generators that keep existing tuning when re-run, windows for level curves and offline time, and tools to jump to any wave or event. A build hook also fails any release build that still uses test ads.
       </p>
       <div class="effects-wrap">
-        <span class="effect-pill">Monster, relic &amp; dig-area inspectors</span>
-        <span class="effect-pill">Re-runnable content generators</span>
-        <span class="effect-pill">Level-curve windows</span>
-        <span class="effect-pill">Offline-time simulator</span>
-        <span class="effect-pill">Wave &amp; event jump tools</span>
         <span class="effect-pill">Save-snapshot device builds</span>
       </div>
     </div>
 
     <!-- ═══ Audio scope call ═══ -->
     <div style="margin-top:72px;">
-      <div class="section-line">Audio: A Scope Call, Not a Craft Goal</div>
+      <div class="section-line">Audio</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px;">
-        One thing here isn't mine, on purpose. Authoring sound myself was burning days on a craft I'm not developing, so I wrote a short brief off the loop (what the dig tap, the reveal, the hit, the death and the revive each need to communicate) and sourced against it. The rule I'd reuse on any solo project: decide early which crafts you're <em style="color:var(--text);">developing</em> and which you just need <em style="color:var(--text);">solved</em>, and put the saved hours back into the first group.
+        The sound isn't mine, on purpose. Making it myself was eating days on a skill I'm not working on, so I wrote a short brief (what the dig tap, the reveal, the hit, the death and the revive each need to tell the player) and sourced sounds that fit it. On a solo project I now decide early which skills I'm <em style="color:var(--text);">developing</em> and which I just need <em style="color:var(--text);">solved</em>, and put the saved time into the first group.
       </p>
     </div>
 
@@ -1202,7 +1132,7 @@
     display: block;
     width: 100%;
     aspect-ratio: 4 / 3;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center 30%;
     background: #000;
     image-rendering: pixelated;
@@ -1283,11 +1213,10 @@
 <!-- ═══════════════════════════════════════ Site Nav Footer ═══════════════════════════════════════ -->
 <div class="site-nav-footer">
   <div class="container">
-    <span class="site-nav-footer-label">Jump to</span>
+    <span class="site-nav-footer-label">Pages</span>
     <div class="site-nav-footer-grid">
       <a href="../index.html">Home</a>
       <a href="../games.html">Games</a>
-      <a href="../prototypes.html">Experiments</a>
       <a href="../experience.html">Experience</a>
       <a href="../toolbox.html">Toolbox</a>
       <a href="../roadmap.html">Roadmap</a>
@@ -1307,8 +1236,7 @@
 <!-- Contact -->
 <section id="contact">
   <div class="container">
-    <span class="label">Get in touch</span>
-    <h2>Let's talk.</h2>
+    <h2>Contact</h2>
     <p>Open to junior game design roles, collaborations, and feedback on work in progress.</p>
     <div class="contact-links">
       <a href="mailto:dekelriess@gmail.com" class="btn btn-primary">✉ dekelriess@gmail.com</a>

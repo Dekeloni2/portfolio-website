@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trials of the Dungeon — Dekel Riess</title>
-  <meta name="description" content="Trials of the Dungeon — a cooperative dungeon-crawl board game. Design breakdown: tile exploration, class design, and the final boss fight." />
+  <title>Trials of the Dungeon | Dekel Riess</title>
+  <meta name="description" content="Trials of the Dungeon, a co-op dungeon-crawl board game. Design breakdown, playtest log and judges' feedback." />
   <link rel="icon" type="image/png" href="../favicon.png" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Trials of the Dungeon — Dekel Riess" />
-  <meta property="og:description" content="Trials of the Dungeon — a cooperative dungeon-crawl board game. Design breakdown: tile exploration, class design, and the final boss fight." />
+  <meta property="og:title" content="Trials of the Dungeon | Dekel Riess" />
+  <meta property="og:description" content="Trials of the Dungeon, a co-op dungeon-crawl board game. Design breakdown, playtest log and judges' feedback." />
   <meta property="og:url" content="https://dekeloni2.github.io/portfolio-website/games/trials.html" />
   <meta property="og:image" content="https://dekeloni2.github.io/portfolio-website/dekel.png" />
   <meta name="twitter:card" content="summary" />
@@ -944,6 +944,26 @@
     .jump-to-detail:hover { text-decoration: none; opacity: 0.82; }
     .section-line { scroll-margin-top: 80px; }
 
+
+    /* ─── Plain text blocks ──────────────────────────────────────── */
+    .body-text { font-size: 0.88rem; color: var(--muted); line-height: 1.7; max-width: 680px; margin-bottom: 18px; }
+    .body-text strong { color: var(--text); }
+    .note-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; }
+    .note-card h4 { margin: 0 0 6px; font-size: 0.92rem; color: var(--accent2); }
+    .note-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.65; margin: 0; }
+    .note-card p + p { margin-top: 8px; }
+
+    /* ─── Key decisions + before/after tags ──────────────────────── */
+    .key-decisions { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 10px; padding: 16px 20px; margin-bottom: 36px; }
+    .key-decisions h3 { font-size: 0.95rem; margin: 0 0 10px; color: var(--text); }
+    .key-decisions ol { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 7px; }
+    .key-decisions li { font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+    .key-decisions li strong { color: var(--text); }
+    .key-decisions li a { color: var(--accent2); font-size: 0.8rem; white-space: nowrap; }
+    .ba-tags { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .ba-tags span { font-size: 0.68rem; font-weight: 700; color: var(--muted); border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; }
+    .ba-tags span.after { color: var(--accent2); border-color: var(--accent); }
+    [id] { scroll-margin-top: 90px; }
 </style>
 </head>
 <body>
@@ -953,7 +973,6 @@
     <a href="../index.html" class="nav-logo" style="text-decoration:none;">Dekel Riess</a>
     <ul class="nav-links">
       <li><a href="../games.html">Games</a></li>
-      <li><a href="../prototypes.html">Experiments</a></li>
       <li><a href="../experience.html">Experience</a></li>
       <li><a href="../toolbox.html">Toolbox</a></li>
       <li><a href="../roadmap.html">Roadmap</a></li>
@@ -969,177 +988,154 @@
         <span class="badge badge-done">Finished</span>
         <h2 style="margin-top:12px;">Trials of the Dungeon</h2>
         <p class="concept">
-          A cooperative board game for 1–4 players. Navigate a randomly generated dungeon, gear up, and grow strong enough to defeat the final boss — The Slime King. Designed and produced as a physical product for the Game Design course.
+          A co-op board game for 1–4 players. You explore a dungeon that's built randomly as you play, collect gear, and try to get strong enough to beat the final boss, the Slime King. We made it as a physical product for the Game Design course.
         </p>
         <div class="game-info-row">
-          <div class="game-info-item"><span class="game-info-key">Type</span><span class="game-info-val">Physical Board Game</span></div>
+          <div class="game-info-item"><span class="game-info-key">Type</span><span class="game-info-val">Physical board game</span></div>
           <div class="game-info-item"><span class="game-info-key">Players</span><span class="game-info-val">1–4</span></div>
           <div class="game-info-item"><span class="game-info-key">Course</span><span class="game-info-val">Game Design</span></div>
           <div class="game-info-item"><span class="game-info-key">Team</span><span class="game-info-val">4 people</span></div>
-          <div class="game-info-item"><span class="game-info-key">Role</span><span class="game-info-val">Rulebook Design · Game Design · Co-Director</span></div>
-          <div class="game-info-item"><span class="game-info-key">Owned</span><span class="game-info-val">Rulebook, gameplay systems, economy, spells, balancing</span></div>
-          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">Complete · Physical Product</span></div>
+          <div class="game-info-item"><span class="game-info-key">Role</span><span class="game-info-val">Game design, rulebook, co-director</span></div>
+          <div class="game-info-item"><span class="game-info-key">I owned</span><span class="game-info-val">Rulebook, gameplay systems, economy, spells, balance</span></div>
         </div>
         <div style="margin-top:20px;">
-          <a href="https://drive.google.com/file/d/1UjtLMn78_mtpdFaLG9MSJMtV2HCodpDk/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%; justify-content:center;">
-            📖 Read the Rulebook
-          </a>
-          <a href="../Trials of the Dungeon - Rulebook.pdf" download class="btn btn-ghost" style="width:100%; justify-content:center; margin-top:8px;">
-            ⤓ Download the full PDF
-          </a>
+          <a href="https://drive.google.com/file/d/1UjtLMn78_mtpdFaLG9MSJMtV2HCodpDk/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%; justify-content:center;">Read the rulebook ↗</a>
+          <a href="../Trials of the Dungeon - Rulebook.pdf" download class="btn btn-ghost" style="width:100%; justify-content:center; margin-top:8px;">Download the PDF</a>
         </div>
         <div style="margin-top:16px;">
-          <img src="../hero_cards.png" alt="Class cards — Witch, Healer, Paladin, Warrior" style="width:100%; border-radius:8px; border:1px solid var(--border);">
-          <p style="font-size:0.7rem; color:var(--muted); text-align:center; margin-top:6px;">Witch · Healer · Paladin · Warrior — the 4 playable classes</p>
+          <img src="../hero_cards.png" alt="Class cards: Witch, Healer, Paladin, Warrior" style="width:100%; border-radius:8px; border:1px solid var(--border);">
+          <p style="font-size:0.7rem; color:var(--muted); text-align:center; margin-top:6px;">The four classes: Witch, Healer, Paladin, Warrior</p>
         </div>
       </div>
 
       <div class="game-content-col">
-        <!-- At a glance -->
-        <div class="at-glance reveal">
-          <span class="label">At a glance</span>
-          <p class="at-glance-hook">A <strong>co-op board game</strong> for 1–4 players — crawl a randomly generated dungeon, gear up, and grow strong enough to beat the Slime King. Designed and produced as a physical product.</p>
-          <div class="highlight-chips">
-            <span class="highlight-chip">Game Designer &amp; Co-Director</span>
-            <span class="highlight-chip">1–4 player co-op</span>
-            <span class="highlight-chip">Randomized dungeon</span>
-            <span class="highlight-chip">Shipped as a physical product</span>
-          </div>
-          <a href="#breakdown" class="jump-to-detail">Jump to the full breakdown ↓</a>
+        <div class="key-decisions">
+          <h3>Key decisions</h3>
+          <ol>
+            <li><strong>Cut the Defense stat for monster Guard and Crit ranges,</strong> because Defense let a player roll and deal zero damage. <a href="#changes">More ↓</a></li>
+            <li><strong>Moved balance into monster HP,</strong> testing ×2 and settling on ×3. <a href="#changes">More ↓</a></li>
+            <li><strong>Kept the boss out of the deck until 15 tiles are down,</strong> so bad luck alone can't lose the game. <a href="#changes">More ↓</a></li>
+            <li><strong>Gave gold two places to go,</strong> the Shopkeeper and the Blacksmith, so saving and spending pull against each other. <a href="#economy">More ↓</a></li>
+          </ol>
         </div>
 
 
-        <div class="section-line" id="breakdown">Design Pillars</div>
+        <div class="section-line" id="breakdown">What the design is built on</div>
         <div class="pillars-grid">
           <div class="pillar">
-            <div class="pillar-num">01</div>
-            <h4>Cooperative Tension</h4>
-            <p>One win condition, one lose condition. Classes cover each other's weaknesses — the Slime King punishes parties that didn't coordinate.</p>
+            <h4>Win or lose together</h4>
+            <p>One win condition and one lose condition. The classes cover each other's weaknesses, and the Slime King punishes a party that didn't coordinate.</p>
           </div>
           <div class="pillar">
-            <div class="pillar-num">02</div>
-            <h4>Class Identity</h4>
-            <p>Each class plays differently by design. Warrior tanks, Healer sustains, Witch deals spell damage, Paladin balances both. Your class shapes how you approach every encounter.</p>
+            <h4>Classes that play differently</h4>
+            <p>The Warrior tanks, the Healer keeps people alive, the Witch deals spell damage and the Paladin does some of both. Your class changes how you approach each fight.</p>
           </div>
           <div class="pillar">
-            <div class="pillar-num">03</div>
-            <h4>Emergent Exploration</h4>
-            <p>The dungeon is built from a shuffled tile deck drawn during play. No two runs produce the same layout — each session is fresh without a single pre-designed level.</p>
+            <h4>A new dungeon every game</h4>
+            <p>The dungeon is a shuffled deck of tiles drawn during play, so no two games have the same layout and we never had to design a fixed level.</p>
           </div>
           <div class="pillar">
-            <div class="pillar-num">04</div>
-            <h4>Meaningful Progression</h4>
-            <p>Gear, XP, and gold all serve one goal: survive The Slime King. Every decision is framed against that — pacing the economy was the hardest design problem.</p>
+            <h4>Everything points at the boss</h4>
+            <p>Gear, XP and gold all exist to help you survive the Slime King. Pacing the economy toward that fight was the hardest problem.</p>
           </div>
         </div>
 
-        <div class="section-line" style="margin-top:36px;">Key Systems</div>
+        <div class="section-line" style="margin-top:36px;">Systems</div>
         <div class="mechanics-grid">
           <div class="mechanic-card">
-            <div class="mechanic-icon"><img src="../tile_based_exploration.png" alt="Tile-Based Exploration"></div>
-            <h3>Tile-Based Exploration</h3>
-            <p>Players draw and place tiles each turn — Monster, Treasure, Shop, Trap, or Blacksmith. The dungeon grows as you explore; mandatory reveals keep the threat alive.</p>
+            <div class="mechanic-icon"><img src="../tile_based_exploration.png" alt=""></div>
+            <h3>Tiles</h3>
+            <p>Each turn you draw and place a tile: Monster, Treasure, Shop, Trap or Blacksmith. Some reveals are mandatory, so the danger keeps coming.</p>
           </div>
           <div class="mechanic-card">
-            <div class="mechanic-icon"><img src="../combat.png" alt="Combat"></div>
-            <h3>Combat with Guard & Crit</h3>
-            <p>Monsters have a Guard range (minimum roll to deal damage) and a Crit range (roll for 2× damage). Even standard encounters carry real tension — not just "roll high, win."</p>
+            <div class="mechanic-icon"><img src="../combat.png" alt=""></div>
+            <h3>Guard and Crit</h3>
+            <p>Each monster has a Guard range (the minimum roll to hurt it) and a Crit range (rolls that do double damage). Even a normal fight is more than rolling high.</p>
           </div>
           <div class="mechanic-card">
-            <div class="mechanic-icon"><img src="../blacksmith.png" alt="Blacksmith"></div>
-            <h3>Shop & Blacksmith Economy</h3>
-            <p>Gold buys spells from the Shopkeeper and upgrades from the Blacksmith. Equipment degrades and must be repaired — a resource loop that runs the entire session.</p>
+            <div class="mechanic-icon"><img src="../blacksmith.png" alt=""></div>
+            <h3>Shop and Blacksmith</h3>
+            <p>Gold buys spells from the Shopkeeper and upgrades from the Blacksmith. Gear breaks and needs repairs, so you're always deciding whether to save or spend.</p>
           </div>
           <div class="mechanic-card">
-            <div class="mechanic-icon"><img src="../slime_king.png" alt="Slime King"></div>
+            <div class="mechanic-icon"><img src="../slime_king.png" alt=""></div>
             <h3>The Slime King</h3>
-            <p>The pacing forcing function — everything in the game is designed around whether the party is ready. Unique abilities not seen in regular encounters reward intentional builds.</p>
+            <p>Everything is paced around whether the party is ready for him. He has abilities no regular monster has, which rewards parties that built for the fight.</p>
           </div>
         </div>
 
-        <div class="section-line" style="margin-top:36px;">Monsters</div>
+        <div class="section-line" style="margin-top:36px;">Monster and vendor cards</div>
         <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:8px;">
-          <img src="../enemy_1.png" alt="Enemy card 1" style="height:160px; border-radius:8px; border:1px solid var(--border);">
-          <img src="../enemy_2.png" alt="Enemy card 2" style="height:160px; border-radius:8px; border:1px solid var(--border);">
-          <img src="../enemy_3.png" alt="Enemy card 3" style="height:160px; border-radius:8px; border:1px solid var(--border);">
+          <img src="../enemy_1.png" alt="Monster card" style="height:160px; border-radius:8px; border:1px solid var(--border);">
+          <img src="../enemy_2.png" alt="Monster card" style="height:160px; border-radius:8px; border:1px solid var(--border);">
+          <img src="../enemy_3.png" alt="Monster card" style="height:160px; border-radius:8px; border:1px solid var(--border);">
         </div>
-
-        <div class="section-line" style="margin-top:36px;">Vendors</div>
-        <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:8px;">
+        <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin:16px 0 8px;">
           <img src="../Shopkeeper.png" alt="Shopkeeper card" style="height:160px; border-radius:8px; border:1px solid var(--border);">
           <img src="../Blacksmith (1).png" alt="Blacksmith card" style="height:160px; border-radius:8px; border:1px solid var(--border);">
         </div>
 
-        <div class="section-line" style="margin-top:36px;">Design Note</div>
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px;">
-          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7;">
-            The only physical product in this portfolio. Tabletop design means no engine to enforce rules, no UI to communicate state — everything has to work through the components alone. The economy runs on two gold sinks (Shopkeeper for consumables, Blacksmith for upgrades) tuned for constant tension between saving and spending. Writing the rulebook was its own challenge: unambiguous rules that cover every edge case without overwhelming new players. Shipped as a complete, playable product.
-          </p>
-        </div>
+        <div class="section-line" id="economy" style="margin-top:36px;">Designing without a computer</div>
+        <p class="body-text">This is my only physical game. There's no engine to enforce the rules and no UI to show the state of the game, so the components have to do all of it. The economy has two places to spend gold, the Shopkeeper for consumables and the Blacksmith for upgrades, tuned so saving and spending pull against each other.</p>
 
-        <div class="section-line" style="margin-top:36px;">Physical Components</div>
-        <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; margin-bottom:18px;">
-          The game was produced as a real, physical product — each of the four classes has its own 3D-printed miniature, alongside custom components like a printed gold-tracker dial. Tap any to enlarge.
-        </p>
+        <div class="section-line" style="margin-top:36px;">Components</div>
+        <p class="body-text">Each class has its own 3D-printed miniature, and we printed a dial for tracking gold. Click any photo to enlarge it.</p>
         <div class="comp-gallery">
           <figure class="comp-item">
             <a href="../trials_warrior.png" target="_blank" rel="noopener"><img src="../trials_warrior.png" alt="3D-printed Warrior miniatures" loading="lazy"></a>
-            <figcaption>Warrior minis</figcaption>
+            <figcaption>Warrior</figcaption>
           </figure>
           <figure class="comp-item">
             <a href="../trials_paladins.png" target="_blank" rel="noopener"><img src="../trials_paladins.png" alt="3D-printed Paladin miniatures" loading="lazy"></a>
-            <figcaption>Paladin minis</figcaption>
+            <figcaption>Paladin</figcaption>
           </figure>
           <figure class="comp-item">
             <a href="../trials_priests.png" target="_blank" rel="noopener"><img src="../trials_priests.png" alt="3D-printed Healer miniatures" loading="lazy"></a>
-            <figcaption>Healer minis</figcaption>
+            <figcaption>Healer</figcaption>
           </figure>
           <figure class="comp-item">
             <a href="../trials_witch.png" target="_blank" rel="noopener"><img src="../trials_witch.png" alt="3D-printed Witch miniature" loading="lazy"></a>
-            <figcaption>Witch mini</figcaption>
+            <figcaption>Witch</figcaption>
           </figure>
           <figure class="comp-item">
             <a href="../trials_goldtracker.png" target="_blank" rel="noopener"><img src="../trials_goldtracker.png" alt="3D-printed gold tracker dial" loading="lazy"></a>
-            <figcaption>Custom gold-tracker dial</figcaption>
+            <figcaption>Gold tracker</figcaption>
           </figure>
         </div>
 
-        <div class="section-line" style="margin-top:36px;">From the Rulebook</div>
-        <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; margin-bottom:18px;">
-          I designed, wrote, and laid out the full rulebook myself — a 14-page rules-and-almanac in a hand-built parchment style. Every system in the game had to be explained unambiguously through the components alone. A few spreads:
-        </p>
+        <div class="section-line" style="margin-top:36px;">The rulebook</div>
+        <p class="body-text">I designed, wrote and laid out the 14-page rules and almanac myself. The hard part was covering every edge case without burying new players in rules. A few spreads:</p>
         <div class="rb-gallery">
           <figure class="rb-item">
-            <a href="../rulebook_cover.jpg" target="_blank" rel="noopener"><img src="../rulebook_cover.jpg" alt="Trials of the Dungeon rulebook cover" loading="lazy"></a>
-            <figcaption>Cover — Rules &amp; Almanac</figcaption>
+            <a href="../rulebook_cover.jpg" target="_blank" rel="noopener"><img src="../rulebook_cover.jpg" alt="Rulebook cover" loading="lazy"></a>
+            <figcaption>Cover</figcaption>
           </figure>
           <figure class="rb-item">
-            <a href="../rulebook_setup.jpg" target="_blank" rel="noopener"><img src="../rulebook_setup.jpg" alt="Rulebook setup and turn structure page" loading="lazy"></a>
-            <figcaption>Setup &amp; turn structure</figcaption>
+            <a href="../rulebook_setup.jpg" target="_blank" rel="noopener"><img src="../rulebook_setup.jpg" alt="Setup and turn structure page" loading="lazy"></a>
+            <figcaption>Setup and turns</figcaption>
           </figure>
           <figure class="rb-item">
-            <a href="../rulebook_classes.jpg" target="_blank" rel="noopener"><img src="../rulebook_classes.jpg" alt="Class statistics and build page" loading="lazy"></a>
-            <figcaption>Class stats &amp; the four builds</figcaption>
+            <a href="../rulebook_classes.jpg" target="_blank" rel="noopener"><img src="../rulebook_classes.jpg" alt="Class stats page" loading="lazy"></a>
+            <figcaption>Class stats</figcaption>
           </figure>
           <figure class="rb-item">
-            <a href="../rulebook_spells.jpg" target="_blank" rel="noopener"><img src="../rulebook_spells.jpg" alt="Spell encyclopedia page" loading="lazy"></a>
-            <figcaption>Spell encyclopedia</figcaption>
+            <a href="../rulebook_spells.jpg" target="_blank" rel="noopener"><img src="../rulebook_spells.jpg" alt="Spell list page" loading="lazy"></a>
+            <figcaption>Spells</figcaption>
           </figure>
         </div>
 
         <div style="margin-top:80px; padding-top:64px; border-top:1px solid var(--border);">
-          <span class="label">Playtesting</span>
-          <h2 style="margin-bottom:10px;">The Playtest Log</h2>
+          <h2 style="margin-bottom:10px;">Playtests</h2>
           <p style="color:var(--muted); max-width:660px; margin-bottom:26px;">
-            Five structured playtests across February 2026. Every session logged the party's state, the outcome, and a design verdict — and every session changed a rule. This is where the balance was actually found. Each run's fun score is the average of all four players' out-of-10 ratings.
+            We ran five playtests in February 2026. For each one I logged the party, the result and what had to change, and every session changed a rule. The fun score is the average of the players' ratings out of 10.
           </p>
 
           <div class="pt-summary">
             <div class="pt-stat"><b>5</b><span>Sessions</span></div>
-            <div class="pt-stat"><b>7 hrs</b><span>Logged Play</span></div>
-            <div class="pt-stat"><b>3–4</b><span>Players / Run</span></div>
-            <div class="pt-stat"><b>2 / 5</b><span>Boss Kills</span></div>
-            <div class="pt-stat"><b>6.6</b><span>Avg Fun / 10</span></div>
+            <div class="pt-stat"><b>7 hrs</b><span>Of play</span></div>
+            <div class="pt-stat"><b>3–4</b><span>Players per game</span></div>
+            <div class="pt-stat"><b>2 / 5</b><span>Boss kills</span></div>
+            <div class="pt-stat"><b>6.6</b><span>Avg fun / 10</span></div>
           </div>
 
           <div class="pt-table-wrap">
@@ -1151,9 +1147,9 @@
                   <th>Top Lvl</th>
                   <th>Gold</th>
                   <th>Boss</th>
-                  <th>Monsters Faced</th>
+                  <th>Monsters faced</th>
                   <th>Score</th>
-                  <th>Design Verdict</th>
+                  <th>What we learned</th>
                 </tr>
               </thead>
               <tbody>
@@ -1165,7 +1161,7 @@
                   <td><span class="pt-pill pt-wipe">Wipe</span></td>
                   <td>Slime ×1, Skeleton ×1</td>
                   <td><span class="pt-score">4.5</span></td>
-                  <td class="pt-verdict">Defense is a bad mechanic — scale HP and a simple attack stat instead. More user-friendly.</td>
+                  <td class="pt-verdict">Defense doesn't work. Scale HP and use a simple attack stat instead; it's easier to learn.</td>
                 </tr>
                 <tr>
                   <td class="pt-when">21 Feb · 2h</td>
@@ -1175,7 +1171,7 @@
                   <td><span class="pt-pill pt-kill">Killed</span></td>
                   <td>Skeleton ×1, Slime ×1, Beholder ×1</td>
                   <td><span class="pt-score">8</span></td>
-                  <td class="pt-verdict">Monsters at ×2 HP die too easily — the game needs bigger HP scales.</td>
+                  <td class="pt-verdict">Monsters at ×2 HP die too easily. They need more HP.</td>
                 </tr>
                 <tr>
                   <td class="pt-when">24 Feb · 1h</td>
@@ -1185,7 +1181,7 @@
                   <td><span class="pt-pill pt-wipe">Wipe</span></td>
                   <td>Skeleton ×1, Beholder ×3</td>
                   <td><span class="pt-score">7.5</span></td>
-                  <td class="pt-verdict">Teamwork carries the game, but the coordination bar is too high — needs lowering.</td>
+                  <td class="pt-verdict">Teamwork carries the game, but it asks for too much coordination.</td>
                 </tr>
                 <tr>
                   <td class="pt-when">27 Feb · 2h</td>
@@ -1195,7 +1191,7 @@
                   <td><span class="pt-pill pt-kill">Killed</span></td>
                   <td>Skeleton ×2, Slime ×1, Beholder ×2</td>
                   <td><span class="pt-score">8</span></td>
-                  <td class="pt-verdict">Boss mechanics still break in too many scenarios — the fight needs a rework.</td>
+                  <td class="pt-verdict">The boss mechanics break in too many situations. The fight needs a rework.</td>
                 </tr>
                 <tr>
                   <td class="pt-when">28 Feb · 1h</td>
@@ -1205,66 +1201,63 @@
                   <td><span class="pt-pill pt-wipe">Wipe</span></td>
                   <td>Skeleton ×1, Slime ×1, Beholder ×1</td>
                   <td><span class="pt-score">5</span></td>
-                  <td class="pt-verdict">The boss must be shuffled in only after a 15-tile minimum — otherwise the run is unwinnable.</td>
+                  <td class="pt-verdict">The boss can only be shuffled in after 15 tiles, or the game can't be won.</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <div class="section-line">What the Log Changed</div>
+          <div class="section-line" id="changes">What the playtests changed</div>
           <div class="iter-log">
             <div class="iter-card">
-              <h4>Defense → Monster Guard</h4>
-              <div class="iter-line"><span class="iter-k k-problem">Problem</span><span class="iter-row">The Defense stat produced feel-bad fights — a Paladin could roll and deal zero damage, and combat came down to raw luck.</span></div>
-              <div class="iter-line"><span class="iter-k k-change">Change</span><span class="iter-row">Cut Defense entirely. Added Monster Guard: you must clear the monster's Guard range to deal damage, and rolling into its Crit range deals 2× — folding the old crit-and-fumble rolls into one cleaner mechanic.</span></div>
+              <h4>Defense became Guard</h4>
+              <div class="iter-line"><span class="iter-k k-problem">Problem</span><span class="iter-row">With a Defense stat, a Paladin could roll and deal zero damage. Fights came down to luck and felt bad.</span></div>
+              <div class="iter-line"><span class="iter-k k-change">Change</span><span class="iter-row">I cut Defense and gave monsters a Guard range you have to roll past to deal damage, plus a Crit range for double damage. That replaced the old crit and fumble rolls with one rule.</span></div>
             </div>
             <div class="iter-card">
-              <h4>Monster HP Rescaled</h4>
-              <div class="iter-line"><span class="iter-k k-problem">Problem</span><span class="iter-row">With Defense gone, monsters died too fast — the Witch was one-shotting skeletons on a crit and a two-person party beat down three Beholders.</span></div>
-              <div class="iter-line"><span class="iter-k k-change">Change</span><span class="iter-row">Tested ×2 HP (still too easy), then ×3, which held tension without stalling the fight — moving balance onto HP scaling rather than a defense stat.</span></div>
+              <h4>Monster HP</h4>
+              <div class="iter-line"><span class="iter-k k-problem">Problem</span><span class="iter-row">Without Defense, monsters died too fast. The Witch one-shot skeletons on a crit, and two players beat three Beholders.</span></div>
+              <div class="iter-line"><span class="iter-k k-change">Change</span><span class="iter-row">×2 HP was still too easy. ×3 kept the tension without dragging fights out, so balance now lives in HP instead of a defense stat.</span></div>
             </div>
             <div class="iter-card">
-              <h4>Progression &amp; XP Catch-Up</h4>
-              <div class="iter-line"><span class="iter-k k-problem">Problem</span><span class="iter-row">Players who fell behind on tiles couldn't level, and monster rewards didn't match the effort of the fight — the party reached the boss underpowered.</span></div>
-              <div class="iter-line"><span class="iter-k k-change">Change</span><span class="iter-row">Made spells and equipment more obtainable and buffed player health, so exploring and fighting actually translates into being ready for the Slime King.</span></div>
+              <h4>Catching up</h4>
+              <div class="iter-line"><span class="iter-k k-problem">Problem</span><span class="iter-row">Players who fell behind on tiles couldn't level, and rewards didn't match how hard fights were, so parties reached the boss too weak.</span></div>
+              <div class="iter-line"><span class="iter-k k-change">Change</span><span class="iter-row">Spells and gear became easier to get and players got more health, so exploring and fighting actually prepares you for the Slime King.</span></div>
             </div>
             <div class="iter-card">
-              <h4>Boss Shuffle Rule</h4>
-              <div class="iter-line"><span class="iter-k k-problem">Problem</span><span class="iter-row">The Slime King kept surfacing before the party was ready and steamrolled the run — a purely random draw made the game unwinnable on bad luck.</span></div>
-              <div class="iter-line"><span class="iter-k k-change">Change</span><span class="iter-row">The boss can't enter the tile deck until at least 15 tiles are down, guaranteeing a minimum ramp before the final fight.</span></div>
+              <h4>When the boss can appear</h4>
+              <div class="iter-line"><span class="iter-k k-problem">Problem</span><span class="iter-row">The Slime King kept showing up before the party was ready. With a fully random draw, bad luck alone could lose the game.</span></div>
+              <div class="iter-line"><span class="iter-k k-change">Change</span><span class="iter-row">The boss only goes into the tile deck once 15 tiles are down, so every game has some build-up before the final fight.</span></div>
             </div>
           </div>
         </div>
 
         <div style="margin-top:80px; padding-top:64px; border-top:1px solid var(--border);">
-          <span class="label">Post Mortem</span>
-          <h2 style="margin-bottom:10px;">Judge Feedback &amp; Reflection</h2>
+          <h2 style="margin-bottom:10px;">Judges' feedback</h2>
           <p style="color:var(--muted); max-width:640px; margin-bottom:40px;">
-            Trials of the Dungeon was presented to a panel of judges, who responded enthusiastically to the game. Here's what they flagged, what they praised, and what I'd do differently.
+            We presented the game to a panel of judges, who liked it a lot. Here's what they praised, what they flagged, and what I'd change.
           </p>
 
           <div class="postmortem-grid">
             <div class="pm-card pm-good">
-              <h4>What Worked</h4>
+              <h4>What worked</h4>
               <ul>
-                <li>Combat was praised for its simplicity — roll a die, resolve the outcome. No overcomplicated systems blocking the fun.</li>
-                <li>Progression landed well — players felt real growth without it feeling arbitrary.</li>
-                <li>Clear win condition. Players always know their goal: get strong enough to defeat The Slime King.</li>
+                <li>Combat was simple: roll a die and resolve it. Nothing got in the way of the fun.</li>
+                <li>Players felt themselves getting stronger, and it didn't feel arbitrary.</li>
+                <li>The goal was always clear: get strong enough to beat the Slime King.</li>
               </ul>
             </div>
             <div class="pm-card pm-bad">
-              <h4>What Didn't / Would Change</h4>
+              <h4>What I'd change</h4>
               <ul>
-                <li>The tile deck and monster pool should have been seeded. Fully shuffled, players could hit a powerful monster in the first room. Controlling encounter order would make progression far more consistent.</li>
-                <li>Spell costs and monster HP were too high. Balance was the weakest part — it needed more playtesting.</li>
-                <li>Spell text created friction. Custom icons would've dramatically improved readability — board game players don't want to read paragraphs mid-play.</li>
+                <li>Seed the tile deck and monster pool. Fully shuffled, you could meet a strong monster in the first room. Controlling the order would make progression much more consistent.</li>
+                <li>Spell costs and monster HP were too high. Balance was the weakest part and needed more playtesting.</li>
+                <li>Spells had too much text. Icons would have been much easier to read; nobody wants to read paragraphs mid-game.</li>
               </ul>
             </div>
             <div class="pm-lesson">
-              <h4>Key Takeaway</h4>
-              <p>
-                Physical design punishes imbalance more than digital — there's no patch, no hotfix. These issues only surface through playtesting with real people, and we didn't do enough of it. The lesson: <em>playtesting isn't a final step — it is the design process.</em>
-              </p>
+              <h4>The main lesson</h4>
+              <p>A physical game can't be patched, so imbalance hurts more than in a digital one. These problems only showed up when real people played, and we didn't playtest enough. Playtesting isn't the last step; it's how the design gets made.</p>
             </div>
           </div>
         </div>
@@ -1273,15 +1266,13 @@
     </div>
   </div>
 </section>
-
 <!-- ═══════════════════════════════════════ Site Nav Footer ═══════════════════════════════════════ -->
 <div class="site-nav-footer">
   <div class="container">
-    <span class="site-nav-footer-label">Jump to</span>
+    <span class="site-nav-footer-label">Pages</span>
     <div class="site-nav-footer-grid">
       <a href="../index.html">Home</a>
       <a href="../games.html">Games</a>
-      <a href="../prototypes.html">Experiments</a>
       <a href="../experience.html">Experience</a>
       <a href="../toolbox.html">Toolbox</a>
       <a href="../roadmap.html">Roadmap</a>
@@ -1302,9 +1293,8 @@
 <!-- ═══════════════════════════════════════ Contact ═══════════════════════════════════════ -->
 <section id="contact">
   <div class="container">
-    <span class="label">Get in touch</span>
-    <h2>Let's talk.</h2>
-    <p>Open to internships, collaborations, and feedback on work in progress.</p>
+    <h2>Contact</h2>
+    <p>I'm open to internships and collaborations, and happy to get feedback on work in progress.</p>
     <div class="contact-links">
       <a href="mailto:dekelriess@gmail.com" class="btn btn-primary">✉ dekelriess@gmail.com</a>
       <a href="https://linkedin.com/in/dekel-riess-39172433b" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn ↗</a>

@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dekel Riess — Game Designer Portfolio</title>
-  <meta name="description" content="Portfolio of Dekel Riess — game designer and developer studying at Tiltan College of Visual Design and Communication. Systems design, C#/Unity development, pixel art, and trailers." />
+  <title>Dekel Riess | Game Designer Portfolio</title>
+  <meta name="description" content="Portfolio of Dekel Riess, a game designer studying at Tiltan College. Systems design, C# and Unity, pixel art and trailers." />
   <link rel="icon" type="image/png" href="favicon.png" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Dekel Riess — Game Designer Portfolio" />
-  <meta property="og:description" content="Portfolio of Dekel Riess — game designer and developer studying at Tiltan College of Visual Design and Communication. Systems design, C#/Unity development, pixel art, and trailers." />
+  <meta property="og:title" content="Dekel Riess | Game Designer Portfolio" />
+  <meta property="og:description" content="Portfolio of Dekel Riess, a game designer studying at Tiltan College. Systems design, C# and Unity, pixel art and trailers." />
   <meta property="og:url" content="https://dekeloni2.github.io/portfolio-website/index.html" />
   <meta property="og:image" content="https://dekeloni2.github.io/portfolio-website/dekel.png" />
   <meta name="twitter:card" content="summary" />
@@ -707,7 +707,7 @@
     #featured { padding-top: 40px; }
     .featured-card {
       display: grid;
-      grid-template-columns: 300px 1fr;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
       gap: 0;
       background: var(--surface);
       border: 1px solid var(--border);
@@ -759,7 +759,8 @@
     .featured-preview {
       position: absolute; inset: 0;
       width: 100%; height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      background: #05050b;
       opacity: 0;
       transition: opacity 0.35s ease;
       pointer-events: none;
@@ -802,6 +803,8 @@
       .featured-hint { display: none; }
     }
     .featured-body { padding: 32px 34px; }
+    .featured-meta { font-size: 0.78rem; color: var(--muted); margin-bottom: 10px; }
+    .featured-media { min-height: 300px; }
     .featured-top { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
     .featured-top h3 { font-size: 1.5rem; margin: 0; }
     .featured-tagline { font-size: 0.92rem; color: var(--text); font-weight: 500; margin-bottom: 12px; }
@@ -809,7 +812,7 @@
     .featured-card .hub-arrow { display: inline-block; margin-top: 14px; }
     @media (max-width: 720px) {
       .featured-card { grid-template-columns: 1fr; }
-      .featured-media { border-right: none; border-bottom: 1px solid var(--border); padding: 32px; }
+      .featured-media { border-right: none; border-bottom: 1px solid var(--border); padding: 32px; min-height: 0; aspect-ratio: 16 / 9; }
       .featured-logo { max-width: 140px; }
       .featured-media--pixel { padding: 32px; }
       .featured-logo--pixel { width: 128px; max-width: 128px; }
@@ -970,7 +973,6 @@
     <a href="index.html" class="nav-logo" style="text-decoration:none;">Dekel Riess</a>
     <ul class="nav-links">
       <li><a href="games.html">Games</a></li>
-      <li><a href="prototypes.html">Experiments</a></li>
       <li><a href="experience.html">Experience</a></li>
       <li><a href="toolbox.html">Toolbox</a></li>
       <li><a href="roadmap.html">Roadmap</a></li>
@@ -984,22 +986,21 @@
 
       <!-- Left: name + bio + CTA -->
       <div>
-        <span class="label">Systems-Focused Game Designer</span>
         <h1 class="hero-name">
           <span class="first">Dekel</span>
           <span class="last">Riess</span>
         </h1>
         <p class="hero-bio">
-          A systems-focused game designer who's been designing game systems since 2014, starting with custom Minecraft servers. I design the mechanics, economies, and progression that make a game click, and I code them myself, so every design is tested in a real build, not just on paper. Now sharpening a decade of self-taught design with a formal foundation at Tiltan College of Visual Design and Communication — and looking for a game design role where I can own systems on a team.
+          I'm a game designer, and systems are what I like most: mechanics, economies and progression. I started in 2014 by designing custom Minecraft servers. I program my own designs, so I can test them in a build instead of only on paper. I'm studying game design at Tiltan College until 2028 and looking for a design role where I own systems on a team.
         </p>
         <p style="display:inline-block; font-size:0.82rem; font-weight:700; color:var(--accent2); letter-spacing:0.02em; border:1px solid rgba(147,51,234,0.35); background:rgba(147,51,234,0.06); border-radius:8px; padding:8px 14px; margin-bottom:28px;">
-          Designing games since 2014 · 5 games across 5 genres in my first year of studies.
+          5 games in 5 genres during my first year at Tiltan
         </p>
         <div class="hero-buttons">
-          <a href="games.html" class="btn btn-primary">View Projects ↓</a>
+          <a href="games.html" class="btn btn-primary">See my games</a>
           <a href="https://www.linkedin.com/in/dekel-riess-39172433b/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn ↗</a>
           <a href="Dekel_Riess_Resume.pdf" target="_blank" rel="noopener" class="btn btn-ghost">Resume ↓</a>
-          <a href="games/dicebound.html" class="btn btn-ghost">Read GDD</a>
+          <a href="games/dicebound.html" class="btn btn-ghost">Sample GDD</a>
         </div>
       </div>
 
@@ -1016,9 +1017,8 @@
 <section id="featured">
   <div class="container">
     <div class="section-header">
-      <span class="label">Featured Projects</span>
       <h2>What I'd show you first</h2>
-      <p>The work I'm proudest of — the pieces that best show how I think, build, and finish. One finished, two in active development with playable loops. If you only look at a few things, make them these.</p>
+      <p>If you only have a few minutes, look at these three. One is finished and two are in development with playable loops.</p>
     </div>
     <a href="games/tiltantale.html" class="featured-card">
       <div class="featured-media">
@@ -1031,14 +1031,12 @@
           <h3>TiltanTale</h3>
           <span class="badge badge-done">Finished</span>
         </div>
-        <p class="featured-tagline">An Undertale-inspired RPG built in MonoGame — every system authored in code.</p>
+        <p class="featured-meta">RPG · MonoGame · PC</p>
+        <p class="featured-tagline">An Undertale-style RPG, written from scratch in MonoGame.</p>
         <p class="featured-desc">
-          A turn-based bullet-hell where your choices decide the outcome. Face your teachers as bosses, each fight built from their real-life personality. Spare them and they leave as smoke; defeat them and they crumble to dust. The battle system is a scalable framework — new bosses, patterns, and spare conditions plug into it.
+          A turn-based bullet hell where you fight your teachers. Each boss fight is built on that teacher's real personality. Spare them and they leave as smoke; beat them and they crumble to dust. New bosses, attack patterns and spare conditions all plug into the same battle system.
         </p>
-        <div class="tags">
-          <span class="tag">RPG</span><span class="tag">Bullet Hell</span><span class="tag">MonoGame</span><span class="tag">Systems Design</span><span class="tag">Narrative</span>
-        </div>
-        <span class="hub-arrow">See the full design breakdown →</span>
+        <span class="hub-arrow">Design breakdown →</span>
       </div>
     </a>
 
@@ -1051,88 +1049,68 @@
       <div class="featured-body">
         <div class="featured-top">
           <h3>Rest in Profit</h3>
-          <span class="badge badge-wip">In Development</span>
+          <span class="badge badge-wip">In development</span>
         </div>
-        <p class="featured-tagline">A cozy-macabre mobile game — dig up the undead, then keep them standing against looting heroes.</p>
+        <p class="featured-meta">Collection / auto-battler · Unity · Mobile</p>
+        <p class="featured-tagline">Dig up the undead, then keep them standing against heroes who come to loot you.</p>
         <p class="featured-desc">
-          Disco Zoo's grave-digging fused with a role-based auto-battler, welded together by one economy. It's the deepest systems work I've done: monster roles that self-organise into a formation, a trade-off relic loadout, two lanes of progression, and an offline raid played out as a real simulation rather than a payout formula. The breakdown covers the design decisions, the economy rules behind them, and the playtests that changed both.
+          Disco Zoo's grave digging joined to a role-based auto-battler, with one economy running both. It's the deepest systems work I've done. Monsters arrange themselves into a formation by role, every relic comes with a downside, progression runs on two tracks, and the offline raid is actually simulated instead of paid out by a formula. The breakdown covers the decisions, the economy rules and the playtests that changed them.
         </p>
-        <div class="tags">
-          <span class="tag">Collection</span><span class="tag">Auto-battler</span><span class="tag">Unity</span><span class="tag">Systems Design</span><span class="tag">Economy</span>
-        </div>
-        <span class="hub-arrow">See the full design breakdown →</span>
+        <span class="hub-arrow">Design breakdown →</span>
       </div>
     </a>
 
     <a href="games/dogfight-evolution.html" class="featured-card" style="margin-top:22px;">
-      <div class="featured-media" style="padding:0; overflow:hidden;">
-        <img src="dogfight_evolution.png" alt="Dogfight Evolution" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'">
+      <div class="featured-media">
+        <img src="dogfight_evolution.png" alt="Dogfight Evolution" class="featured-logo" style="max-width:240px; border-radius:16px;">
         <video class="featured-preview" src="dogfight_combat.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
         <span class="featured-hint" aria-hidden="true">Hover to preview</span>
       </div>
       <div class="featured-body">
         <div class="featured-top">
           <h3>Dogfight Evolution</h3>
-          <span class="badge badge-wip">In Development</span>
+          <span class="badge badge-wip">In development</span>
         </div>
-        <p class="featured-tagline">A hybrid-casual vertical dogfighter — full loop playable, biplanes to supersonic jets.</p>
+        <p class="featured-meta">Vertical shooter · Unity · Mobile</p>
+        <p class="featured-tagline">A vertical dogfighter where you fly from biplanes up to supersonic jets. The full loop is playable.</p>
         <p class="featured-desc">
-          Fuel is your run timer: burn it fighting, or land back at the carrier and cash in. Every kill funds the next upgrade; every upgrade is capped so the shop stays a real decision rather than a straight line to "win." The game earns its difficulty from plane tiers — each new aircraft resets your stat ladder and extends it above the last plane's ceiling, so progression always has somewhere to go. The breakdown covers the fuel-as-timer design, the ramming trade-off, cap logic, and the eight-plane roster.
+          Fuel is the run timer. You fight while the tank lasts, then land and cash in. Kills pay for upgrades, and every upgrade has a cap, so the shop stays a choice instead of a straight line to winning. Each new plane resets your stats and raises the ceiling above the last plane's, so there's always somewhere to go. The breakdown covers the fuel timer, the ramming trade-off, the caps and the eight-plane roster.
         </p>
-        <div class="tags">
-          <span class="tag">Shooter</span><span class="tag">Hybrid-Casual</span><span class="tag">Unity</span><span class="tag">Systems Design</span><span class="tag">Mobile</span>
-        </div>
-        <span class="hub-arrow">See the full design breakdown →</span>
+        <span class="hub-arrow">Design breakdown →</span>
       </div>
     </a>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     PORTAL NAV
-═══════════════════════════════════════════ -->
 <section id="portal">
   <div class="container">
     <div class="section-header">
-      <span class="label">Explore</span>
-      <h2>Where to next?</h2>
-      <p>Pick a section to dive into — each one is its own page.</p>
+      <h2>More</h2>
     </div>
     <div class="hub-grid">
 
       <a href="games.html" class="hub-card">
         <div class="hub-icon"><img src="joystick.png" alt="" style="width:24px; height:24px; object-fit:contain; filter: drop-shadow(0 0 6px rgba(147,51,234,0.65)) drop-shadow(0 0 12px rgba(192,132,252,0.35));"></div>
         <h3>Games</h3>
-        <p>How I think through systems, mechanics, and iteration when designing a game.</p>
-        <span class="hub-arrow">View games →</span>
-      </a>
-
-      <a href="prototypes.html" class="hub-card">
-        <div class="hub-icon"><img src="prototypes.png" alt="" style="width:24px; height:24px; object-fit:contain; filter: drop-shadow(0 0 6px rgba(147,51,234,0.65)) drop-shadow(0 0 12px rgba(192,132,252,0.35));"></div>
-        <h3>Experiments</h3>
-        <p>Smaller experiments and early-stage concepts.</p>
-        <span class="hub-arrow">View experiments →</span>
+        <p>All ten projects, each with a design breakdown.</p>
       </a>
 
       <a href="experience.html" class="hub-card">
         <div class="hub-icon"><img src="experience.png" alt="" style="width:24px; height:24px; object-fit:contain; filter: drop-shadow(0 0 6px rgba(147,51,234,0.65)) drop-shadow(0 0 12px rgba(192,132,252,0.35));"></div>
         <h3>Experience</h3>
-        <p>Community management, live game design, and content creation before the degree.</p>
-        <span class="hub-arrow">View experience →</span>
+        <p>School, and what I did before it: Minecraft servers, YouTube and aircraft maintenance.</p>
       </a>
 
       <a href="toolbox.html" class="hub-card">
         <div class="hub-icon"><img src="toolbox.png" alt="" style="width:24px; height:24px; object-fit:contain; filter: drop-shadow(0 0 6px rgba(147,51,234,0.65)) drop-shadow(0 0 12px rgba(192,132,252,0.35));"></div>
         <h3>Toolbox</h3>
-        <p>The languages, engines, and tools I use to design, code, and ship games.</p>
-        <span class="hub-arrow">View toolbox →</span>
+        <p>The engines, languages and tools I work with.</p>
       </a>
 
       <a href="roadmap.html" class="hub-card">
         <div class="hub-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="19" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="5" r="1.6"/><path d="M6.4 17.6 10.6 13.4M13.4 10.6 17.6 6.4"/></svg></div>
         <h3>Roadmap</h3>
-        <p>Where the work is headed — shipped games, what's in development, and what comes next.</p>
-        <span class="hub-arrow">View roadmap →</span>
+        <p>What's finished, what I'm building and what's next.</p>
       </a>
 
     </div>
@@ -1142,9 +1120,8 @@
 <!-- ═══════════════════════════════════════ Contact ═══════════════════════════════════════ -->
 <section id="contact">
   <div class="container">
-    <span class="label">Get in touch</span>
-    <h2>Let's talk.</h2>
-    <p>Open to internships, collaborations, and feedback on work in progress.</p>
+    <h2>Contact</h2>
+    <p>I'm open to internships and collaborations, and happy to get feedback on work in progress.</p>
     <div class="contact-links">
       <a href="mailto:dekelriess@gmail.com" class="btn btn-primary">✉ dekelriess@gmail.com</a>
       <a href="https://linkedin.com/in/dekel-riess-39172433b" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn ↗</a>

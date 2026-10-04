@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Roadmap — Dekel Riess</title>
-  <meta name="description" content="The design roadmap of Dekel Riess — shipped work, games in development, and what's planned next, sequenced by the competency each one proves." />
+  <title>Roadmap | Dekel Riess</title>
+  <meta name="description" content="Dekel Riess's finished games, current projects and what's planned next." />
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,68 +63,36 @@
     .btn-ghost { background:transparent; color:var(--text); border:1px solid var(--border); }
     .btn-ghost:hover { border-color:rgba(147,51,234,0.5); }
 
-    /* ─── Legend ─────────────────────────────────── */
-    .legend { display:flex; flex-wrap:wrap; gap:18px; margin-bottom:34px; }
-    .legend-item { display:flex; align-items:center; gap:8px; font-size:0.78rem; color:var(--muted); }
-    .legend-dot { width:11px; height:11px; border-radius:50%; flex-shrink:0; }
-    .ld-done { background:var(--done); box-shadow:0 0 8px rgba(74,222,128,0.5); }
-    .ld-wip  { background:var(--wip);  box-shadow:0 0 8px rgba(251,146,60,0.5); }
-    .ld-plan { background:var(--plan); box-shadow:0 0 8px rgba(192,132,252,0.5); }
-    .ld-backlog { background:var(--backlog); }
-
-    /* ─── Timeline ───────────────────────────────── */
-    .tl-scroll { overflow-x:auto; overflow-y:visible; padding:20px 0 8px; -webkit-overflow-scrolling:touch; scrollbar-width:thin; scrollbar-color:var(--accent) transparent; }
-    .tl-scroll::-webkit-scrollbar { height:8px; }
-    .tl-scroll::-webkit-scrollbar-thumb { background:linear-gradient(90deg,var(--accent),var(--accent2)); border-radius:4px; }
-    .tl-scroll::-webkit-scrollbar-track { background:var(--surface); border-radius:4px; }
-
-    .tl-track { position:relative; display:flex; align-items:stretch; gap:0; min-width:max-content; padding:0 12px; }
-    /* central line */
-    .tl-track::before { content:''; position:absolute; left:12px; right:12px; top:70px; height:2px; background:linear-gradient(90deg,var(--done) 0%,var(--done) 38%,var(--wip) 42%,var(--wip) 61%,var(--plan) 65%,var(--plan) 69%,var(--backlog) 73%,var(--backlog) 100%); opacity:0.45; border-radius:2px; }
-
-    .tl-node { position:relative; width:186px; flex-shrink:0; padding:0 12px; display:flex; flex-direction:column; align-items:center; cursor:default; }
-    .tl-node.clickable { cursor:pointer; }
-    .tl-num { font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--muted); height:22px; }
-    .tl-marker { width:20px; height:20px; border-radius:50%; background:var(--surface); border:3px solid var(--muted); margin:38px 0 0; position:relative; z-index:2; transition:transform 0.2s,box-shadow 0.2s; }
-    .tl-node[data-status="done"] .tl-marker { border-color:var(--done); box-shadow:0 0 10px rgba(74,222,128,0.45); }
-    .tl-node[data-status="wip"]  .tl-marker { border-color:var(--wip);  box-shadow:0 0 10px rgba(251,146,60,0.45); }
-    .tl-node[data-status="plan"] .tl-marker { border-color:var(--plan); box-shadow:0 0 10px rgba(192,132,252,0.4); }
-    .tl-node[data-status="backlog"] .tl-marker { border-color:var(--backlog); border-style:dashed; }
-    .tl-node.clickable:hover .tl-marker { transform:scale(1.28); }
-
-    .tl-card { margin-top:20px; width:100%; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 14px 16px; text-align:center; transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s; min-height:118px; display:flex; flex-direction:column; }
-    .tl-node[data-status="backlog"] .tl-card { opacity:0.62; background:transparent; border-style:dashed; }
-    .tl-node.clickable:hover .tl-card { border-color:rgba(147,51,234,0.6); transform:translateY(-3px); box-shadow:0 0 24px rgba(147,51,234,0.14); }
-    .tl-status-tag { font-size:0.6rem; font-weight:700; letter-spacing:0.09em; text-transform:uppercase; margin-bottom:7px; }
-    .tl-node[data-status="done"] .tl-status-tag { color:var(--done); }
-    .tl-node[data-status="wip"]  .tl-status-tag { color:var(--wip); }
-    .tl-node[data-status="plan"] .tl-status-tag { color:var(--plan); }
-    .tl-node[data-status="backlog"] .tl-status-tag { color:var(--backlog); }
-    .tl-title { font-size:0.92rem; font-weight:700; color:var(--text); line-height:1.25; margin-bottom:4px; }
-    .tl-genre { font-size:0.7rem; color:var(--muted); }
-    .tl-hook { display:none; font-size:0.74rem; color:var(--muted); line-height:1.5; margin-top:8px; }
-    .tl-open { margin-top:auto; padding-top:9px; font-size:0.68rem; font-weight:600; color:var(--accent2); opacity:0; transition:opacity 0.2s; }
-    .tl-node.clickable:hover .tl-open { opacity:1; }
-
-    /* phase band labels */
-    .tl-phases { display:flex; min-width:max-content; padding:14px 12px 0; margin-top:6px; }
-    .tl-phase { text-align:center; font-size:0.66rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); position:relative; padding-top:14px; }
-    .tl-phase::before { content:''; position:absolute; top:0; left:8%; right:8%; height:1px; background:currentColor; opacity:0.4; }
-    .tl-phase.ph-done { color:var(--done); }
-    .tl-phase.ph-wip  { color:var(--wip); }
-    .tl-phase.ph-plan { color:var(--plan); }
-    .tl-phase.ph-backlog { color:var(--backlog); }
-    .tl-phase small { display:block; font-weight:500; letter-spacing:0.02em; text-transform:none; color:var(--muted); font-size:0.68rem; margin-top:3px; }
-
-    /* JS tooltip */
-    #tl-tip { position:fixed; z-index:500; max-width:280px; background:var(--surface2); border:1px solid rgba(147,51,234,0.5); border-radius:10px; padding:13px 15px; box-shadow:0 10px 40px rgba(0,0,0,0.6); opacity:0; transform:translateY(6px); transition:opacity 0.16s,transform 0.16s; pointer-events:none; }
-    #tl-tip.show { opacity:1; transform:translateY(0); }
-    #tl-tip .tip-title { font-size:0.85rem; font-weight:700; color:var(--text); margin-bottom:6px; }
-    #tl-tip .tip-hook { font-size:0.78rem; color:var(--muted); line-height:1.55; margin-bottom:9px; }
-    #tl-tip .tip-proves { font-size:0.72rem; line-height:1.5; }
-    #tl-tip .tip-proves span { color:var(--accent2); font-weight:700; letter-spacing:0.04em; text-transform:uppercase; font-size:0.64rem; display:block; margin-bottom:2px; }
-
-    .scroll-hint { font-size:0.72rem; color:var(--muted); margin-top:18px; display:flex; align-items:center; gap:6px; }
+    /* ─── Vertical roadmap ───────────────────────── */
+    .rm-phase { margin-top:48px; }
+    .rm-phase:first-of-type { margin-top:0; }
+    .rm-phase h3 { font-size:0.8rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:18px; }
+    .rm-phase.ph-done h3 { color:var(--done); }
+    .rm-phase.ph-wip h3 { color:var(--wip); }
+    .rm-phase.ph-plan h3 { color:var(--plan); }
+    .rm-phase.ph-backlog h3 { color:var(--backlog); }
+    .rm-list { list-style:none; position:relative; padding-left:30px; display:flex; flex-direction:column; gap:14px; }
+    .rm-list::before { content:''; position:absolute; left:9px; top:10px; bottom:10px; width:2px; background:currentColor; opacity:0.35; border-radius:2px; }
+    .ph-done .rm-list { color:var(--done); }
+    .ph-wip .rm-list { color:var(--wip); }
+    .ph-plan .rm-list { color:var(--plan); }
+    .ph-backlog .rm-list { color:var(--backlog); }
+    .rm-item { position:relative; color:var(--text); }
+    .rm-item::before { content:''; position:absolute; left:-28px; top:20px; width:16px; height:16px; border-radius:50%; background:var(--bg); border:3px solid; z-index:1; }
+    .ph-done .rm-item::before { border-color:var(--done); }
+    .ph-wip .rm-item::before { border-color:var(--wip); }
+    .ph-plan .rm-item::before { border-color:var(--plan); }
+    .ph-backlog .rm-item::before { border-color:var(--backlog); border-style:dashed; }
+    .rm-card { display:block; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; color:var(--text); transition:border-color 0.2s, transform 0.2s; }
+    a.rm-card:hover { border-color:rgba(147,51,234,0.6); transform:translateX(3px); text-decoration:none; }
+    .ph-backlog .rm-card { background:transparent; border-style:dashed; }
+    .rm-top { display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 12px; }
+    .rm-title { font-size:1rem; font-weight:700; }
+    .rm-genre { font-size:0.75rem; color:var(--muted); }
+    .rm-desc { font-size:0.85rem; color:var(--muted); line-height:1.6; margin-top:6px; max-width:720px; }
+    .rm-goal { font-size:0.8rem; color:var(--text); margin-top:8px; }
+    .rm-goal span { color:var(--accent2); font-weight:600; }
+    .rm-open { font-size:0.75rem; font-weight:600; color:var(--accent2); margin-top:8px; display:inline-block; }
 
     /* Footer nav */
     .site-nav-footer { border-top:1px solid var(--border); background:var(--surface); padding:44px 0; }
@@ -136,22 +104,9 @@
     #contact { text-align:center; padding:80px 0; }
     #contact p { color:var(--muted); margin-bottom:28px; }
 
-    /* ─── Mobile: vertical stack ─────────────────── */
     @media (max-width:720px) {
       .nav-links { display:none; }
       section { padding:64px 0; }
-      .tl-scroll { overflow-x:visible; }
-      .tl-track { flex-direction:column; min-width:0; gap:14px; padding-left:26px; }
-      .tl-track::before { left:9px; right:auto; top:8px; bottom:8px; width:2px; height:auto; background:linear-gradient(180deg,var(--done),var(--wip) 38%,var(--plan) 65%,var(--backlog) 69%); }
-      .tl-node { width:100%; flex-direction:row; align-items:flex-start; gap:14px; padding:0; text-align:left; }
-      .tl-num { display:none; }
-      .tl-marker { margin:6px 0 0; position:absolute; left:-26px; }
-      .tl-card { margin-top:0; text-align:left; min-height:0; }
-      .tl-hook { display:block; }
-      .tl-open { opacity:1; }
-      .tl-phases { display:none; }
-      #tl-tip { display:none !important; }
-      .scroll-hint { display:none; }
     }
   </style>
 </head>
@@ -162,7 +117,6 @@
     <a href="index.html" class="nav-logo" style="text-decoration:none;">Dekel Riess</a>
     <ul class="nav-links">
       <li><a href="games.html">Games</a></li>
-      <li><a href="prototypes.html">Experiments</a></li>
       <li><a href="experience.html">Experience</a></li>
       <li><a href="toolbox.html">Toolbox</a></li>
       <li><a href="roadmap.html">Roadmap</a></li>
@@ -173,210 +127,107 @@
 <section id="roadmap" style="padding-top:132px;">
   <div class="container">
     <div class="section-header">
-      <span class="label">The Plan</span>
       <h2>Roadmap</h2>
-      <p>Where the work is headed — shipped games, what's in development now, and what comes next. Sequenced not by date but by the design competency each project is meant to prove. Hover any milestone for detail; finished and in-progress games link to their full breakdowns.</p>
+      <p>What I've finished, what I'm building now, and what comes next. I picked each project to practice a design skill I hadn't worked on yet, so the order follows that more than the calendar.</p>
     </div>
 
-    <div class="legend">
-      <div class="legend-item"><span class="legend-dot ld-done"></span> Shipped / Finished</div>
-      <div class="legend-item"><span class="legend-dot ld-wip"></span> In Development</div>
-      <div class="legend-item"><span class="legend-dot ld-plan"></span> Planned</div>
-      <div class="legend-item"><span class="legend-dot ld-backlog"></span> Backlog</div>
+    <div class="rm-phase ph-done">
+      <h3>Finished</h3>
+      <ol class="rm-list">
+        <li class="rm-item"><a class="rm-card" href="games/balatro.html">
+          <div class="rm-top"><span class="rm-title">Dekelatro</span><span class="rm-genre">Poker roguelike · C#</span></div>
+          <p class="rm-desc">A poker roguelike I built alone in C#: hand scoring, run pacing and a shop economy.</p>
+          <p class="rm-goal"><span>Goal:</span> finish a whole game on my own.</p>
+        </a></li>
+        <li class="rm-item"><a class="rm-card" href="games.html#pizzapocalypse">
+          <div class="rm-top"><span class="rm-title">Pizzapocalypse</span><span class="rm-genre">Survival · Construct · Team of 5</span></div>
+          <p class="rm-desc">A top-down survival game from a rapid prototyping course. I made all the art.</p>
+          <p class="rm-goal"><span>Goal:</span> ship something fast with a team.</p>
+        </a></li>
+        <li class="rm-item"><a class="rm-card" href="games/trials.html">
+          <div class="rm-top"><span class="rm-title">Trials of the Dungeon</span><span class="rm-genre">Co-op board game · Physical</span></div>
+          <p class="rm-desc">A co-op dungeon crawler with tile exploration, class design and a final boss.</p>
+          <p class="rm-goal"><span>Goal:</span> design systems without a computer doing the math.</p>
+        </a></li>
+        <li class="rm-item"><a class="rm-card" href="games/survival.html">
+          <div class="rm-top"><span class="rm-title">Brave the Wilderness</span><span class="rm-genre">Survival · Unity · Mobile</span></div>
+          <p class="rm-desc">A mobile survival game where every craft merges two items into one. I designed the progression, economy and a 117-item crafting tree.</p>
+          <p class="rm-goal"><span>Goal:</span> design a whole economy around one mechanic.</p>
+        </a></li>
+        <li class="rm-item"><a class="rm-card" href="games/tiltantale.html">
+          <div class="rm-top"><span class="rm-title">TiltanTale</span><span class="rm-genre">RPG · MonoGame</span></div>
+          <p class="rm-desc">An Undertale-style RPG where you escape Tiltan College and fight your teachers as bosses. Released on itch.io in August 2026.</p>
+          <p class="rm-goal"><span>Goal:</span> boss design and writing.</p>
+        </a></li>
+      </ol>
     </div>
 
-    <div class="tl-scroll">
-      <div class="tl-track">
-
-        <!-- FINISHED -->
-        <div class="tl-node clickable" data-status="done" data-href="games/balatro.html"
-             data-hook="A poker-roguelike built solo in C# — scoring mechanics, run pacing, and a risk/reward economy."
-             data-proves="Solo full-pipeline execution">
-          <div class="tl-num">01</div><div class="tl-marker"></div>
-          <div class="tl-card">
-            <div class="tl-status-tag">Finished</div>
-            <div class="tl-title">Dekelatro</div>
-            <div class="tl-genre">Poker Roguelike · C#</div>
-            <div class="tl-hook">Solo-built poker-roguelike — scoring, run pacing, risk/reward economy.</div>
-            <div class="tl-open">View breakdown →</div>
-          </div>
-        </div>
-
-        <div class="tl-node clickable" data-status="done" data-href="prototypes.html"
-             data-hook="A top-down survival game built in Construct during a rapid-prototyping course. I made all the art."
-             data-proves="Shipping fast under constraints, in a team">
-          <div class="tl-num">02</div><div class="tl-marker"></div>
-          <div class="tl-card">
-            <div class="tl-status-tag">Shipped</div>
-            <div class="tl-title">Pizzapocalypse</div>
-            <div class="tl-genre">Survival · Construct</div>
-            <div class="tl-hook">Team-built survival jam; I did all art. Fast shipping under constraints.</div>
-            <div class="tl-open">View prototype →</div>
-          </div>
-        </div>
-
-        <div class="tl-node clickable" data-status="done" data-href="games/trials.html"
-             data-hook="A cooperative dungeon-crawl board game — tile exploration, class design, and a final boss fight. A physical, shippable product."
-             data-proves="Systems design in a physical medium">
-          <div class="tl-num">03</div><div class="tl-marker"></div>
-          <div class="tl-card">
-            <div class="tl-status-tag">Finished</div>
-            <div class="tl-title">Trials of the Dungeon</div>
-            <div class="tl-genre">Co-op Board Game · Physical</div>
-            <div class="tl-hook">Co-op dungeon crawler — tile exploration, class design, boss fight.</div>
-            <div class="tl-open">View breakdown →</div>
-          </div>
-        </div>
-
-        <div class="tl-node clickable" data-status="done" data-href="games/survival.html"
-             data-hook="Mobile survival with full meta progression — session design, offline rewards, and a layered economy. Course deadline: end of July 2026."
-             data-proves="Meta-progression & economy design">
-          <div class="tl-num">04</div><div class="tl-marker"></div>
-          <div class="tl-card">
-            <div class="tl-status-tag">Finished</div>
-            <div class="tl-title">Brave the Wilderness</div>
-            <div class="tl-genre">Survival · Unity · Mobile</div>
-            <div class="tl-hook">Mobile survival + meta progression — sessions, offline rewards, economy.</div>
-            <div class="tl-open">View breakdown →</div>
-          </div>
-        </div>
-
-        <div class="tl-node clickable" data-status="done" data-href="games/tiltantale.html"
-             data-hook="An Undertale-inspired RPG in MonoGame — escape Tiltan College, face your teachers as bosses, find your way back to the overworld. Finished and released on itch.io, August 2026."
-             data-proves="Narrative + encounter & boss design">
-          <div class="tl-num">05</div><div class="tl-marker"></div>
-          <div class="tl-card">
-            <div class="tl-status-tag">Finished</div>
-            <div class="tl-title">TiltanTale</div>
-            <div class="tl-genre">RPG · MonoGame</div>
-            <div class="tl-hook">Undertale-style RPG — escape college, teachers as bosses.</div>
-            <div class="tl-open">View breakdown →</div>
-          </div>
-        </div>
-
-        <!-- IN DEVELOPMENT -->
-        <div class="tl-node" data-status="wip"
-             data-hook="A Vampire Survivors-style incremental — equip a party of servants that act as your skills, upgrade them and your character through separate skill trees, and fight bosses across levels. A team project in my extracurricular program where I'm the lead game designer. In active development since August 2026, targeting a Steam release in mid-2027."
-             data-proves="Leading design on a team + Steam shipping">
-          <div class="tl-num">06</div><div class="tl-marker"></div>
-          <div class="tl-card">
-            <div class="tl-status-tag">In Development</div>
-            <div class="tl-title">Vampiro</div>
-            <div class="tl-genre">Survivors-like · Steam · Lead Designer</div>
-            <div class="tl-hook">Survivors-like with a servant party &amp; skill trees. Team project — I'm the lead designer. In development for Steam.</div>
-          </div>
-        </div>
-
-        <div class="tl-node clickable" data-status="wip" data-href="games/rest-in-profit.html"
-             data-hook="A cozy-macabre mobile necromancer game — dig up undead monsters in a Disco Zoo-style grid reveal, then place them in a dungeon that fends off invading heroes for coins. Heading into a closed test ahead of a public Google Play launch."
-             data-proves="Mobile economy design + a real public launch">
-          <div class="tl-num">07</div><div class="tl-marker"></div>
-          <div class="tl-card">
-            <div class="tl-status-tag">In Development</div>
-            <div class="tl-title">Rest in Profit</div>
-            <div class="tl-genre">Collection / Management · Unity · Mobile</div>
-            <div class="tl-hook">Dig up undead monsters, defend your dungeon from heroes. Heading to Google Play.</div>
-            <div class="tl-open">View breakdown →</div>
-          </div>
-        </div>
-
-        <div class="tl-node" data-status="wip"
-             data-hook="A vertical hybrid-casual dogfighter — steer while your plane auto-fires on locked targets. Start in a biplane and upgrade your way to fighter jets that clear the whole screen, with fuel-limited flights that feed an upgrade meta."
-             data-proves="Hybrid-casual design + market-aware UX">
-          <div class="tl-num">08</div><div class="tl-marker"></div>
-          <div class="tl-card">
-            <div class="tl-status-tag">In Development</div>
-            <div class="tl-title">Dogfight Evolution</div>
-            <div class="tl-genre">Hybrid Casual · Unity · Mobile</div>
-            <div class="tl-hook">Steer, auto-fire, and upgrade from biplanes to screen-clearing jets.</div>
-          </div>
-        </div>
-
-        <!-- NEXT / PLANNED -->
-        <div class="tl-node" data-status="plan"
-             data-hook="A hex-exploration game with deck-building combat — you author the map yourself, and the deck you build across a run decides every duel. Evolved from the Trials of the Dungeon concept."
-             data-proves="Spatial + deckbuilder systems (3D step-up)">
-          <div class="tl-num">09</div><div class="tl-marker"></div>
-          <div class="tl-card">
-            <div class="tl-status-tag">Planned</div>
-            <div class="tl-title">Hexbound</div>
-            <div class="tl-genre">Deckbuilder · Hex · Unity</div>
-            <div class="tl-hook">Author your own hex map; a run-long deck decides every duel.</div>
-          </div>
-        </div>
-
-        <!-- BACKLOG -->
-        <div class="tl-node clickable" data-status="backlog" data-href="prototypes.html"
-             data-hook="A 2.5D action RPG in Unity — six interlocking systems (runes, crafting, scrolls, NPCs, classes, armor) designed around coherence over feature count. Paused since August 2026 while other projects took priority; not abandoned."
-             data-proves="Interlocking systems design + directing an implementation">
-          <div class="tl-num">10</div><div class="tl-marker"></div>
-          <div class="tl-card">
-            <div class="tl-status-tag">Paused</div>
-            <div class="tl-title">RunicRPG</div>
-            <div class="tl-genre">Action RPG · Unity</div>
-            <div class="tl-hook">2.5D action RPG — six interlocking systems built for coherence. On hold since Aug 2026.</div>
-            <div class="tl-open">View concept →</div>
-          </div>
-        </div>
-
-        <div class="tl-node" data-status="backlog"
-             data-hook="Send submarines to the ocean floor for scrap — deeper zones mean richer hauls and higher risk. An idle/incremental concept, not yet in development."
-             data-proves="Live Steam shipping + long-term economy tuning">
-          <div class="tl-num">11</div><div class="tl-marker"></div>
-          <div class="tl-card">
-            <div class="tl-status-tag">Backlog</div>
-            <div class="tl-title">Deep Haul</div>
-            <div class="tl-genre">Idle / Incremental · Steam</div>
-            <div class="tl-hook">Dive submarines deeper for richer, riskier hauls. Idea stage.</div>
-          </div>
-        </div>
-
-        <div class="tl-node" data-status="backlog"
-             data-hook="An engine-free C++ sword-customization RPG, written from scratch to understand what happens under the hood. Built around a setup phase, card collection, questing, and deep sword customization."
-             data-proves="Engineering depth">
-          <div class="tl-num">12</div><div class="tl-marker"></div>
-          <div class="tl-card">
-            <div class="tl-status-tag">Backlog</div>
-            <div class="tl-title">C++ Sword RPG</div>
-            <div class="tl-genre">Sword-customization RPG · C++</div>
-            <div class="tl-hook">Engine-free C++ RPG — setup, card collection, questing &amp; sword customization.</div>
-          </div>
-        </div>
-
-        <div class="tl-node" data-status="backlog"
-             data-hook="You play the attacker — compose waves of monsters to assault a fortified tower. The tactics live in how you build the assault, not where you place defenses."
-             data-proves="Spatial + encounter design, inverted">
-          <div class="tl-num">13</div><div class="tl-marker"></div>
-          <div class="tl-card">
-            <div class="tl-status-tag">Backlog</div>
-            <div class="tl-title">Tactical Tower Defense</div>
-            <div class="tl-genre">Strategy · Unity</div>
-            <div class="tl-hook">Play the attacker — compose monster waves to breach a tower.</div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- phase bands (desktop) -->
-      <div class="tl-phases">
-        <div class="tl-phase ph-done" style="width:930px;">Finished<small>Shipped across engines, platforms &amp; a physical medium</small></div>
-        <div class="tl-phase ph-wip" style="width:558px;">In Development<small>Team lead, mobile launches &amp; hybrid-casual design</small></div>
-        <div class="tl-phase ph-plan" style="width:186px;">Next<small>Deckbuilding, evolved from Trials of the Dungeon</small></div>
-        <div class="tl-phase ph-backlog" style="width:744px;">Backlog<small>Paused or someday — not a current priority</small></div>
-      </div>
+    <div class="rm-phase ph-wip">
+      <h3>In development</h3>
+      <ol class="rm-list">
+        <li class="rm-item"><div class="rm-card">
+          <div class="rm-top"><span class="rm-title">Vampiro</span><span class="rm-genre">Survivors-like · Steam · Lead designer</span></div>
+          <p class="rm-desc">A Vampire Survivors-style game where your skills are a party of servants. You upgrade them and your character on separate skill trees and fight bosses across levels. It's a team project in my extracurricular program, in development since August 2026 and aimed at a Steam release in mid-2027.</p>
+          <p class="rm-goal"><span>Goal:</span> lead design on a team and ship on Steam.</p>
+        </div></li>
+        <li class="rm-item"><a class="rm-card" href="games/rest-in-profit.html">
+          <div class="rm-top"><span class="rm-title">Rest in Profit</span><span class="rm-genre">Collection / auto-battler · Unity · Mobile</span></div>
+          <p class="rm-desc">Dig up undead monsters on a Disco Zoo-style grid, then use them to defend your dungeon from heroes. Next is a closed test, then a public Google Play launch.</p>
+          <p class="rm-goal"><span>Goal:</span> design a mobile economy and launch it publicly.</p>
+        </a></li>
+        <li class="rm-item"><a class="rm-card" href="games/dogfight-evolution.html">
+          <div class="rm-top"><span class="rm-title">Dogfight Evolution</span><span class="rm-genre">Hybrid-casual · Unity · Mobile</span></div>
+          <p class="rm-desc">A vertical shooter where you steer and the plane fires on its own. Flights are limited by fuel, and the coins you bring back pay for upgrades, from biplanes up to jets.</p>
+          <p class="rm-goal"><span>Goal:</span> hybrid-casual design for the mobile market.</p>
+        </a></li>
+      </ol>
     </div>
 
-    <div class="scroll-hint">← scroll the timeline to see what's next →</div>
+    <div class="rm-phase ph-plan">
+      <h3>Next</h3>
+      <ol class="rm-list">
+        <li class="rm-item"><div class="rm-card">
+          <div class="rm-top"><span class="rm-title">Hexbound</span><span class="rm-genre">Deckbuilder · Hex map · Unity</span></div>
+          <p class="rm-desc">You place the map's hex tiles yourself, and the deck you build over the run decides every fight. It grew out of Trials of the Dungeon.</p>
+          <p class="rm-goal"><span>Goal:</span> spatial and deckbuilding systems, and a step up to 3D.</p>
+        </div></li>
+      </ol>
+    </div>
+
+    <div class="rm-phase ph-backlog">
+      <h3>Backlog</h3>
+      <ol class="rm-list">
+        <li class="rm-item"><a class="rm-card" href="games/sidescroller.html">
+          <div class="rm-top"><span class="rm-title">RunicRPG</span><span class="rm-genre">Action RPG · Unity · Paused</span></div>
+          <p class="rm-desc">A 2.5D action RPG with six connected systems: runes, crafting, scrolls, NPCs, classes and armor. Paused since August 2026 while other projects come first.</p>
+          <p class="rm-goal"><span>Goal:</span> make several systems feed each other.</p>
+        </a></li>
+        <li class="rm-item"><div class="rm-card">
+          <div class="rm-top"><span class="rm-title">Deep Haul</span><span class="rm-genre">Idle / incremental · Steam</span></div>
+          <p class="rm-desc">Send submarines down for scrap. Deeper zones pay more and risk more. Still an idea.</p>
+          <p class="rm-goal"><span>Goal:</span> ship on Steam and tune a long-term economy.</p>
+        </div></li>
+        <li class="rm-item"><div class="rm-card">
+          <div class="rm-top"><span class="rm-title">C++ Sword RPG</span><span class="rm-genre">RPG · C++, no engine</span></div>
+          <p class="rm-desc">An RPG about customizing your sword, with a setup phase, card collection and quests. I'd write it in C++ without an engine to learn what engines do under the hood.</p>
+          <p class="rm-goal"><span>Goal:</span> engineering depth.</p>
+        </div></li>
+        <li class="rm-item"><div class="rm-card">
+          <div class="rm-top"><span class="rm-title">Tactical Tower Defense</span><span class="rm-genre">Strategy · Unity</span></div>
+          <p class="rm-desc">Tower defense from the other side: you build the monster waves that attack a fortified tower.</p>
+          <p class="rm-goal"><span>Goal:</span> encounter design, flipped around.</p>
+        </div></li>
+      </ol>
+    </div>
   </div>
 </section>
 
 <div class="site-nav-footer">
   <div class="container">
-    <span class="site-nav-footer-label">Jump to</span>
+    <span class="site-nav-footer-label">Pages</span>
     <div class="site-nav-footer-grid">
       <a href="index.html">Home</a>
       <a href="games.html">Games</a>
-      <a href="prototypes.html">Experiments</a>
       <a href="experience.html">Experience</a>
       <a href="toolbox.html">Toolbox</a>
       <a href="roadmap.html">Roadmap</a>
@@ -386,9 +237,8 @@
 
 <section id="contact">
   <div class="container">
-    <span class="label">Get in touch</span>
-    <h2>Let's talk.</h2>
-    <p>Open to internships, collaborations, and feedback on work in progress.</p>
+    <h2>Contact</h2>
+    <p>I'm open to internships and collaborations, and happy to get feedback on work in progress.</p>
     <div class="contact-links" style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
       <a href="mailto:dekelriess@gmail.com" class="btn btn-ghost">✉ dekelriess@gmail.com</a>
       <a href="https://linkedin.com/in/dekel-riess-39172433b" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn ↗</a>
@@ -400,11 +250,6 @@
   </div>
 </section>
 
-<div id="tl-tip" role="tooltip">
-  <div class="tip-title"></div>
-  <div class="tip-hook"></div>
-  <div class="tip-proves"><span>What it proves</span><em class="tip-proves-text" style="font-style:normal; color:var(--text);"></em></div>
-</div>
 
 <script>
   // Active nav
@@ -414,43 +259,6 @@
       if (a.getAttribute('href').split('/').pop() === page) a.classList.add('nav-active');
     });
   })();
-
-  // Tooltip (desktop hover)
-  const tip = document.getElementById('tl-tip');
-  const tipTitle = tip.querySelector('.tip-title');
-  const tipHook = tip.querySelector('.tip-hook');
-  const tipProves = tip.querySelector('.tip-proves-text');
-  const isTouch = window.matchMedia('(max-width:720px)').matches;
-
-  function showTip(node){
-    if (isTouch) return;
-    tipTitle.textContent = node.querySelector('.tl-title').textContent;
-    tipHook.textContent = node.dataset.hook || '';
-    tipProves.textContent = node.dataset.proves || '';
-    tip.classList.add('show');
-    const r = node.getBoundingClientRect();
-    const tr = tip.getBoundingClientRect();
-    let left = r.left + r.width/2 - tr.width/2;
-    left = Math.max(12, Math.min(left, window.innerWidth - tr.width - 12));
-    let top = r.top - tr.height - 12;
-    if (top < 70) top = r.bottom + 12; // flip below if no room
-    tip.style.left = left + 'px';
-    tip.style.top = top + 'px';
-  }
-  function hideTip(){ tip.classList.remove('show'); }
-
-  document.querySelectorAll('.tl-node').forEach(node => {
-    node.addEventListener('mouseenter', () => showTip(node));
-    node.addEventListener('mouseleave', hideTip);
-    const href = node.dataset.href;
-    if (href) {
-      node.classList.add('clickable');
-      node.addEventListener('click', () => {
-        document.body.classList.add('fade-out');
-        setTimeout(() => { window.location.href = href; }, 200);
-      });
-    }
-  });
 
   // Smooth internal-link transitions
   document.addEventListener('click', function(e){

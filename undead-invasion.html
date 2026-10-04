@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Undead Invasion — Dekel Riess</title>
-  <meta name="description" content="Undead Invasion — a round-based Call of Duty Zombies-style survival shooter built in Unreal Engine. From-scratch sound design, hand-referenced animation, and an authored cast. Design breakdown." />
+  <title>Undead Invasion | Dekel Riess</title>
+  <meta name="description" content="Undead Invasion, a round-based zombie survival shooter in Unreal Engine, like Call of Duty Zombies. Design breakdown." />
   <link rel="icon" type="image/png" href="favicon.png" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Undead Invasion — Dekel Riess" />
-  <meta property="og:description" content="A round-based Zombies-style survival shooter built in Unreal Engine — from-scratch sound design, hand-referenced animation, an authored cast, and layered wave systems." />
+  <meta property="og:title" content="Undead Invasion | Dekel Riess" />
+  <meta property="og:description" content="Undead Invasion, a round-based zombie survival shooter in Unreal Engine, like Call of Duty Zombies. Design breakdown." />
   <meta property="og:url" content="https://dekeloni2.github.io/portfolio-website/undead-invasion.html" />
   <meta property="og:image" content="https://dekeloni2.github.io/portfolio-website/dekel.png" />
   <meta name="twitter:card" content="summary" />
@@ -441,7 +441,15 @@
       .nav-links { display: none; }
       section    { padding: 64px 0; }
     }
-  </style>
+  
+    /* ─── Plain text blocks ──────────────────────────────────────── */
+    .body-text { font-size: 0.88rem; color: var(--muted); line-height: 1.7; max-width: 680px; margin-bottom: 18px; }
+    .body-text strong { color: var(--text); }
+    .note-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; }
+    .note-card h4 { margin: 0 0 6px; font-size: 0.92rem; color: var(--accent2); }
+    .note-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.65; margin: 0; }
+    .note-card p + p { margin-top: 8px; }
+</style>
 </head>
 <body>
 
@@ -450,7 +458,6 @@
     <a href="index.html" class="nav-logo" style="text-decoration:none;">Dekel Riess</a>
     <ul class="nav-links">
       <li><a href="games.html">Games</a></li>
-      <li><a href="prototypes.html">Experiments</a></li>
       <li><a href="experience.html">Experience</a></li>
       <li><a href="toolbox.html">Toolbox</a></li>
       <li><a href="roadmap.html">Roadmap</a></li>
@@ -469,213 +476,96 @@
           <h2 style="margin:0;">Undead Invasion</h2>
         </div>
         <p class="concept">
-          A round-based, Call of Duty Zombies&ndash;style survival shooter built in Unreal Engine. Hold ground against escalating waves of the undead, buy your way to power through Perk-a-Cola machines, and survive scripted wave events &mdash; while four playable survivors and a single watching Entity give the run its story. My attempt to recreate the tight, simple loop of classic Zombies in my own design &mdash; my first serious Unreal project, and a showcase of the disciplines a screenshot can't prove.
+          A round-based zombie survival shooter in Unreal Engine, in the style of Call of Duty Zombies. You hold off growing waves of undead, spend points on Perk-a-Cola machines and weapons, and get through scripted wave events. Four playable survivors and one Entity watching over the run carry the story. It's my first serious Unreal project.
         </p>
         <div class="game-info-row">
           <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">Unreal Engine</span></div>
-          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">Round-Based Survival Shooter · "Zombies"</span></div>
+          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">Round-based survival shooter</span></div>
           <div class="game-info-item"><span class="game-info-key">Platform</span><span class="game-info-val">PC</span></div>
           <div class="game-info-item"><span class="game-info-key">Team</span><span class="game-info-val">Solo</span></div>
-          <div class="game-info-item"><span class="game-info-key">Role</span><span class="game-info-val">Design · Sound · Animation · Narrative</span></div>
-          <div class="game-info-item"><span class="game-info-key">Purpose</span><span class="game-info-val">Learn Unreal · craft showcase</span></div>
-          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">In active development</span></div>
+          <div class="game-info-item"><span class="game-info-key">My part</span><span class="game-info-val">Design, sound, animation, writing</span></div>
+          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">In development</span></div>
         </div>
       </div>
 
       <div class="game-content-col">
-        <!-- At a glance -->
-        <div class="at-glance reveal">
-          <span class="label">At a glance</span>
-          <p class="at-glance-hook">A <strong>round-based Zombies-style survival shooter</strong> in Unreal Engine &mdash; my attempt to recreate what made classic Call of Duty Zombies great, in my own design: the <strong>tight, simple loop</strong> from before the genre got bloated. It's also a showcase for the craft a portfolio can't screenshot &mdash; <strong>sound design, animation, and narrative</strong>, all made from scratch &mdash; with <strong>Black Ops III</strong> as the reference standard.</p>
-          <div class="highlight-chips">
-            <span class="highlight-chip">Recreate classic Zombies</span>
-            <span class="highlight-chip">Black Ops III reference</span>
-            <span class="highlight-chip">All audio from scratch</span>
-            <span class="highlight-chip">Reference-driven animation</span>
-            <span class="highlight-chip">4 survivors + 1 Entity</span>
-            <span class="highlight-chip">Wave events &amp; Perk-a-Colas</span>
-          </div>
-          <a href="#showcase" class="jump-to-detail">Jump to what it showcases &darr;</a>
+
+        <div class="section-line">Why I'm making it</div>
+        <p class="body-text">Call of Duty Zombies is a big part of why I became a game designer. The early games ran on an almost embarrassingly simple loop: survive the wave, spend your points, come back stronger. Over the years the mode got buried under systems. I want to see if I can rebuild that experience in my own design and keep it as tight as it used to be.</p>
+        <p class="body-text">My main reference is <strong>Black Ops III</strong>, so most of my research goes back to what it got right. I'm not trying to out-feature it; I want to understand it well enough to rebuild the feel. Using a genre I know well also means the things I'm learning are the engine and the craft, not the design.</p>
+        <p class="body-text">I'm making the sound, the animation, the writing and the wave systems myself instead of using asset packs.</p>
+
+        <div class="section-line" style="margin-top:36px;">A round</div>
+        <div class="loop-chain">
+          <div class="loop-step"><div class="loop-dot">1</div><div class="loop-step-text">Survive the wave</div></div>
+          <div class="loop-connector"></div>
+          <div class="loop-step"><div class="loop-dot">2</div><div class="loop-step-text">Earn points from kills and cleared rounds</div></div>
+          <div class="loop-connector"></div>
+          <div class="loop-step"><div class="loop-dot">3</div><div class="loop-step-text">Spend them on Perk-a-Colas, weapons and opening the map</div></div>
+          <div class="loop-connector"></div>
+          <div class="loop-step"><div class="loop-dot">4</div><div class="loop-step-text">Face the next wave, and whatever event it brings</div></div>
         </div>
 
-        <div class="section-line">Why I'm Building This</div>
-        <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; margin-bottom:16px;">
-          Call of Duty Zombies is a big part of how I became a game designer. The early games ran on a loop that was almost embarrassingly simple &mdash; survive the wave, spend your points, come back stronger &mdash; and that simplicity is exactly what made it so good. Somewhere along the way the mode got bloated and complex, and the clean loop I fell in love with got buried under systems. Undead Invasion is my attempt to answer a specific question: <em style="color:var(--text);">can I faithfully recreate that experience in my own design, and keep it as tight as it used to be?</em>
-        </p>
-        <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; margin-bottom:16px;">
-          My main reference is <strong style="color:var(--text);">Call of Duty: Black Ops III</strong> &mdash; widely considered the high-water mark for Zombies &mdash; so most of my research and design decisions trace back to what it got right. The goal isn't to out-feature it; it's to understand it well enough to rebuild the feel from first principles.
-        </p>
-        <p style="font-size:0.85rem; color:var(--muted); line-height:1.7;">
-          It's also a deliberately full-stack piece for me, and my first serious Unreal project: I'm authoring the audio, the animation, the writing, and the wave systems myself. So the page below is organized around <em style="color:var(--text);">what each discipline is proving</em> rather than a feature checklist.
-        </p>
-
-        <div class="section-line">Design Pillars</div>
-        <div class="pillars-grid">
-          <div class="pillar">
-            <div class="pillar-num">01</div>
-            <h4>Craft You Can Hear and Feel</h4>
-            <p>Every gunshot, footstep, and undead groan is built from scratch, and every animation is referenced from real footage. The moment-to-moment feel is the point &mdash; not borrowed asset-pack polish.</p>
-          </div>
-          <div class="pillar">
-            <div class="pillar-num">02</div>
-            <h4>Faithful to the Simple Loop</h4>
-            <p>Shoot, survive, spend, come back stronger. I'm rebuilding the classic Zombies loop from first principles &mdash; Black Ops III as the reference &mdash; and defending its simplicity instead of piling systems on top of it.</p>
-          </div>
-          <div class="pillar">
-            <div class="pillar-num">03</div>
-            <h4>Reasons to Keep Fighting</h4>
-            <p>Four survivors, each written with their own backstory and motivation, and one Entity watching over the run. The narrative sits underneath the shooting instead of pausing it.</p>
-          </div>
-          <div class="pillar">
-            <div class="pillar-num">04</div>
-            <h4>Waves With Authored Moments</h4>
-            <p>Waves aren't just "more enemies." Scripted wave events change what a given round means, so the run has beats and surprises rather than a flat difficulty ramp.</p>
-          </div>
-        </div>
-
-        <div class="section-line">The Round Loop</div>
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px;">
-          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; margin-bottom:16px;">
-            The core loop is intentionally classic &mdash; its job is to be instantly legible so the craft and the wave design carry the experience.
-          </p>
-          <div class="loop-chain">
-            <div class="loop-step"><div class="loop-dot">1</div><div class="loop-step-text">Survive the wave &mdash; hold ground against the undead</div></div>
-            <div class="loop-connector"></div>
-            <div class="loop-step"><div class="loop-dot">2</div><div class="loop-step-text">Earn points from kills and clears</div></div>
-            <div class="loop-connector"></div>
-            <div class="loop-step"><div class="loop-dot">3</div><div class="loop-step-text">Spend on Perk-a-Colas, weapons, and the map</div></div>
-            <div class="loop-connector"></div>
-            <div class="loop-step"><div class="loop-dot">4</div><div class="loop-step-text">Face the next wave &mdash; and whatever event it triggers</div></div>
-          </div>
-        </div>
-
-        <div class="section-line" id="showcase">What It Showcases</div>
+        <div class="section-line" style="margin-top:36px;">What I'm building</div>
         <div class="mechanics-grid">
           <div class="mechanic-card">
             <div class="mechanic-icon">🔊</div>
-            <h3>Sound Design</h3>
-            <p>Every sound in the game is created from scratch &mdash; weapons, the undead, ambience, and UI. The audio is treated as a design layer, not a garnish: it's how the game communicates threat, feedback, and weight.</p>
+            <h3>Sound</h3>
+            <p>Every sound is made from scratch: weapons, the undead, ambience and UI. Sound is how the game tells you about threats, hits and weight.</p>
           </div>
           <div class="mechanic-card">
             <div class="mechanic-icon">🎞️</div>
             <h3>Animation</h3>
-            <p>Animations are built from real-life reference &mdash; existing footage and video I record myself &mdash; so movement, recoil, and reloads read as grounded and intentional rather than stiff or generic.</p>
-          </div>
-          <div class="mechanic-card">
-            <div class="mechanic-icon">📖</div>
-            <h3>Narrative</h3>
-            <p>Four playable characters, each with their own story and motivation, plus a single Entity watching over the player. The writing gives the survival run stakes and a throughline beyond the score.</p>
+            <p>Animated from real reference, both existing footage and video I record myself, so movement, recoil and reloads feel grounded.</p>
           </div>
           <div class="mechanic-card">
             <div class="mechanic-icon">🌊</div>
-            <h3>Wave Management</h3>
-            <p>The system that governs how the undead arrive &mdash; spawn pacing, count, and pressure per round. Tuning this is what keeps each wave tense without tipping into unfair.</p>
+            <h3>Waves</h3>
+            <p>How the undead arrive: spawn pacing, numbers and pressure per round. Tuning this keeps each wave tense without becoming unfair.</p>
           </div>
           <div class="mechanic-card">
             <div class="mechanic-icon">⚡</div>
-            <h3>Wave Events</h3>
-            <p>Scripted "what happens on wave X" moments layered on top of the base loop &mdash; special rounds and surprises that give the run authored beats and break the monotony of a flat ramp.</p>
+            <h3>Wave events</h3>
+            <p>Scripted rounds and surprises on specific waves, so a run has moments instead of a flat difficulty ramp.</p>
           </div>
           <div class="mechanic-card">
             <div class="mechanic-icon">🥤</div>
             <h3>Perk-a-Colas</h3>
-            <p>Buyable perk machines in the Zombies tradition &mdash; the spend side of the loop. They turn earned points into permanent-for-the-run power and give players build decisions between waves.</p>
+            <p>Perk machines, like in Zombies. They turn points into power for the rest of the run and give you build choices between waves.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">📖</div>
+            <h3>Story</h3>
+            <p>Four playable survivors, each with a backstory and a reason to keep fighting, and one Entity with its own motives watching the run. I'm writing the cast now.</p>
           </div>
         </div>
       </div>
 
     </div>
 
-
-    <!-- ═══ Cast & The Entity (full width) ═══ -->
     <div style="margin-top:72px;">
-      <div class="section-line">Cast &amp; The Entity</div>
-      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:700px; margin-bottom:28px;">
-        Four playable survivors, each written with a distinct backstory and a reason to still be fighting, and one Entity that watches over the run &mdash; a presence with its own motives, not just a narrator. The specific cast is being written now; the structure below is the design intent.
-      </p>
-      <div class="cast-grid">
-        <div class="cast-card">
-          <span class="cast-role">Survivor · 01</span>
-          <h4>In writing</h4>
-          <p>A playable character with an authored backstory and a personal motivation that colors how they read on the battlefield.</p>
-        </div>
-        <div class="cast-card">
-          <span class="cast-role">Survivor · 02</span>
-          <h4>In writing</h4>
-          <p>A distinct survivor &mdash; different history, different reason to keep pushing into the next wave.</p>
-        </div>
-        <div class="cast-card">
-          <span class="cast-role">Survivor · 03</span>
-          <h4>In writing</h4>
-          <p>A third voice in the group, written to contrast with the others rather than repeat them.</p>
-        </div>
-        <div class="cast-card">
-          <span class="cast-role">Survivor · 04</span>
-          <h4>In writing</h4>
-          <p>The fourth playable survivor, rounding out the cast with a motivation of their own.</p>
-        </div>
-        <div class="cast-card cast-entity">
-          <span class="cast-role">The Entity</span>
-          <h4>Watching over the run</h4>
-          <p>A single presence observing the player throughout &mdash; with its own story and motives. The connective tissue that turns four survival runs into one narrative.</p>
-        </div>
-      </div>
-    </div>
-
-
-    <!-- ═══ In Motion (footage placeholders) ═══ -->
-    <div style="margin-top:72px;">
-      <div class="section-line">In Motion</div>
-      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:700px; margin-bottom:28px;">
-        Footage goes here as the systems come online &mdash; gunplay and reloads, a wave escalating, a wave event firing, and the Perk-a-Cola loop. Drop the clips into the site folder and they'll fill these slots automatically.
-      </p>
+      <div class="section-line">Gameplay</div>
       <div class="gif-showcase">
         <figure class="gif-slot">
-          <video src="undead_gunplay.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Undead Invasion gunplay and feel" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <video src="undead_gunplay.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Undead Invasion gunplay" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>undead_gunplay.mp4</code> here</span></div>
-          <figcaption>Gunplay &amp; Feel <span>— from-scratch audio + referenced animation</span></figcaption>
+          <figcaption>Gunplay <span>with my own sound and animation</span></figcaption>
         </figure>
         <figure class="gif-slot">
-          <video src="undead_wave.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Undead Invasion wave escalation" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <video src="undead_wave.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Undead Invasion wave" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>undead_wave.mp4</code> here</span></div>
-          <figcaption>Wave Management <span>— spawn pacing &amp; escalation</span></figcaption>
+          <figcaption>A wave <span>building up</span></figcaption>
         </figure>
         <figure class="gif-slot">
           <video src="undead_waveevent.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Undead Invasion wave event" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>undead_waveevent.mp4</code> here</span></div>
-          <figcaption>Wave Event <span>— an authored "what happens on wave X" moment</span></figcaption>
+          <figcaption>A wave event</figcaption>
         </figure>
         <figure class="gif-slot">
           <video src="undead_perks.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Undead Invasion Perk-a-Cola machines" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>undead_perks.mp4</code> here</span></div>
-          <figcaption>Perk-a-Colas <span>— the spend-and-power-up loop</span></figcaption>
+          <figcaption>Perk-a-Colas</figcaption>
         </figure>
-      </div>
-    </div>
-
-
-    <!-- ═══ The Brief I Set Myself (skim spine) ═══ -->
-    <div style="margin-top:72px;">
-      <div class="section-line">The Brief I Set Myself</div>
-      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:700px; margin-bottom:28px;">
-        The 60-second version of what this project is for. It's a learning piece in an established genre &mdash; the value is in <em style="color:var(--text);">how</em> it's built, not a novel core mechanic.
-      </p>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px;">
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">01 · Goal</div>
-          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Rebuild classic Zombies, in Unreal</h4>
-          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Recreate the simple, tight Zombies loop I grew up on &mdash; Black Ops III as the standard &mdash; while learning Unreal on a genre I understand cold, so the unknowns are all engine and craft.</p>
-        </div>
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">02 · Approach</div>
-          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Own every discipline</h4>
-          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Build the audio, animation, narrative, and wave systems myself instead of leaning on packs &mdash; so the piece proves range, not just that I can assemble a shooter.</p>
-        </div>
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">03 · What It Proves</div>
-          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Faithful recreation &amp; restraint</h4>
-          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">That I can study a beloved design, rebuild its feel, and have the discipline to keep it simple &mdash; plus the hidden craft (sound, feel, authored moments) and a third engine alongside my Unity and MonoGame work.</p>
-        </div>
       </div>
     </div>
 
@@ -685,11 +575,10 @@
 <!-- ═══════════════════════════════════════ Site Nav Footer ═══════════════════════════════════════ -->
 <div class="site-nav-footer">
   <div class="container">
-    <span class="site-nav-footer-label">Jump to</span>
+    <span class="site-nav-footer-label">Pages</span>
     <div class="site-nav-footer-grid">
       <a href="index.html">Home</a>
       <a href="games.html">Games</a>
-      <a href="prototypes.html">Experiments</a>
       <a href="experience.html">Experience</a>
       <a href="toolbox.html">Toolbox</a>
       <a href="roadmap.html">Roadmap</a>
@@ -700,9 +589,8 @@
 <!-- ═══════════════════════════════════════ Contact ═══════════════════════════════════════ -->
 <section id="contact">
   <div class="container">
-    <span class="label">Get in touch</span>
-    <h2>Let's talk.</h2>
-    <p>Open to internships, collaborations, and feedback on work in progress.</p>
+    <h2>Contact</h2>
+    <p>I'm open to internships and collaborations, and happy to get feedback on work in progress.</p>
     <div class="contact-links">
       <a href="mailto:dekelriess@gmail.com" class="btn btn-primary">✉ dekelriess@gmail.com</a>
       <a href="https://linkedin.com/in/dekel-riess-39172433b" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn ↗</a>

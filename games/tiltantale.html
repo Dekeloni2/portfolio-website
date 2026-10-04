@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TiltanTale — Dekel Riess</title>
-  <meta name="description" content="TiltanTale — an Undertale-inspired RPG built in MonoGame. Design breakdown: bullet-hell combat, boss design, and escaping Tiltan College." />
+  <title>TiltanTale | Dekel Riess</title>
+  <meta name="description" content="TiltanTale, an Undertale-style RPG made in MonoGame where you fight your teachers. Design breakdown: bosses, playtesting, endings." />
   <link rel="icon" type="image/png" href="../favicon.png" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="TiltanTale — Dekel Riess" />
-  <meta property="og:description" content="TiltanTale — an Undertale-inspired RPG built in MonoGame. Design breakdown: bullet-hell combat, boss design, and escaping Tiltan College." />
+  <meta property="og:title" content="TiltanTale | Dekel Riess" />
+  <meta property="og:description" content="TiltanTale, an Undertale-style RPG made in MonoGame where you fight your teachers. Design breakdown: bosses, playtesting, endings." />
   <meta property="og:url" content="https://dekeloni2.github.io/portfolio-website/games/tiltantale.html" />
   <meta property="og:image" content="https://dekeloni2.github.io/portfolio-website/dekel.png" />
   <meta name="twitter:card" content="summary" />
@@ -861,6 +861,26 @@
     .jump-to-detail:hover { text-decoration: none; opacity: 0.82; }
     .section-line { scroll-margin-top: 80px; }
 
+
+    /* ─── Plain text blocks ──────────────────────────────────────── */
+    .body-text { font-size: 0.88rem; color: var(--muted); line-height: 1.7; max-width: 680px; margin-bottom: 18px; }
+    .body-text strong { color: var(--text); }
+    .note-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; }
+    .note-card h4 { margin: 0 0 6px; font-size: 0.92rem; color: var(--accent2); }
+    .note-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.65; margin: 0; }
+    .note-card p + p { margin-top: 8px; }
+
+    /* ─── Key decisions + before/after tags ──────────────────────── */
+    .key-decisions { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 10px; padding: 16px 20px; margin-bottom: 36px; }
+    .key-decisions h3 { font-size: 0.95rem; margin: 0 0 10px; color: var(--text); }
+    .key-decisions ol { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 7px; }
+    .key-decisions li { font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+    .key-decisions li strong { color: var(--text); }
+    .key-decisions li a { color: var(--accent2); font-size: 0.8rem; white-space: nowrap; }
+    .ba-tags { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .ba-tags span { font-size: 0.68rem; font-weight: 700; color: var(--muted); border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; }
+    .ba-tags span.after { color: var(--accent2); border-color: var(--accent); }
+    [id] { scroll-margin-top: 90px; }
 </style>
 </head>
 <body>
@@ -870,7 +890,6 @@
     <a href="../index.html" class="nav-logo" style="text-decoration:none;">Dekel Riess</a>
     <ul class="nav-links">
       <li><a href="../games.html">Games</a></li>
-      <li><a href="../prototypes.html">Experiments</a></li>
       <li><a href="../experience.html">Experience</a></li>
       <li><a href="../toolbox.html">Toolbox</a></li>
       <li><a href="../roadmap.html">Roadmap</a></li>
@@ -889,98 +908,61 @@
           <h2 style="margin:0;">TiltanTale</h2>
         </div>
         <p class="concept">
-          An Undertale-inspired RPG built in MonoGame. You play as a student who has fallen into Tiltan College of Visual Design and Communication and must navigate the school, face your teachers as bosses, and find a way back to the overworld. Features overworld exploration and a turn-based bullet hell battle system — attack, act, use items, or spare enemies once the right conditions are met.
+          An Undertale-style RPG made in MonoGame. You're a student who has fallen into Tiltan College and has to find a way back out. You explore the school and fight your teachers as bosses in turn-based bullet-hell battles, where you can attack, act, use items, or spare a teacher once the right conditions are met.
         </p>
         <div class="game-info-row">
-          <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">C# · MonoGame</span></div>
-          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">RPG · Bullet Hell</span></div>
+          <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">C#, MonoGame</span></div>
+          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">RPG, bullet hell</span></div>
           <div class="game-info-item"><span class="game-info-key">Platform</span><span class="game-info-val">PC</span></div>
-          <div class="game-info-item"><span class="game-info-key">Play Time</span><span class="game-info-val">~15 minutes</span></div>
+          <div class="game-info-item"><span class="game-info-key">Length</span><span class="game-info-val">~15 minutes</span></div>
           <div class="game-info-item"><span class="game-info-key">Team</span><span class="game-info-val">2 people</span></div>
-          <div class="game-info-item"><span class="game-info-key">Role</span><span class="game-info-val">Developer · Lead Gameplay Designer</span></div>
-          <div class="game-info-item"><span class="game-info-key">Owned</span><span class="game-info-val">Narrative, level design, attack patterns, sprites</span></div>
-          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">Finished · Released on itch.io</span></div>
+          <div class="game-info-item"><span class="game-info-key">Role</span><span class="game-info-val">Developer, lead gameplay designer</span></div>
+          <div class="game-info-item"><span class="game-info-key">I owned</span><span class="game-info-val">Story, level design, attack patterns, sprites</span></div>
+          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">Released on itch.io</span></div>
         </div>
         <a href="play-tiltantale.html" style="display:flex; align-items:center; justify-content:center; gap:8px; margin-top:20px; padding:12px 22px; border-radius:8px; font-size:0.9rem; font-weight:700; color:#fff; background:linear-gradient(135deg, var(--accent), #7c3aed); box-shadow:0 0 20px rgba(147,51,234,0.35); text-decoration:none;">▶ Play in your browser</a>
         <a href="https://dekeloni2.itch.io/tiltantale" target="_blank" rel="noopener" style="display:flex; align-items:center; justify-content:center; gap:8px; margin-top:10px; padding:11px 22px; border-radius:8px; font-size:0.9rem; font-weight:700; color:var(--text); background:transparent; border:1px solid var(--border); text-decoration:none;">Play on itch.io ↗</a>
-        <a href="https://github.com/Dekeloni2/TiltanTale" target="_blank" rel="noopener" style="display:flex; align-items:center; justify-content:center; gap:8px; margin-top:10px; padding:11px 22px; border-radius:8px; font-size:0.9rem; font-weight:700; color:var(--text); background:transparent; border:1px solid var(--border); text-decoration:none;">&lt;/&gt; View source on GitHub</a>
+        <a href="https://github.com/Dekeloni2/TiltanTale" target="_blank" rel="noopener" style="display:flex; align-items:center; justify-content:center; gap:8px; margin-top:10px; padding:11px 22px; border-radius:8px; font-size:0.9rem; font-weight:700; color:var(--text); background:transparent; border:1px solid var(--border); text-decoration:none;">Source on GitHub ↗</a>
       </div>
 
       <div class="game-content-col">
-        <!-- At a glance -->
-        <div class="at-glance reveal">
-          <span class="label">At a glance</span>
-          <p class="at-glance-hook">An <strong>Undertale-inspired RPG</strong> in MonoGame — explore the college, face your teachers as bosses, and choose to fight or spare them in a turn-based bullet-hell battle system.</p>
-          <div class="highlight-chips">
-            <span class="highlight-chip">Lead Gameplay Designer + Dev</span>
-            <span class="highlight-chip">Turn-based bullet hell</span>
-            <span class="highlight-chip">Fight-or-spare endings</span>
-            <span class="highlight-chip">Released on itch.io</span>
-          </div>
-          <a href="#breakdown" class="jump-to-detail">Jump to the full breakdown ↓</a>
+        <div class="key-decisions">
+          <h3>Key decisions</h3>
+          <ol>
+            <li><strong>Built each boss on a real teacher,</strong> so the attack patterns are the character. <a href="#bosses">More ↓</a></li>
+            <li><strong>Wrote a separate ending for every combination of who you spared,</strong> so the choice actually changes something. <a href="#endings">More ↓</a></li>
+            <li><strong>Shortened attacks after a playtest,</strong> using Undertale's ~40-second attacks as the limit. <a href="#playtest">More ↓</a></li>
+            <li><strong>Skipped a tester's live-photo signs idea,</strong> because it wasn't worth the build time. <a href="#playtest">More ↓</a></li>
+          </ol>
         </div>
 
-        <div class="section-line" id="breakdown">Design Pillars</div>
-        <div class="pillars-grid">
-          <div class="pillar">
-            <div class="pillar-num">01</div>
-            <h4>The Fight Is a Conversation</h4>
-            <p>Every encounter can end in violence or mercy. FIGHT, ACT, ITEM, SPARE — the player decides whether a teacher is an obstacle or a person to understand. Combat carries narrative weight.</p>
-          </div>
-          <div class="pillar">
-            <div class="pillar-num">02</div>
-            <h4>Readable, Fair Bullet Hell</h4>
-            <p>Attack patterns are tough but honest — telegraphed, learnable, beatable on skill. Difficulty comes from reading the pattern, not from cheap hits. Each boss escalates as the fight goes on.</p>
-          </div>
-          <div class="pillar">
-            <div class="pillar-num">03</div>
-            <h4>Teachers as Bosses</h4>
-            <p>Each boss is a Tiltan College teacher, and their fight reflects who they are — their subject, their personality, their quirks are baked into their attack patterns and dialogue. The school itself is the antagonist and the joke.</p>
-          </div>
-          <div class="pillar">
-            <div class="pillar-num">04</div>
-            <h4>Personality in Every Frame</h4>
-            <p>Undertale earned its love through character and tone. TiltanTale leans into that — writing, expressions, and pattern design all serve the humor and heart of being a student trying to escape their own design school.</p>
-          </div>
-        </div>
 
-        <div class="section-line" style="margin-top:36px;">Battle System</div>
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px; margin-bottom:8px;">
-          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; margin-bottom:16px;">
-            Combat alternates between two phases. On your turn you choose an action from the menu; on the enemy's turn, control shifts to your CLOVER — a token you steer through a bullet-hell attack inside the battle box. Survive the pattern, and it's your turn again.
-          </p>
-          <div class="loop-chain">
-            <div class="loop-step"><div class="loop-dot">1</div><div class="loop-step-text">Choose FIGHT · ACT · ITEM · MERCY</div></div>
-            <div class="loop-connector"></div>
-            <div class="loop-step"><div class="loop-dot">2</div><div class="loop-step-text">Enemy turn — dodge the bullet pattern with your CLOVER</div></div>
-            <div class="loop-connector"></div>
-            <div class="loop-step"><div class="loop-dot">3</div><div class="loop-step-text">Read the tell, weave through, take no hits</div></div>
-            <div class="loop-connector"></div>
-            <div class="loop-step"><div class="loop-dot">4</div><div class="loop-step-text">Wear them down — or meet the SPARE condition and end it peacefully</div></div>
-          </div>
-        </div>
+        <div class="section-line" id="breakdown">The problem</div>
+        <p class="body-text">Undertale's fight-or-spare choice works because every enemy is a person. I wanted that weight in a turn-based bullet hell that two of us could build in MonoGame, with no engine tools, in a game about 15 minutes long. How do you make sparing feel like a real decision at that size?</p>
+        <p class="body-text">My answer was to build each boss on a real Tiltan teacher, so the attacks are the character, and to write a separate ending for every combination of who you spared.</p>
 
-        <div class="section-line" style="margin-top:36px;">Core Actions</div>
+        <div class="section-line" style="margin-top:36px;">How a fight works</div>
+        <p class="body-text">On your turn you pick an action. On the teacher's turn you steer your CLOVER, a small token, through a bullet pattern inside the battle box. Survive it and it's your turn again.</p>
         <div class="mechanics-grid">
           <div class="mechanic-card">
-            <div class="mechanic-icon"><img src="../attack.png" alt="FIGHT"></div>
+            <div class="mechanic-icon"><img src="../attack.png" alt=""></div>
             <h3>FIGHT</h3>
-            <p>A timing-based strike: a marker sweeps across the attack bar — land it dead center for max damage. The straightforward path, but fighting every teacher isn't always the ending you want.</p>
+            <p>A marker sweeps across a bar; stop it in the center for the most damage. It's the direct route, but beating every teacher isn't always the ending you want.</p>
           </div>
           <div class="mechanic-card">
-            <div class="mechanic-icon"><img src="../act.png" alt="ACT"></div>
+            <div class="mechanic-icon"><img src="../act.png" alt=""></div>
             <h3>ACT</h3>
-            <p>Talk, observe, or interact in boss-specific ways. The right ACTs change the fight, soften a teacher, and open the path to sparing them.</p>
+            <p>Talk, observe, or do something specific to that teacher. The right ACTs change the fight and open the way to sparing them.</p>
           </div>
           <div class="mechanic-card">
-            <div class="mechanic-icon"><img src="../item.png" alt="ITEM"></div>
+            <div class="mechanic-icon"><img src="../item.png" alt=""></div>
             <h3>ITEM</h3>
-            <p>Heal and use consumables collected through the school. Resource management matters when a boss has a long, escalating pattern set.</p>
+            <p>Heal with things you found around the school. It matters when a boss has a long, escalating set of patterns.</p>
           </div>
           <div class="mechanic-card">
-            <div class="mechanic-icon"><img src="../mercy.png" alt="MERCY"></div>
+            <div class="mechanic-icon"><img src="../mercy.png" alt=""></div>
             <h3>MERCY</h3>
-            <p>Spare an enemy once its condition is met. Ending a fight without a knockout is its own kind of win — and shapes how the school responds to you.</p>
+            <p>Spare a teacher once their condition is met. It ends the fight without a knockout and changes how the school treats you.</p>
           </div>
         </div>
 
@@ -988,344 +970,170 @@
 
     </div>
 
-
-    <!-- ═══ Design Story (skim-first spine) ═══ -->
     <div style="margin-top:72px;">
-      <div class="section-line">How I Designed It</div>
-      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
-        The 60-second version &mdash; the reasoning behind TiltanTale, from the core problem to what I'd change next. The full breakdown is below; this is the map.
-      </p>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px;">
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">01 · Problem</div>
-          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Make mercy cost something</h4>
-          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Undertale's fight-or-spare works because every enemy is a <em style="color:var(--text);">person</em>. I wanted that moral weight in a turn-based bullet-hell &mdash; built by two people in MonoGame with no engine tooling, at a ~15-minute scope. How do you make sparing feel like a real decision at that size?</p>
-        </div>
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">02 · Design Decision</div>
-          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">The attack is the character</h4>
-          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Every boss is a real Tiltan teacher, with their personality baked straight into their attack patterns. Every ending combination is authored from scratch &mdash; no templated &ldquo;neutral&rdquo; route &mdash; so the choice actually costs something. And one scalable boss framework carries 15+ fights instead of one-offs.</p>
-        </div>
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">03 · Prototype / Test</div>
-          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Watch, don't coach</h4>
-          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Late in development I sat a player down for a full session and watched without steering &mdash; real-time notes, no hints. Then I triaged: build what serves the game, defer what doesn't.</p>
-        </div>
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">04 · Result</div>
-          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Cut to the rhythm</h4>
-          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Benchmarked pacing against Undertale (~40s attack ceiling) and caught my <em style="color:var(--text);">basic</em> attacks running boss-climax long &mdash; so I cut them. Added a no-repeat rule for readability and a batch UX pass &mdash; and <em style="color:var(--text);">cut</em> a suggested feature that wasn't worth the build. <a href="#playtest" style="color:var(--accent2); font-weight:600;">See the full iteration &darr;</a></p>
-        </div>
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-          <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">05 · What I'd Change Next</div>
-          <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Teach the spare route</h4>
-          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Some players never found that the right ACTs open mercy. I'd add a clearer in-fight tell when a spare condition is met, and a lighter difficulty option so the story stays reachable for players who bounce off bullet-hell.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══ Playtesting & Iteration ═══ -->
-    <div id="playtest" style="margin-top:72px; scroll-margin-top:90px;">
-      <div class="section-line">Playtesting &amp; Iteration</div>
-      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:660px; margin-bottom:28px;">
-        Late in development I sat a friend down for a full playtest and watched without steering — one session, real-time notes. Then I triaged the feedback: implement what served the game, defer what didn't. The decision of <em>what not to build</em> mattered as much as the fixes.
-      </p>
-
-      <!-- Tier 1 — design judgment -->
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
-
-        <!-- Attack pacing (with footage) -->
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden;">
-          <video src="../tiltantale_cloverbyte.mp4" aria-label="TiltanTale — Cloverbyte final attack (shortened after playtest)" style="display:block; width:100%; aspect-ratio:16/9; object-fit:cover; background:#05050c;" autoplay loop muted playsinline preload="metadata" onerror="this.style.display='none'"></video>
-          <div style="padding:18px 20px;">
-            <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">Cut attack durations — measured against the genre</h4>
-            <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
-              <span style="font-size:0.68rem; font-weight:700; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:3px 8px;">BEFORE · final ≈ 60s</span>
-              <span style="font-size:0.68rem; font-weight:700; color:var(--accent2); border:1px solid var(--accent); border-radius:6px; padding:3px 8px;">AFTER · trimmed to feel</span>
-            </div>
-            <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">The playtest flagged that fights dragged. Undertale's longest attacks top out near 40 seconds — yet my <em>basic</em> attacks were hitting that ceiling and the Cloverbyte <em>final</em> ran close to a full minute. If a basic attack costs as much player attention as a boss's climax, the pacing is broken. I shortened both the Yakir final-lesson and Cloverbyte patterns; the finales now read as finales instead of endurance tests.</p>
-          </div>
-        </div>
-
-        <!-- No back-to-back repeats -->
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 20px;">
-          <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">Removed back-to-back attack repeats</h4>
-          <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
-            <span style="font-size:0.68rem; font-weight:700; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:3px 8px;">BEFORE · same attack could repeat</span>
-            <span style="font-size:0.68rem; font-weight:700; color:var(--accent2); border:1px solid var(--accent); border-radius:6px; padding:3px 8px;">AFTER · no consecutive repeats</span>
-          </div>
-          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">David and Dor could fire the same attack twice in a row. Players parse boss fights as patterns, and repetition flattens tension and telegraphs the wrong things. I added a rule so these characters can't repeat an attack consecutively — keeping each exchange readable and varied.</p>
-          <p style="font-size:0.78rem; color:var(--muted); line-height:1.6; margin:14px 0 0; padding-top:12px; border-top:1px solid var(--border);">Both changes came from the same instinct: a boss fight is a rhythm, and the player has to be able to <em>read</em> it. Length and variety are the levers.</p>
-        </div>
-      </div>
-
-      <!-- Tier 2 — UX & QoL pass -->
-      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 22px; margin-bottom:16px;">
-        <h4 style="margin:0 0 6px; font-size:0.95rem; color:var(--text);">Same session — UX &amp; quality-of-life pass</h4>
-        <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0 0 14px;">The playtest also surfaced a batch of friction points I cleared in one pass:</p>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:10px;">
-          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Long-hold to quit (1.25s)</strong><br>Escape used to close instantly — one misclick and you're out. Exiting is now deliberate.</div>
-          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">In-game settings (C menu)</strong><br>Settings were external-only; now adjustable on the fly from the menu.</div>
-          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Split SFX / BGM</strong><br>One volume slider became separate sound-effect and music controls.</div>
-          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Fullscreen (F11)</strong><br>Added a proper fullscreen toggle.</div>
-          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Hall music mix</strong><br>The Tiltan Hall track sat too loud against everything else — lowered to sit right.</div>
-        </div>
-      </div>
-
-      <!-- Scoped out -->
-      <div style="border-left:2px solid var(--border); padding:4px 0 4px 16px;">
-        <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;"><strong style="color:var(--text);">Scoped out:</strong> the playtester suggested in-game signs could pull live photos from Tiltan. I deferred it — signs will carry small jokes and flavor rather than a system that adds complexity without proportional payoff. Knowing when a good idea isn't worth the build is part of the job.</p>
-      </div>
-    </div>
-
-
-    <!-- ═══ Deep Dive divider ═══ -->
-    <div style="margin-top:80px;">
-      <div class="section-line">Deep Dive</div>
-      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px;">
-        Everything below is the full breakdown &mdash; the battle system in motion, the narrative design, all eight endings, and the level design. The summary above is the whole argument in short; go as deep as you want from here.
-      </p>
-    </div>
-
-    <!-- ═══ Battle System Showcase ═══ -->
-    <div style="margin-top:72px;">
-      <div class="section-line">The Battle System — In Motion</div>
-      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:14px;">
-        The battle system is TiltanTale's core technical layer — a full turn-based bullet-hell built on <strong style="color:var(--text);">MonoGame</strong>, where every system is authored in code with no engine-level tooling doing the heavy lifting. No visual editor placed these patterns, no animation timeline drives the teachers — it's all hand-built.
-      </p>
-      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:14px;">
-        It's designed as a <strong style="color:var(--accent2);">scalable framework</strong>, not a set of one-off fights: new teachers — with their own patterns, animations, and spare conditions — can be built on top of it with relative ease.
-      </p>
-      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
-        This was my <strong style="color:var(--text);">first time designing bosses from the ground up</strong> — patterns, pacing, difficulty curves, personality, and the systems tying them together. Going from no boss-design experience to a scalable framework with 15+ hand-built encounters is the piece of work I've grown the most on.
-      </p>
-
-      <!-- Group 1: Attack patterns / game feel -->
-      <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin-bottom:6px;">Game Feel &amp; Character</h4>
-      <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; max-width:640px; margin-bottom:18px;">
-        Every pattern is built from a real trait of the teacher it belongs to — an in-joke, a quirk, a thing they always say. It's the "personality drives design" pillar taken literally: the attack <em>is</em> the character. All readable, escalating, and rendered from code.
-      </p>
-      <div class="gif-showcase" style="margin-bottom:40px;">
+      <div class="section-line" id="bosses">The bosses</div>
+      <p class="body-text">This was my first time designing bosses: patterns, pacing, difficulty, personality. Every pattern comes from something real about the teacher, like an in-joke, a quirk or a thing they always say. I wrote over 15 patterns in code, with no visual editor or animation timeline, on one battle system that new teachers, patterns and spare conditions plug into.</p>
+      <div class="gif-showcase" style="margin-bottom:16px;">
         <figure class="gif-slot">
-          <video src="../tiltantale_attack1.mp4" aria-label="TiltanTale attack pattern 1" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <video src="../tiltantale_attack1.mp4" aria-label="TiltanTale hexagon attack pattern" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop tiltantale_attack1.gif here</span></div>
-          <figcaption>Hexagon — <span>David, our math teacher, swears "hexagons are best-a-gons." His fight opens with a wall of them.</span></figcaption>
+          <figcaption>Hexagon: <span>David, our math teacher, swears "hexagons are best-a-gons." His fight opens with a wall of them.</span></figcaption>
         </figure>
         <figure class="gif-slot">
-          <video src="../tiltantale_attack2.mp4" aria-label="TiltanTale attack pattern 2" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <video src="../tiltantale_attack2.mp4" aria-label="TiltanTale Napoleon's March attack pattern" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop tiltantale_attack2.gif here</span></div>
-          <figcaption>Napoleon's March — <span>Dor, our game design teacher, keeps Minard's famous flow chart framed in his office. His pattern is built from it.</span></figcaption>
+          <figcaption>Napoleon's March: <span>Dor, our game design teacher, has Minard's famous flow chart framed in his office. His pattern is built from it.</span></figcaption>
         </figure>
         <figure class="gif-slot">
           <video src="../tiltantale_cloverbyte.mp4" aria-label="TiltanTale Cloverbyte attack pattern" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop tiltantale_cloverbyte.gif here</span></div>
-          <figcaption>Cloverbyte — <span>an in-joke about a studio Dor often brings up in class, turned into a pattern with a twist: it loops back around when you least expect it.</span></figcaption>
+          <figcaption>Cloverbyte: <span>a joke about a studio Dor often mentions in class. The pattern loops back around when you don't expect it.</span></figcaption>
         </figure>
         <figure class="gif-slot">
-          <video src="../tiltantale_chess.mp4" aria-label="TiltanTale chess board attack pattern" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <video src="../tiltantale_chess.mp4" aria-label="TiltanTale chessboard attack pattern" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop tiltantale_chess.gif here</span></div>
-          <figcaption>Chessboard — <span>Dor praises chess for its simplicity paired with a sky-high skill ceiling, so his fight has a pattern built around it: you move only on chess tiles, attacking by capturing enemy pieces. The board escalates by adding more pieces over time, ramping the pressure to think before you act.</span></figcaption>
+          <figcaption>Chessboard: <span>Dor loves chess for being simple with a very high skill ceiling. You can only move on chess tiles and attack by capturing pieces, and more pieces join over time, so you have to think before you move.</span></figcaption>
         </figure>
       </div>
-      <p style="font-size:0.82rem; color:var(--muted); line-height:1.6; max-width:640px; margin-top:16px;">
-        These are just a taste — each teacher has many more. <strong style="color:var(--text);">Over 15 custom attack patterns</strong> were built for the game. Play it to find them all.
-      </p>
+      <p class="body-text" style="font-size:0.82rem;">Each teacher has more patterns than these. Play it to find them.</p>
 
-      <!-- Group 2: Spare vs Defeat — the core pillar -->
-      <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin-top:44px; margin-bottom:6px;">Your Choices Matter — Spare vs. Defeat</h4>
-      <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; max-width:640px; margin-bottom:18px;">
-        The same teacher, two endings — and the visual language carries the moral weight. <strong style="color:var(--text);">Spare</strong> them and they resolve peacefully, dissolving into a harmless puff of smoke; they still exist in the world afterward. <strong style="color:var(--text);">Defeat</strong> them and it's a brutal end — final words, then they crumble to dust, gone for good. Smoke means they're still out there; dust means you erased them. The core pillar, told through how a character leaves the screen.
-      </p>
-      <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; max-width:640px; margin-bottom:18px;">
-        The point isn't just a branching outcome — it's that the game hands you the power and refuses to tell you what to do with it. Every teacher is someone you could understand instead of destroy, and mercy is always harder than the fight. Whether you take it says something about you, not the game. That discomfort is the design goal: a choice the player has to own.
-      </p>
+      <h4 style="font-size:0.95rem; font-weight:700; color:var(--text); margin-top:40px; margin-bottom:6px;">Spare or defeat</h4>
+      <p class="body-text">A spared teacher dissolves into a puff of smoke and still exists in the world afterward. A defeated one says their last words and crumbles to dust, gone for good. Smoke means they're still out there; dust means you erased them. The game gives you that power and never tells you what to do with it. Mercy is always harder than fighting, and whether you choose it is on you.</p>
       <div class="gif-showcase" style="margin-bottom:40px;">
         <figure class="gif-slot">
           <video src="../tiltantale_spare.mp4" aria-label="TiltanTale sparing a teacher" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop tiltantale_spare.gif here</span></div>
-          <figcaption>Spared — <span>a peaceful resolution: they dissolve into smoke and still exist in the world.</span></figcaption>
+          <figcaption>Spared: <span>they turn to smoke and stay in the world.</span></figcaption>
         </figure>
         <figure class="gif-slot">
           <video src="../tiltantale_defeat.mp4" aria-label="TiltanTale defeating a teacher" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop tiltantale_defeat.gif here</span></div>
-          <figcaption>Defeated — <span>final words, then they crumble to dust. Gone for good.</span></figcaption>
+          <figcaption>Defeated: <span>last words, then dust.</span></figcaption>
         </figure>
-      </div>
-
-      <!-- Group 3: The attack mini-game / systems -->
-      <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin-bottom:6px;">Combat Systems — The Attack Mini-Game</h4>
-      <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; max-width:640px; margin-bottom:18px;">
-        Under the feel is a real, readable system: the timing mini-game on FIGHT, live HP updating and display, and the strike animation resolving. Systems, not scripted one-offs.
-      </p>
-      <div class="gif-showcase">
         <figure class="gif-slot">
-          <video src="../tiltantale_attackminigame.mp4" aria-label="TiltanTale attack timing mini-game" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <video src="../tiltantale_attackminigame.mp4" aria-label="TiltanTale attack timing minigame" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop tiltantale_attackminigame.gif here</span></div>
-          <figcaption>FIGHT — <span>timing bar, HP update, strike animation</span></figcaption>
+          <figcaption>FIGHT: <span>the timing bar, HP updating and the strike animation.</span></figcaption>
         </figure>
       </div>
     </div>
 
-    <!-- ═══ Narrative Design ═══ -->
-    <div style="margin-top:72px;">
-      <div class="section-line">Narrative Design</div>
-      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:660px; margin-bottom:28px;">
-        TiltanTale is built around a story, not just a battle system. You play a student who has fallen into Tiltan and must fight or befriend their way out — a premise that turns the school itself into the world you navigate. Spare and fight choices open different dialogue routes and lead to multiple endings; no single playthrough sees everything.
-      </p>
-      <div class="pillars-grid">
-        <div class="pillar">
-          <div class="pillar-num">01</div>
-          <h4>Premise &amp; Hook</h4>
-          <p>A student trapped in their own design school, trying to escape. Relatable hook, absurd situation — grounded enough to care about, strange enough to be funny. The escape goal gives every room and boss a clear narrative purpose.</p>
+    <div id="playtest" style="margin-top:72px; scroll-margin-top:90px;">
+      <div class="section-line">What the playtest changed</div>
+      <p class="body-text">Late in development I watched a friend play the whole game without giving hints and took notes. Then I sorted the feedback into what to build and what to skip. Deciding what not to build mattered as much as the fixes.</p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden;">
+          <video src="../tiltantale_cloverbyte.mp4" aria-label="Cloverbyte final attack, shortened after the playtest" style="display:block; width:100%; aspect-ratio:16/9; object-fit:contain; background:#05050c;" autoplay loop muted playsinline preload="metadata" onerror="this.style.display='none'"></video>
+          <div style="padding:18px 20px;">
+            <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">Shorter attacks</h4>
+            <div class="ba-tags"><span>BEFORE · finale ≈ 60s</span><span class="after">AFTER · shortened</span></div>
+            <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">The fights dragged. Undertale's longest attacks last about 40 seconds, but my <em>basic</em> attacks were already that long and the Cloverbyte finale ran close to a minute. If a basic attack takes as much attention as a boss's climax, the pacing is broken. I shortened Yakir's final lesson and the Cloverbyte pattern so the finales feel like finales instead of endurance tests.</p>
+          </div>
         </div>
-        <div class="pillar">
-          <div class="pillar-num">02</div>
-          <h4>Choice-Driven Story</h4>
-          <p>Because fights can end in a knockout or a spared enemy, the player's choices shape how the school responds to them and how the story reads. The narrative and the combat system aren't separate layers — the way you fight <em>is</em> the way you tell the story.</p>
-        </div>
-        <div class="pillar">
-          <div class="pillar-num">03</div>
-          <h4>Character Through Combat</h4>
-          <p>Each teacher-boss reveals who they are through dialogue and how they fight. Personality and quirks are expressed in-battle — the fight itself teaches you who this person is.</p>
-        </div>
-        <div class="pillar">
-          <div class="pillar-num">04</div>
-          <h4>Tone: Humor with Heart</h4>
-          <p>The writing balances comedy about student life at Tiltan with genuine emotional stakes about wanting out. Holding that tonal line — funny without being hollow — is the core narrative-design challenge, and it's what makes the escape land.</p>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 20px;">
+          <h4 style="margin:0 0 10px; font-size:0.95rem; color:var(--text);">No repeated attacks</h4>
+          <div class="ba-tags"><span>BEFORE · same attack could repeat</span><span class="after">AFTER · no repeats in a row</span></div>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;">David and Dor could use the same attack twice in a row. Players read boss fights as patterns, and repeats kill the tension and teach the wrong things. Now those two can't repeat an attack back to back.</p>
+          <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:14px 0 0; padding-top:12px; border-top:1px solid var(--border);">Both changes have the same reason: a boss fight is a rhythm the player has to be able to read, and length and variety are how I control it.</p>
         </div>
       </div>
-      <div style="margin-top:28px;">
-        <a href="https://drive.google.com/file/d/1zqWfrjA0Ob6FdtLIK3nvDj8_BYWL_L3j/view" target="_blank" rel="noopener" class="btn btn-primary">Read the full narrative script ↗</a>
-        <p style="font-size:0.78rem; color:var(--muted); margin-top:10px;">The full branching script — every teacher conversation, spare/fight route, and reactive NPC — with tracked state flags.</p>
+
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 22px; margin-bottom:16px;">
+        <h4 style="margin:0 0 12px; font-size:0.95rem; color:var(--text);">Smaller fixes from the same session</h4>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:10px;">
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Hold to quit (1.25s)</strong><br>Escape used to quit instantly, so one slip and you were out.</div>
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Settings in game (C)</strong><br>Settings used to live outside the game.</div>
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Separate SFX and music volume</strong><br>Instead of one slider.</div>
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Fullscreen (F11)</strong><br>A proper toggle.</div>
+          <div style="font-size:0.8rem; color:var(--muted); line-height:1.5;"><strong style="color:var(--text);">Hall music</strong><br>The Tiltan Hall track was too loud, so I turned it down.</div>
+        </div>
+      </div>
+
+      <div style="border-left:2px solid var(--border); padding:4px 0 4px 16px;">
+        <p style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin:0;"><strong style="color:var(--text);">Skipped:</strong> the tester suggested signs in the game that show live photos from Tiltan. I left it out. The signs carry small jokes instead, because the photo system would have added complexity without much payoff. A good idea still has to be worth the time it takes to build.</p>
       </div>
     </div>
 
-    <!-- ═══ Endings & Consequence ═══ -->
     <div style="margin-top:72px;">
-      <div class="section-line">Endings &amp; Consequence</div>
-      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:660px; margin-bottom:28px;">
-        Every fight ends in mercy or a knockout, and the game remembers all of them. What decides your epilogue isn't <em>how many</em> teachers you spared — it's <em>which ones</em>. Every possible combination has its own ending, written from scratch. None of them are variations on a shared template, and no two share an emotional register. What the game has to say about your run depends entirely on who is still standing at the end of it.
-      </p>
-      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:660px; margin-bottom:28px;">
-        Which one you get is up to you. This page isn't going to tell you what's in them.
-      </p>
+      <div class="section-line">Story</div>
+      <p class="body-text">You're a student stuck in your own design school, trying to get out. It's relatable and absurd at once: grounded enough to care about, strange enough to be funny, and the escape gives every room and boss a reason to be there. Because each fight can end in a knockout or a spare, the way you fight is the way you tell the story. Teachers show who they are through what they say and how they attack, and the writing tries to stay funny about student life without losing the real wish to get out.</p>
+      <div style="margin-top:20px;">
+        <a href="https://drive.google.com/file/d/1zqWfrjA0Ob6FdtLIK3nvDj8_BYWL_L3j/view" target="_blank" rel="noopener" class="btn btn-primary">Read the full script ↗</a>
+        <p style="font-size:0.78rem; color:var(--muted); margin-top:10px;">Every teacher conversation, spare and fight route, and NPC reaction, with the state flags I tracked.</p>
+      </div>
+    </div>
 
-      <!-- outcome matrix — structure shown, contents concealed -->
+    <div style="margin-top:72px;">
+      <div class="section-line" id="endings">Endings</div>
+      <p class="body-text">The game remembers every fight. Your epilogue depends on <em>which</em> teachers you spared, not how many, and every combination has its own ending, written from scratch. There's no shared template with names swapped in. I'm not going to say here what's in them.</p>
+
       <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:12px; margin-bottom:14px;">
-
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center;">
-          <div style="font-size:1.15rem; letter-spacing:0.22em; color:var(--accent2); margin-bottom:8px;">○○○</div>
-          <div style="font-size:0.72rem; color:var(--muted); line-height:1.5;">All spared<br><span style="color:var(--text); font-weight:600;">Unique ending</span></div>
-        </div>
-
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center;">
-          <div style="font-size:1.15rem; letter-spacing:0.22em; color:var(--accent2); margin-bottom:8px;">✕○○</div>
-          <div style="font-size:0.72rem; color:var(--muted); line-height:1.5;">One defeated<br><span style="color:var(--text); font-weight:600;">Unique ending</span></div>
-        </div>
-
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center;">
-          <div style="font-size:1.15rem; letter-spacing:0.22em; color:var(--accent2); margin-bottom:8px;">○✕○</div>
-          <div style="font-size:0.72rem; color:var(--muted); line-height:1.5;">One defeated<br><span style="color:var(--text); font-weight:600;">Unique ending</span></div>
-        </div>
-
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center;">
-          <div style="font-size:1.15rem; letter-spacing:0.22em; color:var(--accent2); margin-bottom:8px;">○○✕</div>
-          <div style="font-size:0.72rem; color:var(--muted); line-height:1.5;">One defeated<br><span style="color:var(--text); font-weight:600;">Unique ending</span></div>
-        </div>
-
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center;">
-          <div style="font-size:1.15rem; letter-spacing:0.22em; color:var(--accent2); margin-bottom:8px;">✕✕○</div>
-          <div style="font-size:0.72rem; color:var(--muted); line-height:1.5;">Two defeated<br><span style="color:var(--text); font-weight:600;">Unique ending</span></div>
-        </div>
-
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center;">
-          <div style="font-size:1.15rem; letter-spacing:0.22em; color:var(--accent2); margin-bottom:8px;">✕○✕</div>
-          <div style="font-size:0.72rem; color:var(--muted); line-height:1.5;">Two defeated<br><span style="color:var(--text); font-weight:600;">Unique ending</span></div>
-        </div>
-
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center;">
-          <div style="font-size:1.15rem; letter-spacing:0.22em; color:var(--accent2); margin-bottom:8px;">○✕✕</div>
-          <div style="font-size:0.72rem; color:var(--muted); line-height:1.5;">Two defeated<br><span style="color:var(--text); font-weight:600;">Unique ending</span></div>
-        </div>
-
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center;">
-          <div style="font-size:1.15rem; letter-spacing:0.22em; color:var(--accent2); margin-bottom:8px;">✕✕✕</div>
-          <div style="font-size:0.72rem; color:var(--muted); line-height:1.5;">All defeated<br><span style="color:var(--text); font-weight:600;">Unique ending</span></div>
-        </div>
-
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center;"><div style="font-size:1.15rem; letter-spacing:0.22em; color:var(--accent2); margin-bottom:8px;">○○○</div><div style="font-size:0.72rem; color:var(--muted); line-height:1.5;">All spared</div></div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center;"><div style="font-size:1.15rem; letter-spacing:0.22em; color:var(--accent2); margin-bottom:8px;">✕○○</div><div style="font-size:0.72rem; color:var(--muted); line-height:1.5;">One defeated</div></div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center;"><div style="font-size:1.15rem; letter-spacing:0.22em; color:var(--accent2); margin-bottom:8px;">○✕○</div><div style="font-size:0.72rem; color:var(--muted); line-height:1.5;">One defeated</div></div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center;"><div style="font-size:1.15rem; letter-spacing:0.22em; color:var(--accent2); margin-bottom:8px;">○○✕</div><div style="font-size:0.72rem; color:var(--muted); line-height:1.5;">One defeated</div></div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center;"><div style="font-size:1.15rem; letter-spacing:0.22em; color:var(--accent2); margin-bottom:8px;">✕✕○</div><div style="font-size:0.72rem; color:var(--muted); line-height:1.5;">Two defeated</div></div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center;"><div style="font-size:1.15rem; letter-spacing:0.22em; color:var(--accent2); margin-bottom:8px;">✕○✕</div><div style="font-size:0.72rem; color:var(--muted); line-height:1.5;">Two defeated</div></div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center;"><div style="font-size:1.15rem; letter-spacing:0.22em; color:var(--accent2); margin-bottom:8px;">○✕✕</div><div style="font-size:0.72rem; color:var(--muted); line-height:1.5;">Two defeated</div></div>
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center;"><div style="font-size:1.15rem; letter-spacing:0.22em; color:var(--accent2); margin-bottom:8px;">✕✕✕</div><div style="font-size:0.72rem; color:var(--muted); line-height:1.5;">All defeated</div></div>
       </div>
       <p style="font-size:0.75rem; color:var(--muted); line-height:1.6; max-width:660px; margin-bottom:28px;">
-        <span style="color:var(--accent2);">○</span> spared &nbsp;·&nbsp; <span style="color:var(--accent2);">✕</span> defeated. Positions are deliberately unlabelled — the point is the shape of the design space, not which teacher sits where. Find that out by playing.
+        <span style="color:var(--accent2);">○</span> spared &nbsp;·&nbsp; <span style="color:var(--accent2);">✕</span> defeated. Eight endings, and one playthrough sees exactly one. I left the positions unlabeled on purpose; you find out who's who by playing.
       </p>
 
       <div class="pillars-grid">
         <div class="pillar">
-          <div class="pillar-num">01</div>
-          <h4>No Placeholder Endings</h4>
-          <p>The easy version of this system is one generic "neutral" epilogue with names swapped in. TiltanTale doesn't do that. Every combination is authored separately, with its own argument about what the player did — because an ending that could belong to any run doesn't say anything about yours.</p>
+          <h4>The cast changes</h4>
+          <p>The survivors don't just grieve. Losing a specific person changes how the others act, what they believe, and who ends up taking over a role nobody else is left to fill.</p>
         </div>
         <div class="pillar">
-          <div class="pillar-num">02</div>
-          <h4>The Cast Reconfigures</h4>
-          <p>Survivors don't simply grieve — they change. Losing a particular person shifts how the remaining cast behaves, what they believe, and which of them ends up carrying a role nobody else is left to fill. Who is missing reshapes who the others become.</p>
+          <h4>Each ending stands alone</h4>
+          <p>No epilogue refers to events you didn't play through in that run, and no character knows something they couldn't have learned in the world you made.</p>
         </div>
         <div class="pillar">
-          <div class="pillar-num">03</div>
-          <h4>Every Ending Is Its Own Timeline</h4>
-          <p>No epilogue winks at another. Nothing references events the player didn't live through in that specific run, and no character knows anything they couldn't have learned in the world you actually made. Each ending is internally airtight — the coherence is the respect.</p>
+          <h4>No grading</h4>
+          <p>There's no score, no "true" route and no narrator explaining the moral. The people left behind react honestly, and you decide what that means.</p>
         </div>
         <div class="pillar">
-          <div class="pillar-num">04</div>
-          <h4>It Never Tells You If You Were Right</h4>
-          <p>No ending grades the player. There's no score, no reveal that a route was the "true" one, no voice explaining the moral. The people left behind react honestly, and the player is left to decide what that means. The discomfort is the design goal.</p>
+          <h4>Worth replaying</h4>
+          <p>Seeing more means going back and making choices you might not want to make. The endings that are hardest to reach are the ones the game has the most to say about.</p>
         </div>
-      </div>
-
-      <div style="background:var(--surface2); border:1px solid var(--border); border-left:3px solid var(--accent); border-radius:10px; padding:20px 22px; margin-top:28px; max-width:660px;">
-        <p style="font-size:0.85rem; color:var(--text); line-height:1.7; margin:0;">
-          <strong>Eight endings. One playthrough sees exactly one of them.</strong>
-        </p>
-        <p style="font-size:0.82rem; color:var(--muted); line-height:1.7; margin:10px 0 0;">
-          Seeing the whole picture means going back and making choices you may not want to make — which is the entire point. If you play it, play it more than once. The endings you have to work hardest to reach are the ones the game has the most to say about.
-        </p>
       </div>
     </div>
 
-    <!-- ═══ Map & Level Design ═══ -->
     <div style="margin-top:72px;">
-      <div class="section-line">Map &amp; Level Design</div>
-      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:660px; margin-bottom:28px;">
-        Built by hand to realize the school as a navigable space. Level design here is about readability and pacing — guiding the player, placing encounters where they land, and letting the environment tell part of the story.
-      </p>
+      <div class="section-line">Maps</div>
+      <p class="body-text">I built the school by hand in Tiled. The level design is about guiding the player, putting encounters where they work, and letting the rooms tell some of the story.</p>
       <div class="map-showcase">
-
         <figure class="map-slot">
-          <img src="../entrance.png" alt="TiltanTale — Entrance map" onerror="this.closest('.map-slot').classList.add('gif-missing')">
+          <img src="../entrance.png" alt="TiltanTale entrance map" onerror="this.closest('.map-slot').classList.add('gif-missing')">
           <div class="gif-placeholder"><span class="gif-placeholder-icon">▦</span><span>Drop <code>entrance.png</code> here</span></div>
-          <figcaption>Map 01 — <span>Entrance</span></figcaption>
+          <figcaption>Entrance</figcaption>
         </figure>
-
         <figure class="map-slot">
-          <img src="../elevator.png" alt="TiltanTale — Elevator map" onerror="this.closest('.map-slot').classList.add('gif-missing')">
+          <img src="../elevator.png" alt="TiltanTale elevator map" onerror="this.closest('.map-slot').classList.add('gif-missing')">
           <div class="gif-placeholder"><span class="gif-placeholder-icon">▦</span><span>Drop <code>elevator.png</code> here</span></div>
-          <figcaption>Map 02 — <span>Elevator</span>
-            <span style="display:block; font-weight:400; color:var(--muted); margin-top:6px; line-height:1.5;">A central hub connecting three floors — Floor 0, Floor 2 (Cloverbite Offices), and Floor 3 (Tiltan College) — letting the elevator gate progression and tie the school's areas together.</span>
+          <figcaption>Elevator
+            <span style="display:block; font-weight:400; color:var(--muted); margin-top:6px; line-height:1.5;">A hub between Floor 0, Floor 2 (Cloverbite offices) and Floor 3 (Tiltan College). The elevator controls which areas you can reach and when.</span>
           </figcaption>
         </figure>
-
         <figure class="map-slot" style="grid-column:1 / -1;">
-          <img src="../tiltan_hall.png" alt="TiltanTale — Tiltan Hall map" style="aspect-ratio:1200 / 640; object-fit:contain;" onerror="this.closest('.map-slot').classList.add('gif-missing')">
+          <img src="../tiltan_hall.png" alt="TiltanTale Tiltan Hall map" style="aspect-ratio:1200 / 640; object-fit:contain;" onerror="this.closest('.map-slot').classList.add('gif-missing')">
           <div class="gif-placeholder"><span class="gif-placeholder-icon">▦</span><span>Drop <code>tiltan_hall.png</code> here</span></div>
-          <figcaption>Map 03 — <span>Tiltan Hall</span>
-            <span style="display:block; font-weight:400; color:var(--muted); margin-top:6px; line-height:1.5;">The boss arena floor — where the teacher fights happen. Interactables around the hall build atmosphere and let the space breathe between encounters.</span>
+          <figcaption>Tiltan Hall
+            <span style="display:block; font-weight:400; color:var(--muted); margin-top:6px; line-height:1.5;">The floor where the teacher fights happen. Things to interact with around the hall give you a breather between fights.</span>
           </figcaption>
         </figure>
-
       </div>
+    </div>
+
+    <div style="margin-top:72px;">
+      <div class="section-line">What I'd change</div>
+      <p class="body-text">Some players never figured out that the right ACTs lead to mercy. I'd add a clearer sign in the fight when a spare condition is met, and an easier difficulty so players who bounce off bullet hell can still reach the story.</p>
     </div>
   </div>
 </section>
-
 <style>
   .gif-showcase {
     display: grid;
@@ -1344,8 +1152,8 @@
   .gif-slot img, .gif-slot video {
     display: block;
     width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
     background: #000;
     image-rendering: pixelated;
   }
@@ -1357,7 +1165,7 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 9;
     background: repeating-linear-gradient(45deg, rgba(147,51,234,0.04), rgba(147,51,234,0.04) 10px, transparent 10px, transparent 20px);
     border-bottom: 1px solid var(--border);
     color: var(--muted);
@@ -1476,11 +1284,10 @@
 <!-- ═══════════════════════════════════════ Site Nav Footer ═══════════════════════════════════════ -->
 <div class="site-nav-footer">
   <div class="container">
-    <span class="site-nav-footer-label">Jump to</span>
+    <span class="site-nav-footer-label">Pages</span>
     <div class="site-nav-footer-grid">
       <a href="../index.html">Home</a>
       <a href="../games.html">Games</a>
-      <a href="../prototypes.html">Experiments</a>
       <a href="../experience.html">Experience</a>
       <a href="../toolbox.html">Toolbox</a>
       <a href="../roadmap.html">Roadmap</a>
@@ -1501,9 +1308,8 @@
 <!-- Contact -->
 <section id="contact">
   <div class="container">
-    <span class="label">Get in touch</span>
-    <h2>Let's talk.</h2>
-    <p>Open to internships, collaborations, and feedback on work in progress.</p>
+    <h2>Contact</h2>
+    <p>I'm open to internships and collaborations, and happy to get feedback on work in progress.</p>
     <div class="contact-links">
       <a href="mailto:dekelriess@gmail.com" class="btn btn-primary">✉ dekelriess@gmail.com</a>
       <a href="https://linkedin.com/in/dekel-riess-39172433b" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn ↗</a>

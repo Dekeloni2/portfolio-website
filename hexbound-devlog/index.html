@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hexbound — Development Diary</title>
+  <title>Hexbound | Development Diary</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -442,7 +442,15 @@
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-  </style>
+  
+    /* ─── Plain text blocks ──────────────────────────────────────── */
+    .body-text { font-size: 0.88rem; color: var(--muted); line-height: 1.7; max-width: 680px; margin-bottom: 18px; }
+    .body-text strong { color: var(--text); }
+    .note-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; }
+    .note-card h4 { margin: 0 0 6px; font-size: 0.92rem; color: var(--accent2); }
+    .note-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.65; margin: 0; }
+    .note-card p + p { margin-top: 8px; }
+</style>
 </head>
 <body>
 
@@ -461,7 +469,7 @@
   <div class="container">
     <span class="label">Development Diary</span>
     <h1>Hexbound</h1>
-    <p class="subtitle">A hex exploration game with deck-building combat — documented from first idea to finished build.</p>
+    <p class="subtitle">A hex exploration game with deckbuilding combat, documented from the first idea onward.</p>
     <div class="status-pill">
       <div class="status-dot"></div>
       Concept Phase · Not yet in active development
@@ -497,7 +505,7 @@
 
       <p>Before this was a video game, it was a board game.</p>
 
-      <p>A while back I was prototyping something called <strong>Trials of the Dungeon</strong> — a 4-player hex exploration game where you and a teammate work together to find a key and escape a dungeon before the other team does. You'd place hexagon tiles to build the map as you went, flip them to reveal traps or rewards, and when two players met on the same tile, they'd roll dice to fight.</p>
+      <p>A while back I was prototyping something called <strong>Trials of the Dungeon</strong>, a 4-player hex exploration game where you and a teammate work together to find a key and escape a dungeon before the other team does. You'd place hexagon tiles to build the map as you went, flip them to reveal traps or rewards, and when two players met on the same tile, they'd roll dice to fight.</p>
 
       <div class="devlog-image-row">
         <figure class="devlog-image">
@@ -505,32 +513,32 @@
           <figcaption>Early hex map mockup with player tokens</figcaption>
         </figure>
         <figure class="devlog-image">
-          <img src="light_the_way.png" alt="Solo card — Light the Way">
-          <figcaption>Example exploration card — Light the Way (Solo)</figcaption>
+          <img src="light_the_way.png" alt="Solo card: Light the Way">
+          <figcaption>Example exploration card: Light the Way (Solo)</figcaption>
         </figure>
       </div>
 
-      <p>The game did eventually get made — just not in that form. Trials of the Dungeon pivoted into a tile-based cooperative board game with a final boss fight, and shipped as a physical product. The hex exploration concept got shelved when the design went in a different direction. The assets — character art for eight classes, a hex map mockup, card designs, a rules document — just sat there.</p>
+      <p>The game did get made, just not in that form. Trials of the Dungeon pivoted into a tile-based cooperative board game with a final boss fight, and shipped as a physical product. The hex exploration concept got shelved when the design went in a different direction. The assets (character art for eight classes, a hex map mockup, card designs, a rules document) just sat there.</p>
 
       <p>Recently I started thinking about what it would take to actually revisit that original idea. Somewhere in that process the question shifted from <em>"how do I build this hex board game?"</em> to <em>"what would make this genuinely interesting as a video game?"</em></p>
 
       <p>The answer that kept coming back: <strong>not the dice.</strong></p>
 
-      <p>Dice combat was always the weakest part of the design. Roll, compare, subtract HP. It works for a board game where you want something fast and physical — in a video game it's a random number generator with extra steps. No skill, no decision-making, nothing that makes the classes feel different in a fight. So I replaced it with a card/deck-building battle system. That one change made everything else click.</p>
+      <p>Dice combat was always the weakest part of the design. Roll, compare, subtract HP. It works for a board game where you want something fast and physical. In a video game it's a random number generator with extra steps. No skill, no decision-making, nothing that makes the classes feel different in a fight. So I replaced it with a card/deck-building battle system. That one change made everything else click.</p>
 
       <h3>What the game actually is</h3>
 
       <p>It's a singleplayer (or 2-player coop) hex exploration game with two layers:</p>
 
-      <p><strong>Exploration</strong> — You build and traverse the hex map yourself. Hexagons are earned as rewards — from combat, events, and cards — and placed wherever you choose. The dungeon isn't generated for you; you author it. <strong>Dormant</strong> hexagons sit on the map with no effect until someone steps on them or a card activates them. Different types do different things: some affect only you, some affect the whole team, some are traps you can hold and play on anyone's turn.</p>
+      <p><strong>Exploration:</strong> you build and traverse the hex map yourself. You earn hexagons as rewards from combat, events and cards, and place them wherever you choose. The dungeon isn't generated for you; you author it. <strong>Dormant</strong> hexagons sit on the map with no effect until someone steps on them or a card activates them. Different types do different things: some affect only you, some affect the whole team, some are traps you can hold and play on anyone's turn.</p>
 
-      <p><strong>Combat</strong> — When you land on a battle hexagon, you drop into a card duel against an AI enemy. The deck you bring into that fight is one you've been building the whole run — from three sources: a starting class deck, cards collected by exploring hexagons, and upgrades bought at shop hexagons. The map you build literally shapes how you fight.</p>
+      <p><strong>Combat:</strong> when you land on a battle hexagon, you drop into a card duel against an AI enemy. The deck you bring into that fight is one you've been building the whole run, from three sources: a starting class deck, cards collected by exploring hexagons, and upgrades bought at shop hexagons. The map you build shapes how you fight.</p>
 
-      <p>The player-built map is a deliberate design choice. Procedural generation gives you a map to react to — a player-built map gives you a map you're responsible for. Every hexagon placement is a decision: do you place a battle hexagon to earn rewards, or skip it? Do you build toward the shop, or push for the key? Classes like the Baker (who farms food from battle hexagons) and the Bard (who can skip them) now interact with choices you made, not random luck.</p>
+      <p>Letting players build the map is deliberate. Procedural generation gives you a map to react to; building it yourself gives you a map you're responsible for. Every hexagon placement is a decision: do you place a battle hexagon to earn rewards, or skip it? Do you build toward the shop, or push for the key? Classes like the Baker (who farms food from battle hexagons) and the Bard (who can skip them) now interact with choices you made, not random luck.</p>
 
       <h3>Keywords</h3>
 
-      <p>Card games live and die by their vocabulary. Here are the terms that matter in Hexbound — defined once, used everywhere:</p>
+      <p>Card games need consistent terms. These are the ones Hexbound uses:</p>
 
       <div class="keywords-grid">
         <div class="keyword-card">
@@ -539,7 +547,7 @@
         </div>
         <div class="keyword-card">
           <div class="keyword-term">Activate</div>
-          <div class="keyword-def">To trigger a hexagon's effect — either by stepping on it or through a card ability. Activating reveals what type it is and draws the corresponding card.</div>
+          <div class="keyword-def">To trigger a hexagon's effect, by stepping on it or with a card ability. Activating reveals what type it is and draws the corresponding card.</div>
         </div>
         <div class="keyword-card">
           <div class="keyword-term">Rotation</div>
@@ -547,7 +555,7 @@
         </div>
         <div class="keyword-card">
           <div class="keyword-term">Solo / Team / Trap</div>
-          <div class="keyword-def">The three exploration card types. Solo affects only you. Team affects all players. Trap is held in hand and can be played on anyone's turn — including enemies.</div>
+          <div class="keyword-def">The three exploration card types. Solo affects only you. Team affects all players. Trap is held in hand and can be played on anyone's turn, including enemies'.</div>
         </div>
       </div>
 
@@ -558,21 +566,21 @@
       <div class="card-systems-grid">
         <div class="card-system">
           <div class="card-system-label exploration">Exploration Cards</div>
-          <p>Drawn when you step on a hexagon during exploration. These are never used inside combat — they affect the map itself. There are three types:</p>
+          <p>Drawn when you step on a hexagon during exploration. They're never used in combat; they affect the map itself. There are three types:</p>
           <ul>
-            <li><strong>Solo</strong> — affects only you. Your call, your consequence.</li>
-            <li><strong>Team</strong> — affects all players. Everyone deals with it.</li>
-            <li><strong>Trap</strong> — held in hand, played on anyone's turn. Good or bad.</li>
+            <li><strong>Solo:</strong> affects only you.</li>
+            <li><strong>Team:</strong> affects all players.</li>
+            <li><strong>Trap:</strong> held in hand and played on anyone's turn. Can be good or bad.</li>
           </ul>
-          <p style="margin-top:12px; font-size:0.8rem;">Example: <em>Light the Way</em> (shown above) is a Solo card — place 3 dormant hexagons anywhere you want, discard what you don't use. Pure exploration utility.</p>
+          <p style="margin-top:12px; font-size:0.8rem;">Example: <em>Light the Way</em> (shown above) is a Solo card: place 3 dormant hexagons anywhere you want and discard what you don't use.</p>
         </div>
         <div class="card-system">
           <div class="card-system-label battle">Battle Deck</div>
-          <p>Your personal combat deck — used exclusively inside battle hexagons. This is the deck-building system. It grows and changes throughout the run from three sources:</p>
+          <p>Your own combat deck, used only inside battle hexagons. This is the deckbuilding part. It grows and changes throughout the run from three sources:</p>
           <ul>
-            <li><strong>Class starter deck</strong> — small and weak, but defines your identity</li>
-            <li><strong>Exploration rewards</strong> — cards added by exploring hexagons</li>
-            <li><strong>Shop upgrades</strong> — buy, upgrade, or remove cards between fights</li>
+            <li><strong>Class starter deck:</strong> small and weak, but it defines your class</li>
+            <li><strong>Exploration rewards:</strong> cards added by exploring hexagons</li>
+            <li><strong>Shop upgrades:</strong> buy, upgrade or remove cards between fights</li>
           </ul>
           <p style="margin-top:12px; font-size:0.8rem;">The two systems interact: exploration cards shape the dungeon, which shapes what battle cards you can access.</p>
         </div>
@@ -580,7 +588,7 @@
 
       <h3>The classes</h3>
 
-      <p>One thing I didn't change from the original prototype is the class roster. The art already existed, and more importantly, the classes are interesting — not because they're powerful, but because they're all <strong>non-combat specialists</strong>. None of these are warriors. That's the point. Each one brings a different economy to the game — sustain, defense, utility, gold — and the card battle system is where those economies pay off.</p>
+      <p>One thing I didn't change from the original prototype is the class roster. The art already existed, and more importantly, the classes are interesting because they're all <strong>non-combat specialists</strong>. None of them are warriors. Each one brings a different economy to the game (sustain, defense, utility, gold), and the card battle system is where those economies pay off.</p>
 
       <div class="class-roster">
 
@@ -656,7 +664,7 @@
           </div>
           <div class="class-info">
             <div class="class-name">Executioner</div>
-            <div class="class-passive">Start with an extra D20 in battle — limited to 3 uses.</div>
+            <div class="class-passive">Start with an extra D20 in battle, usable 3 times.</div>
             <span class="class-archetype">High Risk / High Reward</span>
           </div>
         </div>
@@ -667,7 +675,7 @@
           </div>
           <div class="class-info">
             <div class="class-name">Merchant</div>
-            <div class="class-passive">Shop restocks as the dungeon is explored. +1 gold per rotation passively. Weak in combat — invaluable to the team.</div>
+            <div class="class-passive">Shop restocks as the dungeon is explored. +1 gold per rotation passively. Weak in combat, but the team needs them.</div>
             <span class="class-archetype">Idle / Economy Engine</span>
           </div>
         </div>

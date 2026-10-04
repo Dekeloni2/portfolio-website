@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dekelatro — Dekel Riess</title>
-  <meta name="description" content="Dekelatro — a poker-roguelike engineered solo from scratch in C#: hand evaluator, polymorphic joker system, scoring engine, weighted-RNG shop, plus my own jokers and balance." />
+  <title>Dekelatro | Dekel Riess</title>
+  <meta name="description" content="Dekelatro, a poker roguelike Dekel Riess built alone in C#: hand evaluator, joker system, scoring and shop, plus original jokers and balance." />
   <link rel="icon" type="image/png" href="../favicon.png" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Dekelatro — Dekel Riess" />
-  <meta property="og:description" content="Dekelatro — a poker-roguelike engineered solo from scratch in C#: hand evaluator, polymorphic joker system, scoring engine, weighted-RNG shop, plus my own jokers and balance." />
+  <meta property="og:title" content="Dekelatro | Dekel Riess" />
+  <meta property="og:description" content="Dekelatro, a poker roguelike Dekel Riess built alone in C#: hand evaluator, joker system, scoring and shop, plus original jokers and balance." />
   <meta property="og:url" content="https://dekeloni2.github.io/portfolio-website/games/balatro.html" />
   <meta property="og:image" content="https://dekeloni2.github.io/portfolio-website/dekel.png" />
   <meta name="twitter:card" content="summary" />
@@ -897,6 +897,26 @@
     .jump-to-detail:hover { text-decoration: none; opacity: 0.82; }
     .section-line { scroll-margin-top: 80px; }
 
+
+    /* ─── Plain text blocks ──────────────────────────────────────── */
+    .body-text { font-size: 0.88rem; color: var(--muted); line-height: 1.7; max-width: 680px; margin-bottom: 18px; }
+    .body-text strong { color: var(--text); }
+    .note-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; }
+    .note-card h4 { margin: 0 0 6px; font-size: 0.92rem; color: var(--accent2); }
+    .note-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.65; margin: 0; }
+    .note-card p + p { margin-top: 8px; }
+
+    /* ─── Key decisions + before/after tags ──────────────────────── */
+    .key-decisions { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 10px; padding: 16px 20px; margin-bottom: 36px; }
+    .key-decisions h3 { font-size: 0.95rem; margin: 0 0 10px; color: var(--text); }
+    .key-decisions ol { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 7px; }
+    .key-decisions li { font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+    .key-decisions li strong { color: var(--text); }
+    .key-decisions li a { color: var(--accent2); font-size: 0.8rem; white-space: nowrap; }
+    .ba-tags { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .ba-tags span { font-size: 0.68rem; font-weight: 700; color: var(--muted); border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; }
+    .ba-tags span.after { color: var(--accent2); border-color: var(--accent); }
+    [id] { scroll-margin-top: 90px; }
 </style>
 </head>
 <body>
@@ -906,7 +926,6 @@
     <a href="../index.html" class="nav-logo" style="text-decoration:none;">Dekel Riess</a>
     <ul class="nav-links">
       <li><a href="../games.html">Games</a></li>
-      <li><a href="../prototypes.html">Experiments</a></li>
       <li><a href="../experience.html">Experience</a></li>
       <li><a href="../toolbox.html">Toolbox</a></li>
       <li><a href="../roadmap.html">Roadmap</a></li>
@@ -926,183 +945,103 @@
           <h2 style="margin:0;">Dekelatro</h2>
         </div>
         <p class="concept">
-          A poker-roguelike I built from scratch, solo, in C# as my Intro to C# final project — no engine, no card library. Rebuilding a systems-heavy game meant engineering the whole stack myself: a poker hand evaluator, a polymorphic joker system, a scoring engine, and a weighted-RNG shop. Along the way I rebalanced the economy and added my own jokers, so it's a study in how a tight roguelike is put together, not just a copy of one.
+          A poker roguelike I built alone in C# for my Intro to C# final project, with no engine and no card library. I wrote the hand evaluator, the joker system, the scoring and the shop, then rebalanced the numbers and added jokers of my own.
         </p>
         <div class="game-info-row">
-          <div class="game-info-item"><span class="game-info-key">Language</span><span class="game-info-val">C# · No engine (console)</span></div>
-          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">Card Game · Roguelike</span></div>
-          <div class="game-info-item"><span class="game-info-key">Context</span><span class="game-info-val">Intro to C# Final Project</span></div>
-          <div class="game-info-item"><span class="game-info-key">Scope</span><span class="game-info-val">Solo · ~2,250 lines</span></div>
-          <div class="game-info-item"><span class="game-info-key">I owned</span><span class="game-info-val">All code, systems &amp; balance</span></div>
-          <div class="game-info-item" style="background:rgba(147,51,234,0.08); border:1px solid rgba(147,51,234,0.2); border-radius:6px; padding:6px 10px;">
-            <span class="game-info-key" style="color:var(--accent2);">Grade</span><span class="game-info-val">100 / 100</span>
-          </div>
-          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">Complete</span></div>
+          <div class="game-info-item"><span class="game-info-key">Language</span><span class="game-info-val">C#, no engine (console)</span></div>
+          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">Card game, roguelike</span></div>
+          <div class="game-info-item"><span class="game-info-key">Context</span><span class="game-info-val">Intro to C# final project</span></div>
+          <div class="game-info-item"><span class="game-info-key">Scope</span><span class="game-info-val">Solo, ~2,250 lines</span></div>
+          <div class="game-info-item"><span class="game-info-key">My part</span><span class="game-info-val">All code, systems and balance</span></div>
+          <div class="game-info-item"><span class="game-info-key">Grade</span><span class="game-info-val">100 / 100</span></div>
         </div>
         <div style="margin-top:20px; display:flex; flex-direction:column; gap:10px;">
-          <a href="https://github.com/Dekeloni2/BalatroInCSharp" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%; justify-content:center;">
-            ↗ View on GitHub &amp; Download
-          </a>
-          <a href="https://drive.google.com/file/d/1EI0id9EPUtome2YO-fD9UJKxaZQFsXCU/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-secondary" style="width:100%; justify-content:center;">
-            📄 Read Full GDD
-          </a>
+          <a href="https://github.com/Dekeloni2/BalatroInCSharp" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%; justify-content:center;">Code and download on GitHub ↗</a>
+          <a href="https://drive.google.com/file/d/1EI0id9EPUtome2YO-fD9UJKxaZQFsXCU/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-secondary" style="width:100%; justify-content:center;">Read the GDD ↗</a>
         </div>
       </div>
 
       <!-- Content column -->
       <div class="game-content-col">
-        <!-- At a glance -->
-        <div class="at-glance reveal">
-          <span class="label">At a glance</span>
-          <p class="at-glance-hook">A poker-roguelike I engineered <strong>solo in C#</strong> — no engine, no card library. I built the entire stack: a poker hand evaluator, a polymorphic joker system, a scoring engine, and a weighted-RNG shop.</p>
-          <div class="highlight-chips">
-            <span class="highlight-chip">Solo · ~2,250 lines C#</span>
-            <span class="highlight-chip">Built from scratch — no engine</span>
-            <span class="highlight-chip">~20 jokers, polymorphic</span>
-            <span class="highlight-chip">Own jokers + full balance pass</span>
-            <span class="highlight-chip">Graded 100 / 100</span>
-          </div>
-          <a href="#breakdown" class="jump-to-detail">Jump to the full breakdown ↓</a>
+        <div class="key-decisions">
+          <h3>Key decisions</h3>
+          <ol>
+            <li><strong>Rebuilt Balatro instead of starting from a blank page,</strong> to learn why its scoring, jokers and shop fit together. <a href="#breakdown">More ↓</a></li>
+            <li><strong>Made every joker a subclass of one base class,</strong> so adding a joker never touches the scorer. <a href="#breakdown">More ↓</a></li>
+            <li><strong>Only cards in the combo score their chips,</strong> so which cards you play matters more. <a href="#changes">More ↓</a></li>
+            <li><strong>Added Pi Man, a joker of my own,</strong> as a risky build-around you have to plan your hands for. <a href="#changes">More ↓</a></li>
+          </ol>
         </div>
 
 
-
-        <!-- ═══ Design Story (skim-first spine) ═══ -->
-        <div style="margin-top:72px;">
-          <div class="section-line">How I Designed It</div>
-          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">The 60-second version &mdash; why I rebuilt Balatro from scratch, the decisions that made it mine, and what I'd do next.</p>
-          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px;">
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-            <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">01 · Problem</div>
-            <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Rebuild, don't clone</h4>
-            <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Reconstruct a systems-heavy roguelike in C# for my Intro to C# final &mdash; no engine, no card library. Rebuilding forces you to understand <strong>why</strong> the scoring, jokers and shop interlock, not just that they do.</p>
-          </div>
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-            <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">02 · Design Decision</div>
-            <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Architecture that extends</h4>
-            <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Reverse-engineer the math, then re-implement it clean: a polymorphic joker base class (a new effect is one small subclass), a fixed-order scoring pipeline, and a weighted-RNG shop with dedupe &mdash; extensible instead of a growing switch statement.</p>
-          </div>
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-            <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">03 · Prototype / Test</div>
-            <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Tune the whole numbers layer</h4>
-            <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">A full balance pass &mdash; retuned every hand's chips and mult well above the source, set my own joker prices, sell values and reroll curve &mdash; and validated the evaluator against edge cases like the Ace-low straight and partial hands.</p>
-          </div>
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-            <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">04 · Result</div>
-            <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">A clone I can defend as mine</h4>
-            <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Original rules and content of my own &mdash; the &ldquo;Pi Man&rdquo; joker, an involved-cards-only scoring rule, partial-hand scoring &mdash; on top of a re-engineered stack. Graded 100/100.</p>
-          </div>
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-            <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">05 · What I'd Change Next</div>
-            <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Deeper build-arounds</h4>
-            <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">More build-around jokers and stronger synergies to push the deck-building further, and a real UI layer beyond the console so the scoring drama reads visually.</p>
-          </div>
-          </div>
-        </div>
-
-        <div class="section-line">Gameplay Walkthrough</div>
+        <div class="section-line">Gameplay walkthrough</div>
         <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:10px; border:1px solid var(--border); margin-bottom:8px;">
           <iframe src="https://www.youtube.com/embed/I_cDxYgxb6o" title="Dekelatro gameplay walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
         </div>
-        <p style="font-size:0.78rem; color:var(--muted); margin-bottom:36px; line-height:1.6;">A full walkthrough covering how the game works, the design decisions behind it, and live gameplay commentary.</p>
+        <p class="body-text" style="font-size:0.8rem;">I play a run and explain how the game works and why I changed what I changed.</p>
 
-        <div class="section-line" id="breakdown">Why I Built It</div>
-        <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:640px; margin-bottom:22px;">
-          I chose to reconstruct a game I admire because it forces you to understand <em>why</em> its systems work, not just that they do. To make the scoring, jokers, and shop interlock, I had to reverse-engineer the underlying math and then re-implement it from nothing in C#. These were the engineering problems I set out to solve:
-        </p>
-        <div class="pillars-grid">
-          <div class="pillar">
-            <div class="pillar-num">01</div>
-            <h4>Evaluate Any Poker Hand</h4>
-            <p>Detect every hand type — including edge cases like the Ace-low straight — and rank ties correctly, for both full and partial hands.</p>
-          </div>
-          <div class="pillar">
-            <div class="pillar-num">02</div>
-            <h4>Make Jokers Extensible</h4>
-            <p>Dozens of jokers, each with unique effects, without a monolithic switch. Adding a new one should mean writing one small class.</p>
-          </div>
-          <div class="pillar">
-            <div class="pillar-num">03</div>
-            <h4>Model the Chip × Mult Engine</h4>
-            <p>A scoring pipeline where card values, hand bonuses, joker effects, and Planet upgrades all stack in the right order.</p>
-          </div>
-          <div class="pillar">
-            <div class="pillar-num">04</div>
-            <h4>Drive a Fair Random Shop</h4>
-            <p>Weighted rarity rolls that never hand you a duplicate or something you already own, with a reroll economy on top.</p>
-          </div>
-        </div>
-
-        <div class="section-line" style="margin-top:36px;">What I Built</div>
+        <div class="section-line" id="breakdown">Why rebuild Balatro</div>
+        <p class="body-text">Rebuilding a game I admire made me work out why its scoring, jokers and shop fit together, instead of just knowing that they do. I reverse-engineered the math and wrote it again in C#. Four parts took most of the work.</p>
         <div class="mechanics-grid">
           <div class="mechanic-card">
-            <div class="mechanic-icon"><img src="../handevaluator_icon.png" alt="Hand Evaluator"></div>
-            <h3>Hand Evaluator</h3>
-            <p>Groups ranks, tests for flushes and straights (Ace-high and Ace-low), and resolves ties by kicker. A separate flexible path scores partial hands of fewer than five cards.</p>
+            <div class="mechanic-icon"><img src="../handevaluator_icon.png" alt=""></div>
+            <h3>Hand evaluator</h3>
+            <p>Groups cards by rank, checks for flushes and straights (Ace high and Ace low) and breaks ties by kicker. Hands of fewer than five cards go through a separate path.</p>
           </div>
           <div class="mechanic-card">
             <div class="mechanic-icon">◈</div>
-            <h3>Polymorphic Jokers</h3>
-            <p>A <code>Joker</code> base class with virtual scoring hooks; each of ~20 jokers is a subclass overriding only what it changes. New effects plug in without touching the scorer.</p>
+            <h3>Jokers</h3>
+            <p>A <code>Joker</code> base class with virtual scoring hooks. Each of the ~20 jokers is a subclass that overrides only what it changes, so a new joker never touches the scorer.</p>
           </div>
           <div class="mechanic-card">
-            <div class="mechanic-icon"><img src="../handevaluator_icon.png" alt="Scoring Engine"></div>
-            <h3>Scoring Engine</h3>
-            <p>A pipeline that sums card chips, adds the hand-type bonus, applies each joker's chip/mult/×-mult effect, then folds in Planet-card upgrades — resolved in a fixed order.</p>
+            <div class="mechanic-icon"><img src="../handevaluator_icon.png" alt=""></div>
+            <h3>Scoring</h3>
+            <p>Card chips, then the hand-type bonus, then each joker's chip, mult and ×mult effects, then Planet upgrades. The order never changes, so the result is predictable.</p>
           </div>
           <div class="mechanic-card">
-            <div class="mechanic-icon"><img src="../shopeconomy.png" alt="Weighted Shop"></div>
-            <h3>Weighted-RNG Shop</h3>
-            <p>Rarity rolls at 70 / 25 / 5 (Common / Uncommon / Rare) draw from tiered pools, with dedupe against your inventory and an escalating reroll cost.</p>
+            <div class="mechanic-icon"><img src="../shopeconomy.png" alt=""></div>
+            <h3>Shop</h3>
+            <p>Rarity rolls at 70 / 25 / 5 (Common / Uncommon / Rare). It never offers a duplicate or something you already own, and each reroll costs more than the last.</p>
           </div>
         </div>
 
-        <div class="section-line" style="margin-top:36px;">My Own Design Decisions</div>
-        <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:640px; margin-bottom:18px;">
-          Reconstruction wasn't the whole job — I made deliberate changes where I wanted the game to behave differently, and added content of my own:
-        </p>
+        <div class="section-line" id="changes" style="margin-top:36px;">What I changed from Balatro</div>
         <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:8px;">
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px;">
-            <h4 style="margin:0 0 6px; font-size:0.9rem; color:var(--accent2);">"Pi Man" — an original joker</h4>
-            <p style="font-size:0.83rem; color:var(--muted); line-height:1.65; margin:0;">A Rare joker of my own design: if a played hand contains an Ace, a 3, and a 4, it raises the hand's chips to the power of <strong>3.14</strong>. A math in-joke that doubles as a high-risk build-around — you have to bend your hand selection to trigger it.</p>
+          <div class="note-card">
+            <h4>Pi Man, a joker of my own</h4>
+            <p>A Rare joker: if the hand has an Ace, a 3 and a 4, its chips are raised to the power of <strong>3.14</strong>. It's a math joke, and also a risky build-around, because you have to bend your hand choices to trigger it.</p>
           </div>
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px;">
-            <h4 style="margin:0 0 6px; font-size:0.9rem; color:var(--accent2);">Only involved cards score their chips</h4>
-            <p style="font-size:0.83rem; color:var(--muted); line-height:1.65; margin:0;">For pairs, trips and full houses, I score chips only from the cards actually <em>in</em> the combo — not every card played. It's a deliberate rule that makes hand composition matter more, and it drove how I structured the scorer.</p>
+          <div class="note-card">
+            <h4>Only cards in the combo score</h4>
+            <p>For pairs, trips and full houses, only the cards in the combo add their chips, not every card you played. Which cards you play matters more, and the rule shaped how I wrote the scorer.</p>
           </div>
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px;">
-            <h4 style="margin:0 0 6px; font-size:0.9rem; color:var(--accent2);">Partial-hand scoring</h4>
-            <p style="font-size:0.83rem; color:var(--muted); line-height:1.65; margin:0;">You can play fewer than five cards. I wrote a separate scoring path that recognizes partial pairs, trips and straight/flush fragments, so short hands still resolve sensibly instead of failing.</p>
+          <div class="note-card">
+            <h4>Partial hands</h4>
+            <p>You can play fewer than five cards. A separate path recognizes partial pairs, trips and straight or flush fragments, so short hands still score.</p>
           </div>
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px;">
-            <h4 style="margin:0 0 6px; font-size:0.9rem; color:var(--accent2);">Rebalanced economy</h4>
-            <p style="font-size:0.83rem; color:var(--muted); line-height:1.65; margin:0;">I retuned every hand's base chips and mult well above the source values, and set my own joker prices, sell values and reroll curve — my own balance pass over the whole numbers layer.</p>
+          <div class="note-card">
+            <h4>My own balance</h4>
+            <p>I raised every hand's base chips and mult well above Balatro's, and set my own joker prices, sell values and reroll costs.</p>
           </div>
         </div>
-        <p style="font-size:0.78rem; color:var(--accent2); text-align:right; margin-bottom:28px;">
-          <a href="https://drive.google.com/file/d/1EI0id9EPUtome2YO-fD9UJKxaZQFsXCU/view?usp=sharing" target="_blank" rel="noopener" style="color:var(--accent2); text-decoration:none;">Full system documentation in the GDD →</a>
+        <p style="font-size:0.8rem; text-align:right; margin-bottom:28px;">
+          <a href="https://drive.google.com/file/d/1EI0id9EPUtome2YO-fD9UJKxaZQFsXCU/view?usp=sharing" target="_blank" rel="noopener">Full system documentation in the GDD ↗</a>
         </p>
 
-        <div class="section-line" style="margin-top:36px;">What I Learned</div>
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px;">
-          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7;">
-            Rebuilding a game from scratch taught me more than designing one from a blank page would have. To make the jokers extensible I had to reach for real polymorphism instead of a growing switch statement; to make scoring predictable I had to pin down the exact order effects resolve. And separating "what the source game does" from "what I chose to do differently" — the involved-cards rule, partial hands, Pi Man, my own balance — is what turned a clone into a project I can actually defend as mine.
-          </p>
-        </div>
+        <div class="section-line" style="margin-top:36px;">What I learned</div>
+        <p class="body-text">Rebuilding a game taught me more than starting from a blank page would have. Jokers that are easy to add pushed me into real polymorphism instead of a growing switch statement, and predictable scoring meant pinning down the exact order effects resolve. Keeping track of what Balatro does and what I changed is what makes this project mine and not a clone.</p>
+        <p class="body-text">If I went back to it, I'd add more build-around jokers with stronger synergies, and a real UI so you can watch the score build up instead of reading it in a console.</p>
 
       </div>
     </div>
   </div>
 </section>
-
-<!-- ═══════════════════════════════════════ Site Nav Footer ═══════════════════════════════════════ -->
 <div class="site-nav-footer">
   <div class="container">
-    <span class="site-nav-footer-label">Jump to</span>
+    <span class="site-nav-footer-label">Pages</span>
     <div class="site-nav-footer-grid">
       <a href="../index.html">Home</a>
       <a href="../games.html">Games</a>
-      <a href="../prototypes.html">Experiments</a>
       <a href="../experience.html">Experience</a>
       <a href="../toolbox.html">Toolbox</a>
       <a href="../roadmap.html">Roadmap</a>
@@ -1123,9 +1062,8 @@
 <!-- ═══════════════════════════════════════ Contact ═══════════════════════════════════════ -->
 <section id="contact">
   <div class="container">
-    <span class="label">Get in touch</span>
-    <h2>Let's talk.</h2>
-    <p>Open to internships, collaborations, and feedback on work in progress.</p>
+    <h2>Contact</h2>
+    <p>I'm open to internships and collaborations, and happy to get feedback on work in progress.</p>
     <div class="contact-links">
       <a href="mailto:dekelriess@gmail.com" class="btn btn-primary">✉ dekelriess@gmail.com</a>
       <a href="https://linkedin.com/in/dekel-riess-39172433b" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn ↗</a>

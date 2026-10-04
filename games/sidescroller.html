@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RunicRPG — Dekel Riess</title>
-  <meta name="description" content="RunicRPG — a planned 2D action RPG in Unity. Design breakdown: layered combat, meta systems, and world exploration." />
+  <title>RunicRPG | Dekel Riess</title>
+  <meta name="description" content="RunicRPG, a 2.5D action RPG in Unity with a playable core loop: XP, drops, equipment scrolls and a rune skill tree." />
   <link rel="icon" type="image/png" href="../favicon.png" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="RunicRPG — Dekel Riess" />
-  <meta property="og:description" content="RunicRPG — a planned 2D action RPG in Unity. Design breakdown: layered combat, meta systems, and world exploration." />
+  <meta property="og:title" content="RunicRPG | Dekel Riess" />
+  <meta property="og:description" content="RunicRPG, a 2.5D action RPG in Unity with a playable core loop: XP, drops, equipment scrolls and a rune skill tree." />
   <meta property="og:url" content="https://dekeloni2.github.io/portfolio-website/games/sidescroller.html" />
   <meta property="og:image" content="https://dekeloni2.github.io/portfolio-website/dekel.png" />
   <meta name="twitter:card" content="summary" />
@@ -915,8 +915,8 @@
     .gif-slot img, .gif-slot video {
       display: block;
       width: 100%;
-      aspect-ratio: 4 / 3;
-      object-fit: cover;
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
       background: #000;
       image-rendering: pixelated;
     }
@@ -929,7 +929,7 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 16 / 9;
       background: repeating-linear-gradient(45deg, rgba(147,51,234,0.04), rgba(147,51,234,0.04) 10px, transparent 10px, transparent 20px);
       border-bottom: 1px solid var(--border);
       color: var(--muted);
@@ -947,6 +947,26 @@
     }
     .gif-slot figcaption span { color: var(--muted); font-weight: 400; }
 
+
+    /* ─── Plain text blocks ──────────────────────────────────────── */
+    .body-text { font-size: 0.88rem; color: var(--muted); line-height: 1.7; max-width: 680px; margin-bottom: 18px; }
+    .body-text strong { color: var(--text); }
+    .note-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; }
+    .note-card h4 { margin: 0 0 6px; font-size: 0.92rem; color: var(--accent2); }
+    .note-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.65; margin: 0; }
+    .note-card p + p { margin-top: 8px; }
+
+    /* ─── Key decisions + before/after tags ──────────────────────── */
+    .key-decisions { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 10px; padding: 16px 20px; margin-bottom: 36px; }
+    .key-decisions h3 { font-size: 0.95rem; margin: 0 0 10px; color: var(--text); }
+    .key-decisions ol { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 7px; }
+    .key-decisions li { font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+    .key-decisions li strong { color: var(--text); }
+    .key-decisions li a { color: var(--accent2); font-size: 0.8rem; white-space: nowrap; }
+    .ba-tags { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .ba-tags span { font-size: 0.68rem; font-weight: 700; color: var(--muted); border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; }
+    .ba-tags span.after { color: var(--accent2); border-color: var(--accent); }
+    [id] { scroll-margin-top: 90px; }
 </style>
 </head>
 <body>
@@ -956,7 +976,6 @@
     <a href="../index.html" class="nav-logo" style="text-decoration:none;">Dekel Riess</a>
     <ul class="nav-links">
       <li><a href="../games.html">Games</a></li>
-      <li><a href="../prototypes.html">Experiments</a></li>
       <li><a href="../experience.html">Experience</a></li>
       <li><a href="../toolbox.html">Toolbox</a></li>
       <li><a href="../roadmap.html">Roadmap</a></li>
@@ -969,213 +988,152 @@
     <div class="game-section-layout">
 
       <div class="game-meta-col">
-        <span class="badge badge-wip" style="background:rgba(148,163,184,0.12); color:#94a3b8; border-color:rgba(148,163,184,0.3);">Benched</span>
+        <span class="badge badge-wip" style="background:rgba(148,163,184,0.12); color:#94a3b8; border-color:rgba(148,163,184,0.3);">Paused</span>
         <div style="display:flex; align-items:center; gap:12px; margin-top:12px;">
           <img src="../Runic.png" alt="RunicRPG logo" style="width:40px; height:40px; object-fit:contain; image-rendering:pixelated;">
           <h2 style="margin:0;">RunicRPG</h2>
         </div>
         <p class="concept">
-          A 2.5D side-scrolling RPG built to showcase deep systems design. The core progression loop is already playable — XP and leveling, loot drops, equipment scrolling, and a rune skill tree are built and juiced. The goal is a set of interlocking systems — runes, crafting, equipment, NPCs, classes — that stay coherent with each other rather than being stapled together as independent features.
+          A 2.5D side-scrolling RPG where you fight monsters, upgrade your gear and upgrade your character. The core loop is playable: XP and leveling, loot drops, equipment scrolls and a rune skill tree. The rest is designed in a GDD. The point of the project is to make six systems (runes, crafting, scrolls, equipment, NPCs and classes) depend on each other instead of sitting side by side.
         </p>
         <div class="game-info-row">
           <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">Unity</span></div>
-          <div class="game-info-item"><span class="game-info-key">Art</span><span class="game-info-val">Tiny Sword Asset Pack</span></div>
-          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">2.5D · Action RPG</span></div>
-          <div class="game-info-item"><span class="game-info-key">Classes</span><span class="game-info-val">Knight · Lancer · Archer</span></div>
-          <div class="game-info-item"><span class="game-info-key">Role</span><span class="game-info-val">Solo — Design &amp; Dev</span></div>
-          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">In Development · Playable</span></div>
+          <div class="game-info-item"><span class="game-info-key">Art</span><span class="game-info-val">Tiny Swords asset pack, plus my own items</span></div>
+          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">2.5D action RPG</span></div>
+          <div class="game-info-item"><span class="game-info-key">Classes</span><span class="game-info-val">Knight, Lancer, Archer</span></div>
+          <div class="game-info-item"><span class="game-info-key">Role</span><span class="game-info-val">Solo, design and code</span></div>
+          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">Paused, core loop playable</span></div>
         </div>
       </div>
 
       <div class="game-content-col">
-        <!-- At a glance -->
-        <div class="at-glance reveal">
-          <span class="label">At a glance</span>
-          <p class="at-glance-hook">A 2.5D side-scroller RPG built to show off <strong>deep systems design</strong>. Fight monsters, upgrade gear, upgrade your character — every system is intertwined to create an addictive <strong>min-maxing loop</strong>.</p>
-          <p style="font-size:0.82rem; color:var(--muted); line-height:1.55; margin:-6px 0 16px;">In active development — the systems below are built and playable; the final world and art land as the build progresses.</p>
-          <div class="highlight-chips">
-            <span class="highlight-chip">Solo systems design</span>
-            <span class="highlight-chip">Playable core loop</span>
-            <span class="highlight-chip">XP · Drops · Scrolling · Skill Tree</span>
-            <span class="highlight-chip">Full GDD written</span>
-          </div>
-          <a href="#breakdown" class="jump-to-detail">Jump to the full breakdown ↓</a>
+        <div class="key-decisions">
+          <h3>Key decisions</h3>
+          <ol>
+            <li><strong>Built the core loop first and polished its feedback,</strong> because a progression system only works if each kill and level-up feels good. <a href="#built">More ↓</a></li>
+            <li><strong>Designed the systems to depend on each other,</strong> like a strength rune mattering more because your scrolled gear scales with strength. <a href="#goals">More ↓</a></li>
+            <li><strong>Introduced systems one at a time,</strong> so players learn runes, crafting and scrolls separately before they connect. <a href="#goals">More ↓</a></li>
+            <li><strong>Made my own items in the Tiny Swords style,</strong> with one fixed process so they match the pack. <a href="#items">More ↓</a></li>
+          </ol>
         </div>
 
 
-        <div class="section-line" id="breakdown">Design Pillars</div>
+        <div class="section-line" id="breakdown">The core loop</div>
+        <p class="body-text">Each pass through the loop makes you stronger and opens the next zone. Optimizing your build is what keeps you going around.</p>
+        <div class="loop-chain">
+          <div class="loop-step"><div class="loop-dot">1</div><div class="loop-step-text">Fight monsters</div></div>
+          <div class="loop-connector"></div>
+          <div class="loop-step"><div class="loop-dot">2</div><div class="loop-step-text">They drop loot, from Common to Legendary</div></div>
+          <div class="loop-connector"></div>
+          <div class="loop-step"><div class="loop-dot">3</div><div class="loop-step-text">Scroll and upgrade your gear</div></div>
+          <div class="loop-connector"></div>
+          <div class="loop-step"><div class="loop-dot">4</div><div class="loop-step-text">Level up and spend points in the rune tree</div></div>
+          <div class="loop-connector"></div>
+          <div class="loop-step"><div class="loop-dot">5</div><div class="loop-step-text">Move to a harder zone</div></div>
+        </div>
+
+        <div class="section-line" id="goals" style="margin-top:36px;">Design goals</div>
         <div class="pillars-grid">
           <div class="pillar">
-            <div class="pillar-num">01</div>
-            <h4>Systems That Talk to Each Other</h4>
-            <p>Every system in RunicRPG — runes, crafting, scrolls, NPCs — is designed to interact with the others. A rune that boosts strength becomes meaningful when your scroll-enhanced equipment already scales with it. Coherence is the goal, not feature count.</p>
+            <h4>Systems that affect each other</h4>
+            <p>A strength rune should matter more because your scrolled gear already scales with strength. I care about how the systems connect more than how many there are.</p>
           </div>
           <div class="pillar">
-            <div class="pillar-num">02</div>
-            <h4>Meaningful Character Expression</h4>
-            <p>Three classes with distinct playstyles, a rune skill tree that opens specific paths, and armor that visually changes the player — your character should feel like a build, not a default.</p>
+            <h4>A character that's a build</h4>
+            <p>Three classes that play differently, a rune tree with distinct paths, and armor that changes how you look.</p>
           </div>
           <div class="pillar">
-            <div class="pillar-num">03</div>
-            <h4>Depth Without Bloat</h4>
-            <p>Extensive systems shouldn't mean overwhelming ones. Each layer of progression — runes, crafting, scrolls — should be learnable in isolation before it connects to the whole. Complexity is introduced, not dumped.</p>
+            <h4>Deep, but learnable</h4>
+            <p>You can learn runes, crafting and scrolls one at a time before they start connecting. Complexity arrives in steps.</p>
           </div>
           <div class="pillar">
-            <div class="pillar-num">04</div>
-            <h4>The World Responds to You</h4>
-            <p>Hirable NPCs that hunt monsters autonomously or join as party members make the world feel like it has agency. The player isn't just moving through the world — they're shaping it.</p>
+            <h4>NPCs that work for you</h4>
+            <p>You can hire NPCs to hunt monsters on their own or to fight next to you, so the world keeps moving when you're not there.</p>
           </div>
         </div>
 
-        <div class="section-line" style="margin-top:36px;">The Core Loop</div>
-        <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; margin-bottom:8px; max-width:640px;">
-          Every system feeds the next. The loop is the whole game — each turn through it makes you stronger and opens the next zone, and the pull to optimize your build is where the min-maxing lives.
-        </p>
-        <div class="loop-chain">
-          <div class="loop-step"><div class="loop-dot">1</div><div class="loop-step-text">Fight monsters across the world</div></div>
-          <div class="loop-connector"></div>
-          <div class="loop-step"><div class="loop-dot">2</div><div class="loop-step-text">They drop loot — COMMON to LEGENDARY</div></div>
-          <div class="loop-connector"></div>
-          <div class="loop-step"><div class="loop-dot">3</div><div class="loop-step-text">Scroll &amp; upgrade your gear to min-max stats</div></div>
-          <div class="loop-connector"></div>
-          <div class="loop-step"><div class="loop-dot">4</div><div class="loop-step-text">Level up and spend points in the rune skill tree</div></div>
-          <div class="loop-connector"></div>
-          <div class="loop-step"><div class="loop-dot">5</div><div class="loop-step-text">Push into tougher zones — and the loop compounds</div></div>
-        </div>
-
-      </div><!-- /game-content-col -->
-    </div><!-- /game-section-layout -->
-
-
-    <!-- ═══ Design Story (skim-first spine) ═══ -->
-    <div style="margin-top:72px;">
-      <div class="section-line">How I Designed It</div>
-      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">The 60-second version &mdash; what this project is out to prove, how I'm building it, and what's next.</p>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px;">
-      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-        <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">01 · Problem</div>
-        <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Six systems, one game</h4>
-        <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Prove I can design systems at RPG scale, solo in Unity. The hard part isn't building any one system &mdash; it's making runes, crafting, scrolls, equipment, NPCs and classes feel like one coherent game instead of features stapled together.</p>
-      </div>
-      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-        <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">02 · Design Decision</div>
-        <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Design for cross-talk, build the loop first</h4>
-        <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Every system is designed to feed the others &mdash; a strength rune matters because your scroll-enhanced gear already scales with it. And I built the core progression loop first and juiced it, because a progression system only proves itself when the moment-to-moment feedback lands.</p>
-      </div>
-      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-        <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">03 · Prototype / Test</div>
-        <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Playable before pretty</h4>
-        <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">The core loop is already running in a Knight build on a placeholder map &mdash; XP, drops, equipment scrolling and a rune skill tree &mdash; validated for feel before the rest layers on.</p>
-      </div>
-      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-        <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">04 · Result</div>
-        <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">A playable core + a specced future</h4>
-        <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">The juiced core loop is live; the surrounding systems are specced in a full GDD to layer on top; and a repeatable custom-asset pipeline lets the item set scale as far as the design needs.</p>
-      </div>
-      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-        <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">05 · What I'd Change Next</div>
-        <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Prove the cross-talk</h4>
-        <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">The next proof is cross-system coherence &mdash; getting crafting and hirable NPCs interacting with the running loop &mdash; and a real playtest of the min-max loop to confirm the optimization pull actually hooks.</p>
-      </div>
       </div>
     </div>
 
-    <!-- ═══ Full-width showcase ═══ -->
     <div style="margin-top:72px;">
-      <div class="section-line">Built &amp; Playable — Systems in Motion</div>
-        <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; margin-bottom:24px; max-width:640px;">
-          These aren't mockups — they're the systems already built and running in the playable Knight build. Each one is authored in code and juiced for feel, because a progression system only proves itself when the moment-to-moment feedback lands. This is the systems-design layer the whole project is meant to demonstrate.
-        </p>
-        <div style="font-size:0.8rem; color:var(--muted); line-height:1.6; background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--accent); border-radius:8px; padding:12px 16px; margin-bottom:24px; max-width:640px;">
-          <strong style="color:var(--text);">Early-build footage.</strong> Captured from an in-development version on a placeholder map — the environment isn't final. The systems shown are real and running, and the art is the final asset set headed into the shipped game.
-        </div>
-        <div class="gif-showcase">
-          <figure class="gif-slot">
-            <video src="../runic_xp.mp4" autoplay muted loop playsinline preload="metadata" aria-label="RunicRPG XP and leveling" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
-            <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>runic_xp.mp4</code> here</span></div>
-            <figcaption>XP &amp; Leveling — <span>kill, earn XP, level up — with the bar fill and level-up feedback juiced so progression feels good moment to moment.</span></figcaption>
-          </figure>
-          <figure class="gif-slot">
-            <video src="../runic_drops.mp4" autoplay muted loop playsinline preload="metadata" aria-label="RunicRPG item drops" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
-            <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>runic_drops.mp4</code> here</span></div>
-            <figcaption>Drops — <span>enemies drop loot on death across rarity tiers — COMMON, RARE, EPIC, LEGENDARY — that flow straight into the inventory.</span></figcaption>
-          </figure>
-          <figure class="gif-slot">
-            <video src="../runic_scrolling.mp4" autoplay muted loop playsinline preload="metadata" aria-label="RunicRPG equipment scrolling" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
-            <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>runic_scrolling.mp4</code> here</span></div>
-            <figcaption>Scrolling — <span>apply a scroll to a gear piece to enhance a specific stat, with the before/after read clearly on the item.</span></figcaption>
-          </figure>
-          <figure class="gif-slot">
-            <video src="../runic_scenario_scroll.mp4" autoplay muted loop playsinline preload="metadata" aria-label="RunicRPG scenario scrolling" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
-            <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>runic_scenario_scroll.mp4</code> here</span></div>
-            <figcaption>Scenario Scrolling — <span>prepare your next scroll for a safe stat boost, or gamble the odds for a bigger gain at the risk of destroying the item.</span></figcaption>
-          </figure>
-          <figure class="gif-slot">
-            <video src="../runic_skilltree.mp4" autoplay muted loop playsinline preload="metadata" aria-label="RunicRPG skill tree" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
-            <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>runic_skilltree.mp4</code> here</span></div>
-            <figcaption>Skill Tree — <span>a branching rune tree: unlock nodes to shape the build, each choice opening a distinct path.</span></figcaption>
-          </figure>
-        </div>
+      <div class="section-line" id="built">What's built</div>
+      <p class="body-text">These systems are running in the Knight build. I built the core loop first and spent time on its feedback, because a progression system only works if each kill and level-up feels good.</p>
+      <p class="body-text" style="font-size:0.8rem;"><strong>Early footage:</strong> recorded on a placeholder map. The environment isn't final; the systems and item art are.</p>
+      <div class="gif-showcase">
+        <figure class="gif-slot">
+          <video src="../runic_xp.mp4" autoplay muted loop playsinline preload="metadata" aria-label="RunicRPG XP and leveling" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>runic_xp.mp4</code> here</span></div>
+          <figcaption>XP and leveling: <span>kill, earn XP, level up, with feedback on the bar and the level-up.</span></figcaption>
+        </figure>
+        <figure class="gif-slot">
+          <video src="../runic_drops.mp4" autoplay muted loop playsinline preload="metadata" aria-label="RunicRPG item drops" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>runic_drops.mp4</code> here</span></div>
+          <figcaption>Drops: <span>enemies drop Common, Rare, Epic and Legendary loot that goes straight to the inventory.</span></figcaption>
+        </figure>
+        <figure class="gif-slot">
+          <video src="../runic_scrolling.mp4" autoplay muted loop playsinline preload="metadata" aria-label="RunicRPG equipment scrolling" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>runic_scrolling.mp4</code> here</span></div>
+          <figcaption>Scrolling: <span>use a scroll on a piece of gear to raise one stat, and see the before and after on the item.</span></figcaption>
+        </figure>
+        <figure class="gif-slot">
+          <video src="../runic_scenario_scroll.mp4" autoplay muted loop playsinline preload="metadata" aria-label="RunicRPG scenario scrolling" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>runic_scenario_scroll.mp4</code> here</span></div>
+          <figcaption>Scenario scrolling: <span>take a safe boost, or gamble on a bigger one and risk destroying the item.</span></figcaption>
+        </figure>
+        <figure class="gif-slot">
+          <video src="../runic_skilltree.mp4" autoplay muted loop playsinline preload="metadata" aria-label="RunicRPG skill tree" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
+          <div class="gif-placeholder"><span class="gif-placeholder-icon">◆</span><span>Drop <code>runic_skilltree.mp4</code> here</span></div>
+          <figcaption>Skill tree: <span>a branching rune tree where each node you unlock sends your build down a different path.</span></figcaption>
+        </figure>
+      </div>
     </div>
 
     <div style="margin-top:72px;">
-      <div class="section-line">Planned Systems — Roadmap</div>
-        <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; margin-bottom:24px; max-width:640px;">
-          Designed and specced in the GDD, built to layer on top of the playable core loop above. Each is meant to interlock with the systems already running — not to stand alone.
-        </p>
-        <div class="mechanics-grid">
-          <div class="mechanic-card">
-            <div class="mechanic-icon">🧑‍🤝‍🧑</div>
-            <h3>NPC Companions & Hunters</h3>
-            <p>Hire NPCs to autonomously grind monsters in an area while the player explores elsewhere, or bring them along as active party members. Passive income or active support — the player chooses.</p>
-          </div>
-          <div class="mechanic-card">
-            <div class="mechanic-icon">⚒</div>
-            <h3>Crafting System</h3>
-            <p>Every monster drops materials used in crafting. Nothing is junk — the crafting system is designed so that drops from all monsters have potential value, encouraging exploration over farming one zone.</p>
-          </div>
-          <div class="mechanic-card">
-            <div class="mechanic-icon">🛡</div>
-            <h3>Armor Sets & Appearance</h3>
-            <p>Custom armor sets change the player's visual appearance, not just their stats. Wearing a full set has both a mechanical payoff and an identity payoff — looking like your build matters.</p>
-          </div>
-          <div class="mechanic-card">
-            <div class="mechanic-icon">⚔</div>
-            <h3>3 Classes</h3>
-            <p>Knight, Lancer, and Archer each play distinctly — not just different stat spreads but different combat rhythms and rune affinities. Class choice shapes which parts of the skill tree are most effective.</p>
-          </div>
+      <div class="section-line">Designed, not built yet</div>
+      <p class="body-text">These are in the GDD and meant to plug into the loop above.</p>
+      <div class="mechanics-grid">
+        <div class="mechanic-card">
+          <div class="mechanic-icon">🧑‍🤝‍🧑</div>
+          <h3>NPC hunters and companions</h3>
+          <p>Hire NPCs to farm an area while you explore somewhere else, or take them with you. You choose between passive income and help in fights.</p>
         </div>
+        <div class="mechanic-card">
+          <div class="mechanic-icon">⚒</div>
+          <h3>Crafting</h3>
+          <p>Every monster drops crafting materials and none of them are junk, so it pays to explore instead of farming one zone.</p>
+        </div>
+        <div class="mechanic-card">
+          <div class="mechanic-icon">🛡</div>
+          <h3>Armor sets</h3>
+          <p>Sets change how you look as well as your stats. A full set pays off in power and in looking like your build.</p>
+        </div>
+        <div class="mechanic-card">
+          <div class="mechanic-icon">⚔</div>
+          <h3>Three classes</h3>
+          <p>Knight, Lancer and Archer have different combat rhythms and rune affinities, not only different stats. Your class decides which parts of the rune tree work best.</p>
+        </div>
+      </div>
     </div>
 
     <div style="margin-top:72px;">
-      <div class="section-line">Design Intent</div>
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px;">
-          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7;">
-            RunicRPG exists in the portfolio specifically to demonstrate systems design at RPG scale. The challenge isn't building any one of these systems — it's making six of them feel like they belong to the same game. A rune that boosts your Knight's defense should matter when you're choosing which armor scroll to use and which NPC to hire for your next zone. That kind of cross-system coherence is what separates a collection of features from a real RPG. That's what this project is designed to prove.
-          </p>
-        </div>
+      <div class="section-line" id="items">Making my own items</div>
+      <p class="body-text">Tiny Swords doesn't have enough items for an RPG this heavy on gear, so I make my own in its style. Every icon goes through the same steps: nearest-neighbor upscale, the same canvas padding, a morphology pass and the same outline weight. That way my items sit next to the pack's without looking out of place, and I can make as many as the design needs.</p>
     </div>
 
-    <div style="margin-top:72px;">
-      <div class="section-line">Custom Asset Pipeline</div>
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px;">
-          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7;">
-            The Tiny Swords asset pack has limited items for an RPG this systems-heavy, so I built my own. Drawing on 10+ years of pixel art experience, I developed a repeatable pipeline for producing custom items that match the Tiny Swords style — nearest-neighbor upscale, consistent canvas padding, a morphology pass, and a uniform outline weight applied identically to every icon. It lets me expand the item set as far as the design needs while keeping the whole inventory visually consistent, so custom pieces sit next to pack assets without looking out of place.
-          </p>
-        </div>
+    <div style="margin-top:56px;">
+      <div class="section-line">Next steps</div>
+      <p class="body-text">Get crafting and hired NPCs working with the running loop, then playtest it to see whether optimizing your build actually pulls players in.</p>
     </div>
 
   </div>
 </section>
-
 <!-- ═══════════════════════════════════════ Site Nav Footer ═══════════════════════════════════════ -->
 <div class="site-nav-footer">
   <div class="container">
-    <span class="site-nav-footer-label">Jump to</span>
+    <span class="site-nav-footer-label">Pages</span>
     <div class="site-nav-footer-grid">
       <a href="../index.html">Home</a>
       <a href="../games.html">Games</a>
-      <a href="../prototypes.html">Experiments</a>
       <a href="../experience.html">Experience</a>
       <a href="../toolbox.html">Toolbox</a>
       <a href="../roadmap.html">Roadmap</a>
@@ -1197,9 +1155,8 @@
 <!-- ═══════════════════════════════════════ Contact ═══════════════════════════════════════ -->
 <section id="contact">
   <div class="container">
-    <span class="label">Get in touch</span>
-    <h2>Let's talk.</h2>
-    <p>Open to internships, collaborations, and feedback on work in progress.</p>
+    <h2>Contact</h2>
+    <p>I'm open to internships and collaborations, and happy to get feedback on work in progress.</p>
     <div class="contact-links">
       <a href="mailto:dekelriess@gmail.com" class="btn btn-primary">✉ dekelriess@gmail.com</a>
       <a href="https://linkedin.com/in/dekel-riess-39172433b" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn ↗</a>

@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Play TiltanTale — Dekel Riess</title>
-  <meta name="description" content="Play TiltanTale in your browser — an Undertale-inspired RPG built in MonoGame, ported to the web with KNI." />
+  <title>Play TiltanTale | Dekel Riess</title>
+  <meta name="description" content="Play TiltanTale, an Undertale-style RPG made in MonoGame, in your browser." />
   <link rel="icon" type="image/png" href="../favicon.png" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Play TiltanTale — Dekel Riess" />
-  <meta property="og:description" content="Play TiltanTale in your browser — no download needed." />
+  <meta property="og:title" content="Play TiltanTale | Dekel Riess" />
+  <meta property="og:description" content="Play TiltanTale, an Undertale-style RPG made in MonoGame, in your browser." />
   <meta property="og:url" content="https://dekeloni2.github.io/portfolio-website/games/play-tiltantale.html" />
   <meta property="og:image" content="https://dekeloni2.github.io/portfolio-website/tiltan_tale.png" />
   <meta name="twitter:card" content="summary" />
@@ -155,7 +155,15 @@
       .nav-links { display: none; }
       .play-head { padding-top: 84px; }
     }
-  </style>
+  
+    /* ─── Plain text blocks ──────────────────────────────────────── */
+    .body-text { font-size: 0.88rem; color: var(--muted); line-height: 1.7; max-width: 680px; margin-bottom: 18px; }
+    .body-text strong { color: var(--text); }
+    .note-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; }
+    .note-card h4 { margin: 0 0 6px; font-size: 0.92rem; color: var(--accent2); }
+    .note-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.65; margin: 0; }
+    .note-card p + p { margin-top: 8px; }
+</style>
 </head>
 <body>
 
@@ -164,7 +172,6 @@
     <a href="../index.html" class="nav-logo" style="text-decoration:none;">Dekel Riess</a>
     <ul class="nav-links">
       <li><a href="../games.html" class="nav-active">Games</a></li>
-      <li><a href="../prototypes.html">Experiments</a></li>
       <li><a href="../experience.html">Experience</a></li>
       <li><a href="../toolbox.html">Toolbox</a></li>
       <li><a href="../roadmap.html">Roadmap</a></li>
@@ -177,7 +184,7 @@
     <div class="play-head">
       <span class="badge">Playable in browser</span>
       <h1>Play <span class="accent">TiltanTale</span></h1>
-      <p>The full game, running right here — no download, no install. Just press play. Prefer the full breakdown? <a href="tiltantale.html">Read the design breakdown →</a></p>
+      <p>The full game, in your browser. Nothing to download. <a href="tiltantale.html">Design breakdown →</a></p>
     </div>
 
     <div class="game-stage">
@@ -194,7 +201,7 @@
       </div>
 
       <div class="control-hint">
-        <strong>Click the game first</strong> so it captures your keyboard, then play with the <kbd>arrow keys</kbd> and confirm with the on-screen prompts. First load streams roughly 60&nbsp;MB, so give it a moment — and <strong>desktop is recommended</strong> (the game needs a keyboard).
+        <strong>Click the game first</strong> so it gets your keyboard, then move with the <kbd>arrow keys</kbd> and follow the on-screen prompts. The first load is about 60&nbsp;MB, so give it a moment. It needs a keyboard, so <strong>play on desktop</strong>.
       </div>
     </div>
   </div>
@@ -202,11 +209,10 @@
 
 <div class="site-nav-footer">
   <div class="container">
-    <span class="site-nav-footer-label">Jump to</span>
+    <span class="site-nav-footer-label">Pages</span>
     <div class="site-nav-footer-grid">
       <a href="../index.html">Home</a>
       <a href="../games.html">Games</a>
-      <a href="../prototypes.html">Experiments</a>
       <a href="../experience.html">Experience</a>
       <a href="../toolbox.html">Toolbox</a>
       <a href="../roadmap.html">Roadmap</a>
@@ -227,9 +233,8 @@
 
 <section id="contact">
   <div class="container">
-    <span class="label">Get in touch</span>
-    <h2>Let's talk.</h2>
-    <p>Open to internships, collaborations, and feedback on work in progress.</p>
+    <h2>Contact</h2>
+    <p>I'm open to internships and collaborations, and happy to get feedback on work in progress.</p>
     <div class="contact-links">
       <a href="mailto:dekelriess@gmail.com" class="btn btn-primary">✉ dekelriess@gmail.com</a>
       <a href="https://linkedin.com/in/dekel-riess-39172433b" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn ↗</a>

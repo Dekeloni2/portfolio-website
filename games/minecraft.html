@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Minecraft Level &amp; World Design — Dekel Riess</title>
-  <meta name="description" content="A decade of designing Minecraft servers — worlds, zones, economies, and progression. Level-design breakdown of six servers, several with live player bases, one concept acquired by a studio." />
+  <title>Minecraft Level &amp; World Design | Dekel Riess</title>
+  <meta name="description" content="Ten years of designing Minecraft servers: worlds, economies and progression. Six servers, one with ~300 concurrent players, one concept acquired by a studio." />
   <link rel="icon" type="image/png" href="../favicon.png" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Minecraft Level &amp; World Design — Dekel Riess" />
-  <meta property="og:description" content="A decade of designing Minecraft servers — worlds, zones, economies, and progression. Six servers, several live, one concept acquired." />
+  <meta property="og:title" content="Minecraft Level &amp; World Design | Dekel Riess" />
+  <meta property="og:description" content="Ten years of designing Minecraft servers: worlds, economies and progression. Six servers, one with ~300 concurrent players, one concept acquired by a studio." />
   <meta property="og:url" content="https://dekeloni2.github.io/portfolio-website/games/minecraft.html" />
   <meta property="og:image" content="https://dekeloni2.github.io/portfolio-website/dekel.png" />
   <meta name="twitter:card" content="summary" />
@@ -235,7 +235,27 @@
       section    { padding: 64px 0; }
       #hero-mc   { padding-top: 96px; }
     }
-  </style>
+  
+    /* ─── Plain text blocks ──────────────────────────────────────── */
+    .body-text { font-size: 0.88rem; color: var(--muted); line-height: 1.7; max-width: 680px; margin-bottom: 18px; }
+    .body-text strong { color: var(--text); }
+    .note-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; }
+    .note-card h4 { margin: 0 0 6px; font-size: 0.92rem; color: var(--accent2); }
+    .note-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.65; margin: 0; }
+    .note-card p + p { margin-top: 8px; }
+
+    /* ─── Key decisions + before/after tags ──────────────────────── */
+    .key-decisions { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 10px; padding: 16px 20px; margin-bottom: 36px; }
+    .key-decisions h3 { font-size: 0.95rem; margin: 0 0 10px; color: var(--text); }
+    .key-decisions ol { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 7px; }
+    .key-decisions li { font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+    .key-decisions li strong { color: var(--text); }
+    .key-decisions li a { color: var(--accent2); font-size: 0.8rem; white-space: nowrap; }
+    .ba-tags { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .ba-tags span { font-size: 0.68rem; font-weight: 700; color: var(--muted); border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; }
+    .ba-tags span.after { color: var(--accent2); border-color: var(--accent); }
+    [id] { scroll-margin-top: 90px; }
+</style>
 </head>
 <body>
 
@@ -244,7 +264,6 @@
     <a href="../index.html" class="nav-logo" style="text-decoration:none;">Dekel Riess</a>
     <ul class="nav-links">
       <li><a href="../games.html">Games</a></li>
-      <li><a href="../prototypes.html">Experiments</a></li>
       <li><a href="../experience.html">Experience</a></li>
       <li><a href="../toolbox.html">Toolbox</a></li>
       <li><a href="../roadmap.html">Roadmap</a></li>
@@ -258,95 +277,56 @@
 
       <!-- Meta column -->
       <div class="game-meta-col">
-        <span class="badge badge-done">Live experience · 2014–2025</span>
+        <span class="badge badge-done">2014–2025</span>
         <div style="display:flex; align-items:center; gap:12px; margin-top:12px;">
           <img src="../minecraft.png" alt="Server network logo" style="width:40px; height:40px; object-fit:contain; border-radius:8px;">
           <h2 style="margin:0;">Minecraft Level &amp; World Design</h2>
         </div>
         <p class="concept">
-          Before any of my other projects, this is where I taught myself design. For a decade I built Minecraft servers — shaping the worlds players move through, the economies that hold them, and the progression that pulls them forward. Six servers here, across RPG, PvP-adjacent, and educational play. Several reached live betas; one peaked around 300 concurrent players; one original concept was acquired by a studio.
+          I taught myself design here, years before college. From 2014 to 2025 I designed Minecraft servers: the worlds, the economies and the progression. This page covers six of them, across RPG, PvP and educational servers. Several ran live betas, one peaked at about 300 concurrent players, and a studio acquired one of my concepts.
         </p>
         <div class="game-info-row">
-          <div class="game-info-item"><span class="game-info-key">Span</span><span class="game-info-val">2014 – 2025</span></div>
-          <div class="game-info-item"><span class="game-info-key">Platform</span><span class="game-info-val">Minecraft (Java) · multiplayer servers</span></div>
-          <div class="game-info-item"><span class="game-info-key">Role</span><span class="game-info-val">Level &amp; World Designer · Systems · Textures</span></div>
+          <div class="game-info-item"><span class="game-info-key">Years</span><span class="game-info-val">2014–2025</span></div>
+          <div class="game-info-item"><span class="game-info-key">Platform</span><span class="game-info-val">Minecraft (Java) multiplayer servers</span></div>
+          <div class="game-info-item"><span class="game-info-key">Role</span><span class="game-info-val">Level and world design, systems, textures</span></div>
           <div class="game-info-item"><span class="game-info-key">Scale</span><span class="game-info-val">Up to ~300 concurrent players</span></div>
-          <div class="game-info-item"><span class="game-info-key">Owned</span><span class="game-info-val">Zone/world layout, progression, economy, quests, custom textures</span></div>
-          <div class="game-info-item"><span class="game-info-key">Notable</span><span class="game-info-val">One original concept acquired by a studio</span></div>
-          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">Foundational self-taught work · full GDDs</span></div>
+          <div class="game-info-item"><span class="game-info-key">I owned</span><span class="game-info-val">World layout, progression, economy, quests, custom textures</span></div>
         </div>
-        <a href="https://docs.google.com/document/d/1oqzfVGrg5s3YNIGHqwxjItKhmd3gzFKwkxDQOZa_nqc/edit" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top:20px; width:100%; justify-content:center;">Read a full RPG server GDD ↗</a>
-        <a href="https://youtu.be/1Ps4Xxkx8eI" target="_blank" rel="noopener" class="btn btn-secondary" style="margin-top:10px; width:100%; justify-content:center;">▶ Watch a server showcase ↗</a>
+        <a href="https://docs.google.com/document/d/1oqzfVGrg5s3YNIGHqwxjItKhmd3gzFKwkxDQOZa_nqc/edit" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top:20px; width:100%; justify-content:center;">Read an RPG server GDD ↗</a>
+        <a href="https://youtu.be/1Ps4Xxkx8eI" target="_blank" rel="noopener" class="btn btn-secondary" style="margin-top:10px; width:100%; justify-content:center;">Watch a server showcase ↗</a>
       </div>
 
       <!-- Content column -->
       <div class="game-content-col">
-        <div class="at-glance reveal">
-          <span class="label">At a glance</span>
-          <p class="at-glance-hook">A decade of designing <strong>Minecraft servers</strong> — worlds, economies, and progression systems — several with real, live player bases. This is where I learned level design: shaping the spaces players move through, at a scale most of my other work never reached.</p>
-          <div class="highlight-chips">
-            <span class="highlight-chip">Designing servers since 2014</span>
-            <span class="highlight-chip">Peak ~300 concurrent players</span>
-            <span class="highlight-chip">A concept acquired by a studio</span>
-            <span class="highlight-chip">RPG · PvP · Educational</span>
-            <span class="highlight-chip">6 servers designed</span>
-          </div>
-          <a href="#servers" class="jump-to-detail">Jump to the servers ↓</a>
+        <div class="key-decisions">
+          <h3>Key decisions</h3>
+          <ol>
+            <li><strong>Split worlds into closed zones with level gates,</strong> so players discover the map in order instead of all at once. <a href="#principles">More ↓</a></li>
+            <li><strong>Gave every region its own look,</strong> so hundreds of players could find their way without a minimap. <a href="#principles">More ↓</a></li>
+            <li><strong>Tied difficulty to distance,</strong> so walking deeper into the world is the difficulty curve. <a href="#principles">More ↓</a></li>
+            <li><strong>Next time: scope to the team I have,</strong> and prove the core loop before building the whole world. <a href="#lessons">More ↓</a></li>
+          </ol>
         </div>
 
-        <div class="section-line">How I Approached It</div>
-        <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:24px;">
-          The 60-second version — the reasoning that ran through every server, from the core problem to what I'd change next. The servers themselves are below.
-        </p>
-        <div class="spine-grid">
-          <div class="spine-card">
-            <div class="spine-kicker">01 · Problem</div>
-            <h4>Design space for a live crowd</h4>
-            <p>A single-player level can be linear. A server has to hold <em>hundreds</em> of players wandering at once — each needing to know where they are, where to go, and why to keep going, with no loading screen to hide the seams.</p>
-          </div>
-          <div class="spine-card">
-            <div class="spine-kicker">02 · Approach</div>
-            <h4>Zone, gate, landmark</h4>
-            <p>I built worlds as themed regions with deliberate connections and level-gated access, each region a distinct silhouette so players self-orient. The <em>map</em> teaches the progression before any text does.</p>
-          </div>
-          <div class="spine-card">
-            <div class="spine-kicker">03 · Test</div>
-            <h4>Real players, live betas</h4>
-            <p>These weren't paper designs. They ran with real communities — closed betas of ~50, one peaking near <em>300 concurrent</em> — which is where a layout's flaws actually show up.</p>
-          </div>
-          <div class="spine-card">
-            <div class="spine-kicker">04 · Result</div>
-            <h4>Communities, and an acquisition</h4>
-            <p>Servers that held live player bases, textures I authored 100% of, and one original concept a studio thought was worth <em>buying</em>. Design validated by players, not just by me.</p>
-          </div>
-          <div class="spine-card">
-            <div class="spine-kicker">05 · What I'd Change</div>
-            <h4>Scope to the team I had</h4>
-            <p>Most of these closed for reasons outside design — lost programmer budget, teammates drafted into the army. I'd scope tighter to what a small volunteer team can actually ship, and prove the loop before building the whole world.</p>
-          </div>
-        </div>
+        <div class="section-line" id="principles">The problem</div>
+        <p class="body-text">A single-player level can be linear. A server has hundreds of players wandering at once, and each of them needs to know where they are, where to go next and why, with no loading screen to hide the seams. These are the rules I ended up working by.</p>
 
-        <div class="section-line" style="margin-top:44px;">Level Design Principles</div>
         <div class="pillars-grid">
           <div class="pillar">
-            <div class="pillar-num">01</div>
-            <h4>Zone &amp; Gate</h4>
-            <p>Worlds split into contained regions with limited exits and level-gated access, so the map reveals itself in order instead of dumping the player into everything at once.</p>
+            <h4>Zones and gates</h4>
+            <p>The world is split into closed regions with few exits and level-gated entry, so players discover the map in order instead of all at once.</p>
           </div>
           <div class="pillar">
-            <div class="pillar-num">02</div>
-            <h4>Landmarks &amp; Readability</h4>
-            <p>Every city and region gets its own theme, palette, and silhouette — a green farming valley, a trade port, a fog-choked crime district — so players always know where they are without a minimap.</p>
+            <h4>Landmarks</h4>
+            <p>Every city and region has its own theme, colors and silhouette: a green farming valley, a trade port, a crime district full of fog. Players know where they are without a minimap.</p>
           </div>
           <div class="pillar">
-            <div class="pillar-num">03</div>
-            <h4>Difficulty by Region</h4>
-            <p>Enemy level and reward scale with how deep or far a zone sits. Risk maps to reward spatially, so moving through the world <em>is</em> the difficulty curve.</p>
+            <h4>Difficulty by distance</h4>
+            <p>Enemy levels and rewards go up the deeper or farther a zone is. Walking through the world is the difficulty curve.</p>
           </div>
           <div class="pillar">
-            <div class="pillar-num">04</div>
-            <h4>Flow &amp; Encounter Placement</h4>
-            <p>Paths, hubs, and NPC/quest placement pull players forward and set the rhythm of tension and rest — the level guiding the player, not a quest marker.</p>
+            <h4>Pacing with paths</h4>
+            <p>Paths, hubs and where I put NPCs and quests pull players forward and alternate tension with rest, so the level guides them instead of a quest marker.</p>
           </div>
         </div>
       </div>
@@ -355,180 +335,172 @@
 
     <!-- ═══ The Servers ═══ -->
     <div id="servers" style="margin-top:80px; scroll-margin-top:80px;">
-      <div class="section-line">The Servers</div>
-      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:700px; margin-bottom:28px;">
-        Six servers, ordered roughly by how far they got. Some ran live; others are designed-but-unlaunched concepts backed by full design docs. I've framed each honestly — for the concepts, the <em>design thinking</em> is the artifact, not a shipped build.
+      <div class="section-line">The servers</div>
+      <p class="body-text" style="max-width:700px; margin-bottom:28px;">
+        Roughly ordered by how far they got. Some ran live. Others never launched and exist as design docs, so for those the design is what I'm showing, not a build.
       </p>
 
-      <!-- Server: Solo RPG (has world image) -->
       <div class="server">
-        <img class="server-media" src="../minecraft_rpg_world.jpg" alt="Custom RPG world — shader-lit overworld with custom trees, farmland and paths" onerror="this.style.display='none'">
+        <img class="server-media" src="../minecraft_rpg_world.jpg" alt="Custom RPG world with shaders, custom trees, farmland and paths" onerror="this.style.display='none'">
         <div class="server-body">
           <div class="server-head">
-            <h3>Solo RPG — a world in enclosed zones</h3>
+            <h3>Solo RPG: a world in closed zones</h3>
             <span class="badge badge-shelf">Designed · Full GDD</span>
           </div>
-          <div class="server-kind">Solo-designed MMORPG-scale server · level, world &amp; systems design</div>
+          <div class="server-kind">MMORPG-sized server I designed alone</div>
           <div class="server-cols">
             <div>
               <h5>What it is</h5>
-              <p>An RPG server I designed solo, built around branching progression — professions, collections, home setup — layered over a large explorable world.</p>
+              <p>An RPG server with branching progression (professions, collections, your own home) on top of a large world to explore.</p>
             </div>
             <div>
-              <h5>Level &amp; world design</h5>
-              <p>The world is split into enclosed <strong>~70×70 zones</strong>, each with up to <strong>four exits</strong> — deliberate connectivity and gating. Themed, level-ranged cities give it shape: a green-mountains starter valley (lv 1–30), a trade port where every ship in the world docks, a chalk-mountain warrior village, <strong>Arcanum</strong> the magic city you must earn entry to, a fog-and-crime district hiding an underground-rail villain, a graveyard city, and a forbidden Temple (lv 50–80). <strong>Midas' Tunnel</strong> descends three floors where danger and loot both climb.</p>
+              <h5>The world</h5>
+              <p>Closed <strong>~70×70 zones</strong>, each with up to <strong>four exits</strong>. Cities set the level ranges: a starter valley in green mountains (lv 1–30), a trade port where every ship docks, a warrior village in chalk mountains, <strong>Arcanum</strong>, a magic city you have to earn your way into, a foggy crime district with a villain hiding in an underground railway, a graveyard city, and a forbidden Temple (lv 50–80). <strong>Midas' Tunnel</strong> goes down three floors, and danger and loot both rise on the way.</p>
             </div>
           </div>
-          <div class="server-outcome"><strong>Systems on top:</strong> professions, collections that complete into stat-granting card sets, a prestige/rebirth loop, a rune-peeling inventory mini-game, and a parkour dimension for non-combat progression. <strong>Status:</strong> shelved for time — a concept I've noted I'll revisit.</div>
+          <div class="server-outcome"><strong>Systems:</strong> professions, collections that complete into stat-granting card sets, prestige and rebirth, a rune-peeling inventory minigame, and a parkour dimension for progressing without combat. <strong>Status:</strong> shelved for lack of time. I'd like to come back to it.</div>
           <div class="server-foot">
-            <a class="server-link" href="https://docs.google.com/document/d/1oqzfVGrg5s3YNIGHqwxjItKhmd3gzFKwkxDQOZa_nqc/edit" target="_blank" rel="noopener">Read the full GDD ↗</a>
+            <a class="server-link" href="https://docs.google.com/document/d/1oqzfVGrg5s3YNIGHqwxjItKhmd3gzFKwkxDQOZa_nqc/edit" target="_blank" rel="noopener">Read the GDD ↗</a>
           </div>
         </div>
       </div>
 
-      <!-- Server: PixelStory -->
       <div class="server">
         <div class="server-body">
           <div class="server-head">
-            <h3>PixelStory — race-based RPG</h3>
+            <h3>PixelStory: an RPG built on races</h3>
             <span class="badge badge-wip">Closed beta · ~50 players</span>
           </div>
-          <div class="server-kind">RPG server · gimmick, balance &amp; economy design · 100% custom textures</div>
+          <div class="server-kind">RPG server · core idea, balance, economy, all custom textures</div>
           <div class="server-cols">
             <div>
               <h5>What it is</h5>
-              <p>A race-based RPG server — five playable races (Elves, Giants, Fairies, Dwarves, Angels), each a distinct combat identity: elves on the bow, giants slow but tanky, fairies as flying support, dwarves fast backstab assassins, angels the late-game unlock.</p>
+              <p>Five playable races that fight differently. Elves use bows, giants are slow and tanky, fairies fly and support, dwarves are fast backstabbers, and angels unlock late.</p>
             </div>
             <div>
-              <h5>Level &amp; world design</h5>
-              <p>A huge themed overworld — forests, sci-fi mountain ranges, abandoned cities, a hidden underground city, and a giant graveyard built around a single enormous tree. Each race gets its own home city, with the human capital designed as the standout landmark. Weapons and armor read at a glance: the stronger the gear, the more ornate the texture.</p>
+              <h5>The world</h5>
+              <p>Forests, sci-fi mountain ranges, abandoned cities, a hidden underground city, and a huge graveyard built around one enormous tree. Each race has a home city, and the human capital is the main landmark. You can read gear at a glance: the stronger it is, the more detailed its texture.</p>
             </div>
           </div>
-          <div class="server-outcome"><strong>My role:</strong> designed the core gimmick, balance and economy, and authored 100% of the custom textures (since lost). <strong>Outcome:</strong> ~50 players in closed beta; closed when we ran out of budget for a programmer.</div>
+          <div class="server-outcome"><strong>My part:</strong> the core idea, balance and economy, and all of the custom textures (since lost). <strong>Outcome:</strong> about 50 players in closed beta. It closed when we ran out of money for a programmer.</div>
           <div class="server-foot">
             <a class="server-link" href="https://docs.google.com/document/d/1TAOHihi4RsB5LGpRu0Bj8BJHLbCApEnbnRPt8_K3ktc/edit" target="_blank" rel="noopener">Read the design doc ↗</a>
-            <span style="font-size:0.76rem; color:var(--muted);">Showcase video is currently private</span>
+            <span style="font-size:0.76rem; color:var(--muted);">The showcase video is private for now</span>
           </div>
         </div>
       </div>
 
-      <!-- Server: School Planet (his own original project; whiteboard image) -->
       <div class="server">
         <div class="server-body">
           <div class="server-head">
-            <h3>School Planet — a space RPG that teaches English</h3>
-            <span class="badge badge-shelf">Designed · original concept</span>
+            <h3>School Planet: a space RPG that teaches English</h3>
+            <span class="badge badge-shelf">Designed · Original concept</span>
           </div>
-          <div class="server-kind">Educational RPG · world &amp; systems design</div>
+          <div class="server-kind">Educational RPG</div>
           <div style="display:grid; grid-template-columns: 1.4fr 1fr; gap:22px; align-items:start;">
             <div>
               <div class="server-cols" style="grid-template-columns:1fr;">
                 <div>
                   <h5>What it is</h5>
-                  <p>An original educational RPG that teaches English through outer space — players explore as astronauts and aliens across a world I built in orbit, picking up the language by playing rather than studying.</p>
+                  <p>Players explore a world in orbit as astronauts and aliens and pick up English by playing instead of studying.</p>
                 </div>
                 <div style="margin-top:14px;">
-                  <h5>The design move</h5>
-                  <p>I built the whole thing around a <strong>learning goal instead of just fun</strong> — the space setting turns vocabulary and practice into exploration, quests, and discovery, so moving through the world doubles as moving through the language. Designing a space players learn <em>in</em>, not just play in, is a different discipline, and the one I'm proudest of reaching for.</p>
+                  <h5>Why I like it</h5>
+                  <p>The goal was learning, not only fun. Vocabulary and practice turn into quests and discoveries, so getting further into the world means getting further into the language. It's the design I'm proudest of attempting.</p>
                 </div>
               </div>
             </div>
-            <img src="../minecraft_board.jpg" alt="Original brainstorming whiteboard for School Planet" style="width:100%; border-radius:10px; border:1px solid var(--border);" onerror="this.style.display='none'">
+            <img src="../minecraft_board.jpg" alt="The whiteboard where School Planet started" style="width:100%; border-radius:10px; border:1px solid var(--border);" onerror="this.style.display='none'">
           </div>
-          <div class="server-outcome"><strong>Status:</strong> fully designed as an original concept — the brainstorming board (right) is where it started. Development paused for an extended stretch and fell behind technically, so I chose to focus on other projects.</div>
+          <div class="server-outcome"><strong>Status:</strong> fully designed. It started on the whiteboard in the photo. Development paused for a long time and fell behind technically, so I moved on to other projects.</div>
         </div>
       </div>
 
-      <!-- Server: 300-peak from scratch -->
       <div class="server">
         <div class="server-body">
           <div class="server-head">
-            <h3>Built-from-scratch server — peak ~300 players</h3>
+            <h3>A server built from scratch, peak ~300 players</h3>
             <span class="badge badge-done">Ran live · ~300 concurrent</span>
           </div>
-          <div class="server-kind">Original server · gameplay-loop &amp; texture design</div>
+          <div class="server-kind">Original server · gameplay loop and textures</div>
           <div class="server-cols">
             <div>
               <h5>What it is</h5>
-              <p>A server I designed from scratch alongside one other designer and a programmer. I owned roughly <strong>90% of the gameplay loop</strong> and authored the textures.</p>
+              <p>I designed it from scratch with one other designer and a programmer. I did about <strong>90% of the gameplay loop</strong> and the textures.</p>
             </div>
             <div>
               <h5>Why it matters</h5>
-              <p>It's the one that reached the biggest live audience — a <strong>peak of ~300 concurrent players</strong>. That's a real, at-scale playtest of a loop I designed: the kind of feedback signal most solo designers never get to work against.</p>
+              <p>It had my biggest audience, <strong>about 300 players at once</strong> at its peak. That was a live test of a loop I designed, at a scale I haven't had since.</p>
             </div>
           </div>
           <div class="server-foot">
-            <a class="server-link" href="https://youtu.be/1Ps4Xxkx8eI" target="_blank" rel="noopener">▶ Watch the showcase ↗</a>
+            <a class="server-link" href="https://youtu.be/1Ps4Xxkx8eI" target="_blank" rel="noopener">Watch the showcase ↗</a>
           </div>
         </div>
       </div>
 
-      <!-- Server: Case/collection acquired -->
       <div class="server">
         <div class="server-body">
           <div class="server-head">
-            <h3>Case &amp; Collection server — acquired concept</h3>
-            <span class="badge badge-done">Original concept · acquired by a studio</span>
+            <h3>Case and collection server</h3>
+            <span class="badge badge-done">Acquired by a studio</span>
           </div>
-          <div class="server-kind">Collection/economy design · 100% custom textures</div>
+          <div class="server-kind">Collection and economy design · all custom textures</div>
           <div class="server-cols">
             <div>
               <h5>What it is</h5>
-              <p>A collection-chase server built on a case-opening loop — open cases (CS-style), swap the cards you pull, and complete a full set for a real cash prize. I authored 100% of the textures.</p>
+              <p>You open CS-style cases, trade the cards you pull, and win a real cash prize for completing a full set. I made all the textures.</p>
             </div>
             <div>
               <h5>Why it matters</h5>
-              <p>This one was <strong>my original idea</strong>, and it was <strong>acquired by a studio (YourGame)</strong>. Having a concept validated commercially — bought, not just played — is a signal I'm proud of and rare to have this early.</p>
+              <p>It was <strong>my idea</strong>, and a studio, <strong>YourGame</strong>, bought it.</p>
             </div>
           </div>
           <div class="server-foot">
-            <a class="server-link" href="https://youtu.be/Mvjvj4BttgI" target="_blank" rel="noopener">▶ Watch the showcase ↗</a>
+            <a class="server-link" href="https://youtu.be/Mvjvj4BttgI" target="_blank" rel="noopener">Watch the showcase ↗</a>
           </div>
         </div>
       </div>
 
-      <!-- Server: Dungeon Exploring -->
       <div class="server">
         <div class="server-body">
           <div class="server-head">
-            <h3>Dungeon Exploring — RPG elements</h3>
-            <span class="badge badge-shelf">Concept · did not launch</span>
+            <h3>Dungeon Exploring</h3>
+            <span class="badge badge-shelf">Concept · Didn't launch</span>
           </div>
           <div class="server-kind">Dungeon-crawl RPG concept</div>
           <div class="server-cols">
             <div>
               <h5>What it is</h5>
-              <p>A dungeon-exploration server with RPG progression layered in — designed to send players deeper through connected combat spaces.</p>
+              <p>A dungeon server with RPG progression, built to send players deeper through connected combat areas.</p>
             </div>
             <div>
-              <h5>Honest outcome</h5>
-              <p>It didn't make it to launch — a mix of budget and waning team interest. Included here because the earlier design work is real, and knowing which projects to let go is part of the job.</p>
+              <h5>What happened</h5>
+              <p>It never launched. We ran short on budget and the team lost interest.</p>
             </div>
           </div>
           <div class="server-foot">
-            <a class="server-link" href="https://youtu.be/UMOAslKeR2U" target="_blank" rel="noopener">▶ Watch the showcase ↗</a>
+            <a class="server-link" href="https://youtu.be/UMOAslKeR2U" target="_blank" rel="noopener">Watch the showcase ↗</a>
           </div>
         </div>
       </div>
 
-      <div class="callout">
-        <h4>About the unfinished work</h4>
-        <p>Several of these never reached a full public launch — and almost always for reasons outside the design. Programmer budget ran out; teammates were drafted into the army; a solo project ran out of my own free time. In volunteer Minecraft-server land, that's the normal shape of things.</p>
-        <p>I've kept them here, framed honestly as design concepts, because the layouts, economies, and progression thinking are real work — and the ones that <em>did</em> run (a ~50-player beta, a ~300-peak server, a concept a studio bought) are the proof that the thinking holds up in front of real players.</p>
+      <div class="callout" id="lessons">
+        <h4>Why so many didn't finish</h4>
+        <p>Most of these closed for reasons outside the design: the money for a programmer ran out, teammates were drafted into the army, or my own free time ran out on a solo project. That's normal for volunteer Minecraft servers. The ones that did run (a ~50-player beta, a server that peaked near 300, a concept a studio bought) are where the design got tested by real players.</p>
+        <p>What I'd do differently: scope to what a small volunteer team can actually ship, and prove the core loop before building the whole world.</p>
       </div>
     </div>
 
   </div>
 </section>
-
 <!-- ═══ Site Nav Footer ═══ -->
 <div class="site-nav-footer">
   <div class="container">
-    <span class="site-nav-footer-label">Jump to</span>
+    <span class="site-nav-footer-label">Pages</span>
     <div class="site-nav-footer-grid">
       <a href="../index.html">Home</a>
       <a href="../games.html">Games</a>
-      <a href="../prototypes.html">Experiments</a>
       <a href="../experience.html">Experience</a>
       <a href="../toolbox.html">Toolbox</a>
       <a href="../roadmap.html">Roadmap</a>
@@ -550,8 +522,7 @@
 <!-- Contact -->
 <section id="contact">
   <div class="container">
-    <span class="label">Get in touch</span>
-    <h2>Let's talk.</h2>
+    <h2>Contact</h2>
     <p>Open to level-design and game-design roles, internships, and collaborations.</p>
     <div class="contact-links">
       <a href="mailto:dekelriess@gmail.com" class="btn btn-primary">✉ dekelriess@gmail.com</a>

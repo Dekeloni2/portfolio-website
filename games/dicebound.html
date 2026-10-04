@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dice Bound — Dekel Riess</title>
-  <meta name="description" content="Dice Bound — a party-based idle RPG with dynamic dice roles. Full GDD and team post-mortem on why it was shelved." />
+  <title>Dice Bound | Dekel Riess</title>
+  <meta name="description" content="Dice Bound, a party idle RPG where dice roles come from their spells. Full GDD and the team's post mortem on why it was shelved." />
   <link rel="icon" type="image/png" href="../favicon.png" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Dice Bound — Dekel Riess" />
-  <meta property="og:description" content="Dice Bound — a party-based idle RPG with dynamic dice roles. Full GDD and team post-mortem on why it was shelved." />
+  <meta property="og:title" content="Dice Bound | Dekel Riess" />
+  <meta property="og:description" content="Dice Bound, a party idle RPG where dice roles come from their spells. Full GDD and the team's post mortem on why it was shelved." />
   <meta property="og:url" content="https://dekeloni2.github.io/portfolio-website/games/dicebound.html" />
   <meta property="og:image" content="https://dekeloni2.github.io/portfolio-website/dekel.png" />
   <meta name="twitter:card" content="summary" />
@@ -897,6 +897,26 @@
     .jump-to-detail:hover { text-decoration: none; opacity: 0.82; }
     .section-line { scroll-margin-top: 80px; }
 
+
+    /* ─── Plain text blocks ──────────────────────────────────────── */
+    .body-text { font-size: 0.88rem; color: var(--muted); line-height: 1.7; max-width: 680px; margin-bottom: 18px; }
+    .body-text strong { color: var(--text); }
+    .note-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; }
+    .note-card h4 { margin: 0 0 6px; font-size: 0.92rem; color: var(--accent2); }
+    .note-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.65; margin: 0; }
+    .note-card p + p { margin-top: 8px; }
+
+    /* ─── Key decisions + before/after tags ──────────────────────── */
+    .key-decisions { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 10px; padding: 16px 20px; margin-bottom: 36px; }
+    .key-decisions h3 { font-size: 0.95rem; margin: 0 0 10px; color: var(--text); }
+    .key-decisions ol { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 7px; }
+    .key-decisions li { font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+    .key-decisions li strong { color: var(--text); }
+    .key-decisions li a { color: var(--accent2); font-size: 0.8rem; white-space: nowrap; }
+    .ba-tags { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .ba-tags span { font-size: 0.68rem; font-weight: 700; color: var(--muted); border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; }
+    .ba-tags span.after { color: var(--accent2); border-color: var(--accent); }
+    [id] { scroll-margin-top: 90px; }
 </style>
 </head>
 <body>
@@ -906,7 +926,6 @@
     <a href="../index.html" class="nav-logo" style="text-decoration:none;">Dekel Riess</a>
     <ul class="nav-links">
       <li><a href="../games.html">Games</a></li>
-      <li><a href="../prototypes.html">Experiments</a></li>
       <li><a href="../experience.html">Experience</a></li>
       <li><a href="../toolbox.html">Toolbox</a></li>
       <li><a href="../roadmap.html">Roadmap</a></li>
@@ -918,9 +937,8 @@
   <div class="container">
 
     <div class="section-header">
-      <span class="label">Full Game Design Document</span>
-      <h2>Dice Bound — Idle RPG</h2>
-      <p>A complete GDD covering core concept, gameplay loops, mechanics, systems, economy, and UI — produced as part of a competitive college extracurricular program. I was the game designer on a three-person team (designer, artist, developer).</p>
+      <h2>Dice Bound</h2>
+      <p>An idle RPG we designed in a competitive extracurricular program at college. I was the designer on a team of three, with an artist and a developer, and wrote the full GDD. We shelved it after about two months; the post mortem is at the bottom.</p>
     </div>
 
     <div class="game-section-layout">
@@ -928,17 +946,17 @@
       <div class="game-meta-col">
         <span class="badge badge-wip" style="background:rgba(148,163,184,0.12); color:#94a3b8; border-color:rgba(148,163,184,0.3);">Shelved</span>
         <p class="concept" style="margin-top:14px;">
-          A party-based idle battler where players command a team of living dice, each with unique faces, spells, and roles. Dice roll automatically, but tapping accelerates rolls and triggers more spells — a hybrid idle/active feel.
+          You lead a party of living dice. Each face holds a spell or an effect. The dice roll on their own, and tapping makes them roll faster and cast more spells.
         </p>
         <div class="game-info-row">
           <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">Unity</span></div>
-          <div class="game-info-item"><span class="game-info-key">Platform</span><span class="game-info-val">iOS & Android</span></div>
-          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">Idle · Auto-Battler · RPG</span></div>
+          <div class="game-info-item"><span class="game-info-key">Platform</span><span class="game-info-val">iOS and Android</span></div>
+          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">Idle auto-battler RPG</span></div>
           <div class="game-info-item"><span class="game-info-key">Party</span><span class="game-info-val">3–4 dice</span></div>
-          <div class="game-info-item"><span class="game-info-key">Team</span><span class="game-info-val">3 (Designer, Artist, Developer)</span></div>
-          <div class="game-info-item"><span class="game-info-key">Role</span><span class="game-info-val">Production · Lead Game Designer</span></div>
-          <div class="game-info-item"><span class="game-info-key">Owned</span><span class="game-info-val">Research, gameplay design</span></div>
-          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">GDD Complete</span></div>
+          <div class="game-info-item"><span class="game-info-key">Team</span><span class="game-info-val">Designer, artist, developer</span></div>
+          <div class="game-info-item"><span class="game-info-key">My role</span><span class="game-info-val">Lead game designer, production</span></div>
+          <div class="game-info-item"><span class="game-info-key">I owned</span><span class="game-info-val">Research, gameplay design</span></div>
+          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">GDD complete, shelved</span></div>
         </div>
 
         <!-- Dice visual -->
@@ -955,98 +973,39 @@
       </div>
 
       <div class="game-content-col">
-        <!-- At a glance -->
-        <div class="at-glance reveal">
-          <span class="label">At a glance</span>
-          <p class="at-glance-hook">A party-based <strong>idle auto-battler</strong> where you command a team of living dice — each with unique faces, spells, and roles. Dice roll on their own; tap to accelerate and fire more spells.</p>
-          <div class="highlight-chips">
-            <span class="highlight-chip">Lead Designer + Production</span>
-            <span class="highlight-chip">Team of 3</span>
-            <span class="highlight-chip">Idle / auto-battler hybrid</span>
-            <span class="highlight-chip">Full GDD complete</span>
-          </div>
-          <a href="#breakdown" class="jump-to-detail">Jump to the full breakdown ↓</a>
+        <div class="key-decisions">
+          <h3>Key decisions</h3>
+          <ol>
+            <li><strong>Roles come from the spells on a die,</strong> not a fixed class, so we got many builds without designing dozens of dice. <a href="#roles">More ↓</a></li>
+            <li><strong>Wrote the damage formula before any content,</strong> so every later number had something to answer to. <a href="#systems">More ↓</a></li>
+            <li><strong>Capped offline progress at 8–12 hours,</strong> so returning players get rewarded without inflating the economy. <a href="#systems">More ↓</a></li>
+            <li><strong>Shelved it after the pitch was rejected,</strong> instead of shipping a live game we weren't equipped to run. <a href="#postmortem">More ↓</a></li>
+          </ol>
         </div>
 
 
-
-        <!-- ═══ Design Story (skim-first spine) ═══ -->
-        <div style="margin-top:72px;">
-          <div class="section-line">How I Designed It</div>
-          <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">The 60-second version &mdash; the design brief, the system I'm proudest of, and where the project actually stands.</p>
-          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px;">
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-            <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">01 · Problem</div>
-            <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Design a full idle battler</h4>
-            <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">As lead designer on a 3-person college team, spec a complete idle auto-battler around &ldquo;living dice&rdquo; &mdash; one that plays itself but rewards active play, with real build depth &mdash; detailed enough to hand straight to an artist and a developer.</p>
-          </div>
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-            <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">02 · Design Decision</div>
-            <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">The die is the character</h4>
-            <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Each face carries its own spell or outcome, dice roll automatically, and tapping accelerates rolls and fires more spells &mdash; an idle game that still pays off active input.</p>
-          </div>
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-            <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">03 · Standout System</div>
-            <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Roles that emerge</h4>
-            <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Dice have no fixed class. A die's role emerges from the spells equipped on its faces, and two comparable roles fuse into a Hybrid that gains 50% of both. Identity comes from how you build, not a locked class.</p>
-          </div>
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-            <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">04 · Result</div>
-            <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">A production-ready GDD</h4>
-            <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">A complete design document &mdash; core loop, mechanics, systems, economy and UI &mdash; produced in a competitive extracurricular program and ready for the team to build from.</p>
-          </div>
-          <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-            <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">05 · Where It Stands</div>
-            <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Shelved at GDD stage</h4>
-            <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">The team pitched it for funding, the pitch was rejected, and we shelved it at the GDD stage &mdash; I plan to finish it solo. If I pick it back up I'd prototype the roll-to-reward feel first: the tap-to-accelerate hybrid is the riskiest assumption paper design can't confirm.</p>
-          </div>
-          </div>
-        </div>
-
-        <!-- Core Loop -->
-        <div class="section-line" id="breakdown">Core Loop</div>
-        <div class="loop-chain">
-          <div class="loop-step"><div class="loop-dot">1</div><span class="loop-step-text">Roll Dice (auto + tap to accelerate)</span></div>
-          <div class="loop-connector"></div>
-          <div class="loop-step"><div class="loop-dot">2</div><span class="loop-step-text">Resolve Face Outcome — damage, spell, resource, utility</span></div>
-          <div class="loop-connector"></div>
-          <div class="loop-step"><div class="loop-dot">3</div><span class="loop-step-text">Earn Dicelets, XP, Materials, Gold</span></div>
-          <div class="loop-connector"></div>
-          <div class="loop-step"><div class="loop-dot">4</div><span class="loop-step-text">Upgrade Dice Faces, Spells, and Stats</span></div>
-          <div class="loop-connector"></div>
-          <div class="loop-step"><div class="loop-dot">5</div><span class="loop-step-text">Become Stronger → Push Further Stages → Repeat</span></div>
-        </div>
-
-        <!-- Design Pillars -->
-        <div class="section-line">Design Pillars</div>
+        <div class="section-line" id="breakdown">What the design is built on</div>
         <div class="pillars-grid">
           <div class="pillar">
-            <div class="pillar-num">01</div>
-            <h4>Roll-to-Reward Loop</h4>
-            <p>Rolling should feel fast, punchy, and rewarding. Every roll triggers damage, spells, or resources — the build always matters.</p>
+            <h4>Every roll does something</h4>
+            <p>Each roll deals damage, casts a spell or drops resources, so your build shows up on every roll.</p>
           </div>
           <div class="pillar">
-            <div class="pillar-num">02</div>
-            <h4>Team-Building & Synergy</h4>
-            <p>3–4 dice, each with a dynamic role. Synergies between spells, faces, and roles create meaningful strategic choices every run.</p>
+            <h4>Party building</h4>
+            <p>Three or four dice whose roles come from their spells. The choices are in how spells, faces and roles combine.</p>
           </div>
           <div class="pillar">
-            <div class="pillar-num">03</div>
-            <h4>Meaningful Progression</h4>
-            <p>Every face is upgradeable. Spells evolve. Prestige resets unlock permanent bonuses. The player always feels stronger.</p>
+            <h4>Always getting stronger</h4>
+            <p>Every face can be upgraded, spells evolve, and prestige resets give permanent bonuses.</p>
           </div>
           <div class="pillar">
-            <div class="pillar-num">04</div>
-            <h4>Hybrid Idle + Active</h4>
-            <p>Plays itself, but active play is rewarded. Tapping accelerates rolls and triggers more spells — agency without overwhelm.</p>
+            <h4>Idle, but tapping helps</h4>
+            <p>The game plays itself. Tapping speeds up rolls and fires more spells, without making you tap to keep up.</p>
           </div>
         </div>
 
-        <!-- Dynamic Role System -->
-        <div class="section-line" style="margin-top:36px;">Dynamic Role System</div>
-        <p style="font-size:0.85rem; color:var(--muted); margin-bottom:16px;">
-          Dice don't have fixed roles. Each die's role emerges dynamically from the spells equipped on its faces. Two similar-weight roles create a <strong style="color:var(--accent2)">Hybrid Role</strong> — gaining 50% of both roles' bonuses.
-        </p>
+        <div class="section-line" id="roles" style="margin-top:36px;">Roles come from spells</div>
+        <p class="body-text">I'm proudest of this system. A die has no fixed class. Its role comes from the spells on its faces, and if two roles are about equally weighted, the die becomes a <strong style="color:var(--accent2)">Hybrid</strong> with 50% of both roles' bonuses. You get many builds without us having to design dozens of dice types.</p>
         <div class="roles-grid">
           <div class="role-pill role-tank"><div class="role-name">Tank</div><div class="role-desc">+HP, +DEF, +Shield, +Status Resistance</div></div>
           <div class="role-pill role-dps"><div class="role-name">DPS</div><div class="role-desc">+ATK, +Crit Chance, +Crit Damage</div></div>
@@ -1055,69 +1014,33 @@
           <div class="role-pill role-ctrl"><div class="role-name">Control</div><div class="role-desc">+Status Potency, +Status Duration</div></div>
         </div>
 
-        <!-- Mechanics -->
-        <div class="section-line" style="margin-top:36px;">Key Systems</div>
-        <div class="mechanics-grid">
-          <div class="mechanic-card">
-            <div class="mechanic-icon">🎲</div>
-            <h3>Per-Face Upgrades</h3>
-            <p>Every face on every die is individually upgradeable. Damage faces increase base damage; spell faces unlock higher tiers; utility faces improve resource generation.</p>
-          </div>
-          <div class="mechanic-card">
-            <div class="mechanic-icon">✨</div>
-            <h3>Spell System</h3>
-            <p>Spells trigger on roll (no mana). Each spell has a full technical spec: trigger condition, targeting, damage formula, duration, stacking rules, and cooldown.</p>
-          </div>
-          <div class="mechanic-card">
-            <div class="mechanic-icon">💥</div>
-            <h3>Status Effects</h3>
-            <p>10 effects: Burn, Freeze, Stun, Shield, Weaken, Cursed, Confused, Undead, Darkness, Seal. Each has duration, tick interval, stacking rules, and priority.</p>
-          </div>
-          <div class="mechanic-card">
-            <div class="mechanic-icon">💎</div>
-            <h3>Prestige System</h3>
-            <p>Reset dice levels and stage progress → earn Prestige Shards → spend on permanent upgrades: global Spell Power, Roll Speed, extra party slots, new spell categories.</p>
-          </div>
-          <div class="mechanic-card">
-            <div class="mechanic-icon">🌙</div>
-            <h3>Offline Progress</h3>
-            <p>25% roll speed offline, no spell triggers, reduced resource gain. Capped at 8–12 hours to prevent economy inflation while still rewarding returning players.</p>
-          </div>
-          <div class="mechanic-card">
-            <div class="mechanic-icon">📐</div>
-            <h3>Damage Formula</h3>
-            <p>FinalDamage = BaseDamage × (1 + SpellPower%) × (1 + Buffs%) × (1 − EnemyResist%). Stat scaling: StatValue = BaseValue × (1 + 0.12 × Level). Upgrade cost: BaseCost × 1.15^Level.</p>
-          </div>
-        </div>
-
-        <!-- Progression Loops -->
-        <div class="section-line" style="margin-top:36px;">Progression Loops</div>
+        <div class="section-line" style="margin-top:36px;">Loops</div>
         <div class="prog-row">
           <div class="prog-block">
-            <h3>Core Loop<br/><span style="font-size:0.73rem; font-weight:400; color:var(--muted);">Moment-to-moment</span></h3>
+            <h3>Each roll</h3>
             <ul>
-              <li>Roll dice automatically</li>
-              <li>Resolve face outcomes</li>
-              <li>Earn Dicelets, XP, Gold</li>
-              <li>Upgrade faces & spells</li>
-              <li>Defeat enemies, advance stages</li>
+              <li>Dice roll (faster if you tap)</li>
+              <li>The face resolves: damage, spell, resource or utility</li>
+              <li>Earn Dicelets, XP, materials, gold</li>
+              <li>Upgrade faces, spells and stats</li>
+              <li>Beat enemies, move to the next stage</li>
             </ul>
           </div>
           <div class="prog-block">
-            <h3>Secondary Loop<br/><span style="font-size:0.73rem; font-weight:400; color:var(--muted);">Session-to-session</span></h3>
+            <h3>Each session</h3>
             <ul>
-              <li>Complete daily & weekly quests</li>
-              <li>Earn mid-tier rewards</li>
+              <li>Daily and weekly quests</li>
+              <li>Mid-tier rewards</li>
               <li>Upgrade dice and spells</li>
               <li>Push further into stages</li>
               <li>Unlock new challenges</li>
             </ul>
           </div>
           <div class="prog-block">
-            <h3>Meta Loop<br/><span style="font-size:0.73rem; font-weight:400; color:var(--muted);">Long-term</span></h3>
+            <h3>Long term</h3>
             <ul>
               <li>Prestige reset for Shards</li>
-              <li>Invest in permanent upgrade trees</li>
+              <li>Permanent upgrade trees</li>
               <li>Collect dice, spells, cosmetics</li>
               <li>Unlock new dice families</li>
               <li>Rebirth after Prestige</li>
@@ -1125,70 +1048,93 @@
           </div>
         </div>
 
-        <!-- Status Effects detail -->
-        <div class="section-line" style="margin-top:36px;">Status Effects</div>
-        <div class="effects-wrap">
-          <div class="effect-pill"><strong>Burn</strong> — DoT</div>
-          <div class="effect-pill"><strong>Freeze</strong> — Stacking CC</div>
-          <div class="effect-pill"><strong>Stun</strong> — Skip next roll</div>
-          <div class="effect-pill"><strong>Shield</strong> — Temporary HP</div>
-          <div class="effect-pill"><strong>Weaken</strong> — Reduced damage</div>
-          <div class="effect-pill"><strong>Cursed</strong> — Reduce enemy Luck</div>
-          <div class="effect-pill"><strong>Confused</strong> — Attacks own team</div>
-          <div class="effect-pill"><strong>Undead</strong> — Reduces healing/shielding</div>
-          <div class="effect-pill"><strong>Darkness</strong> — Damage if not tapping</div>
-          <div class="effect-pill"><strong>Seal</strong> — All spells disabled</div>
+        <div class="section-line" id="systems" style="margin-top:36px;">Systems</div>
+        <div class="mechanics-grid">
+          <div class="mechanic-card">
+            <div class="mechanic-icon">🎲</div>
+            <h3>Face upgrades</h3>
+            <p>Every face on every die levels up on its own. Damage faces hit harder, spell faces unlock higher tiers, utility faces produce more resources.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">✨</div>
+            <h3>Spells</h3>
+            <p>Spells fire on a roll, with no mana. I wrote one template for all of them: trigger, targeting, damage formula, duration, stacking and cooldown.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">💎</div>
+            <h3>Prestige</h3>
+            <p>Reset dice levels and stages for Prestige Shards, then spend them on permanent upgrades: Spell Power, Roll Speed, extra party slots and new spell categories.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">🌙</div>
+            <h3>Offline progress</h3>
+            <p>Dice roll at 25% speed with no spells and fewer resources, capped at 8–12 hours. Returning players get something without the economy inflating.</p>
+          </div>
+          <div class="mechanic-card">
+            <div class="mechanic-icon">📐</div>
+            <h3>Formulas</h3>
+            <p>FinalDamage = BaseDamage × (1 + SpellPower%) × (1 + Buffs%) × (1 − EnemyResist%). StatValue = BaseValue × (1 + 0.12 × Level). Upgrade cost = BaseCost × 1.15^Level.</p>
+          </div>
         </div>
+
+        <div class="section-line" style="margin-top:36px;">Status effects</div>
+        <div class="effects-wrap">
+          <div class="effect-pill"><strong>Burn</strong>: damage over time</div>
+          <div class="effect-pill"><strong>Freeze</strong>: stacking crowd control</div>
+          <div class="effect-pill"><strong>Stun</strong>: skip next roll</div>
+          <div class="effect-pill"><strong>Shield</strong>: temporary HP</div>
+          <div class="effect-pill"><strong>Weaken</strong>: less damage</div>
+          <div class="effect-pill"><strong>Cursed</strong>: lowers enemy Luck</div>
+          <div class="effect-pill"><strong>Confused</strong>: attacks own team</div>
+          <div class="effect-pill"><strong>Undead</strong>: less healing and shielding</div>
+          <div class="effect-pill"><strong>Darkness</strong>: damage if you're not tapping</div>
+          <div class="effect-pill"><strong>Seal</strong>: no spells</div>
+        </div>
+        <p class="body-text" style="margin-top:12px; font-size:0.8rem;">Each one has a duration, tick interval, stacking rule and priority in the GDD.</p>
 
       </div>
     </div>
 
-    <!-- ─── POST MORTEM ─── -->
-    <div style="margin-top:80px; padding-top:64px; border-top:1px solid var(--border);">
-      <span class="label">Post Mortem</span>
-      <h2 style="margin-bottom:10px;">Why We Shelved It</h2>
+    <!-- Post mortem -->
+    <div id="postmortem" style="margin-top:80px; padding-top:64px; border-top:1px solid var(--border);">
+      <h2 style="margin-bottom:10px;">Why we shelved it</h2>
       <p style="color:var(--muted); max-width:640px; margin-bottom:40px;">
-        After around two months of work, the team pitched Dice Bound at a pitch night presentation to secure funding. The pitch was rejected. That was the moment we sat down, had an honest conversation, and decided to shelve the project. Here's what we concluded.
+        After about two months, we pitched Dice Bound at a pitch night to get funding, and the pitch was rejected. We talked it through honestly afterwards and decided to shelve it.
       </p>
 
       <div class="postmortem-grid">
         <div class="pm-card pm-good">
-          <h4>What Worked</h4>
+          <h4>What worked</h4>
           <ul>
-            <li>The dynamic role system — emerging roles from spell weights massively increases build diversity without needing dozens of pre-designed dice types.</li>
-            <li>Writing the damage formula early forced clarity on every downstream decision. Numbers without a formula are just vibes.</li>
-            <li>The three-loop structure gave every feature a clear home — if it doesn't serve core, secondary, or meta, it doesn't belong.</li>
-            <li>Designing the spell template before writing any spells kept the compendium consistent and easy to expand.</li>
-            <li>The 8–12 hour offline cap was a specific, defensible decision — not a guess.</li>
+            <li>Roles coming from spells gave us a lot of build variety without designing dozens of dice types.</li>
+            <li>Writing the damage formula early made every later decision clearer. Numbers without a formula are guesses.</li>
+            <li>The three loops gave every feature a home. If a feature didn't serve one of them, it didn't belong.</li>
+            <li>Designing the spell template before any spells kept the spell list consistent and easy to grow.</li>
+            <li>The 8–12 hour offline cap was a specific decision I could defend, not a guess.</li>
           </ul>
         </div>
         <div class="pm-card pm-bad">
-          <h4>Why We Stopped</h4>
+          <h4>Why we stopped</h4>
           <ul>
-            <li>The developer wasn't ready for mobile — cloud services, databases, and mobile deployment would have consumed most of the project's time before any actual game got built.</li>
-            <li>No product manager, no monetisation plan, no high-level economy design. For a live service game, those aren't optional.</li>
-            <li>Shipping something we weren't equipped to ship would have produced a worse game and a worse learning experience than stopping honestly.</li>
+            <li>Our developer wasn't ready for mobile. Cloud services, databases and mobile deployment would have eaten most of our time before the game existed.</li>
+            <li>We had no product manager, no monetization plan and no high-level economy design. A live service game needs all three.</li>
+            <li>Shipping something we weren't equipped to ship would have meant a worse game and less learning than stopping.</li>
           </ul>
         </div>
       </div>
-      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px; margin-top:20px;">
-        <h4 style="font-size:0.88rem; font-weight:700; color:var(--accent2); margin-bottom:8px;">What Came Next</h4>
-        <p style="font-size:0.82rem; color:var(--muted); line-height:1.7; margin:0;">
-          The team moved on to a new incremental game on Steam — a different concept better matched to the team's current capabilities. Dice Bound itself isn't dead; it's something I plan to return to and complete solo when the time is right. The GDD is done, the design thinking is solid, and the idea is worth seeing through. The biggest takeaway from this experience: <em>knowing when to stop is a design skill, not a failure.</em>
-        </p>
+      <div class="note-card" style="margin-top:20px;">
+        <h4>What came next</h4>
+        <p>The team moved on to an incremental game for Steam that fits what we can build right now. I still want to finish Dice Bound on my own one day. If I do, I'll prototype the rolling first, because whether tapping to speed up feels good is the riskiest part and paper design can't answer it. What I took from this: stopping a project at the right time is part of the job.</p>
       </div>
     </div>
   </div>
 </section>
-
-<!-- ═══════════════════════════════════════ Site Nav Footer ═══════════════════════════════════════ -->
 <div class="site-nav-footer">
   <div class="container">
-    <span class="site-nav-footer-label">Jump to</span>
+    <span class="site-nav-footer-label">Pages</span>
     <div class="site-nav-footer-grid">
       <a href="../index.html">Home</a>
       <a href="../games.html">Games</a>
-      <a href="../prototypes.html">Experiments</a>
       <a href="../experience.html">Experience</a>
       <a href="../toolbox.html">Toolbox</a>
       <a href="../roadmap.html">Roadmap</a>
@@ -1209,9 +1155,8 @@
 <!-- ═══════════════════════════════════════ Contact ═══════════════════════════════════════ -->
 <section id="contact">
   <div class="container">
-    <span class="label">Get in touch</span>
-    <h2>Let's talk.</h2>
-    <p>Open to internships, collaborations, and feedback on work in progress.</p>
+    <h2>Contact</h2>
+    <p>I'm open to internships and collaborations, and happy to get feedback on work in progress.</p>
     <div class="contact-links">
       <a href="mailto:dekelriess@gmail.com" class="btn btn-primary">✉ dekelriess@gmail.com</a>
       <a href="https://linkedin.com/in/dekel-riess-39172433b" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn ↗</a>

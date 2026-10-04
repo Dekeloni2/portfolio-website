@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Brave the Wilderness — Dekel Riess</title>
-  <meta name="description" content="Brave the Wilderness — a mobile survival game with full meta progression. Design breakdown: session design, offline rewards, and layered economy." />
+  <title>Brave the Wilderness | Dekel Riess</title>
+  <meta name="description" content="Brave the Wilderness, a mobile survival game where every craft is a merge: 117 items, 196 merges, five tiers. Design breakdown." />
   <link rel="icon" type="image/png" href="../favicon.png" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Brave the Wilderness — Dekel Riess" />
-  <meta property="og:description" content="Brave the Wilderness — a mobile survival game with full meta progression. Design breakdown: session design, offline rewards, and layered economy." />
+  <meta property="og:title" content="Brave the Wilderness | Dekel Riess" />
+  <meta property="og:description" content="Brave the Wilderness, a mobile survival game where every craft is a merge: 117 items, 196 merges, five tiers. Design breakdown." />
   <meta property="og:url" content="https://dekeloni2.github.io/portfolio-website/games/survival.html" />
   <meta property="og:image" content="https://dekeloni2.github.io/portfolio-website/dekel.png" />
   <meta name="twitter:card" content="summary" />
@@ -893,10 +893,10 @@
     .gif-showcase{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;}
     .gif-slot{margin:0;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .2s,transform .2s;}
     .gif-slot:hover{border-color:rgba(147,51,234,0.6);transform:translateY(-3px);box-shadow:0 0 28px rgba(147,51,234,0.12);}
-    .gif-slot img,.gif-slot video{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#000;}
+    .gif-slot img,.gif-slot video{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#000;}
     .gif-slot .gif-placeholder{display:none;}
     .gif-slot.gif-missing img,.gif-slot.gif-missing video{display:none;}
-    .gif-slot.gif-missing .gif-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;aspect-ratio:4/3;background:repeating-linear-gradient(45deg,rgba(147,51,234,0.04),rgba(147,51,234,0.04) 10px,transparent 10px,transparent 20px);border-bottom:1px solid var(--border);color:var(--muted);font-size:0.8rem;text-align:center;padding:20px;}
+    .gif-slot.gif-missing .gif-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;aspect-ratio: 16 / 9;background:repeating-linear-gradient(45deg,rgba(147,51,234,0.04),rgba(147,51,234,0.04) 10px,transparent 10px,transparent 20px);border-bottom:1px solid var(--border);color:var(--muted);font-size:0.8rem;text-align:center;padding:20px;}
     .gif-placeholder-icon{font-size:1.4rem;color:var(--accent2);opacity:0.7;}
     .gif-slot figcaption{padding:12px 16px;font-size:0.82rem;font-weight:600;color:var(--text);}
     .gif-slot figcaption span{color:var(--muted);font-weight:400;}
@@ -971,6 +971,26 @@
     .jump-to-detail:hover { text-decoration: none; opacity: 0.82; }
     .section-line { scroll-margin-top: 80px; }
 
+
+    /* ─── Plain text blocks ──────────────────────────────────────── */
+    .body-text { font-size: 0.88rem; color: var(--muted); line-height: 1.7; max-width: 680px; margin-bottom: 18px; }
+    .body-text strong { color: var(--text); }
+    .note-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; }
+    .note-card h4 { margin: 0 0 6px; font-size: 0.92rem; color: var(--accent2); }
+    .note-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.65; margin: 0; }
+    .note-card p + p { margin-top: 8px; }
+
+    /* ─── Key decisions + before/after tags ──────────────────────── */
+    .key-decisions { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 10px; padding: 16px 20px; margin-bottom: 36px; }
+    .key-decisions h3 { font-size: 0.95rem; margin: 0 0 10px; color: var(--text); }
+    .key-decisions ol { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 7px; }
+    .key-decisions li { font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+    .key-decisions li strong { color: var(--text); }
+    .key-decisions li a { color: var(--accent2); font-size: 0.8rem; white-space: nowrap; }
+    .ba-tags { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .ba-tags span { font-size: 0.68rem; font-weight: 700; color: var(--muted); border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; }
+    .ba-tags span.after { color: var(--accent2); border-color: var(--accent); }
+    [id] { scroll-margin-top: 90px; }
 </style>
 </head>
 <body>
@@ -980,7 +1000,6 @@
     <a href="../index.html" class="nav-logo" style="text-decoration:none;">Dekel Riess</a>
     <ul class="nav-links">
       <li><a href="../games.html">Games</a></li>
-      <li><a href="../prototypes.html">Experiments</a></li>
       <li><a href="../experience.html">Experience</a></li>
       <li><a href="../toolbox.html">Toolbox</a></li>
       <li><a href="../roadmap.html">Roadmap</a></li>
@@ -999,154 +1018,84 @@
           <h2 style="margin:0;">Brave the Wilderness</h2>
         </div>
         <p class="concept">
-          A mobile survival game built on a merge-driven loop. Gather resources, survive, merge upward.
+          A mobile survival game where every craft is a merge. You gather resources, stay alive, and merge what you collect into better items.
         </p>
         <div class="game-info-row">
           <div class="game-info-item"><span class="game-info-key">Engine</span><span class="game-info-val">Unity</span></div>
           <div class="game-info-item"><span class="game-info-key">Platform</span><span class="game-info-val">Android</span></div>
-          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">Survival &middot; Merge</span></div>
+          <div class="game-info-item"><span class="game-info-key">Genre</span><span class="game-info-val">Survival, merge</span></div>
           <div class="game-info-item"><span class="game-info-key">Team</span><span class="game-info-val">2 people</span></div>
           <div class="game-info-item" style="background:rgba(147,51,234,0.08); border:1px solid rgba(147,51,234,0.2); border-radius:6px; padding:6px 10px;">
-            <span class="game-info-key" style="color:var(--accent2);">Lead Designer</span><span class="game-info-val">Progression, economy, crafting system, balance</span>
+            <span class="game-info-key" style="color:var(--accent2);">My role</span><span class="game-info-val">Lead designer: progression, economy, crafting, balance</span>
           </div>
           <div class="game-info-item"><span class="game-info-key">System</span><span class="game-info-val">117 items &middot; 196 merges &middot; 5 tiers</span></div>
-          <div class="game-info-item"><span class="game-info-key">Context</span><span class="game-info-val">Course Final Project</span></div>
-          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">Finished &middot; Playable Android build</span></div>
+          <div class="game-info-item"><span class="game-info-key">Context</span><span class="game-info-val">Course final project</span></div>
+          <div class="game-info-item"><span class="game-info-key">Status</span><span class="game-info-val">Finished, playable Android build</span></div>
         </div>
         <a href="https://drive.google.com/uc?export=download&amp;id=1SKGu3z5w1vMuvmk6HinTP9KiN3liKxV6" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top:20px;">Download APK ↓</a>
         <p style="font-size:0.72rem; color:var(--muted); margin-top:8px; line-height:1.5;">Android only. You'll need to allow installs from unknown sources.</p>
       </div>
 
       <div class="game-content-col">
-        <!-- At a glance -->
-        <div class="at-glance reveal">
-          <span class="label">At a glance</span>
-          <p class="at-glance-hook">A mobile survival game built on a <strong>merge-driven loop</strong> — gather resources, survive, merge upward. I owned the progression, economy, crafting web, and balance.</p>
-          <div class="highlight-chips">
-            <span class="highlight-chip">Lead Designer</span>
-            <span class="highlight-chip">117 items · 196 merges</span>
-            <span class="highlight-chip">5-tier crafting web</span>
-            <span class="highlight-chip">Playable Android build</span>
-          </div>
-          <a href="#breakdown" class="jump-to-detail">Jump to the full breakdown ↓</a>
+        <div class="key-decisions">
+          <h3>Key decisions</h3>
+          <ol>
+            <li><strong>Every craft is two items in, one out,</strong> with no benches or menus, so players learn one rule in ten seconds. <a href="#merge">More ↓</a></li>
+            <li><strong>Put the catalysts in the harder phases,</strong> so difficulty is also the loot table and every run is about when to stop. <a href="#merge">More ↓</a></li>
+            <li><strong>Gave Gold a job in the score economy</strong> instead of adding a fifth weapon track that would break the merge rule. <a href="#gold">More ↓</a></li>
+            <li><strong>Cut the shop for scope,</strong> but kept the full design on paper. <a href="#shop">More ↓</a></li>
+          </ol>
         </div>
-
-
-        <div class="section-line" id="breakdown">Design Pillars</div>
+        <div class="section-line" id="breakdown">What the design is built on</div>
         <div class="pillars-grid">
           <div class="pillar">
-            <div class="pillar-num">01</div>
-            <h4>Survival as the Engine</h4>
-            <p>Staying alive generates points. Survival isn't just a win condition &mdash; it's the reward loop itself.</p>
+            <h4>Surviving is the score</h4>
+            <p>Staying alive earns points. Survival is the reward loop, not only the win condition.</p>
           </div>
           <div class="pillar">
-            <div class="pillar-num">02</div>
-            <h4>Merge as Progression</h4>
-            <p>Resources merge into better versions. No upgrade menu &mdash; power comes from collecting and combining.</p>
+            <h4>Merging is progression</h4>
+            <p>Resources merge into better versions. There's no upgrade menu; you get stronger by collecting and combining.</p>
           </div>
           <div class="pillar">
-            <div class="pillar-num">03</div>
-            <h4>The Shop as a Goal <span style="font-size:0.54rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent2); border:1px solid var(--accent2); border-radius:4px; padding:1px 5px; vertical-align:middle;">Designed &middot; Cut for scope</span></h4>
-            <p>Merge far enough and you unlock a shop, giving your points a place to go &mdash; earned, not granted. (Full shop economy below.)</p>
+            <h4>A shop to work toward <span style="font-size:0.6rem; color:var(--accent2);">(cut for scope)</span></h4>
+            <p>Merge far enough and a shop unlocks, so your points have somewhere to go. Details below.</p>
           </div>
           <div class="pillar">
-            <div class="pillar-num">04</div>
-            <h4>Strength from Play</h4>
-            <p>Playing actively is enough to get strong. No meta grind &mdash; engagement is rewarded directly.</p>
+            <h4>Strength from playing</h4>
+            <p>Playing is enough to get strong. There's no meta grind.</p>
           </div>
           <div class="pillar">
-            <div class="pillar-num">05</div>
-            <h4>Difficulty as a Mechanic</h4>
-            <p>The longer you survive the harder it gets &mdash; but the rarer the loot. Survival time is a resource; the real decision is when to stop.</p>
+            <h4>You choose the difficulty</h4>
+            <p>The longer you survive, the harder it gets and the rarer the loot. The real decision is when to stop.</p>
           </div>
         </div>
 
-        <div class="section-line" style="margin-top:36px;">The Core Loop</div>
+        <div class="section-line" style="margin-top:36px;">The core loop</div>
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px; margin-bottom:8px;">
           <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; margin-bottom:16px;">
-            One loop, four beats, no menus in between. Every step feeds the next &mdash; which is what keeps a run going and what makes stopping a real decision.
+            Four steps and no menus in between. Each step feeds the next, which keeps a run going and makes stopping a real decision.
           </p>
           <div class="loop-chain">
             <div class="loop-step"><div class="loop-dot">1</div><div class="loop-step-text">Gather resources while staying alive</div></div>
             <div class="loop-connector"></div>
             <div class="loop-step"><div class="loop-dot">2</div><div class="loop-step-text">Merge two items into one better item</div></div>
             <div class="loop-connector"></div>
-            <div class="loop-step"><div class="loop-dot">3</div><div class="loop-step-text">Survive longer &mdash; deeper phases drop rarer materials</div></div>
+            <div class="loop-step"><div class="loop-dot">3</div><div class="loop-step-text">Survive longer; later phases drop rarer materials</div></div>
             <div class="loop-connector"></div>
-            <div class="loop-step"><div class="loop-dot">4</div><div class="loop-step-text">Bank survival points and push further &mdash; knowing when to stop is the real decision</div></div>
+            <div class="loop-step"><div class="loop-dot">4</div><div class="loop-step-text">Bank your points and push on, or stop</div></div>
           </div>
         </div>
-
-        <div class="section-line" style="margin-top:36px;">Systems at a Glance</div>
-        <div class="mechanics-grid">
-          <div class="mechanic-card">
-            <div class="mechanic-icon">&#127807;</div>
-            <h3>Gather &amp; Survive</h3>
-            <p>Collect resources, stay alive. Survival time generates the points that drive your score.</p>
-          </div>
-          <div class="mechanic-card">
-            <div class="mechanic-icon">&#128260;</div>
-            <h3>Merge</h3>
-            <p>Two items in, one better item out. Upgrading is a byproduct of playing, not a separate screen.</p>
-          </div>
-          <div class="mechanic-card">
-            <div class="mechanic-icon">&#11014;&#65039;</div>
-            <h3>Upgrade</h3>
-            <p>Merging makes you stronger, which makes you survive longer, which gets you more resources.</p>
-          </div>
-          <div class="mechanic-card">
-            <div class="mechanic-icon">&#127978;</div>
-            <h3>Shop <span style="font-size:0.54rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent2);">&middot; Cut for scope</span></h3>
-            <p>Flat stat bonuses early, percentage multipliers later, all resetting each run.</p>
-          </div>
-        </div>
-
       </div>
 
     </div>
-
-
-    <!-- ═══ Design Story (skim-first spine) ═══ -->
-    <div style="margin-top:72px;">
-      <div class="section-line">How I Designed It</div>
-      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">The 60-second version &mdash; the one idea the whole game runs on, the decisions that kept it coherent, and what I'd change.</p>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px;">
-      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-        <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">01 · Problem</div>
-        <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">One idea, a whole economy</h4>
-        <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">As lead designer on a 2-person team, build a mobile survival game's entire progression, economy and crafting on a single mechanic &mdash; 117 items, 196 merges, 5 tiers &mdash; that a player learns in seconds but that stays deep, and that I could actually finish.</p>
-      </div>
-      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-        <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">02 · Design Decision</div>
-        <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Merge is the only rule</h4>
-        <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Survival generates points, resources merge upward, no upgrade menus. Tier-up is trivial to perform but hard to supply &mdash; gated by drop rates, never by adding steps &mdash; and the whole tree is data-driven: every merge is one flat row, rebalanced from a spreadsheet, not code.</p>
-      </div>
-      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-        <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">03 · Prototype / Test</div>
-        <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Audit the graph</h4>
-        <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Went through every material to check it actually feeds something &mdash; no orphan nodes, no decoration.</p>
-      </div>
-      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-        <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">04 · Result</div>
-        <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Every material earns its place</h4>
-        <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Found Gold was a dead end (an ingot nothing consumed) and repointed it at the <strong>point economy</strong> instead of adding a fifth weapon track that would have broken the uniform tier-up rule; cut Sickle, Obsidian and Bronze for the same reason. The rule that came out: if a material doesn't feed something, give it a purpose or cut it.</p>
-      </div>
-      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-top:2px solid var(--accent); display:flex; flex-direction:column; gap:8px;">
-        <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.1em; color:var(--accent2); text-transform:uppercase;">05 · What I'd Change Next</div>
-        <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin:0;">Multi-component depth</h4>
-        <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; margin:0;">Drop the two-item merge constraint and allow expensive multi-component recipes &mdash; the depth I most enjoy designing &mdash; and add the machines, workstations and storage that were cut for scope.</p>
-      </div>
-      </div>
-    </div>
-
     <!-- ═══ The Merge Rule ═══ -->
     <div style="margin-top:72px;">
-      <div class="section-line">The Merge Rule &mdash; The Whole System on One Idea</div>
+      <div class="section-line" id="merge">The merge rule</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:14px;">
-        Every craft in the game is <strong style="color:var(--text);">exactly two items in, one item out</strong> &mdash; same type or different. There is no crafting bench, no furnace, no upgrade menu. Even ore becomes an ingot by merging two ore. The constraint is the design: one rule the player learns in the first ten seconds, then never has to relearn.
+        Every craft is <strong style="color:var(--text);">two items in, one item out</strong>, same type or different. There's no crafting bench, furnace or upgrade menu; even ore becomes an ingot by merging two ore. Players learn the rule in the first ten seconds and never need another one.
       </p>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:28px;">
-        The interesting problem is making that one rule carry <strong style="color:var(--accent2);">117 items across five tiers</strong> without turning into a memorisation test. It does that through three layered rules below.
+        The hard part is making one rule carry <strong style="color:var(--accent2);">117 items across five tiers</strong> without turning the game into a memory test. Three more rules handle that.
       </p>
 
       <figure style="margin:0 0 34px; max-width:680px;">
@@ -1163,35 +1112,35 @@
           <rect x="470" y="34" width="170" height="86" rx="12" fill="#1b1233" stroke="#9333ea" stroke-width="2"/>
           <text x="555" y="72" text-anchor="middle" fill="#ededf5" font-size="17" font-weight="700">Copper Ingot</text>
           <text x="555" y="96" text-anchor="middle" fill="#c084fc" font-size="12" font-weight="600">T2 · one tier up ↑</text>
-          <text x="340" y="142" text-anchor="middle" fill="#7878a0" font-size="12.5">The same rule builds all 117 items — even ore becomes an ingot by merging two ore.</text>
+          <text x="340" y="142" text-anchor="middle" fill="#7878a0" font-size="12.5">The same rule builds all 117 items. Even ore becomes an ingot by merging two ore.</text>
         </svg>
       </figure>
 
-      <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin-bottom:6px;">01 &middot; Tier-up is uniform</h4>
+      <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin-bottom:6px;">Upgrading always works the same way</h4>
       <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; max-width:660px; margin-bottom:18px;">
-        You never re-craft a finished item from scratch. Merge it with that tier's <em>catalyst</em> and it becomes the same item, one tier up. Two catalyst tracks keep weapons and armour on separate material economies, so a good weapon run doesn't automatically hand you good armour.
+        You never craft a finished item again from scratch. Merge it with that tier's <em>catalyst</em> and you get the same item one tier up. Weapons and armor use different catalysts, so a good weapon run doesn't hand you good armor too.
       </p>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:12px;">
         <div class="cat-track">
-          <div class="tt">Armour &amp; Tools &mdash; structural</div>
+          <div class="tt">Armor and tools</div>
           <div class="cat-flow">
             <span class="ci">Stone Chunk</span><span class="ar">&rarr;</span><span class="ci">Iron Ingot</span><span class="ar">&rarr;</span><span class="ci">Refined Crystal</span><span class="ar">&rarr;</span><span class="ci">Voidsteel</span>
           </div>
         </div>
         <div class="cat-track">
-          <div class="tt">Weapons &mdash; ore ingots</div>
+          <div class="tt">Weapons (ore ingots)</div>
           <div class="cat-flow">
             <span class="ci">Copper</span><span class="ar">&rarr;</span><span class="ci">Iron</span><span class="ar">&rarr;</span><span class="ci">Silver</span><span class="ar">&rarr;</span><span class="ci">Hell</span>
           </div>
         </div>
       </div>
       <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 18px; margin-bottom:32px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
-        <strong style="color:var(--text);">All seven ores earn their place:</strong> Copper, Iron, Silver and Hell are the weapon tier catalysts. <strong style="color:#e8c07d;">Gold</strong> is the economy metal &mdash; it brews the Fortune Draught (+30% survival points), tying mining to the score economy instead of to combat. <strong style="color:#dfe3ff;">Moon</strong> is Expert-only and forges the apex Lunar weapons. No ore is decorative.
+        <strong style="color:var(--text);">Every ore has a job.</strong> Copper, Iron, Silver and Hell are the weapon catalysts. <strong style="color:#e8c07d;">Gold</strong> brews the Fortune Draught (+30% survival points), so mining feeds your score instead of combat. <strong style="color:#dfe3ff;">Moon</strong> only drops on Expert and forges the Lunar weapons.
       </div>
 
-      <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin-bottom:6px;">02 &middot; Difficulty gates the catalysts</h4>
+      <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin-bottom:6px;">Harder phases hold the catalysts</h4>
       <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; max-width:660px; margin-bottom:18px;">
-        Materials don't sit around waiting. Each catalyst only becomes reachable in a later difficulty phase, and phase is tied to how long you've survived. That's what turns difficulty from a pure cost into an <strong style="color:var(--text);">opportunity</strong> &mdash; the only path to T5 runs straight through the hardest part of the run.
+        Each catalyst only appears in a later difficulty phase, and the phase depends on how long you've survived. The only way to T5 goes through the hardest part of the run.
       </p>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; margin-bottom:14px;">
         <div class="tier-card" style="--tc:#4ade80;">
@@ -1202,40 +1151,40 @@
         <div class="tier-card" style="--tc:#facc15;">
           <div class="tname">Normal</div>
           <div class="tmat">Uncommon unlocks</div>
-          <div class="tsrc">+ Zombie Tooth, Quartz, Copper &amp; Iron ore. The iron line opens &rarr; T2/T3 gear.</div>
+          <div class="tsrc">+ Zombie Tooth, Quartz, Copper &amp; Iron ore. The iron line opens up T2/T3 gear.</div>
         </div>
         <div class="tier-card" style="--tc:#f97316;">
           <div class="tname">Hard</div>
           <div class="tmat">Rare tier</div>
-          <div class="tsrc">+ Corrupted Claw, Infected Blood, Gem, Silver &amp; Gold ore. Refined Crystal &rarr; T4 gear.</div>
+          <div class="tsrc">+ Corrupted Claw, Infected Blood, Gem, Silver &amp; Gold ore. Refined Crystal unlocks T4 gear.</div>
         </div>
         <div class="tier-card" style="--tc:#f43f5e;">
           <div class="tname">Expert</div>
           <div class="tmat">Endgame</div>
-          <div class="tsrc">+ Dense Bone, Zombie Core, Diamond, Moon &amp; Hell ore. Voidsteel &rarr; T5 and chase items.</div>
+          <div class="tsrc">+ Dense Bone, Zombie Core, Diamond, Moon &amp; Hell ore. Voidsteel unlocks T5 and the rarest items.</div>
         </div>
       </div>
       <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 18px; margin-bottom:32px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
-        <strong style="color:var(--text);">Why this matters:</strong> difficulty is usually a pure cost. Here it's also the loot table. Pushing into Expert means tougher enemies <em>and</em> the only access to T5 materials &mdash; so "how long do I stay?" becomes the run's central decision.
+        <strong style="color:var(--text);">Why it matters:</strong> difficulty is usually only a cost. Here it's also the loot table. Expert has the toughest enemies and the only T5 materials, so every run comes down to how long you stay.
       </div>
 
-      <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin-bottom:6px;">03 &middot; Flat early, percentage late</h4>
+      <h4 style="font-size:0.9rem; font-weight:700; color:var(--text); margin-bottom:6px;">Flat stats early, percentages late</h4>
       <p style="font-size:0.8rem; color:var(--muted); line-height:1.6; max-width:660px; margin-bottom:0;">
-        T1&ndash;T3 gear grants flat stats so early upgrades feel punchy and readable. T4&ndash;T5 switch to percentages so late gear multiplies cleanly instead of double-dipping on flat bonuses &mdash; and so it would stack cleanly with the shop's percentage tier. It's a small rule that keeps the endgame from either flattening out or exploding.
+        T1&ndash;T3 gear gives flat stats, so early upgrades feel big and are easy to read. T4&ndash;T5 give percentages, so late gear multiplies instead of piling up flat bonuses, and it would have stacked cleanly with the shop's percentage upgrades. This keeps the endgame from flattening out or blowing up.
       </p>
     </div>
 
     <!-- ═══ The Crafting Web (embedded) ═══ -->
     <div style="margin-top:72px;">
-      <div class="section-line">The Crafting Web &mdash; The Complete Designed System</div>
+      <div class="section-line">The crafting web</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:14px;">
-        The full economy as designed, as one graph: <strong style="color:var(--text);">117 items, 196 merge links, five tiers</strong>, all on the single rule above. Search a name, drag nodes, hover to trace a chain, or click any item for its recipe and full stat block.
+        The whole designed economy as one graph: <strong style="color:var(--text);">117 items, 196 merges, five tiers</strong>. Search for an item, drag nodes, hover to trace a chain, or click an item to see its recipe and stats.
       </p>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:16px;">
-        This is the real production data, not an illustration &mdash; the same table that generates the design doc, the item and recipe ScriptableObjects, and the import sheet below.
+        This is the real production data. The same table generates the design doc, the item and recipe ScriptableObjects, and the import sheet.
       </p>
       <div style="background:rgba(147,51,234,0.08); border:1px solid rgba(147,51,234,0.2); border-radius:8px; padding:11px 15px; margin-bottom:24px; font-size:0.8rem; color:var(--muted); line-height:1.6; max-width:680px;">
-        <strong style="color:var(--accent2);">Design vs. build scope:</strong> the graph is the economy designed in full. The submitted build implements a playable vertical slice &mdash; early-game crafting plus one mid-game tier (through T3) &mdash; rather than the entire tree. Full design, focused build scope.
+        <strong style="color:var(--accent2);">Designed vs. built:</strong> the graph is the full design. The submitted build is a playable slice of it: early-game crafting plus one mid-game tier, up to T3.
       </div>
 
       <div class="controls">
@@ -1265,32 +1214,29 @@
 
     <!-- ═══ Core loop in motion ═══ -->
     <div style="margin-top:72px;">
-      <div class="section-line">The Core Loop &mdash; In Motion</div>
+      <div class="section-line">Gameplay</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:24px;">
-        No crafting tables, no upgrade menus &mdash; just <strong style="color:var(--text);">pick up &rarr; merge &rarr; survive longer &rarr; repeat</strong>, built in Unity on a merge system that scales from T1 pickups to T5 apex weapons on the single rule above.
+        Pick up, merge, survive longer, repeat.
       </p>
       <div class="gif-showcase">
         <figure class="gif-slot">
           <video src="../survival_gather.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Gathering resources and surviving" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">&#9670;</span><span>Drop survival_gather.mp4 here</span></div>
-          <figcaption>Gather &amp; Survive &mdash; <span>collecting branches, stone and flowers while dodging zombies</span></figcaption>
+          <figcaption>Gathering: <span>picking up branches, stone and flowers while dodging zombies</span></figcaption>
         </figure>
         <figure class="gif-slot">
           <video src="../survival_merge.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Merging two items into a higher tier" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
           <div class="gif-placeholder"><span class="gif-placeholder-icon">&#9670;</span><span>Drop survival_merge.mp4 here</span></div>
-          <figcaption>Merge in Action &mdash; <span>two Branches &rarr; one Stick. Instant, tactile, no menu</span></figcaption>
+          <figcaption>Merging: <span>two Branches become one Stick, with no menu</span></figcaption>
         </figure>
       </div>
     </div>
 
     <!-- ═══ Shop economy ═══ -->
     <div style="margin-top:72px;">
-      <div class="section-line">Shop Economy &mdash; Designed, Cut for Scope</div>
-      <div style="background:rgba(147,51,234,0.08); border:1px solid rgba(147,51,234,0.2); border-radius:8px; padding:10px 14px; margin-bottom:16px; font-size:0.78rem; color:var(--muted); line-height:1.6;">
-        <strong style="color:var(--accent2);">Designed, then cut.</strong> This system was fully specced but deliberately cut from this build's scope &mdash; included here to show the intended economy design and the decision behind cutting it.
-      </div>
+      <div class="section-line" id="shop">Shop economy (designed, then cut)</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:24px;">
-        Survival points would buy two kinds of upgrade &mdash; flat stats first, percentage multipliers once the flats are in place. The ordering is deliberate: percentages are worthless until there's something to multiply, so the shop teaches its own build order.
+        I designed the shop in full, then cut it from the build for scope. Survival points would buy flat stat upgrades first and percentage multipliers after. Percentages are worthless until there's something to multiply, so the shop teaches its own build order.
       </p>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;">
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:18px 20px;">
@@ -1304,29 +1250,22 @@
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
-          <strong style="color:var(--text);">Run-only by design:</strong> stats reset each session. Every run is a fresh economy &mdash; no permanent power creep, and no guarantee you'll reach the shop again.
+          <strong style="color:var(--text);">Resets every run:</strong> there's no permanent power creep, and no guarantee you'll reach the shop again.
         </div>
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
-          <strong style="color:var(--text);">A crafting gateway too:</strong> the shop sells rare materials that can't be reliably farmed, wiring the point economy directly into the crafting tree.
+          <strong style="color:var(--text);">Also sells materials:</strong> rare ones you can't reliably farm, which connects points to crafting.
         </div>
       </div>
     </div>
 
-
-    <!-- ═══ Deep Dive divider ═══ -->
-    <div style="margin-top:80px;">
-      <div class="section-line">Deep Dive</div>
-      <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px;">Everything below is the full designed system &mdash; the weapon, armour and material catalogs, then the design-in-practice rework and post-mortem. The summary above is the whole argument in short; go as deep as you want from here.</p>
-    </div>
-
     <!-- ═══ Weapons ═══ -->
     <div style="margin-top:72px;">
-      <div class="section-line">Weapons &mdash; Three Archetypes</div>
+      <div class="section-line">Weapons</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:14px;">
-        Each line trades attack speed against per-hit damage and all three land in the same DPS band per tier &mdash; the choice is feel, not power. The Dagger is the crit archetype and carries the game's only weapon bonus; Club and Spear stay clean damage-and-speed profiles.
+        Each line trades attack speed against damage per hit, and all three land in the same DPS range at each tier, so you pick by feel, not power. The Dagger is the crit weapon and the only one with a bonus stat.
       </p>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:24px;">
-        Beyond T5 sits an optional apex: a finished Void weapon plus a <strong style="color:#dfe3ff;">Moon Ingot</strong> forges its <strong style="color:#dfe3ff;">Lunar</strong> capstone &mdash; the strongest weapons in the game and the real endgame chase.
+        Past T5 there's an optional top tier: a finished Void weapon plus a <strong style="color:#dfe3ff;">Moon Ingot</strong> forges a <strong style="color:#dfe3ff;">Lunar</strong> weapon, the strongest in the game.
       </p>
       <div class="spec-grid">
         <div class="spec-card">
@@ -1336,7 +1275,7 @@
           <div class="spec-row"><span class="sk">Damage T1 &rarr; T5</span><span class="sv">8 &rarr; 1,100</span></div>
           <div class="spec-row"><span class="sk">Crit Chance</span><span class="sv">8% &rarr; 25%</span></div>
           <div class="spec-row"><span class="sk">Crit Damage</span><span class="sv">+50% &rarr; +100%</span></div>
-          <div class="apex-note"><strong>Lunar Reaper</strong> &mdash; 1,900 dmg &middot; 35% crit &middot; +150% crit dmg</div>
+          <div class="apex-note"><strong>Lunar Reaper:</strong> 1,900 dmg &middot; 35% crit &middot; +150% crit dmg</div>
         </div>
         <div class="spec-card">
           <h5>Club line</h5>
@@ -1344,8 +1283,8 @@
           <div class="spec-row"><span class="sk">Attack Speed</span><span class="sv">0.7 / s</span></div>
           <div class="spec-row"><span class="sk">Damage T1 &rarr; T5</span><span class="sv">18 &rarr; 2,500</span></div>
           <div class="spec-row"><span class="sk">Profile</span><span class="sv">Highest per-hit</span></div>
-          <div class="spec-row"><span class="sk">Bonus</span><span class="sv">None &mdash; pure damage</span></div>
-          <div class="apex-note"><strong>Lunar Breaker</strong> &mdash; 4,300 dmg, the biggest single hit in the game</div>
+          <div class="spec-row"><span class="sk">Bonus</span><span class="sv">None</span></div>
+          <div class="apex-note"><strong>Lunar Breaker:</strong> 4,300 dmg, the biggest single hit in the game</div>
         </div>
         <div class="spec-card">
           <h5>Spear line</h5>
@@ -1353,23 +1292,23 @@
           <div class="spec-row"><span class="sk">Attack Speed</span><span class="sv">1.1 / s</span></div>
           <div class="spec-row"><span class="sk">Damage T1 &rarr; T5</span><span class="sv">12 &rarr; 1,600</span></div>
           <div class="spec-row"><span class="sk">Profile</span><span class="sv">Middle of both</span></div>
-          <div class="spec-row"><span class="sk">Bonus</span><span class="sv">None &mdash; pure damage</span></div>
-          <div class="apex-note"><strong>Lunar Impaler</strong> &mdash; 2,800 dmg</div>
+          <div class="spec-row"><span class="sk">Bonus</span><span class="sv">None</span></div>
+          <div class="apex-note"><strong>Lunar Impaler:</strong> 2,800 dmg</div>
         </div>
       </div>
       <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; margin-top:16px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
-        <strong style="color:var(--text);">Damage scales to the HP curve:</strong> per-hit damage grows roughly 3&ndash;4&times; per tier, taking DPS from ~13 at T1 to ~1,760 at T5 and ~3,040 at apex &mdash; then armour percentages (and the shop's, had it shipped) stack on top. Late-phase enemies run into the thousands of HP, so the curve is built to chase them rather than flatten out.
+        <strong style="color:var(--text);">Damage follows enemy HP:</strong> damage per hit grows about 3&ndash;4&times; per tier, taking DPS from ~13 at T1 to ~1,760 at T5 and ~3,040 at the top tier, with armor percentages on top. Late enemies have thousands of HP, so the curve has to keep up.
       </div>
       <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; margin-top:12px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
-        <strong style="color:var(--text);">On the numbers themselves:</strong> these are a deliberate first pass, tuned for feel over balance on a five-day ship &mdash; the <em>shape</em> of the curve matters more here than any individual value, and the game is meant to feel generous rather than finely balanced. That's a survivable trade-off because every number lives in the data table, not in code: the entire curve can be re-tuned from the spreadsheet and re-exported without touching the game.
+        <strong style="color:var(--text);">About the numbers:</strong> they're a first pass, tuned for feel on a five-day deadline, and the game is meant to feel generous rather than finely balanced. The shape of the curve matters more than any single value. Every number lives in the data table, so the whole curve can be retuned from the spreadsheet without touching code.
       </div>
     </div>
 
     <!-- ═══ Armour ═══ -->
     <div style="margin-top:72px;">
-      <div class="section-line">Armour &mdash; Six Slots, Two Rarities</div>
+      <div class="section-line">Armor</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:24px;">
-        Four common slots run the full T1&ndash;T5 ladder and lean defensive. Two rare slots &mdash; Gloves and Shoulders &mdash; are unavailable at T1 and always need a rarer base, and they carry the offensive stats. Stats cross from flat to percentage at T4, the same point the design's percentage layer kicks in.
+        Four common slots go from T1 to T5 and are mostly defensive. The two rare slots, Gloves and Shoulders, start at T2, need a rarer base and carry the offensive stats. Stats switch from flat to percentage at T4.
       </p>
       <figure style="margin:0 0 22px; max-width:520px;">
         <svg viewBox="0 0 560 322" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Six armour slots on a character: Helmet, Chest, Pants and Boots are common; Gloves and Shoulders are rare and carry offensive stats" style="width:100%; height:auto; display:block; font-family:'Inter',system-ui,sans-serif;">
@@ -1427,7 +1366,7 @@
           <rect x="120" y="301" width="13" height="13" rx="3" fill="#131320" stroke="#21213a" stroke-width="1.5"/>
           <text x="140" y="311" fill="#7878a0" font-size="11.5">Common ×4</text>
           <rect x="250" y="301" width="13" height="13" rx="3" fill="#1b1233" stroke="#9333ea" stroke-width="1.8"/>
-          <text x="270" y="311" fill="#7878a0" font-size="11.5">Rare ×2 — Gloves &amp; Shoulders</text>
+          <text x="270" y="311" fill="#7878a0" font-size="11.5">Rare ×2: Gloves &amp; Shoulders</text>
         </svg>
       </figure>
       <div style="overflow-x:auto; margin-bottom:16px;">
@@ -1435,8 +1374,8 @@
           <thead>
             <tr style="border-bottom:1px solid var(--border);">
               <th style="text-align:left; padding:9px 12px; color:var(--accent2); font-weight:600;">Tier</th>
-              <th style="text-align:left; padding:9px 12px; color:var(--accent2); font-weight:600;">Common &mdash; Boots, Pants, Helmet, Chest</th>
-              <th style="text-align:left; padding:9px 12px; color:var(--accent2); font-weight:600;">Rare &mdash; Gloves, Shoulders</th>
+              <th style="text-align:left; padding:9px 12px; color:var(--accent2); font-weight:600;">Common (Boots, Pants, Helmet, Chest)</th>
+              <th style="text-align:left; padding:9px 12px; color:var(--accent2); font-weight:600;">Rare (Gloves, Shoulders)</th>
             </tr>
           </thead>
           <tbody>
@@ -1449,19 +1388,19 @@
         </table>
       </div>
       <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
-        <strong style="color:var(--text);">Design note &mdash; Gloves &amp; Shoulders:</strong> inspired by MapleStory's rarity curve. Void Shoulders (+6% ALL stats) is intentionally the hardest item in the game &mdash; it needs Voidsteel, whose own recipe pulls in a Zombie Core, so finishing it means repeatedly surviving into Expert.
+        <strong style="color:var(--text);">Gloves and Shoulders</strong> follow MapleStory's rarity curve. Void Shoulders (+6% all stats) is the hardest item in the game on purpose. It needs Voidsteel, which needs a Zombie Core, so you have to survive into Expert again and again.
       </div>
     </div>
 
     <!-- ═══ Materials ═══ -->
     <div style="margin-top:72px;">
-      <div class="section-line">Materials &mdash; The Five-Tier Ladder</div>
+      <div class="section-line">Materials</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:24px;">
-        Every chain starts with ground pickups and climbs through same-material refinements. Two cross-line merges open the tier gates: <strong style="color:var(--text);">Refined Crystal</strong> (Quartz Cluster + Gem) and <strong style="color:var(--text);">Void Shard</strong> (Zombie Core + Diamond) &mdash; tying progression directly to the drop table.
+        Every chain starts with things you pick up off the ground and climbs through refinements of the same material. Two merges that cross lines open the tier gates, <strong style="color:var(--text);">Refined Crystal</strong> (Quartz Cluster + Gem) and <strong style="color:var(--text);">Void Shard</strong> (Zombie Core + Diamond), so progression depends on the drop table.
       </p>
       <figure style="margin:0 0 22px; max-width:680px;">
         <svg viewBox="0 0 680 182" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Five material tiers ascending from T1 Primitive to T5 Void, each rarer and stronger" style="width:100%; height:auto; display:block; font-family:'Inter',system-ui,sans-serif;">
-          <text x="30" y="16" fill="#7878a0" font-size="12" font-weight="700" letter-spacing="1.5">T1 → T5 · EACH TIER RARER, STRONGER, HARDER TO REACH</text>
+          <text x="30" y="16" fill="#7878a0" font-size="12" font-weight="700" letter-spacing="1.5">T1 → T5 · EACH TIER RARER AND STRONGER</text>
           <rect x="30"  y="106" width="110" height="44"  rx="8" fill="#9CAF88"/>
           <rect x="158" y="88"  width="110" height="62"  rx="8" fill="#C79A6E"/>
           <rect x="286" y="70"  width="110" height="80"  rx="8" fill="#8FA3B3"/>
@@ -1507,95 +1446,91 @@
         </div>
       </div>
       <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; font-size:0.8rem; color:var(--muted); line-height:1.7;">
-        <strong style="color:var(--text);">Separate ladders, on purpose:</strong> cordage (Vine &rarr; Cord &rarr; Rope) and alchemy (Flower &rarr; Crushed Petals &rarr; Flower Essence) are kept apart so binding material never distils into essence. Small consistency rules like this are what stop a 117-item tree from feeling arbitrary.
+        <strong style="color:var(--text);">Separate ladders:</strong> cordage (Vine &rarr; Cord &rarr; Rope) and alchemy (Flower &rarr; Crushed Petals &rarr; Flower Essence) never cross, so rope never turns into essence. Small rules like this keep a 117-item tree from feeling random.
       </div>
     </div>
 
     <!-- ═══ Design in practice / design focus ═══ -->
     <div style="margin-top:72px;">
-      <div class="section-line">Design in Practice &mdash; Reworking a Dead-End Material</div>
+      <div class="section-line" id="gold">Fixing a dead-end material</div>
       <p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:680px; margin-bottom:24px;">
-        The tree didn't arrive in its current shape. This is the clearest example of a pass that changed it &mdash; auditing every material to check it actually fed something, and finding one that didn't.
+        I went through every material to check that it fed into something. Gold didn't.
       </p>
       <div class="postmortem-grid">
         <div class="pm-card pm-bad">
-          <h4>Before &mdash; Gold was a dead end</h4>
+          <h4>Before: Gold went nowhere</h4>
           <ul>
-            <li>Seven ore types existed as art assets, so the system was built to use all seven.</li>
-            <li>Six had a clear job: Copper, Iron, Silver and Hell as the weapon tier catalysts, Moon as the apex material.</li>
-            <li>Gold refined into a Gold Ingot that <strong style="color:var(--text);">nothing consumed</strong> &mdash; a leaf node on the graph.</li>
-            <li>Players would mine it, read it as rare, and find no use. That reads as an oversight, not a choice.</li>
+            <li>We had art for seven ore types, so I built the system to use all seven.</li>
+            <li>Six had a job: Copper, Iron, Silver and Hell as weapon catalysts, Moon for the top-tier weapons.</li>
+            <li>Gold became a Gold Ingot that <strong style="color:var(--text);">nothing used</strong>.</li>
+            <li>Players would mine it, assume it was valuable and find no use for it. That looks like a mistake, not a choice.</li>
           </ul>
         </div>
         <div class="pm-card pm-good">
-          <h4>After &mdash; Gold became the economy metal</h4>
+          <h4>After: Gold feeds the score</h4>
           <ul>
-            <li>Gold Ingot + Flower Essence &rarr; <strong style="color:var(--text);">Fortune Draught</strong>, +30% survival points earned for 25s.</li>
-            <li>Gold now connects mining to the point economy instead of to combat &mdash; the one pillar no other ore touched.</li>
-            <li>Every ore now has a distinct role, and none of them overlap.</li>
-            <li>The graph has no orphan nodes: every material feeds at least one recipe.</li>
+            <li>Gold Ingot + Flower Essence makes a <strong style="color:var(--text);">Fortune Draught</strong>: +30% survival points for 25 seconds.</li>
+            <li>Mining now connects to the point economy, which no other ore touched.</li>
+            <li>Every ore has its own role, with no overlap.</li>
+            <li>Every material feeds at least one recipe.</li>
           </ul>
         </div>
         <div class="pm-lesson">
-          <h4>Why not just make a Gold weapon?</h4>
+          <h4>Why not a Gold weapon?</h4>
           <p>
-            That was the obvious fix and it was the wrong one. A fifth weapon catalyst would have meant a fifth tier-up track, which breaks the uniform tier-up rule the whole system rests on &mdash; and it would have made Gold redundant with Silver rather than distinct from it. Pointing it at the point economy instead gave it a job nothing else had, without adding a rule.
+            That was the obvious fix, and the wrong one. A fifth weapon catalyst means a fifth tier-up track, which breaks the rule the whole system is built on, and Gold would have been a copy of Silver. Pointing it at the score gave it a job nothing else had without adding a rule.
             <br><br>
-            The same pass cut <strong style="color:var(--text);">Sickle, Obsidian and Bronze</strong> for the opposite reason: they existed, but nothing consumed them and no gameplay needed them. Verifying the graph first confirmed tools and weapons are dead ends by design, so removing them cost nothing downstream. The working rule that came out of it: <strong style="color:var(--text);">if a material doesn't feed something, it's decoration &mdash; give it a purpose or cut it.</strong>
+            The same pass cut <strong style="color:var(--text);">Sickle, Obsidian and Bronze</strong>: nothing used them and no gameplay needed them. I checked the graph first to confirm tools and weapons are meant to be end points, so removing them broke nothing. The rule I took from it: <strong style="color:var(--text);">if a material doesn't feed something, give it a purpose or cut it.</strong>
           </p>
         </div>
       </div>
     </div>
 
     <div style="margin-top:72px;">
-      <div class="section-line">Design Focus &amp; Open Problems</div>
+      <div class="section-line">Open problems</div>
       <div class="pillars-grid">
         <div class="pillar">
-          <div class="pillar-num">01</div>
           <h4>Every merge has to feel like progress</h4>
-          <p>The hardest problem in the system, and not fully solved. The uniform tier-up helps &mdash; each merge visibly changes the item's name and tier colour rather than a hidden stat &mdash; but mid-ladder merges still need a stronger flourish to read as a win.</p>
+          <p>The hardest problem, and not solved. Each merge changes the item's name and tier color, which helps, but merges in the middle of the ladder still need a bigger payoff.</p>
         </div>
         <div class="pillar">
-          <div class="pillar-num">02</div>
           <h4>Tuning the point economy</h4>
-          <p>Points have to accumulate fast enough to feel rewarding and slow enough that spending them &mdash; in the shop the design calls for &mdash; feels earned. Because everything resets each run, this curve decides whether a session feels generous or pointless.</p>
+          <p>Points have to come fast enough to feel rewarding and slow enough that spending them in the shop feels earned. Since everything resets each run, this curve decides whether a session feels generous or pointless.</p>
         </div>
         <div class="pillar">
-          <div class="pillar-num">03</div>
-          <h4>Gate by supply, not by steps</h4>
-          <p>Tier-up is deliberately trivial to perform and hard to supply. Progression speed is tuned through drop rates on Quartz, Gem, Diamond and boss materials &mdash; never by adding merge steps, which would break the one rule.</p>
+          <h4>Limit supply, not steps</h4>
+          <p>Tiering up is easy to do and hard to supply. I tune progression speed with drop rates on Quartz, Gem, Diamond and boss materials, never by adding merge steps.</p>
         </div>
         <div class="pillar">
-          <div class="pillar-num">04</div>
-          <h4>Built to be data-driven</h4>
-          <p>Every merge is one flat row &mdash; Category, Output, Input A, Input B, Tier. The crafting DB keys on the unordered pair {A,B} so merge order never matters, and the whole tree can be rebalanced from a spreadsheet rather than from code.</p>
+          <h4>Data, not code</h4>
+          <p>Every merge is one row: Category, Output, Input A, Input B, Tier. The crafting database keys on the unordered pair {A, B}, so merge order doesn't matter, and the tree can be rebalanced from a spreadsheet.</p>
         </div>
       </div>
     </div>
 
     <!-- ═══ Post-Mortem ═══ -->
     <div style="margin-top:72px;">
-      <div class="section-line">Post-Mortem</div>
+      <div class="section-line">Post mortem</div>
       <div class="postmortem-grid">
         <div class="pm-card pm-good">
           <h4>What worked</h4>
           <ul>
-            <li>The merge mechanic was fast to implement and fast to author for — every craft is one flat recipe row, so adding content never meant touching engine code.</li>
-            <li>It scales without limit. New items cost imagination, not engineering — the tree can grow indefinitely off a single rule.</li>
-            <li>One idea carried the whole economy: easy to learn in seconds, deep enough to build the entire item ladder on top of.</li>
+            <li>Merging was fast to build and fast to write content for. Every craft is one recipe row, so new content never touched engine code.</li>
+            <li>New items cost ideas, not engineering, so the tree can keep growing on the same rule.</li>
+            <li>One idea carried the whole economy: you learn it in seconds, and it was deep enough for the full item ladder.</li>
           </ul>
         </div>
         <div class="pm-card pm-bad">
           <h4>What I'd change</h4>
           <ul>
-            <li>Without the two-item merge constraint, I'd allow recipes that combine more than two components — which is actually where the project started before the rule was locked in.</li>
-            <li>Lean into expensive, multi-component recipes. They reward exploration and automation, and that depth is the part of crafting I most enjoy designing.</li>
-            <li>Add the systems that were planned but cut for scope: machines and workstations, plus more storage options like backpacks.</li>
+            <li>Allow recipes with more than two components. That's where the project started before I locked the rule in.</li>
+            <li>Lean into expensive multi-component recipes. They reward exploration and automation, and they're the part of crafting I enjoy designing most.</li>
+            <li>Add what was cut for scope: machines, workstations and more storage, like backpacks.</li>
           </ul>
         </div>
         <div class="pm-lesson">
           <h4>What I learned</h4>
-          <p>Scope discipline, and how to work around burnout. The design I wanted was massive — I wanted to build everything — but the version I finished was the version I could build without burning out. Learning to size the project to the energy I actually had, and to protect that energy, mattered more than any single mechanic in the game.</p>
+          <p>Scope, and working around burnout. I wanted to build everything, but the version I finished was the one I could build without burning out. Sizing the project to the energy I actually had, and protecting it, mattered more than any single mechanic.</p>
         </div>
       </div>
     </div>
@@ -1605,11 +1540,10 @@
 
 <div class="site-nav-footer">
   <div class="container">
-    <span class="site-nav-footer-label">Jump to</span>
+    <span class="site-nav-footer-label">Pages</span>
     <div class="site-nav-footer-grid">
       <a href="../index.html">Home</a>
       <a href="../games.html">Games</a>
-      <a href="../prototypes.html">Experiments</a>
       <a href="../experience.html">Experience</a>
       <a href="../toolbox.html">Toolbox</a>
       <a href="../roadmap.html">Roadmap</a>
@@ -1630,9 +1564,8 @@
 <!-- ═══════════════════════════════════════ Contact ═══════════════════════════════════════ -->
 <section id="contact">
   <div class="container">
-    <span class="label">Get in touch</span>
-    <h2>Let's talk.</h2>
-    <p>Open to internships, collaborations, and feedback on work in progress.</p>
+    <h2>Contact</h2>
+    <p>I'm open to internships and collaborations, and happy to get feedback on work in progress.</p>
     <div class="contact-links">
       <a href="mailto:dekelriess@gmail.com" class="btn btn-primary">✉ dekelriess@gmail.com</a>
       <a href="https://linkedin.com/in/dekel-riess-39172433b" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn ↗</a>
@@ -1759,7 +1692,7 @@ function showNode(id){
   else if(inputs.length>=2){ html+='<div class="prow"><div class="k">Merge recipe</div><div class="merge-eq">'+chip(inputs[0])+'<span class="op">+</span>'+chip(inputs[1])+'<span class="op">&rarr;</span><strong>'+esc(n.id)+'</strong></div></div>'; }
   else { html+='<div class="prow"><div class="k">Recipe</div><div class="merge-eq">'+esc(n.recipe)+'</div></div>'; }
   if(outs.length){ html+='<div class="prow"><div class="k">Feeds into ('+outs.length+')</div><div>'+outs.map(chip).join('')+'</div></div>'; }
-  else { html+='<div class="prow"><div class="k">Feeds into</div><div class="phint">Top of its chain &mdash; a finished item.</div></div>'; }
+  else { html+='<div class="prow"><div class="k">Feeds into</div><div class="phint">Top of its chain: a finished item.</div></div>'; }
   panel.innerHTML=html; bindChips();
 }
 
