@@ -1,1 +1,5 @@
 TiltanTale/
+
+# Raw screen captures (OBS-style timestamp names) - keep these outside the repo
+20[0-9][0-9]-[0-9][0-9]-[0-9][0-9] [0-9][0-9]-[0-9][0-9]-[0-9][0-9].mp4
+*.mkv
