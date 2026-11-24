@@ -938,8 +938,8 @@
 
 
         <div class="section-line" id="breakdown">The problem</div>
-        <p class="body-text">Undertale's fight-or-spare choice works because every enemy is a person. I wanted that weight in a turn-based bullet hell that two of us could build in MonoGame, with no engine tools, in a game about 15 minutes long. How do you make sparing feel like a real decision at that size?</p>
-        <p class="body-text">My answer was to build each boss on a real Tiltan teacher, so the attacks are the character, and to write a separate ending for every combination of who you spared.</p>
+        <p class="body-text">TiltanTale started as an Undertale-inspired RPG set in my college. Since the game was only about 15 minutes long and built by two people in MonoGame with no engine tools, I had to find a way to make each teacher memorable without creating a huge amount of content.</p>
+        <p class="body-text">I based each boss on a real teacher from Tiltan and tied their attacks to things students would recognize from class. I also wrote different endings depending on who the player spared.</p>
 
         <div class="section-line" style="margin-top:36px;">How a fight works</div>
         <p class="body-text">On your turn you pick an action. On the teacher's turn you steer your CLOVER, a small token, through a bullet pattern inside the battle box. Survive it and it's your turn again.</p>
@@ -998,7 +998,7 @@
       <p class="body-text" style="font-size:0.82rem;">Each teacher has more patterns than these. Play it to find them.</p>
 
       <h4 style="font-size:0.95rem; font-weight:700; color:var(--text); margin-top:40px; margin-bottom:6px;">Spare or defeat</h4>
-      <p class="body-text">A spared teacher dissolves into a puff of smoke and still exists in the world afterward. A defeated one says their last words and crumbles to dust, gone for good. Smoke means they're still out there; dust means you erased them. The game gives you that power and never tells you what to do with it. Mercy is always harder than fighting, and whether you choose it is on you.</p>
+      <p class="body-text">I wanted defeated and spared teachers to feel different beyond the battle result. A spared teacher dissolves into a puff of smoke and stays part of the world, so they can appear later in the story. A defeated one says their last words, crumbles to dust, and is gone permanently.</p>
       <div class="gif-showcase" style="margin-bottom:40px;">
         <figure class="gif-slot">
           <video src="../tiltantale_spare.mp4" aria-label="TiltanTale sparing a teacher" autoplay loop muted playsinline preload="metadata" onerror="this.closest('.gif-slot').classList.add('gif-missing')"></video>
@@ -1057,7 +1057,7 @@
 
     <div style="margin-top:72px;">
       <div class="section-line">Story</div>
-      <p class="body-text">You're a student stuck in your own design school, trying to get out. It's relatable and absurd at once: grounded enough to care about, strange enough to be funny, and the escape gives every room and boss a reason to be there. Because each fight can end in a knockout or a spare, the way you fight is the way you tell the story. Teachers show who they are through what they say and how they attack, and the writing tries to stay funny about student life without losing the real wish to get out.</p>
+      <p class="body-text">The story is based on my experience studying at Tiltan. I exaggerated familiar places, teachers and situations to create a parody version of the school, while still keeping the player's goal simple: escape and get home. Because each fight can end in a knockout or a spare, the way you fight is also the way you tell the story.</p>
       <div style="margin-top:20px;">
         <a href="https://drive.google.com/file/d/1zqWfrjA0Ob6FdtLIK3nvDj8_BYWL_L3j/view" target="_blank" rel="noopener" class="btn btn-primary">Read the full script ↗</a>
         <p style="font-size:0.78rem; color:var(--muted); margin-top:10px;">Every teacher conversation, spare and fight route, and NPC reaction, with the state flags I tracked.</p>
@@ -1085,19 +1085,19 @@
       <div class="pillars-grid">
         <div class="pillar">
           <h4>The cast changes</h4>
-          <p>The survivors don't just grieve. Losing a specific person changes how the others act, what they believe, and who ends up taking over a role nobody else is left to fill.</p>
+          <p>Because each teacher can survive or disappear from the story, I had to write different dialogue and reactions depending on who was still around.</p>
         </div>
         <div class="pillar">
           <h4>Each ending stands alone</h4>
-          <p>No epilogue refers to events you didn't play through in that run, and no character knows something they couldn't have learned in the world you made.</p>
+          <p>Each ending was written separately rather than generated from a shared template. That helped me keep the dialogue consistent with the choices made during that playthrough.</p>
         </div>
         <div class="pillar">
           <h4>No grading</h4>
-          <p>There's no score, no "true" route and no narrator explaining the moral. The people left behind react honestly, and you decide what that means.</p>
+          <p>I intentionally avoided adding a morality score or "correct" route. The ending simply reflects the choices the player made.</p>
         </div>
         <div class="pillar">
           <h4>Worth replaying</h4>
-          <p>Seeing more means going back and making choices you might not want to make. The endings that are hardest to reach are the ones the game has the most to say about.</p>
+          <p>Different combinations of spared and defeated teachers unlock different endings, giving players a reason to replay and see content they missed.</p>
         </div>
       </div>
     </div>
