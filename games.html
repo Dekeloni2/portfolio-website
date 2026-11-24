@@ -992,17 +992,6 @@
         </div>
       </a>
 
-      <a href="minecraft.html" class="game-card" data-tags="solo team finished in-progress">
-        <div class="game-media">
-          <img src="minecraft_rpg_world.jpg" alt="An RPG world I built on a Minecraft server" loading="lazy">
-        </div>
-        <div class="game-body">
-          <div class="game-top"><h3>Minecraft Live Service Design</h3><span class="badge badge-wip">2014–present</span></div>
-          <div class="game-meta">Live service · Six Minecraft servers · 2014–present</div>
-          <p>Not a game, but the longest-running work here: ten years designing live Minecraft servers — worlds, economies, progression and retention. Six servers. One peaked near 300 concurrent players, a studio acquired one of my concepts, and one is live in testing now.</p>
-          <span class="hub-arrow">Design breakdown →</span>
-        </div>
-      </a>
 
       <a href="games/survival.html" class="game-card" data-tags="team finished">
         <div class="game-media">
@@ -1067,6 +1056,12 @@
       </a>
 
     </div>
+
+    <p id="filter-empty" style="display:none; margin-top:28px; font-size:0.9rem; color:var(--muted); border:1px solid var(--border); border-radius:10px; padding:18px 20px;"></p>
+
+    <p style="margin-top:32px; font-size:0.88rem; color:var(--muted);">
+      Before these, and still running: <a href="minecraft.html" style="color:var(--accent2); font-weight:600;">ten years of Minecraft server design →</a>
+    </p>
   </div>
 </section>
 
@@ -1131,6 +1126,24 @@
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.filter === tag);
     });
+
+    const shown = document.querySelectorAll('.game-card:not(.hidden)').length;
+    const empty = document.getElementById('filter-empty');
+    if (empty) {
+      const messages = {
+        'in-progress': "Nothing in development on this page right now. My current work is the live Minecraft server, and the next game page goes up when there's something real to show.",
+        'shelved': "Nothing paused or shelved right now.",
+        'finished': "Nothing finished yet.",
+        'solo': "No solo projects match.",
+        'team': "No team projects match."
+      };
+      if (shown === 0) {
+        empty.textContent = messages[tag] || "Nothing matches that filter.";
+        empty.style.display = 'block';
+      } else {
+        empty.style.display = 'none';
+      }
+    }
   }
 </script>
 
